@@ -1,24 +1,33 @@
-## gradle
-/.gradle
-/build
-/gradlew
-/gradlew.bat
+#################
+## Eclipse
+#################
 
-## ForgeGradle
-/run
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
 
-## eclipse
-/eclipse
-/.settings
-/.metadata
-/.classpath
-/.project
-/bin
+# External tool builders
+.externalToolBuilders/
 
-##misc
-/lib
-out/
-SmithsCore.iml
-SmithsCore.ipr
-SmithsCore.iws
-ConsoleLog.txt
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+#Forge
+Forge
+build
+out
+run
+*.ipr
+*.iws
+*.iml
+*.db
