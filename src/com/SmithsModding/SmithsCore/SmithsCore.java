@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
  * Copyrighted according to Project specific license
  */
 
-@Mod(modid = CoreReferences.General.MOD_ID, name = "Armory", version = CoreReferences.General.VERSION,
+@Mod(modid = CoreReferences.General.MOD_ID, name = "SmithsCore", version = CoreReferences.General.VERSION,
         dependencies = "required-after:Forge@[10.13,)")
 public class SmithsCore {
 
