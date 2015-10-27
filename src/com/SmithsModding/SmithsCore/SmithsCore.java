@@ -6,6 +6,8 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by Orion
@@ -22,10 +24,15 @@ public class SmithsCore {
     // Instance of this mod use for internal and Forge references
     @Mod.Instance(CoreReferences.General.MOD_ID)
     public static SmithsCore instance;
+    private static Logger iLogger = LogManager.getLogger("SmithsCore");
 
     // Proxies used to register stuff client and server side.
     //@SidedProxy(clientSide = "com.SmithsModding.Armory.Client.ArmoryClientProxy", serverSide = "com.SmithsModding.Armory.Common.ArmoryCommonProxy")
     //public static ArmoryCommonProxy proxy;
+
+    public static final Logger getLogger() {
+        return iLogger;
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
