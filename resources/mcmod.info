@@ -1,0 +1,16 @@
+[
+{
+  "modid": "SmithsCore",
+  "name": "Smiths Core",
+  "description": "Core Mod for all SmithsModding affliated mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["TimtheBrick", "OrionOnline", "SmithsModding Team"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
