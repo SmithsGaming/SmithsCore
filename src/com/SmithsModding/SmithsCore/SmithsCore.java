@@ -1,8 +1,11 @@
 package com.SmithsModding.SmithsCore;
 
+import com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy;
+import com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry;
 import com.SmithsModding.SmithsCore.Util.CoreReferences;
 import com.google.common.base.Stopwatch;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -25,14 +28,23 @@ public class SmithsCore {
     @Mod.Instance(CoreReferences.General.MOD_ID)
     public static SmithsCore instance;
 
+    // Logger used to output log messages from SmithsCore
     private static Logger iLogger = LogManager.getLogger("SmithsCore");
 
+    // Private variable for the Sided Registry
+    @SidedProxy(clientSide = "com.SmithsModding.SmithsCore.Client.Registry.ClientRegistry", serverSide = "com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry")
+    private static CommonRegistry iRegistry;
+
     // Proxies used to register stuff client and server side.
-    //@SidedProxy(clientSide = "com.SmithsModding.Armory.Client.ArmoryClientProxy", serverSide = "com.SmithsModding.Armory.Common.ArmoryCommonProxy")
-    //public static ArmoryCommonProxy proxy;
+    @SidedProxy(clientSide = "com.SmithsModding.SmithsCore.Client.Proxy.CoreClientProxy", serverSide = "com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy")
+    private static CoreCommonProxy iProxy;
 
     public static final Logger getLogger() {
         return iLogger;
+    }
+
+    public static final CommonRegistry getRegistry() {
+        return iRegistry;
     }
 
     @Mod.EventHandler
