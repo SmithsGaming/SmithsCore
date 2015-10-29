@@ -171,6 +171,15 @@ public class MinecraftColor extends Color {
         GL11.glColor4f(1F, 1F, 1F, 1F);
     }
 
+    public void performOpenGLColoring() {
+        GL11.glColor4f(getRed() / 255F, getGreen() / 255F, getBlue() / 255F, getAlpha() / 255F);
+    }
+
+    /**
+     * Calculates the Angle of two
+     *
+     * @return
+     */
     public double getAngleInDegrees() {
         Vector2d tRedVec = new Vector2d(getRed() * Math.cos(Math.toRadians(0)), getRed() * Math.sin(Math.toRadians(0)));
         Vector2d tGreenVec = new Vector2d(getGreen() * Math.cos(Math.toRadians(120)), getGreen() * Math.sin(Math.toRadians(120)));
@@ -201,7 +210,4 @@ public class MinecraftColor extends Color {
         return 360 - (Math.atan((((float) tColorVec.x) / ((float) tColorVec.y))) * (180 / Math.PI));
     }
 
-    public void performOpenGLColoring() {
-        GL11.glColor4f(getRed() / 255F, getGreen() / 255F, getBlue() / 255F, getAlpha() / 255F);
-    }
 }

@@ -24,6 +24,7 @@ public class SmithsCore {
     // Instance of this mod use for internal and Forge references
     @Mod.Instance(CoreReferences.General.MOD_ID)
     public static SmithsCore instance;
+
     private static Logger iLogger = LogManager.getLogger("SmithsCore");
 
     // Proxies used to register stuff client and server side.
