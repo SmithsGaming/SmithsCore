@@ -1,6 +1,8 @@
 package com.SmithsModding.SmithsCore.Client.Proxy;
 
+import com.SmithsModding.SmithsCore.Client.Handlers.Network.ClientNetworkableEventHandler;
 import com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy;
+import com.SmithsModding.SmithsCore.SmithsCore;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -75,5 +77,14 @@ public class CoreClientProxy extends CoreCommonProxy {
     @Override
     public Side getEffectiveSide() {
         return Side.CLIENT;
+    }
+
+    /**
+     * Function called from preInit() to register all of the Eventhandlers used by Common code.
+     */
+    @Override
+    protected void registerEventHandlers() {
+        SmithsCore.getRegistry().getClientBus().register(new ClientNetworkableEventHandler());
+        SmithsCore.getRegistry().getCommonBus().register(new ClientNetworkableEventHandler());
     }
 }

@@ -6,6 +6,9 @@
 
 package com.SmithsModding.SmithsCore.Util.Client.GUI;
 
+/**
+ * Enum to determine movement on the GUI
+ */
 public enum GuiDirection {
     HORIZONTAL,
     VERTICAL

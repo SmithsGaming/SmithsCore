@@ -5,6 +5,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 /**
+ * The IIconRegistrar used to retrieve IIcons in form of PlaceHolders from Items for Color Sampling.
+ *
  * Created by Orion
  * Created on 14.06.2015
  * 12:19

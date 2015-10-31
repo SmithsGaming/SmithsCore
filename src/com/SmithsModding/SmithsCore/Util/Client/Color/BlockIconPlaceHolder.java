@@ -3,6 +3,8 @@ package com.SmithsModding.SmithsCore.Util.Client.Color;
 import net.minecraft.util.ResourceLocation;
 
 /**
+ * Class used as a PlaceHolder for BlockIcons while the ColorSampling process is running.
+ *
  * Created by Orion
  * Created on 15.06.2015
  * 13:11

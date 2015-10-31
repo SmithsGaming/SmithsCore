@@ -13,6 +13,9 @@ import java.util.HashMap;
 
 
 /**
+ * Color Sampler to retrieve Colors from a ItemStack as well as converting a Color to the Minecraft Chat
+ * equivalent.
+ *
  * Created by Orion
  * Created on 14.06.2015
  * 11:27
@@ -21,8 +24,14 @@ import java.util.HashMap;
  */
 public class ColorSampler {
 
+    //Cache of the Relative MinecraftColors to EnumChatFormatting.
     private static HashMap<MinecraftColor, EnumChatFormatting> iMappedColors;
 
+    /**
+     * Function used to initialize the Color to formatting cache.
+     * <p/>
+     * It leaves black out, cause all conversions will else return Black.
+     */
     private static void initializeEnumChatFromattingMinecraftColors() {
         iMappedColors = new HashMap<MinecraftColor, EnumChatFormatting>();
 
@@ -37,6 +46,18 @@ public class ColorSampler {
         }
     }
 
+    /**
+     * Generates a MinecraftColor based on the ItemStack given.
+     *
+     * It registers a PlaceHolder as IIcon by calling the the registerIcons method on the Item in the ItemStack.
+     * Then it will check if the newly registered IIcon is a IconPlaceHolder, if so it will attempt to calculate an
+     * Average color based on the pixels in the Image.
+     *
+     * If the process fails for some reason it will return White
+     *
+     * @param pStack The Stack to analyze.
+     * @return A color based on the Pixels in the IIcon of the ItemStack or White if the process fails.
+     */
     public static MinecraftColor getColorSampleFromItemStack(ItemStack pStack) {
         if (pStack.getItem().getColorFromItemStack(pStack, 0) != 16777215) {
             return new MinecraftColor(pStack.getItem().getColorFromItemStack(pStack, 0));
@@ -47,9 +68,9 @@ public class ColorSampler {
                 ((ItemBlock) pStack.getItem()).field_150939_a.registerBlockIcons(new BlockPlaceHolderRegistrar());
             }
 
-            IconPlaceHolder pIcon = (IconPlaceHolder) pStack.getItem().getIcon(pStack, 0);
-
             try {
+                IconPlaceHolder pIcon = (IconPlaceHolder) pStack.getItem().getIcon(pStack, 0);
+
                 MinecraftColor tSample = calculateAverageMinecraftColor(ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(pIcon.iIconLocation).getInputStream()));
 
                 return tSample;
@@ -59,6 +80,14 @@ public class ColorSampler {
         }
     }
 
+    /**
+     * Calculates an average MinecraftColor from the given Image.
+     * Iterates over all the Pixels and calculates an Average for the RGB values.
+     * See Through pixels (with alpha value = 0) will be skipped.
+     *
+     * @param pBuffer The Image to analyze
+     * @return A Minecraft Color that is the average RGB value of the Pixels in the Image with its Alpha value being 255
+     */
     public static MinecraftColor calculateAverageMinecraftColor(BufferedImage pBuffer) {
         long tSumR = 0, tSumG = 0, tSumB = 0;
 
@@ -89,6 +118,14 @@ public class ColorSampler {
         return new MinecraftColor((int) (tSumR / tCountedPixels), (int) (tSumG / tCountedPixels), (int) (tSumB / tCountedPixels));
     }
 
+    /**
+     * Attempt to convert a given MinecraftColor to the closest EnumChatFormatting.
+     * It uses the VectorCalculation system to determine which Color in the EnumChatFormatting describes the given source
+     * the best.
+     *
+     * @param pSource The Source color for the Conversion
+     * @return The Converted EnumChatFormatting
+     */
     public static EnumChatFormatting getChatMinecraftColorSample(MinecraftColor pSource) {
         if (iMappedColors == null)
             initializeEnumChatFromattingMinecraftColors();
@@ -108,6 +145,16 @@ public class ColorSampler {
         return tCurrentFormatting;
     }
 
+    /**
+     * Attempt to convert a given MinecraftColor to the closest EnumChatFormatting.
+     * Uses Hexadecimal conversion to get a approximated EnumChatFormatting for a given SourceColor.
+     *
+     * Function is not as accurate as the getChatMinecraftColorSample function, yet it covers a couple corner cases in
+     * which the other one fails. So it is here for completeness sake.
+     *
+     * @param pSource The Source color for the Conversion
+     * @return The Converted EnumChatFormatting
+     */
     public static EnumChatFormatting getSimpleChatMinecraftColor(MinecraftColor pSource) {
         String tFormat = "\u00a7";
 
@@ -124,6 +171,19 @@ public class ColorSampler {
         return EnumChatFormatting.RESET;
     }
 
+    /**
+     * Calculates the distance between two Colors.
+     *
+     * It determines which of the RGB Channels is by far the strongest in the First Color and then creates and abstract
+     * numerical distance between the two Colors.
+     *
+     * I once knew why this works, but not anymore. Yet it works for the conversion from MinecraftColor to EnumChat-
+     * Formatting so i am keeping it. :D
+     *
+     * @param pMinecraftColor1 Color 1
+     * @param pMinecraftColor2 Color 2
+     * @return The Distance in Double that describes the distance between two colors.
+     */
     private static double MinecraftColorDistance(MinecraftColor pMinecraftColor1, MinecraftColor pMinecraftColor2) {
         if ((pMinecraftColor1.getRed() > pMinecraftColor1.getBlue() * 2) && (pMinecraftColor1.getRed() > pMinecraftColor1.getGreen() * 2)) {
             if ((pMinecraftColor1.getRed() > pMinecraftColor2.getRed()))

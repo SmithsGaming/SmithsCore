@@ -5,6 +5,8 @@ import net.minecraft.util.ResourceLocation;
 
 
 /**
+ * A standard place holder to retrieve the Location of a Icon of either a Block or a Item for Color Sampling.
+ *
  * Created by Orion
  * Created on 14.06.2015
  * 12:15

@@ -8,6 +8,10 @@ package com.SmithsModding.SmithsCore.Common.Registry;
 
 import cpw.mods.fml.common.eventhandler.EventBus;
 
+/**
+ * Central point of Data for the SmithsCore mod.
+ * Also manages the Eventbusses for the different purposes.
+ */
 public class CommonRegistry {
 
     //Eventbus used on the server side to handle events that are fired on the Client side and then send through the network to be handled on the server side as well.
@@ -40,9 +44,9 @@ public class CommonRegistry {
     /**
      * The event bus used for client events. Under common code this is the standard Common event bus.
      *
-     * @return
+     * @return The Common EventBus
      */
-    public EventBus getClientEventBus() {
+    public EventBus getClientBus() {
         return iCommonEventBus;
     }
 }

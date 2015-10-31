@@ -9,6 +9,11 @@ package com.SmithsModding.SmithsCore.Client.Registry;
 import com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry;
 import cpw.mods.fml.common.eventhandler.EventBus;
 
+/**
+ * Used as the Central point of Data on the Client Side.
+ * <p/>
+ * Defines the special Client EventBus.
+ */
 public class ClientRegistry extends CommonRegistry {
 
     //This event bus is used for client specific stuff only. It handles GUI Events.
@@ -17,12 +22,14 @@ public class ClientRegistry extends CommonRegistry {
     private final EventBus iClientEventBus = new EventBus();
 
     /**
-     * The client specific EventBus
+     * The event bus used for client events. Under common code this is the standard Common event bus on the client side is this a special event bus
+     * not related to the Common Event bus allowing Events to be handled seperatly without having to worry about SideOnly
+     * instances.
      *
-     * @return
+     * @return An EventBus that is used to handle Client specific Events.
      */
     @Override
-    public EventBus getClientEventBus() {
+    public EventBus getClientBus() {
         return iClientEventBus;
     }
 }

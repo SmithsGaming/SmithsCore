@@ -8,6 +8,10 @@ import java.awt.color.ColorSpace;
 import java.awt.image.ColorModel;
 
 /**
+ * A standard MinecraftColor class for SmithsModding.
+ *
+ * Extends teh Standard Java color class with some functions.
+ *
  * Created by Orion
  * Created on 27.10.2015
  * 17:19
@@ -167,18 +171,24 @@ public class MinecraftColor extends Color {
         super(cspace, components, alpha);
     }
 
+    /**
+     * Convenient function to reset the Color in the GL Buffer to the Default.
+     */
     public static final void resetOpenGLColoring() {
         GL11.glColor4f(1F, 1F, 1F, 1F);
     }
 
+    /**
+     * Convenient Function to perform Coloring of the GL buffer in this Color.
+     */
     public void performOpenGLColoring() {
         GL11.glColor4f(getRed() / 255F, getGreen() / 255F, getBlue() / 255F, getAlpha() / 255F);
     }
 
     /**
-     * Calculates the Angle of two
+     * Calculates the Angle of two Colors in Degrees, can be used to determine which color is closer to a third color.
      *
-     * @return
+     * @return A Angle in 360 Degrees describing the color on the Adobe Color wheel.
      */
     public double getAngleInDegrees() {
         Vector2d tRedVec = new Vector2d(getRed() * Math.cos(Math.toRadians(0)), getRed() * Math.sin(Math.toRadians(0)));

@@ -11,9 +11,16 @@ package com.SmithsModding.SmithsCore.Util.Client.Color;
 *   Created on: 27-6-2014
 */
 
+/**
+ * General Color Dictionary for SmithsModding
+ */
 public final class Colors {
+    //White
     public static MinecraftColor DEFAULT = new MinecraftColor(255, 255, 255, 255);
 
+    /**
+     * General colors dictionary for Omni Purpose use.
+     */
     public static class General {
         public static MinecraftColor RED = (MinecraftColor) MinecraftColor.RED;
         public static MinecraftColor GREEN = (MinecraftColor) MinecraftColor.GREEN;
@@ -29,6 +36,9 @@ public final class Colors {
         public static MinecraftColor ELECTRICBLUE = new MinecraftColor(45, 206, 250);
     }
 
+    /**
+     * Color Dictionary for Rendering Experience.
+     */
     public static class Experience {
         public static MinecraftColor ORB = new MinecraftColor(189, 255, 0);
         public static MinecraftColor TEXT = new MinecraftColor(128, 255, 32);

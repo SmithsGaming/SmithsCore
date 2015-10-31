@@ -24,12 +24,22 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * Helper class to perform several functions while rendering
+ */
 public final class GuiHelper {
     public static int DISPLAYHEIGHT;
     public static int DISPLAYWIDTH;
     public static int GUISCALE;
     protected static RenderItem ITEMRENDERER = new RenderItem();
 
+    /**
+     * Draws a CustomResource on the Screen in the given Position relative to current GL Buffer Matrix Origin.
+     *
+     * @param pResource The resource to Draw
+     * @param pX        The X Offset from the current Origin
+     * @param pY        The Y Offset from the current Origin
+     */
     public static void drawResource(CustomResource pResource, int pX, int pY) {
         GL11.glPushMatrix();
         pResource.getColor().performOpenGLColoring();
@@ -39,10 +49,25 @@ public final class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * Draws the given TextureComponent Stretched (repeatedly) in the given Area offset from the current origin with the ElementCoordinate
+     * @param pCenterComponent The Texture to render.
+     * @param pWidth The Total width
+     * @param pHeight The Total Height
+     * @param pElementCoordinate The Offset.
+     */
     public static void drawRectangleStretched(TextureComponent pCenterComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
         renderCenter(pCenterComponent, pWidth, pHeight, pElementCoordinate);
     }
 
+    /**
+     * Draws the Multicomponent on the screen in the Given size
+     *
+     * @param pComponents The MultiComponent to Render.
+     * @param pWidth The Total Width
+     * @param pHeight The Total Height
+     * @param pElementCoordinate The Offset
+     */
     public static void drawRectangleStretched(MultiComponentTexture pComponents, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
         renderCenter(pComponents.iCenterComponent, pWidth - pComponents.iCornerComponents[0].iWidth - pComponents.iCornerComponents[1].iWidth, pHeight - pComponents.iCornerComponents[0].iHeight - pComponents.iCornerComponents[3].iHeight, new Coordinate2D(pElementCoordinate.getXComponent() + pComponents.iCornerComponents[0].iWidth, pElementCoordinate.getYComponent() + pComponents.iCornerComponents[0].iHeight));
 
@@ -57,6 +82,16 @@ public final class GuiHelper {
         renderBorder(pComponents.iSideComponents[3], pComponents.iSideComponents[3].iWidth, pHeight - (pComponents.iCornerComponents[0].iHeight * 2), new Coordinate2D(pElementCoordinate.getXComponent(), pElementCoordinate.getYComponent() + pComponents.iCornerComponents[0].iHeight));
     }
 
+    /**
+     * The unwrapped variant of drawRectangleStretched using the individual components.
+     *
+     * @param pCenterComponent A TextureComponent that describes the center of this Texture.
+     * @param pCornerComponents An Array with the Components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
+     * @param pSideComponents An Array with the Components for the Sides in this order: Top, Right, Bottom, Left.
+     * @param pWidth The total width
+     * @param pHeight The total Height
+     * @param pElementCoordinate The Offset
+     */
     public static void drawRectangleStretched(TextureComponent pCenterComponent, TextureComponent[] pSideComponents, TextureComponent[] pCornerComponents, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
         renderCenter(pCenterComponent, pWidth - pCornerComponents[0].iWidth - pCornerComponents[1].iWidth, pHeight - pCornerComponents[0].iHeight - pCornerComponents[3].iHeight, new Coordinate2D(pElementCoordinate.getXComponent() + pCornerComponents[0].iWidth, pElementCoordinate.getYComponent() + pCornerComponents[0].iHeight));
 
@@ -71,7 +106,18 @@ public final class GuiHelper {
         renderBorder(pSideComponents[3], pHeight - pCornerComponents[3].iHeight - pCornerComponents[0].iHeight, pSideComponents[3].iHeight, new Coordinate2D(pElementCoordinate.getXComponent(), pElementCoordinate.getYComponent() + pHeight - pCornerComponents[3].iHeight));
     }
 
-
+    /**
+     * Draws a given FluidStack on the Screen.
+     *
+     * This function comes with regards to the BuildCraft Team
+     *
+     * @param pFluidStack The Stack to render
+     * @param pX The x offset
+     * @param pY The y offset
+     * @param pZ The z offset
+     * @param pWidth The total Width
+     * @param pHeight The total Height
+     */
     public static void drawFluid(FluidStack pFluidStack, int pX, int pY, int pZ, int pWidth, int pHeight) {
         if (pFluidStack == null || pFluidStack.getFluid() == null) {
             return;
@@ -93,6 +139,19 @@ public final class GuiHelper {
         }
     }
 
+    /**
+     * Draws a cut IIcon on the Screen
+     *
+     * This function comes with regards to the BuildCraft Team
+     *
+     * @param pIcon
+     * @param pX The x offset
+     * @param pY The y offset
+     * @param pZ The z offset
+     * @param pWidth The total Width
+     * @param pHeight The total Height
+     * @param pCutOffVertical The vertical distance to cut of.
+     */
     private static void drawCutIcon(IIcon pIcon, int pX, int pY, int pZ, int pWidth, int pHeight, int pCutOffVertical) {
         Tessellator tess = Tessellator.instance;
         tess.startDrawingQuads();
@@ -103,7 +162,14 @@ public final class GuiHelper {
         tess.draw();
     }
 
-
+    /**
+     * Renders a texture as if it would be the center of a MultiComponentTexture.
+     *
+     * @param pComponent The Component to Render
+     * @param pWidth The total width of the Component in the End
+     * @param pHeight The total height of the Component in the End
+     * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
+     */
     private static void renderCenter(TextureComponent pComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
         GL11.glPushMatrix();
         GL11.glTranslatef(pElementCoordinate.getXComponent() + pComponent.iRelativeTranslation.getXComponent(), pElementCoordinate.getYComponent() + pComponent.iRelativeTranslation.getYComponent(), 0F);
@@ -146,6 +212,12 @@ public final class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * Renders a texture as if it would be the corner of a MultiComponentTexture.
+     *
+     * @param pComponent The Component to Render
+     * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
+     */
     private static void renderCorner(TextureComponent pComponent, Coordinate2D pElementCoordinate) {
         GL11.glPushMatrix();
         GL11.glTranslatef(pElementCoordinate.getXComponent() + pComponent.iRelativeTranslation.getXComponent(), pElementCoordinate.getYComponent() + pComponent.iRelativeTranslation.getYComponent(), 0F);
@@ -157,6 +229,14 @@ public final class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * Renders a texture as if it would be the side of a MultiComponentTexture.
+     *
+     * @param pComponent The Component to Render
+     * @param pWidth The total width of the Component in the End
+     * @param pHeight The total height of the Component in the End
+     * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
+     */
     private static void renderBorder(TextureComponent pComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
         GL11.glPushMatrix();
         GL11.glTranslatef(pElementCoordinate.getXComponent() + pComponent.iRelativeTranslation.getXComponent(), pElementCoordinate.getYComponent() + pComponent.iRelativeTranslation.getYComponent(), 0F);
@@ -193,6 +273,19 @@ public final class GuiHelper {
         GL11.glPopMatrix();
     }
 
+    /**
+     * Helper function copied from the GUI class to make it possible to use it outside of a GUI class.
+     *
+     * TRhe function comes with regards to the Minecraft Team
+     *
+     * @param pXKoord The x offset
+     * @param pYKoord The y offset
+     * @param pZKoord The z offset
+     * @param pWidth The total Width
+     * @param pHeight The total Height
+     * @param pU The X Offset in the currently loaded GL Image.
+     * @param pV The Y Offset in the currently loaded GL Iamge
+     */
     public static void drawTexturedModalRect(int pXKoord, int pYKoord, int pZKoord, int pU, int pV, int pWidth, int pHeight) {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
@@ -205,6 +298,18 @@ public final class GuiHelper {
         tessellator.draw();
     }
 
+    /**
+     * Helper function copied from the GUI class to make it possible to use it outside of a GUI class.
+     *
+     * TRhe function comes with regards to the Minecraft Team
+     *
+     * @param pXCoord The x offset
+     * @param pYCoord The y offset
+     * @param pZCoord The z offset
+     * @param pWidth The total Width
+     * @param pHeight The total Height
+     * @param pIIcon The IIcon describing the Texture
+     */
     public static void drawTexturedModelRectFromIcon(int pXCoord, int pYCoord, int pZCoord, IIcon pIIcon, int pWidth, int pHeight) {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
@@ -215,10 +320,23 @@ public final class GuiHelper {
         tessellator.draw();
     }
 
+    /**
+     * Draws a colored rectangle over the given plane.
+     *
+     * @param pPlane The plane to cover in the Color on the Screen
+     * @param pColor The color to render.
+     */
     public static void drawColoredRect(Plane pPlane, MinecraftColor pColor) {
         drawGradiendColoredRect(pPlane, pColor, pColor);
     }
 
+    /**
+     * Draws a gradient rectangle in the given position.
+     *
+     * @param pPlane The plane to fill on the screen
+     * @param pColorStart The left color
+     * @param pColorEnd The right color.
+     */
     public static void drawGradiendColoredRect(Plane pPlane, MinecraftColor pColorStart, MinecraftColor pColorEnd) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glEnable(GL11.GL_BLEND);

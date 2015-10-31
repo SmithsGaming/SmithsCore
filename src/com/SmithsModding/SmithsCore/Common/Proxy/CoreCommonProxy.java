@@ -1,6 +1,9 @@
 package com.SmithsModding.SmithsCore.Common.Proxy;
 
 
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
+import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
+import com.SmithsModding.SmithsCore.SmithsCore;
 import cpw.mods.fml.relauncher.Side;
 
 import java.io.File;
@@ -20,7 +23,6 @@ public class CoreCommonProxy {
 
     /**
      * Function used to prepare mods and plugins for the Init-Phase
-     * Also initializes most of the Network code for the Server.
      * <p/>
      * The configuration handler is initialized by a different function.
      */
@@ -31,9 +33,10 @@ public class CoreCommonProxy {
     /**
      * Function used to initialize this mod.
      * It sets parameters used in most of its functions as common mod for SmithsModding mods.
+     * Also initializes most of the Network code for the Server.
      */
     public void Init() {
-
+        EventNetworkManager.Init();
     }
 
     /**
@@ -73,7 +76,7 @@ public class CoreCommonProxy {
     /**
      * Function called from preInit() to register all of the Eventhandlers used by Common code.
      */
-    private void registerEventHandlers() {
-
+    protected void registerEventHandlers() {
+        SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
     }
 }
