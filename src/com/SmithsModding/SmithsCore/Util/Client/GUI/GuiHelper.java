@@ -355,6 +355,13 @@ public final class GuiHelper {
         GL11.glDisable(GL11.GL_BLEND);
     }
 
+    /**
+     * Helper function to draw an ItemStack on the given location
+     *
+     * @param pStack The Stack to render
+     * @param pX     The X Coordinate to render on
+     * @param pY     The Y Coordinate to render on
+     */
     public static void drawItemStack(ItemStack pStack, int pX, int pY) {
         GL11.glTranslatef(0.0F, 0.0F, 32.0F);
         FontRenderer font = null;
@@ -364,6 +371,14 @@ public final class GuiHelper {
         ITEMRENDERER.renderItemOverlayIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), pStack, pX, pY);
     }
 
+    /**
+     * Helper function to draw an ItemStack with an Overlaytext
+     *
+     * @param pStack The Stack to Render
+     * @param pX The X Coordinate to render on
+     * @param pY The Y Coordinate to render on
+     * @param pOverlayText The overlay text to render.
+     */
     public static void drawItemStack(ItemStack pStack, int pX, int pY, String pOverlayText) {
         GL11.glTranslatef(0.0F, 0.0F, 32.0F);
         FontRenderer font = null;
@@ -373,15 +388,29 @@ public final class GuiHelper {
         ITEMRENDERER.renderItemOverlayIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), pStack, pX, pY, pOverlayText);
     }
 
-
+    /**
+     * Convenient helper function to bind the texture to a String adress
+     * @param pTextureAddress
+     */
     public static void bindTexture(String pTextureAddress) {
         bindTexture(new ResourceLocation(pTextureAddress));
     }
 
+    /**
+     * Convenient helper function to bind the texture using a ResourceLocation
+     * @param pTextureLocation
+     */
     public static void bindTexture(ResourceLocation pTextureLocation) {
         Minecraft.getMinecraft().renderEngine.bindTexture(pTextureLocation);
     }
 
+    /**
+     * Calculates the ScaleFactor that Minecraft uses to scale its drawable area to the selected window size by the user
+     * and sets it in the internal storage of the GuiHelper. Technically only a single call to this function is needed,
+     * yet when the user changes the window size this has to be called again to make it work.
+     * As there is no way to detect that, we currently call it before we need a function that uses the data provided
+     * by this function.
+     */
     public static void calcScaleFactor() {
         Minecraft mc = Minecraft.getMinecraft();
         ScaledResolution sc = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
@@ -390,6 +419,12 @@ public final class GuiHelper {
         GUISCALE = sc.getScaleFactor();
     }
 
+    /**
+     * Enables the scissor box for a given Plan in the UI.
+     * Keep the weird drawing origin for the Scissor box in mind.
+     *
+     * @param pTargetPlane The plane that should be scissored.
+     */
     public static void enableScissor(Plane pTargetPlane) {
         calcScaleFactor();
 
@@ -398,16 +433,26 @@ public final class GuiHelper {
         GL11.glScissor(pTargetPlane.TopLeftCoord().getXComponent() * GUISCALE, ((DISPLAYHEIGHT - pTargetPlane.TopLeftCoord().getYComponent()) * GUISCALE), (pTargetPlane.getWidth()) * GUISCALE, (pTargetPlane.getHeigth()) * GUISCALE);
     }
 
+    /**
+     * Disables all Scissors currently active
+     */
     public static void disableScissor() {
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
         GL11.glPopAttrib();
     }
 
+    /**
+     * Renders the debug overlay for the Scissor box
+     */
     public static void renderScissorDebugOverlay() {
         bindTexture(TextureMap.locationItemsTexture);
         drawTexturedModalRect(-10, -10, 10, 0, 0, DISPLAYWIDTH, DISPLAYHEIGHT);
     }
 
+    /**
+     * Helper function to set the GL Color directly from an Int, witouth having to create a MinecraftColor first.
+     * @param color The color in Int form.
+     */
     public static void setGLColorFromInt(int color) {
         float red = (color >> 16 & 255) / 255.0F;
         float green = (color >> 8 & 255) / 255.0F;
