@@ -15,4 +15,12 @@ public class CoreReferences {
         public static final String MC_VERSION = "@MCVERSION@";
         public static final String API_VERSION = "@APIVERSION@";
     }
+
+    public static final class NBT {
+        public static final String OWNER = "owner";
+        public static final String UUID_MOST_SIG = "UUIDMostSig";
+        public static final String UUID_LEAST_SIG = "UUIDLeastSig";
+        public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
+        public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
+    }
 }

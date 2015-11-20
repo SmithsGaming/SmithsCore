@@ -11,16 +11,19 @@ package com.SmithsModding.SmithsCore.Util.Common;
  *   Created on: 16-1-2015
  */
 
+import com.SmithsModding.SmithsCore.Util.CoreReferences;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.Comparator;
+import java.util.UUID;
 
 public class ItemStackHelper
 
 
 {
-    public static Comparator<ItemStack> iComparator = new Comparator<ItemStack>() {
+    public static Comparator<ItemStack> COMPARATOR = new Comparator<ItemStack>() {
         public int compare(ItemStack pItemStack1, ItemStack pItemStack2) {
             if (pItemStack1 != null && pItemStack2 != null) {
                 // Sort on itemID
@@ -70,7 +73,7 @@ public class ItemStackHelper
     }
 
     public static boolean equals(ItemStack pItemStack1, ItemStack pItemStack2) {
-        return (iComparator.compare(pItemStack1, pItemStack2) == 0);
+        return (COMPARATOR.compare(pItemStack1, pItemStack2) == 0);
     }
 
     public static boolean equalsIgnoreStackSize(ItemStack itemStack1, ItemStack itemStack2) {
@@ -98,7 +101,7 @@ public class ItemStackHelper
     }
 
     public static int compare(ItemStack pItemStack1, ItemStack pItemStack2) {
-        return iComparator.compare(pItemStack1, pItemStack2);
+        return COMPARATOR.compare(pItemStack1, pItemStack2);
     }
 
     public static String toString(ItemStack pItemStack) {
@@ -107,5 +110,47 @@ public class ItemStackHelper
         }
 
         return "null";
+    }
+
+    public static boolean hasOwner(ItemStack itemStack) {
+        return (NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG) && NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG)) || NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER);
+    }
+
+    public static boolean hasOwnerUUID(ItemStack itemStack) {
+        return NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG) && NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG);
+    }
+
+    public static boolean hasOwnerName(ItemStack itemStack) {
+        return NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER);
+    }
+
+    public static String getOwnerName(ItemStack itemStack) {
+        if (NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER)) {
+            return NBTHelper.getString(itemStack, CoreReferences.NBT.OWNER);
+        }
+
+        return null;
+    }
+
+    public static UUID getOwnerUUID(ItemStack itemStack) {
+        if (NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG) && NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG)) {
+            return new UUID(NBTHelper.getLong(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG), NBTHelper.getLong(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG));
+        }
+
+        return null;
+    }
+
+    public static void setOwner(ItemStack itemStack, EntityPlayer entityPlayer) {
+        setOwnerName(itemStack, entityPlayer);
+        setOwnerUUID(itemStack, entityPlayer);
+    }
+
+    public static void setOwnerUUID(ItemStack itemStack, EntityPlayer entityPlayer) {
+        NBTHelper.setLong(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG, entityPlayer.getGameProfile().getId().getMostSignificantBits());
+        NBTHelper.setLong(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG, entityPlayer.getGameProfile().getId().getLeastSignificantBits());
+    }
+
+    public static void setOwnerName(ItemStack itemStack, EntityPlayer entityPlayer) {
+        NBTHelper.setString(itemStack, CoreReferences.NBT.OWNER, entityPlayer.getDisplayName());
     }
 }
