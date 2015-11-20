@@ -227,6 +227,11 @@ public class CustomResource {
         return iHeight;
     }
 
+    /**
+     * Holds the Color used to color grayscaled textures.
+     *
+     * @return The Color for rendering grayscaled textures.
+     */
     public MinecraftColor getColor() {
         return iColor;
     }
