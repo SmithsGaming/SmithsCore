@@ -7,9 +7,9 @@
 package com.SmithsModding.SmithsCore.Common.Event.Network;
 
 import com.SmithsModding.SmithsCore.Common.Event.SmithsCoreEvent;
+import com.SmithsModding.SmithsCore.Util.Common.Pair;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import javafx.util.Pair;
 
 import java.util.HashMap;
 

@@ -9,10 +9,10 @@ package com.SmithsModding.SmithsCore.Network.Event;
 import com.SmithsModding.SmithsCore.Common.Event.Network.NetworkManagerInitializeEvent;
 import com.SmithsModding.SmithsCore.Network.Event.Handlers.StandardNetworkableEventSyncMessageHandler;
 import com.SmithsModding.SmithsCore.Network.Event.Messages.StandardNetworkableEventSyncMessage;
+import com.SmithsModding.SmithsCore.Util.Common.Pair;
 import com.SmithsModding.SmithsCore.Util.CoreReferences;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import javafx.util.Pair;
 
 /**
  * The NetworkManager that is used to manage the Synchronising of the Events in the Busses.
