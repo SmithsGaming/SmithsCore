@@ -8,6 +8,9 @@ package com.SmithsModding.SmithsCore.Common.Event;
 
 import com.SmithsModding.SmithsCore.SmithsCore;
 import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraft.network.INetHandler;
 
 /**
  * Root class for all SmithsCore Events.
@@ -27,5 +30,17 @@ public class SmithsCoreEvent extends Event {
         SmithsCore.getRegistry().getClientBus().post(this);
     }
 
+    /**
+     * Function used to get the sided NetworkingHandler.
+     *
+     * @param pContext The Context of the Message for which the Handler has to be retrieved.
+     * @return The ClientNetHandler on the ClientSide and the ServerNetHandler on the server side.
+     */
+    public INetHandler getSidedPlayerHandlerFromContext(MessageContext pContext) {
+        if (pContext.side == Side.SERVER) {
+            return pContext.getServerHandler();
+        }
 
+        return pContext.getClientHandler();
+    }
 }

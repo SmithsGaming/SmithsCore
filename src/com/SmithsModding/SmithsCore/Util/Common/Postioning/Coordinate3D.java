@@ -14,11 +14,6 @@ public class Coordinate3D {
     int iYCoord;
     int iZCoord;
 
-    public Coordinate3D(int pXCoord, int pYCoord) {
-        this(pXCoord, pYCoord, 0);
-    }
-
-
     public Coordinate3D(int pXCoord, int pYCoord, int pZCoord) {
         iXCoord = pXCoord;
         iYCoord = pYCoord;
@@ -27,6 +22,12 @@ public class Coordinate3D {
 
     public static Coordinate3D fromBytes(ByteBuf pData) {
         return new Coordinate3D(pData.readInt(), pData.readInt(), pData.readInt());
+    }
+
+    public void toBytes(ByteBuf pDataOut) {
+        pDataOut.writeInt(getXComponent());
+        pDataOut.writeInt(getYComponent());
+        pDataOut.writeInt(getZComponent());
     }
 
     @Override
@@ -74,11 +75,5 @@ public class Coordinate3D {
 
     public float getDistanceTo(Coordinate3D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2) + Math.pow(getZComponent() - pCoordinate.getZComponent(), 2));
-    }
-
-    public void toBytes(ByteBuf pDataOut) {
-        pDataOut.writeInt(getXComponent());
-        pDataOut.writeInt(getYComponent());
-        pDataOut.writeInt(getZComponent());
     }
 }

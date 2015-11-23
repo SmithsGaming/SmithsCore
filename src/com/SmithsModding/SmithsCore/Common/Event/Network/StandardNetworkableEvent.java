@@ -8,6 +8,7 @@ package com.SmithsModding.SmithsCore.Common.Event.Network;
 
 import com.SmithsModding.SmithsCore.Network.Event.Messages.StandardNetworkableEventSyncMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 
 /**
@@ -61,10 +62,11 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      * function. A good idea is the Post this event to the NetworkRelayBus from here.
      *
      * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this Event.
+     * @param pContext The Messages Context
      * @return A IMessage that describes the answer if need be, else null.
      */
     @Override
-    public IMessage handleCommunicationMessage(IMessage pMessage) {
+    public IMessage handleCommunicationMessage(IMessage pMessage, MessageContext pContext) {
         PostNetwork();
 
         return null;

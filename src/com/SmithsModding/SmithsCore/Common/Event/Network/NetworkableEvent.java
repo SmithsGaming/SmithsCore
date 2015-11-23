@@ -6,9 +6,10 @@
 
 package com.SmithsModding.SmithsCore.Common.Event.Network;
 
+import com.SmithsModding.SmithsCore.Common.Event.SmithsCoreEvent;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
@@ -22,7 +23,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
  * @See ClientNetworkableEventHandler
  * @See CommonNetworkableEventHandler
  */
-public abstract class NetworkableEvent extends Event {
+public abstract class NetworkableEvent extends SmithsCoreEvent {
 
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this Event.
@@ -41,9 +42,10 @@ public abstract class NetworkableEvent extends Event {
      * function. A good idea is the Post this event to the NetworkRelayBus from here.
      *
      * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this Event.
+     * @param pContext The Messages context.
      * @return A IMessage that describes the answer if need be, else null.
      */
-    public abstract IMessage handleCommunicationMessage(IMessage pMessage);
+    public abstract IMessage handleCommunicationMessage(IMessage pMessage, MessageContext pContext);
 
     /**
      * Convenient function to post this event on the Network event bus within SmithsCore
