@@ -26,6 +26,6 @@ public class StandardNetworkableEventSyncMessageHandler implements IMessageHandl
         if (pMessage.EVENT == null)
             return null;
 
-        return pMessage.EVENT.handleCommunicationMessage(pMessage);
+        return pMessage.EVENT.handleCommunicationMessage(pMessage, pContext);
     }
 }
