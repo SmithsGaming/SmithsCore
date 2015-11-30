@@ -20,10 +20,10 @@ public class ContainerGUIOpenedEventHandler {
     @SubscribeEvent
     public void onPlayerOpenenedContainerGUIServerSide(ContainerGuiOpenedEvent event) throws InvalidArgumentException {
         if (!(event.getPlayer().openContainer instanceof ContainerSmithsCore))
-            throw new InvalidArgumentException(new String[]{"The ContainerGuiOpenedEvent is fired for a player that is not watching a SmithsCore Container"});
+            throw new IllegalArgumentException("The ContainerGuiOpenedEvent is fired for a player that is not watching a SmithsCore Container");
 
         if (!event.getContainerID().equals(((ContainerSmithsCore) event.getPlayer().openContainer).getContainerID()))
-            throw new InvalidArgumentException(new String[]{"The ContainerGuiOpenedEvent is fired for a player that is not watching the correct Container"});
+            throw new IllegalArgumentException("The ContainerGuiOpenedEvent is fired for a player that is not watching the correct Container");
 
         ContainerSmithsCore container = (ContainerSmithsCore) event.getPlayer().openContainer;
         container.onPlayerStartWatching(event.getPlayerID());
@@ -35,10 +35,10 @@ public class ContainerGUIOpenedEventHandler {
     @SubscribeEvent
     public void onPlayerOpenenedContainerGUIClientSide(ContainerGuiOpenedEvent event) throws InvalidArgumentException {
         if (!(event.getPlayer().openContainer instanceof ContainerSmithsCore))
-            throw new InvalidArgumentException(new String[]{"The ContainerGuiOpenedEvent is fired for a player that is not watching a SmithsCore Container"});
+            throw new IllegalArgumentException("The ContainerGuiOpenedEvent is fired for a player that is not watching a SmithsCore Container");
 
         if (!event.getContainerID().equals(((ContainerSmithsCore) event.getPlayer().openContainer).getContainerID()))
-            throw new InvalidArgumentException(new String[]{"The ContainerGuiOpenedEvent is fired for a player that is not watching the correct Container"});
+            throw new IllegalArgumentException("The ContainerGuiOpenedEvent is fired for a player that is not watching the correct Container");
 
         ContainerSmithsCore container = (ContainerSmithsCore) event.getPlayer().openContainer;
         container.onPlayerStartWatching(event.getPlayerID());
