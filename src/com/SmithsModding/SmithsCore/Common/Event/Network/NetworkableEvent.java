@@ -19,9 +19,6 @@ import cpw.mods.fml.common.network.simpleimpl.MessageContext;
  * A good example would be an event that triggers when the user enters something into a textbox on the client side.
  * <p/>
  * The implementing event gets catched by a Event handler on the lowest priority.
- *
- * @See ClientNetworkableEventHandler
- * @See CommonNetworkableEventHandler
  */
 public abstract class NetworkableEvent extends SmithsCoreEvent {
 
