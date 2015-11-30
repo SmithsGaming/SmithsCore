@@ -53,7 +53,7 @@ public class TextureComponent {
     /**
      * Standard constructor for a TextureComponent
      *
-     * @param pResource Á CustomResource describing this Component.
+     * @param pResource CustomResource describing this Component.
      * @param pRotation The UIRotation that has to be done to this Component fit.
      * @param pRelativeTranslation The Translation that has to be done before the Render but after the rotation to make this Component fit.
      */
