@@ -1,6 +1,9 @@
 package com.SmithsModding.SmithsCore.Util.Common;
 
+import com.SmithsModding.SmithsCore.Common.Player.Management.PlayerManager;
+import com.SmithsModding.SmithsCore.SmithsCore;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.UUID;
@@ -21,6 +24,14 @@ public class PlayerHelper {
      * @return A Instance of EntityPlayer with that UniqueID or null if none matches.
      */
     public EntityPlayer getPlayerFromID(UUID pID) {
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+            if (PlayerManager.getInstance().getServerSidedJoinedMap().containsKey(pID)) {
+                return PlayerManager.getInstance().getServerSidedJoinedMap().get(pID);
+            }
+
+            SmithsCore.getLogger().info("[PlayerHelper] Falling back on ServerConfiguration Manager - No Player found in PlayerManager!");
+        }
+
         for (Object tPlayerObject : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
             EntityPlayer tPlayer = (EntityPlayer) tPlayerObject;
 

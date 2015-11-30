@@ -7,7 +7,7 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Events;
 
 import com.SmithsModding.SmithsCore.Common.Event.Network.StandardNetworkableEvent;
-import cpw.mods.fml.client.FMLClientHandler;
+import com.SmithsModding.SmithsCore.Common.Inventory.ContainerSmithsCore;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
@@ -16,17 +16,23 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.UUID;
 
+/**
+ * Eevnt fired on the ClientSide to signal that a User opened a UI.
+ */
 public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
 
-    EntityPlayer iPlayer;
-    UUID iPlayerID;
+    EntityPlayer player;
+    UUID playerID;
+    String containerID;
 
     public ContainerGuiOpenedEvent() {
     }
 
-    public ContainerGuiOpenedEvent(EntityPlayer pPlayer) {
-        this.iPlayer = pPlayer;
-        this.iPlayerID = iPlayer.getUniqueID();
+    public ContainerGuiOpenedEvent(EntityPlayer pPlayer, ContainerSmithsCore containerSmithsCore) {
+        this.player = pPlayer;
+        this.playerID = player.getUniqueID();
+        this.containerID = containerSmithsCore.getContainerID();
+
     }
 
     /**
@@ -35,7 +41,27 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      * @return The entity opening the UI.
      */
     public EntityPlayer getPlayer() {
-        return iPlayer;
+        return player;
+    }
+
+    /**
+     * Getter for the ID of the Player opening the UI.
+     * Should be used when this event is received on the Networkbus of the ClientSide.
+     *
+     * @return The UUID of the Player opening the UI.
+     */
+    public UUID getPlayerID() {
+        return playerID;
+    }
+
+    /**
+     * The ID of the Container that the Player Opened.
+     * Used to keep track of which UI was opened when this event is received on the NetworkBus on the Client side.
+     *
+     * @return THe containers ID.
+     */
+    public String getContainerID() {
+        return containerID;
     }
 
     /**
@@ -46,7 +72,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      */
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
-        iPlayerID = new UUID(pMessageBuffer.readLong(), pMessageBuffer.readLong());
+        playerID = new UUID(pMessageBuffer.readLong(), pMessageBuffer.readLong());
     }
 
     /**
@@ -57,8 +83,8 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      */
     @Override
     public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
-        pMessageBuffer.writeLong(iPlayerID.getMostSignificantBits());
-        pMessageBuffer.writeLong(iPlayerID.getLeastSignificantBits());
+        pMessageBuffer.writeLong(playerID.getMostSignificantBits());
+        pMessageBuffer.writeLong(playerID.getLeastSignificantBits());
     }
 
     /**
@@ -76,11 +102,10 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
     public IMessage handleCommunicationMessage(IMessage pMessage, MessageContext pContext) {
         //Retrieve the Player from the Context.
         if (pContext.side == Side.SERVER) {
-            iPlayer = pContext.getServerHandler().playerEntity;
+            player = pContext.getServerHandler().playerEntity;
 
             return super.handleCommunicationMessage(pMessage, pContext);
         } else {
-            iPlayer = FMLClientHandler.instance().getClientPlayerEntity().getEntityWorld().func_152378_a(iPlayerID);
             return super.handleCommunicationMessage(pMessage, pContext);
         }
     }
