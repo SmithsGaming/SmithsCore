@@ -8,8 +8,8 @@ package com.SmithsModding.SmithsCore.Common.Event.Network;
 
 import com.SmithsModding.SmithsCore.Common.Event.SmithsCoreEvent;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.

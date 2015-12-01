@@ -13,20 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntitySmithsCore extends TileEntity {
 
     public Coordinate3D getLocation() {
-        return new Coordinate3D(xCoord, yCoord, zCoord);
+        return new Coordinate3D(this.pos);
     }
 
     public void setLocation(Coordinate3D pNewLocation) {
-        xCoord = pNewLocation.getXComponent();
-        yCoord = pNewLocation.getYComponent();
-        zCoord = pNewLocation.getZComponent();
-    }
-
-    public void onGuiOpenened(EntityPlayer pOpeningPlayer) {
-
-    }
-
-    public void onGuiClosed(EntityPlayer pClosingPlayer) {
-
+        pos = pNewLocation.toBlockPos();
     }
 }

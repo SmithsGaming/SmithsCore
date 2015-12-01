@@ -6,7 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Common.Registry;
 
-import cpw.mods.fml.common.eventhandler.EventBus;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
  * Central point of Data for the SmithsCore mod.

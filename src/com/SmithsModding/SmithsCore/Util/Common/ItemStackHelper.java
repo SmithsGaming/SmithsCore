@@ -151,6 +151,6 @@ public class ItemStackHelper
     }
 
     public static void setOwnerName(ItemStack itemStack, EntityPlayer entityPlayer) {
-        NBTHelper.setString(itemStack, CoreReferences.NBT.OWNER, entityPlayer.getDisplayName());
+        NBTHelper.setString(itemStack, CoreReferences.NBT.OWNER, entityPlayer.getDisplayNameString());
     }
 }

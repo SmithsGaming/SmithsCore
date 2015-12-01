@@ -160,7 +160,7 @@ public class Cube {
             tDiffZ = 1;
 
 
-        return AxisAlignedBB.getBoundingBox(iTopLeftFrontCoord.getXComponent() - tDiffX, iTopLeftFrontCoord.getYComponent() - tDiffY, iTopLeftFrontCoord.getZComponent() - tDiffZ, iLowerRightBackCoord.getXComponent(), iLowerRightBackCoord.getYComponent(), iLowerRightBackCoord.getZComponent());
+        return new AxisAlignedBB(iTopLeftFrontCoord.getXComponent() - tDiffX, iTopLeftFrontCoord.getYComponent() - tDiffY, iTopLeftFrontCoord.getZComponent() - tDiffZ, iLowerRightBackCoord.getXComponent(), iLowerRightBackCoord.getYComponent(), iLowerRightBackCoord.getZComponent());
     }
 
     public int Contents() {

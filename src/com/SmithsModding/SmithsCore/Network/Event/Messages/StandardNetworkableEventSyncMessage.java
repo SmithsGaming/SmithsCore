@@ -8,8 +8,8 @@ package com.SmithsModding.SmithsCore.Network.Event.Messages;
 
 import com.SmithsModding.SmithsCore.Common.Event.Network.StandardNetworkableEvent;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.network.ByteBufUtils;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
 
 import java.lang.reflect.InvocationTargetException;

@@ -47,6 +47,6 @@ public class StringUtils {
      * TODO: Update to use custom fontrenderer.
      */
     public static String[] SplitString(String pToSplit, int pMaxWidth) {
-        return (String[]) Minecraft.getMinecraft().fontRenderer.listFormattedStringToWidth(pToSplit, pMaxWidth).toArray();
+        return (String[]) Minecraft.getMinecraft().fontRendererObj.listFormattedStringToWidth(pToSplit, pMaxWidth).toArray();
     }
 }

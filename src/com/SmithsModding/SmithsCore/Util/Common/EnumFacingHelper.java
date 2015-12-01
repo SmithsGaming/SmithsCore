@@ -6,16 +6,16 @@
 
 package com.SmithsModding.SmithsCore.Util.Common;
 /*
- *   ForgeDirectionHelper
+ *   EnumFacingHelper
  *   Created by: Orion
  *   Created on: 13-1-2015
  */
 
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
-public class ForgeDirectionHelper {
+public class EnumFacingHelper {
     //{DOWN, UP, NORTH, SOUTH, WEST, EAST}
-    public static int ConvertToInt(ForgeDirection pDirection) {
+    public static int ConvertToInt(EnumFacing pDirection) {
         switch (pDirection) {
             case DOWN:
                 return 0;

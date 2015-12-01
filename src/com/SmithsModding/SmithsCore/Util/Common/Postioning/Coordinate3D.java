@@ -7,7 +7,9 @@
 package com.SmithsModding.SmithsCore.Util.Common.Postioning;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+
 
 public class Coordinate3D {
     int iXCoord;
@@ -18,6 +20,11 @@ public class Coordinate3D {
         iXCoord = pXCoord;
         iYCoord = pYCoord;
         iZCoord = pZCoord;
+    }
+
+    public Coordinate3D(BlockPos pPos)
+    {
+        this(pPos.getX(), pPos.getY(), pPos.getZ());
     }
 
     public static Coordinate3D fromBytes(ByteBuf pData) {
@@ -69,11 +76,16 @@ public class Coordinate3D {
         return iZCoord;
     }
 
-    public Coordinate3D moveCoordiante(ForgeDirection pDirection, int pDistance) {
-        return new Coordinate3D(getXComponent() + (pDistance * pDirection.offsetX), getYComponent() + (pDistance * pDirection.offsetY), getZComponent() + (pDistance * pDirection.offsetZ));
+    public Coordinate3D moveCoordiante(EnumFacing pDirection, int pDistance) {
+        return new Coordinate3D(getXComponent() + (pDistance * pDirection.getFrontOffsetX()), getYComponent() + (pDistance * pDirection.getFrontOffsetY()), getZComponent() + (pDistance * pDirection.getFrontOffsetZ()));
     }
 
     public float getDistanceTo(Coordinate3D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2) + Math.pow(getZComponent() - pCoordinate.getZComponent(), 2));
+    }
+
+    public BlockPos toBlockPos()
+    {
+        return new BlockPos(getXComponent(), getYComponent(), getZComponent());
     }
 }

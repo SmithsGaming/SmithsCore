@@ -7,9 +7,9 @@
 package com.SmithsModding.SmithsCore.Common.Event;
 
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.network.INetHandler;
 
 /**

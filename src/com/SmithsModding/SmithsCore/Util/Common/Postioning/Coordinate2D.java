@@ -7,7 +7,7 @@
 package com.SmithsModding.SmithsCore.Util.Common.Postioning;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraft.util.EnumFacing;
 
 public class Coordinate2D {
 
@@ -56,8 +56,8 @@ public class Coordinate2D {
         return iYCoord;
     }
 
-    public Coordinate2D moveCoordiante(ForgeDirection pDirection, int pDistance) {
-        return new Coordinate2D(getXComponent() + (pDistance * pDirection.offsetX), getYComponent() + (pDistance * pDirection.offsetY));
+    public Coordinate2D moveCoordiante(EnumFacing pDirection, int pDistance) {
+        return new Coordinate2D(getXComponent() + (pDistance * pDirection.getFrontOffsetX()), getYComponent() + (pDistance * pDirection.getFrontOffsetY()));
     }
 
     public float getDistanceTo(Coordinate2D pCoordinate) {

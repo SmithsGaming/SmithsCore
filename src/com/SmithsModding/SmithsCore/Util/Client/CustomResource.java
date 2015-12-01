@@ -13,7 +13,7 @@ package com.SmithsModding.SmithsCore.Util.Client;
 
 import com.SmithsModding.SmithsCore.Util.Client.Color.Colors;
 import com.SmithsModding.SmithsCore.Util.Client.Color.MinecraftColor;
-import net.minecraft.util.IIcon;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class CustomResource {
     private String iInternalName;
 
     private ArrayList<String> iRescourceLocations = new ArrayList<String>();
-    private IIcon iIcon;
+    private TextureAtlasSprite iIcon;
     private MinecraftColor iColor;
 
     private int iLeft;
@@ -168,7 +168,7 @@ public class CustomResource {
      *
      * @param pIcon The IIcon to register.
      */
-    public void addIcon(IIcon pIcon) {
+    public void addIcon(TextureAtlasSprite pIcon) {
         iIcon = pIcon;
     }
 
@@ -177,7 +177,7 @@ public class CustomResource {
      *
      * @return The registered IIcon.
      */
-    public IIcon getIcon() {
+    public TextureAtlasSprite getIcon() {
         return iIcon;
     }
 

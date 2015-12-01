@@ -4,7 +4,7 @@ package com.SmithsModding.SmithsCore.Common.Proxy;
 import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
 import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
 
@@ -52,7 +52,7 @@ public class CoreCommonProxy {
      * @param pSuggestedConfigFile The file (or directory given that Java makes no difference between the two) that is suggested to contain configuration options for this mod.
      *                             This parameter is in normal situations populated with the suggested configuration File from the PreInit event.
      * @see File
-     * @see cpw.mods.fml.common.event.FMLPreInitializationEvent
+     * @see net.minecraftforge.fml.common.event.FMLPreInitializationEvent
      */
     public void configInit(File pSuggestedConfigFile) {
 
@@ -66,7 +66,7 @@ public class CoreCommonProxy {
      * The value returned here does not indicate if the user is running a dedicated or a internal server. It only indicated that the instance of minecraft has GUI-Capabilities or not.
      *
      * @return The effective running Side of this Proxy
-     * @see cpw.mods.fml.relauncher.SideOnly
+     * @see net.minecraftforge.fml.relauncher.SideOnly
      * @see com.SmithsModding.SmithsCore.Client.Proxy.CoreClientProxy
      */
     public Side getEffectiveSide() {

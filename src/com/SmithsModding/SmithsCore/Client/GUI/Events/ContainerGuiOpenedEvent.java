@@ -8,9 +8,9 @@ package com.SmithsModding.SmithsCore.Client.GUI.Events;
 
 import com.SmithsModding.SmithsCore.Common.Event.Network.StandardNetworkableEvent;
 import com.SmithsModding.SmithsCore.Common.Inventory.ContainerSmithsCore;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 

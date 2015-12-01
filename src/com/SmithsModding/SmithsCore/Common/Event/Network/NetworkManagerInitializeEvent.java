@@ -8,8 +8,8 @@ package com.SmithsModding.SmithsCore.Common.Event.Network;
 
 import com.SmithsModding.SmithsCore.Common.Event.SmithsCoreEvent;
 import com.SmithsModding.SmithsCore.Util.Common.Pair;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.HashMap;
 

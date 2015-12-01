@@ -11,8 +11,8 @@ import com.SmithsModding.SmithsCore.Network.Event.Handlers.StandardNetworkableEv
 import com.SmithsModding.SmithsCore.Network.Event.Messages.StandardNetworkableEventSyncMessage;
 import com.SmithsModding.SmithsCore.Util.Common.Pair;
 import com.SmithsModding.SmithsCore.Util.CoreReferences;
-import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * The NetworkManager that is used to manage the Synchronising of the Events in the Busses.

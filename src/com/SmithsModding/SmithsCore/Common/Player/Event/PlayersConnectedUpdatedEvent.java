@@ -9,7 +9,7 @@ package com.SmithsModding.SmithsCore.Common.Player.Event;
 import com.SmithsModding.SmithsCore.Common.Event.Network.StandardNetworkableEvent;
 import com.SmithsModding.SmithsCore.Common.Player.Management.PlayerManager;
 import com.SmithsModding.SmithsCore.Util.Common.NetworkHelper;
-import cpw.mods.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 
 import java.util.HashMap;

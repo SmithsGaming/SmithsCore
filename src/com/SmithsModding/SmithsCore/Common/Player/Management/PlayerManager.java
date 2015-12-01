@@ -9,12 +9,12 @@ package com.SmithsModding.SmithsCore.Common.Player.Management;
 import com.SmithsModding.SmithsCore.Common.Player.Event.PlayersConnectedUpdatedEvent;
 import com.SmithsModding.SmithsCore.Common.Player.Event.PlayersOnlineUpdatedEvent;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.network.FMLNetworkEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.UsernameCache;
 
@@ -176,7 +176,7 @@ public class PlayerManager {
                         UUID id = UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""));
 
                         commonSidedJoinedMap.put(id, UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
-                        serverSidedJoinedMap.put(id, FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().func_152612_a(commonSidedJoinedMap.get(id)));
+                        serverSidedJoinedMap.put(id, FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().getPlayerByUUID(id));
                     } catch (Exception e) {
                         SmithsCore.getLogger().error(e.getStackTrace());
                     }

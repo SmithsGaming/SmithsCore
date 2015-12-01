@@ -8,8 +8,8 @@ package com.SmithsModding.SmithsCore.Common.Handlers.Network;
 
 import com.SmithsModding.SmithsCore.Common.Event.Network.NetworkableEvent;
 import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Eventhandler used to catch Networkable Events on the Server Side.

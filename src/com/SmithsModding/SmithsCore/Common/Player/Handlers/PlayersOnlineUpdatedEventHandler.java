@@ -9,9 +9,9 @@ package com.SmithsModding.SmithsCore.Common.Player.Handlers;
 import com.SmithsModding.SmithsCore.Common.Player.Event.PlayersOnlineUpdatedEvent;
 import com.SmithsModding.SmithsCore.Common.Player.Management.PlayerManager;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class PlayersOnlineUpdatedEventHandler {
 

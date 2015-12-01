@@ -2,8 +2,8 @@ package com.SmithsModding.SmithsCore.Util.Common;
 
 import com.SmithsModding.SmithsCore.Common.Player.Management.PlayerManager;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.UUID;

@@ -3,9 +3,9 @@ package com.SmithsModding.SmithsCore.Client.Proxy;
 import com.SmithsModding.SmithsCore.Client.Handlers.Network.ClientNetworkableEventHandler;
 import com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy;
 import com.SmithsModding.SmithsCore.SmithsCore;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 

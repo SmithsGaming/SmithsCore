@@ -7,7 +7,7 @@
 package com.SmithsModding.SmithsCore.Client.Registry;
 
 import com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry;
-import cpw.mods.fml.common.eventhandler.EventBus;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
  * Used as the Central point of Data on the Client Side.
