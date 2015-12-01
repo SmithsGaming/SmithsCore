@@ -20,7 +20,7 @@ Installation
 ============
 ## Users:
   1. Download all the Dependencies and install those.
-  2. Drop Armory in the mods folder.
+  2. Drop Smiths Core in the mods folder.
   
 ## Modders (JetBrains IDEA):
   1. Fork this Repository
