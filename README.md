@@ -1,18 +1,15 @@
-TC-Armory
+Smiths Core
 =========
 
-Armors Mod for Minecraft
+Super mod required for all SmithsModding mods (eventually)
 
 ## Last Build Status:
-  * Development:      [![Build Status](https://travis-ci.org/SmithsModding/Armory.svg?branch=Development)](https://travis-ci.org/SmithsModding/Armory)
-  * Minecraft 1.7.10: [![Build Status](https://travis-ci.org/SmithsModding/Armory.svg?branch=Minecraft-1.7.10)](https://travis-ci.org/SmithsModding/Armory)
+  * Development:      [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=Development)](https://travis-ci.org/SmithsModding/SmithsCore)
+  * Minecraft 1.8:    [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=Development-1.8)](https://travis-ci.org/SmithsModding/SmithsCore)
+  * Master:           [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=master)](https://travis-ci.org/SmithsModding/SmithsCore)
 
 ## Nightly Builds:
-http://mavenrepo.armory.orionminecraft.com/com/Orion/Armory/Armory/
-
-## Recommended:
-SmithsModding - Weaponry
-  -> Adds the TinkersConstruct Materials to Armory
+http://mavenrepo.smithscore.orionminecraft.com/com/SmithsModding/SmithsCore/SmithsCore/
 
 ## Requirements:
    *  Minecraft 1.7.10
