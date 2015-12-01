@@ -24,6 +24,9 @@ import java.util.HashMap;
  */
 public class ColorSampler {
 
+    //1.8!!!
+    //Minecraft.getMinecraft().getItemModelMesher().getRenderItem().getItemModelMesher().getItemModel(stack).getParticleTexture()
+
     //Cache of the Relative MinecraftColors to EnumChatFormatting.
     private static HashMap<MinecraftColor, EnumChatFormatting> iMappedColors;
 
@@ -39,7 +42,7 @@ public class ColorSampler {
             if (EnumChatFormatting.values()[tIndex].name().equals("BLACK"))
                 continue;
 
-            MinecraftColor tMappedMinecraftColor = new MinecraftColor(Minecraft.getMinecraft().fontRenderer.colorCode[tIndex]);
+            MinecraftColor tMappedMinecraftColor = new MinecraftColor(Minecraft.getMinecraft().fontRendererObj.colorCode[tIndex]);
             SmithsCore.getLogger().info("Generated MinecraftColor Code : " + tMappedMinecraftColor.getRed() + "-" + tMappedMinecraftColor.getGreen() + "-" + tMappedMinecraftColor.getBlue() + " for the following EnumChatFormatting: " + EnumChatFormatting.values()[tIndex].name() + ".");
 
             iMappedColors.put(tMappedMinecraftColor, EnumChatFormatting.values()[tIndex]);
@@ -62,19 +65,9 @@ public class ColorSampler {
         if (pStack.getItem().getColorFromItemStack(pStack, 0) != 16777215) {
             return new MinecraftColor(pStack.getItem().getColorFromItemStack(pStack, 0));
         } else {
-            pStack.getItem().registerIcons(new PlaceHolderRegistrar());
-
-            if (pStack.getItem() instanceof ItemBlock) {
-                ((ItemBlock) pStack.getItem()).field_150939_a.registerBlockIcons(new BlockPlaceHolderRegistrar());
-            }
-
-            try {
-                IconPlaceHolder pIcon = (IconPlaceHolder) pStack.getItem().getIcon(pStack, 0);
-
-                MinecraftColor tSample = calculateAverageMinecraftColor(ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(pIcon.iIconLocation).getInputStream()));
-
-                return tSample;
-            } catch (IOException e) {
+            try{
+                return calculateAverageMinecraftColor(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(pStack).getParticleTexture().getFrameTextureData(0));
+            } catch (Exception e) {
                 return new MinecraftColor(16777215);
             }
         }
@@ -85,17 +78,17 @@ public class ColorSampler {
      * Iterates over all the Pixels and calculates an Average for the RGB values.
      * See Through pixels (with alpha value = 0) will be skipped.
      *
-     * @param pBuffer The Image to analyze
+     * @param pixelData The Image to analyze
      * @return A Minecraft Color that is the average RGB value of the Pixels in the Image with its Alpha value being 255
      */
-    public static MinecraftColor calculateAverageMinecraftColor(BufferedImage pBuffer) {
+    public static MinecraftColor calculateAverageMinecraftColor(int[][] pixelData) {
         long tSumR = 0, tSumG = 0, tSumB = 0;
 
         int tCountedPixels = 0;
 
-        for (int tXPos = 0; tXPos < pBuffer.getWidth(); tXPos++) {
-            for (int tYPos = 0; tYPos < pBuffer.getHeight(); tYPos++) {
-                int tRGB = pBuffer.getRGB(tXPos, tYPos);
+        for (int tXPos = 0; tXPos < pixelData.length; tXPos++) {
+            for (int tYPos = 0; tYPos < pixelData[tXPos].length; tYPos++) {
+                int tRGB = pixelData[tXPos][tYPos];
 
                 MinecraftColor tPixel = new MinecraftColor(tRGB);
 

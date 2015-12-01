@@ -14,15 +14,20 @@ import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
+
+import java.io.IOException;
 
 /**
  * Helper class to perform several functions while rendering
@@ -31,7 +36,7 @@ public final class GuiHelper {
     public static int DISPLAYHEIGHT;
     public static int DISPLAYWIDTH;
     public static int GUISCALE;
-    protected static RenderItem ITEMRENDERER = new RenderItem();
+    protected static RenderItem ITEMRENDERER = Minecraft.getMinecraft().getRenderItem();
 
     /**
      * Draws a CustomResource on the Screen in the given Position relative to current GL Buffer Matrix Origin.
@@ -51,9 +56,10 @@ public final class GuiHelper {
 
     /**
      * Draws the given TextureComponent Stretched (repeatedly) in the given Area offset from the current origin with the ElementCoordinate
-     * @param pCenterComponent The Texture to render.
-     * @param pWidth The Total width
-     * @param pHeight The Total Height
+     *
+     * @param pCenterComponent   The Texture to render.
+     * @param pWidth             The Total width
+     * @param pHeight            The Total Height
      * @param pElementCoordinate The Offset.
      */
     public static void drawRectangleStretched(TextureComponent pCenterComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
@@ -63,9 +69,9 @@ public final class GuiHelper {
     /**
      * Draws the Multicomponent on the screen in the Given size
      *
-     * @param pComponents The MultiComponent to Render.
-     * @param pWidth The Total Width
-     * @param pHeight The Total Height
+     * @param pComponents        The MultiComponent to Render.
+     * @param pWidth             The Total Width
+     * @param pHeight            The Total Height
      * @param pElementCoordinate The Offset
      */
     public static void drawRectangleStretched(MultiComponentTexture pComponents, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
@@ -85,11 +91,11 @@ public final class GuiHelper {
     /**
      * The unwrapped variant of drawRectangleStretched using the individual components.
      *
-     * @param pCenterComponent A TextureComponent that describes the center of this Texture.
-     * @param pCornerComponents An Array with the Components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
-     * @param pSideComponents An Array with the Components for the Sides in this order: Top, Right, Bottom, Left.
-     * @param pWidth The total width
-     * @param pHeight The total Height
+     * @param pCenterComponent   A TextureComponent that describes the center of this Texture.
+     * @param pCornerComponents  An Array with the Components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
+     * @param pSideComponents    An Array with the Components for the Sides in this order: Top, Right, Bottom, Left.
+     * @param pWidth             The total width
+     * @param pHeight            The total Height
      * @param pElementCoordinate The Offset
      */
     public static void drawRectangleStretched(TextureComponent pCenterComponent, TextureComponent[] pSideComponents, TextureComponent[] pCornerComponents, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
@@ -108,66 +114,78 @@ public final class GuiHelper {
 
     /**
      * Draws a given FluidStack on the Screen.
-     *
+     * <p/>
      * This function comes with regards to the BuildCraft Team
      *
      * @param pFluidStack The Stack to render
-     * @param pX The x offset
-     * @param pY The y offset
-     * @param pZ The z offset
-     * @param pWidth The total Width
-     * @param pHeight The total Height
+     * @param pX          The x offset
+     * @param pY          The y offset
+     * @param pZ          The z offset
+     * @param pWidth      The total Width
+     * @param pHeight     The total Height
      */
     public static void drawFluid(FluidStack pFluidStack, int pX, int pY, int pZ, int pWidth, int pHeight) {
         if (pFluidStack == null || pFluidStack.getFluid() == null) {
             return;
         }
-        IIcon tIcon = pFluidStack.getFluid().getIcon(pFluidStack);
 
-        if (tIcon == null) {
-            tIcon = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
+        TextureAtlasSprite texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(pFluidStack.getFluid().getStill(pFluidStack).toString());
+
+        if (texture == null) {
+            texture = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
         }
 
+        MinecraftColor fluidColor = new MinecraftColor(pFluidStack.getFluid().getColor(pFluidStack));
+
         bindTexture(TextureMap.locationBlocksTexture);
-        setGLColorFromInt(pFluidStack.getFluid().getColor(pFluidStack));
+        GlStateManager.color(fluidColor.getRedFloat(), fluidColor.getGreenFloat(), fluidColor.getBlueFloat(), fluidColor.getAlphaFloat());
+
+        GlStateManager.enableColorLogic();
+
         int tFullX = pWidth / 16 + 1;
         int tFullY = pHeight / 16 + 1;
         for (int i = 0; i < tFullX; i++) {
             for (int j = 0; j < tFullY; j++) {
-                drawCutIcon(tIcon, pX + i * 16, pY + j * 16, pZ, 16, 16, 0);
+                drawCutIcon(texture, pX + i * 16, pY + j * 16, pZ, 16, 16, 0);
             }
         }
+
+        GlStateManager.disableColorLogic();
     }
 
     /**
      * Draws a cut IIcon on the Screen
-     *
+     * <p/>
      * This function comes with regards to the BuildCraft Team
      *
      * @param pIcon
-     * @param pX The x offset
-     * @param pY The y offset
-     * @param pZ The z offset
-     * @param pWidth The total Width
-     * @param pHeight The total Height
+     * @param pX              The x offset
+     * @param pY              The y offset
+     * @param pZ              The z offset
+     * @param pWidth          The total Width
+     * @param pHeight         The total Height
      * @param pCutOffVertical The vertical distance to cut of.
      */
-    private static void drawCutIcon(IIcon pIcon, int pX, int pY, int pZ, int pWidth, int pHeight, int pCutOffVertical) {
-        Tessellator tess = Tessellator.instance;
-        tess.startDrawingQuads();
-        tess.addVertexWithUV(pX, pY + pHeight, pZ, pIcon.getMinU(), pIcon.getInterpolatedV(pHeight));
-        tess.addVertexWithUV(pX + pWidth, pY + pHeight, pZ, pIcon.getInterpolatedU(pWidth), pIcon.getInterpolatedV(pHeight));
-        tess.addVertexWithUV(pX + pWidth, pY + pCutOffVertical, pZ, pIcon.getInterpolatedU(pWidth), pIcon.getInterpolatedV(pCutOffVertical));
-        tess.addVertexWithUV(pX, pY + pCutOffVertical, pZ, pIcon.getMinU(), pIcon.getInterpolatedV(pCutOffVertical));
-        tess.draw();
+    private static void drawCutIcon(TextureAtlasSprite pIcon, int pX, int pY, int pZ, int pWidth, int pHeight, int pCutOffVertical) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        ;
+
+        worldrenderer.pos((double) (pX + 0), (double) (pY + pHeight), (double) pZ).tex((double) pIcon.getMinU(), (double) pIcon.getInterpolatedV(pHeight)).endVertex();
+        worldrenderer.pos((double) (pX + pWidth), (double) (pY + pHeight), (double) pZ).tex((double) pIcon.getInterpolatedU(pWidth), (double) pIcon.getInterpolatedV(pHeight)).endVertex();
+        worldrenderer.pos((double) (pX + pWidth), (double) (pY + 0), (double) pZ).tex((double) pIcon.getInterpolatedU(pWidth), (double) pIcon.getInterpolatedV(pCutOffVertical)).endVertex();
+        worldrenderer.pos((double) (pX + 0), (double) (pY + 0), (double) pZ).tex((double) pIcon.getMinU(), (double) pIcon.getInterpolatedV(pCutOffVertical)).endVertex();
+
+        tessellator.draw();
     }
 
     /**
      * Renders a texture as if it would be the center of a MultiComponentTexture.
      *
-     * @param pComponent The Component to Render
-     * @param pWidth The total width of the Component in the End
-     * @param pHeight The total height of the Component in the End
+     * @param pComponent         The Component to Render
+     * @param pWidth             The total width of the Component in the End
+     * @param pHeight            The total height of the Component in the End
      * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
      */
     private static void renderCenter(TextureComponent pComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
@@ -215,7 +233,7 @@ public final class GuiHelper {
     /**
      * Renders a texture as if it would be the corner of a MultiComponentTexture.
      *
-     * @param pComponent The Component to Render
+     * @param pComponent         The Component to Render
      * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
      */
     private static void renderCorner(TextureComponent pComponent, Coordinate2D pElementCoordinate) {
@@ -232,9 +250,9 @@ public final class GuiHelper {
     /**
      * Renders a texture as if it would be the side of a MultiComponentTexture.
      *
-     * @param pComponent The Component to Render
-     * @param pWidth The total width of the Component in the End
-     * @param pHeight The total height of the Component in the End
+     * @param pComponent         The Component to Render
+     * @param pWidth             The total width of the Component in the End
+     * @param pHeight            The total height of the Component in the End
      * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
      */
     private static void renderBorder(TextureComponent pComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
@@ -275,121 +293,148 @@ public final class GuiHelper {
 
     /**
      * Helper function copied from the GUI class to make it possible to use it outside of a GUI class.
-     *
+     * <p/>
      * TRhe function comes with regards to the Minecraft Team
      *
      * @param pXKoord The x offset
      * @param pYKoord The y offset
      * @param pZKoord The z offset
-     * @param pWidth The total Width
+     * @param pWidth  The total Width
      * @param pHeight The total Height
-     * @param pU The X Offset in the currently loaded GL Image.
-     * @param pV The Y Offset in the currently loaded GL Iamge
+     * @param pU      The X Offset in the currently loaded GL Image.
+     * @param pV      The Y Offset in the currently loaded GL Iamge
      */
     public static void drawTexturedModalRect(int pXKoord, int pYKoord, int pZKoord, int pU, int pV, int pWidth, int pHeight) {
         float f = 0.00390625F;
         float f1 = 0.00390625F;
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (pXKoord + 0), (double) (pYKoord + pHeight), (double) pZKoord, (double) ((float) (pU + 0) * f), (double) ((float) (pV + pHeight) * f1));
-        tessellator.addVertexWithUV((double) (pXKoord + pWidth), (double) (pYKoord + pHeight), (double) pZKoord, (double) ((float) (pU + pWidth) * f), (double) ((float) (pV + pHeight) * f1));
-        tessellator.addVertexWithUV((double) (pXKoord + pWidth), (double) (pYKoord + 0), (double) pZKoord, (double) ((float) (pU + pWidth) * f), (double) ((float) (pV + 0) * f1));
-        tessellator.addVertexWithUV((double) (pXKoord + 0), (double) (pYKoord + 0), (double) pZKoord, (double) ((float) (pU + 0) * f), (double) ((float) (pV + 0) * f1));
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos((double) (pXKoord + 0), (double) (pYKoord + pHeight), (double) pZKoord).tex((double) ((float) (pU + 0) * f), (double) ((float) (pV + pHeight) * f1)).endVertex();
+        worldrenderer.pos((double) (pXKoord + pWidth), (double) (pYKoord + pHeight), (double) pZKoord).tex((double) ((float) (pU + pWidth) * f), (double) ((float) (pV + pHeight) * f1)).endVertex();
+        worldrenderer.pos((double) (pXKoord + pWidth), (double) (pYKoord + 0), (double) pZKoord).tex((double) ((float) (pU + pWidth) * f), (double) ((float) (pV + 0) * f1)).endVertex();
+        worldrenderer.pos((double) (pXKoord + 0), (double) (pYKoord + 0), (double) pZKoord).tex((double) ((float) (pU + 0) * f), (double) ((float) (pV + 0) * f1)).endVertex();
         tessellator.draw();
     }
 
     /**
      * Helper function copied from the GUI class to make it possible to use it outside of a GUI class.
-     *
+     * <p/>
      * TRhe function comes with regards to the Minecraft Team
      *
      * @param pXCoord The x offset
      * @param pYCoord The y offset
      * @param pZCoord The z offset
-     * @param pWidth The total Width
+     * @param pWidth  The total Width
      * @param pHeight The total Height
-     * @param pIIcon The IIcon describing the Texture
+     * @param pIIcon  The IIcon describing the Texture
      */
-    public static void drawTexturedModelRectFromIcon(int pXCoord, int pYCoord, int pZCoord, IIcon pIIcon, int pWidth, int pHeight) {
-        Tessellator tessellator = Tessellator.instance;
-        tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (pXCoord + 0), (double) (pYCoord + pHeight), (double) pZCoord, (double) pIIcon.getMinU(), (double) pIIcon.getMaxV());
-        tessellator.addVertexWithUV((double) (pXCoord + pWidth), (double) (pYCoord + pHeight), (double) pZCoord, (double) pIIcon.getMaxU(), (double) pIIcon.getMaxV());
-        tessellator.addVertexWithUV((double) (pXCoord + pWidth), (double) (pYCoord + 0), (double) pZCoord, (double) pIIcon.getMaxU(), (double) pIIcon.getMinV());
-        tessellator.addVertexWithUV((double) (pXCoord + 0), (double) (pYCoord + 0), (double) pZCoord, (double) pIIcon.getMinU(), (double) pIIcon.getMinV());
+    public static void drawTexturedModelRectFromIcon(int pXCoord, int pYCoord, int pZCoord, TextureAtlasSprite pIIcon, int pWidth, int pHeight) {
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        worldrenderer.pos((double) (pXCoord + 0), (double) (pYCoord + pHeight), (double) pZCoord).tex((double) pIIcon.getMinU(), (double) pIIcon.getMaxV()).endVertex();
+        worldrenderer.pos((double) (pXCoord + pWidth), (double) (pYCoord + pHeight), (double) pZCoord).tex((double) pIIcon.getMaxU(), (double) pIIcon.getMaxV()).endVertex();
+        worldrenderer.pos((double) (pXCoord + pWidth), (double) (pYCoord + 0), (double) pZCoord).tex((double) pIIcon.getMaxU(), (double) pIIcon.getMinV()).endVertex();
+        worldrenderer.pos((double) (pXCoord + 0), (double) (pYCoord + 0), (double) pZCoord).tex((double) pIIcon.getMinU(), (double) pIIcon.getMinV()).endVertex();
         tessellator.draw();
     }
 
     /**
      * Draws a colored rectangle over the given plane.
      *
-     * @param pPlane The plane to cover in the Color on the Screen
-     * @param pColor The color to render.
+     * @param pPlane  The plane to cover in the Color on the Screen
+     * @param pZKoord The Z-Level to render on.
+     * @param pColor  The color to render.
      */
-    public static void drawColoredRect(Plane pPlane, MinecraftColor pColor) {
-        drawGradiendColoredRect(pPlane, pColor, pColor);
+    public static void drawColoredRect(Plane pPlane, int pZKoord, MinecraftColor pColor) {
+        drawGradiendColoredRect(pPlane, pZKoord, pColor, pColor);
     }
 
     /**
-     * Draws a gradient rectangle in the given position.
+     * Draws a vertical gradient rectangle in the given position.
      *
-     * @param pPlane The plane to fill on the screen
+     * @param pPlane      The plane to fill on the screen
+     * @param pZKoord     The Z-Level to render on.
      * @param pColorStart The left color
-     * @param pColorEnd The right color.
+     * @param pColorEnd   The right color.
      */
-    public static void drawGradiendColoredRect(Plane pPlane, MinecraftColor pColorStart, MinecraftColor pColorEnd) {
-        Tessellator tessellator = Tessellator.instance;
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
-        OpenGlHelper.glBlendFunc(770, 771, 1, 0);
-        pColorStart.performOpenGLColoring();
-        tessellator.startDrawingQuads();
-        tessellator.addVertex((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), 0.0D);
-        tessellator.addVertex((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), 0.0D);
-        pColorEnd.performOpenGLColoring();
-        tessellator.addVertex((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), 0.0D);
-        tessellator.addVertex((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), 0.0D);
+    public static void drawGradiendColoredRect(Plane pPlane, int pZKoord, MinecraftColor pColorStart, MinecraftColor pColorEnd) {
+        float f = pColorStart.getAlphaFloat();
+        float f1 = pColorStart.getBlueFloat();
+        float f2 = pColorStart.getGreenFloat();
+        float f3 = pColorStart.getRedFloat();
+        float f4 = pColorEnd.getAlphaFloat();
+        float f5 = pColorEnd.getBlueFloat();
+        float f6 = pColorEnd.getGreenFloat();
+        float f7 = pColorEnd.getRedFloat();
+        GlStateManager.disableTexture2D();
+        GlStateManager.enableBlend();
+        GlStateManager.disableAlpha();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
+        GlStateManager.shadeModel(7425);
+        Tessellator tessellator = Tessellator.getInstance();
+        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+        worldrenderer.pos((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), (double) pZKoord).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), (double) pZKoord).color(f1, f2, f3, f).endVertex();
+        worldrenderer.pos((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), (double) pZKoord).color(f5, f6, f7, f4).endVertex();
+        worldrenderer.pos((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), (double) pZKoord).color(f5, f6, f7, f4).endVertex();
         tessellator.draw();
-        MinecraftColor.resetOpenGLColoring();
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glDisable(GL11.GL_BLEND);
+        GlStateManager.shadeModel(7424);
+        GlStateManager.disableBlend();
+        GlStateManager.enableAlpha();
+        GlStateManager.enableTexture2D();
     }
 
     /**
      * Helper function to draw an ItemStack on the given location
      *
-     * @param pStack The Stack to render
-     * @param pX     The X Coordinate to render on
-     * @param pY     The Y Coordinate to render on
+     * @param stack The Stack to render
+     * @param x     The X Coordinate to render on
+     * @param y     The Y Coordinate to render on
      */
-    public static void drawItemStack(ItemStack pStack, int pX, int pY) {
-        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+    public static void drawItemStack(ItemStack stack, int x, int y) {
+        GlStateManager.translate(0.0F, 0.0F, 32.0F);
         FontRenderer font = null;
-        if (pStack != null) font = pStack.getItem().getFontRenderer(pStack);
-        if (font == null) font = Minecraft.getMinecraft().fontRenderer;
-        ITEMRENDERER.renderItemAndEffectIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), pStack, pX, pY);
-        ITEMRENDERER.renderItemOverlayIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), pStack, pX, pY);
+        if (stack != null) {
+            font = stack.getItem().getFontRenderer(stack);
+        }
+
+        if (font == null) {
+            font = Minecraft.getMinecraft().fontRendererObj;
+        }
+
+        ITEMRENDERER.renderItemAndEffectIntoGUI(stack, x, y);
+        ITEMRENDERER.renderItemOverlayIntoGUI(font, stack, x, y, "");
     }
 
     /**
      * Helper function to draw an ItemStack with an Overlaytext
      *
-     * @param pStack The Stack to Render
-     * @param pX The X Coordinate to render on
-     * @param pY The Y Coordinate to render on
-     * @param pOverlayText The overlay text to render.
+     * @param stack   The Stack to Render
+     * @param x       The X Coordinate to render on
+     * @param y       The Y Coordinate to render on
+     * @param altText The overlay text to render.
      */
-    public static void drawItemStack(ItemStack pStack, int pX, int pY, String pOverlayText) {
-        GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+    private static void drawItemStack(ItemStack stack, int x, int y, String altText) {
+        GlStateManager.translate(0.0F, 0.0F, 32.0F);
         FontRenderer font = null;
-        if (pStack != null) font = pStack.getItem().getFontRenderer(pStack);
-        if (font == null) font = Minecraft.getMinecraft().fontRenderer;
-        ITEMRENDERER.renderItemAndEffectIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), pStack, pX, pY);
-        ITEMRENDERER.renderItemOverlayIntoGUI(font, Minecraft.getMinecraft().getTextureManager(), pStack, pX, pY, pOverlayText);
+        if (stack != null) {
+            font = stack.getItem().getFontRenderer(stack);
+        }
+
+        if (font == null) {
+            font = Minecraft.getMinecraft().fontRendererObj;
+        }
+
+        ITEMRENDERER.renderItemAndEffectIntoGUI(stack, x, y);
+        ITEMRENDERER.renderItemOverlayIntoGUI(font, stack, x, y - 8, altText);
     }
 
     /**
      * Convenient helper function to bind the texture to a String adress
+     *
      * @param pTextureAddress
      */
     public static void bindTexture(String pTextureAddress) {
@@ -398,10 +443,11 @@ public final class GuiHelper {
 
     /**
      * Convenient helper function to bind the texture using a ResourceLocation
+     *
      * @param pTextureLocation
      */
     public static void bindTexture(ResourceLocation pTextureLocation) {
-        Minecraft.getMinecraft().renderEngine.bindTexture(pTextureLocation);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(pTextureLocation);
     }
 
     /**
@@ -413,7 +459,7 @@ public final class GuiHelper {
      */
     public static void calcScaleFactor() {
         Minecraft mc = Minecraft.getMinecraft();
-        ScaledResolution sc = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+        ScaledResolution sc = new ScaledResolution(mc);
         DISPLAYWIDTH = sc.getScaledWidth();
         DISPLAYHEIGHT = sc.getScaledHeight();
         GUISCALE = sc.getScaleFactor();
@@ -445,18 +491,7 @@ public final class GuiHelper {
      * Renders the debug overlay for the Scissor box
      */
     public static void renderScissorDebugOverlay() {
-        bindTexture(TextureMap.locationItemsTexture);
+        bindTexture(TextureMap.locationBlocksTexture);
         drawTexturedModalRect(-10, -10, 10, 0, 0, DISPLAYWIDTH, DISPLAYHEIGHT);
-    }
-
-    /**
-     * Helper function to set the GL Color directly from an Int, witouth having to create a MinecraftColor first.
-     * @param color The color in Int form.
-     */
-    public static void setGLColorFromInt(int color) {
-        float red = (color >> 16 & 255) / 255.0F;
-        float green = (color >> 8 & 255) / 255.0F;
-        float blue = (color & 255) / 255.0F;
-        GL11.glColor4f(red, green, blue, 1.0F);
     }
 }

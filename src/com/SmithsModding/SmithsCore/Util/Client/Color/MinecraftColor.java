@@ -10,7 +10,7 @@ import java.awt.image.ColorModel;
 /**
  * A standard MinecraftColor class for SmithsModding.
  *
- * Extends teh Standard Java color class with some functions.
+ * Extends the Standard Java color class with some functions.
  *
  * Created by Orion
  * Created on 27.10.2015
@@ -171,6 +171,46 @@ public class MinecraftColor extends Color {
         super(cspace, components, alpha);
     }
 
+    /**
+     * Function to get the Red value in Float. 
+     * 
+      * @return A Float between 0 and 1.0 indicating the state of the Red Channel in this Color
+     */
+    public float getRedFloat()
+    {
+        return getRed() / 255F;
+    }
+
+    /**
+     * Function to get the Green value in Float. 
+     *
+     * @return A Float between 0 and 1.0 indicating the state of the Green Channel in this Color
+     */
+    public float getGreenFloat()
+    {
+        return getGreen() / 255F;
+    }
+
+    /**
+     * Function to get the Blue value in Float. 
+     *
+     * @return A Float between 0 and 1.0 indicating the state of the Blue Channel in this Color
+     */
+    public float getBlueFloat()
+    {
+        return getBlue() / 255F;
+    }
+
+    /**
+     * Function to get the Alpha value in Float. 
+     *
+     * @return A Float between 0 and 1.0 indicating the state of the Alpha Channel in this Color
+     */
+    public float getAlphaFloat()
+    {
+        return getAlpha() / 255F;
+    }
+    
     /**
      * Convenient function to reset the Color in the GL Buffer to the Default.
      */
