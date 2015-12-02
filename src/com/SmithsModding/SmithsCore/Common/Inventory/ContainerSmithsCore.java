@@ -1,10 +1,9 @@
 package com.SmithsModding.SmithsCore.Common.Inventory;
 
-import com.SmithsModding.SmithsCore.SmithsCore;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManager;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.RelayBasedGUIManager;
 import net.minecraft.inventory.Container;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by Orion
@@ -13,13 +12,17 @@ import java.util.UUID;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public abstract class ContainerSmithsCore extends Container {
+public abstract class ContainerSmithsCore extends Container implements IGUIBasedComponentHost {
 
-    ArrayList<UUID> watchingPlayers = new ArrayList<UUID>();
+    IGUIManager manager;
+    IContainerHost host;
+
     String containerID;
 
-    public ContainerSmithsCore(String containerID) {
+    public ContainerSmithsCore(String containerID, IContainerHost host) {
         this.containerID = containerID;
+        this.host = host;
+        this.manager = new RelayBasedGUIManager(host);
     }
 
 
@@ -35,24 +38,23 @@ public abstract class ContainerSmithsCore extends Container {
         return containerID;
     }
 
-
-
-    public void onPlayerStartWatching(UUID pPlayerID) {
-        if (watchingPlayers.contains(pPlayerID)) {
-            SmithsCore.getLogger().warn("A player is already watching this Container!");
-            return;
-        }
-
-        watchingPlayers.add(pPlayerID);
+    /**
+     * Function to get the IGUIManager.
+     *
+     * @return Returns the current GUIManager.
+     */
+    @Override
+    public IGUIManager getManager() {
+        return manager;
     }
 
-    public void onPlayerStopWatching(UUID pPlayerID) {
-        if (!watchingPlayers.contains(pPlayerID)) {
-            SmithsCore.getLogger().warn("A player already stopped watching this Container!");
-            return;
-        }
-
-        watchingPlayers.remove(pPlayerID);
+    /**
+     * Function to set the IGUIManager
+     *
+     * @param newManager THe new IGUIManager.
+     */
+    @Override
+    public void setManager(IGUIManager newManager) {
+        manager = newManager;
     }
-
 }

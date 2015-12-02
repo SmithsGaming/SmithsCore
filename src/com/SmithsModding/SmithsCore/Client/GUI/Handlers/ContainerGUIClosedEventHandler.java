@@ -6,6 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Client.GUI.Handlers;
 
+import com.SmithsModding.SmithsCore.Client.GUI.Events.ContainerGuiClosedEvent;
 import com.SmithsModding.SmithsCore.Client.GUI.Events.ContainerGuiOpenedEvent;
 import com.SmithsModding.SmithsCore.Common.Inventory.ContainerSmithsCore;
 import com.SmithsModding.SmithsCore.SmithsCore;
@@ -14,16 +15,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ContainerGUIOpenedEventHandler {
+public class ContainerGUIClosedEventHandler {
 
     @SideOnly(Side.SERVER)
     @SubscribeEvent
-    public void onPlayerOpenenedContainerGUIServerSide(ContainerGuiOpenedEvent event) throws IllegalArgumentException {
+    public void onPlayerOpenenedContainerGUIServerSide(ContainerGuiClosedEvent event) throws IllegalArgumentException {
         if (!(event.getPlayer().openContainer instanceof ContainerSmithsCore))
-            throw new IllegalArgumentException("The ContainerGuiOpenedEvent is fired for a player that is not watching a SmithsCore Container");
+            throw new IllegalArgumentException("The ContainerGuiClosedEvent is fired for a player that is not watching a SmithsCore Container");
 
         if (!event.getContainerID().equals(((ContainerSmithsCore) event.getPlayer().openContainer).getContainerID()))
-            throw new IllegalArgumentException("The ContainerGuiOpenedEvent is fired for a player that is not watching the correct Container");
+            throw new IllegalArgumentException("The ContainerGuiClosedEvent is fired for a player that is not watching the correct Container");
 
         ContainerSmithsCore container = (ContainerSmithsCore) event.getPlayer().openContainer;
         container.getManager().onGuiOpened(event.getPlayerID());
@@ -33,7 +34,7 @@ public class ContainerGUIOpenedEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onPlayerOpenenedContainerGUIClientSide(ContainerGuiOpenedEvent event) {
+    public void onPlayerOpenenedContainerGUIClientSide(ContainerGuiClosedEvent event) {
         if (!(FMLClientHandler.instance().getClientPlayerEntity().openContainer instanceof ContainerSmithsCore))
             return;
 
@@ -43,6 +44,7 @@ public class ContainerGUIOpenedEventHandler {
         ContainerSmithsCore container = (ContainerSmithsCore) event.getPlayer().openContainer;
         container.getManager().onGuiOpened(event.getPlayerID());
     }
+
 
 
 }

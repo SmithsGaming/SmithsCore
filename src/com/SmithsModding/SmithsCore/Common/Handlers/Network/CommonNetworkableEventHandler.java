@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class CommonNetworkableEventHandler {
 
     /**
-     * Event handler for Events on the ServerSide that gets fired by the CommonBus to send a Message to All clients.
+     * Event handler for Events on one Side that gets fired by the CommonBus to send a Message to All clients or from one Client to the Server.
      *
      * @param pEvent The event that should be Synchronized
      */
