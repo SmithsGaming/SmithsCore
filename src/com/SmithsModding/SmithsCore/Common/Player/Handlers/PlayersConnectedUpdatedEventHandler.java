@@ -15,13 +15,6 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class PlayersConnectedUpdatedEventHandler {
 
-    //Automatically Registers this to the NetworkEventBus when the system is running on the Client Side
-    static {
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-            SmithsCore.getRegistry().getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
-        }
-    }
-
     /**
      * Method for handling the Network event when it arrives on the client side.
      *

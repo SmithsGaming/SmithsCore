@@ -49,6 +49,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     @Override
     public void onGuiClosed() {
+        getManager().clearAllRegisteredComponents();
         SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiClosedEvent(FMLClientHandler.instance().getClientPlayerEntity(), (ContainerSmithsCore) this.inventorySlots));
 
         super.onGuiClosed();

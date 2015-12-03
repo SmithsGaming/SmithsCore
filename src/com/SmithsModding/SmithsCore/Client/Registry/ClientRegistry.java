@@ -6,7 +6,15 @@
 
 package com.SmithsModding.SmithsCore.Client.Registry;
 
+import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIClosedEventHandler;
+import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIOpenedEventHandler;
+import com.SmithsModding.SmithsCore.Client.Mouse.MouseManager;
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
+import com.SmithsModding.SmithsCore.Common.Player.Handlers.PlayersConnectedUpdatedEventHandler;
+import com.SmithsModding.SmithsCore.Common.Player.Handlers.PlayersOnlineUpdatedEventHandler;
 import com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
@@ -16,10 +24,32 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
  */
 public class ClientRegistry extends CommonRegistry {
 
+    MouseManager manager;
+
     //This event bus is used for client specific stuff only. It handles GUI Events.
     //All other events should be fired on the CommonBus.
     //If a NetworkSyncableEvent is fired it will automatically be synced to the Server and is there fired on the NetworkRelayBus
     private final EventBus iClientEventBus = new EventBus();
+
+    public ClientRegistry(){
+        manager = new MouseManager();
+    }
+
+    /**
+     * Function used to register the EventHandlers
+     */
+    @Override
+    public void registerEventHandlers() {
+        getNetworkBus().register(new ContainerGUIOpenedEventHandler());
+        getNetworkBus().register(new ContainerGUIClosedEventHandler());
+
+        getCommonBus().register(new CommonNetworkableEventHandler());
+
+        getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
+        getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
+
+        MinecraftForge.EVENT_BUS.register(manager);
+    }
 
     /**
      * The event bus used for client events. Under common code this is the standard Common event bus on the client side is this a special event bus
@@ -31,5 +61,10 @@ public class ClientRegistry extends CommonRegistry {
     @Override
     public EventBus getClientBus() {
         return iClientEventBus;
+    }
+
+    public MouseManager getMouseManager()
+    {
+        return manager;
     }
 }

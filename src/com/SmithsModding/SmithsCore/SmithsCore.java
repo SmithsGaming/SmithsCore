@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by Orion
  * Created on 25.10.2015
@@ -51,7 +53,14 @@ public class SmithsCore {
     public void preInit(FMLPreInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
 
+        getLogger().info(CoreReferences.LogMarkers.PREINIT, "Initializing event handlers.");
+        getRegistry().registerEventHandlers();
+        getRegistry().initializeNetwork();
+
         watch.stop();
+
+        Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
+        getLogger().info(CoreReferences.LogMarkers.PREINIT, "SmithsCore Pre-Init completed after: " + milliseconds + " mS.");
     }
 
     @Mod.EventHandler
@@ -59,6 +68,9 @@ public class SmithsCore {
         Stopwatch watch = Stopwatch.createStarted();
 
         watch.stop();
+
+        Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
+        getLogger().info(CoreReferences.LogMarkers.INIT, "SmithsCore Init completed after: " + milliseconds + " ms.");
     }
 
     @Mod.EventHandler
@@ -66,5 +78,8 @@ public class SmithsCore {
         Stopwatch watch = Stopwatch.createStarted();
 
         watch.stop();
+
+        Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
+        getLogger().info(CoreReferences.LogMarkers.POSTINIT, "SmithsCore Post-Init completed after: " + milliseconds + " ms.");
     }
 }

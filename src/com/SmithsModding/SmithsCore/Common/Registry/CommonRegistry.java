@@ -6,6 +6,13 @@
 
 package com.SmithsModding.SmithsCore.Common.Registry;
 
+import com.SmithsModding.SmithsCore.Client.GUI.Events.ContainerGuiOpenedEvent;
+import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIClosedEventHandler;
+import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIOpenedEventHandler;
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
+import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
+import com.SmithsModding.SmithsCore.SmithsCore;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
@@ -21,6 +28,26 @@ public class CommonRegistry {
     //Eventbus used for events that are fired commonly on both sides of Minecraft. It is for example used the handle Container and TE Initialization or
     //to handle access right management for blocks that implement it.
     private final EventBus iCommonEventBus = new EventBus();
+
+    /**
+     * Function used to register the EventHandlers
+     */
+    public void registerEventHandlers()
+    {
+        getNetworkBus().register(new ContainerGUIOpenedEventHandler());
+        getNetworkBus().register(new ContainerGUIClosedEventHandler());
+
+        getCommonBus().register(new CommonNetworkableEventHandler());
+    }
+
+    /**
+     * Function used to initialize the Network components of SmithsCore.
+     */
+    public void initializeNetwork()
+    {
+        EventNetworkManager.Init();
+    }
+
 
     /**
      * Function used to handle specific events that happened on the client side, and were synced over because they could have an impact on the server side.

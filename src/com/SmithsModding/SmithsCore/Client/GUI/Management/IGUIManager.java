@@ -1,5 +1,7 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
+import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
+
 import java.util.UUID;
 
 /**
@@ -11,6 +13,27 @@ import java.util.UUID;
  */
 public interface IGUIManager
 {
+
+    /**
+     * Function used to register a new Component when this manager.
+     *
+     * @param component The new Component.
+     */
+    void registerComponent(IGUIComponent component);
+
+    /**
+     * Function used to get a IGUIComponent from a ID.
+     *
+     * @param id The ID of the component you are looking for.
+     * @return Null if no component is registered to this Manager or the Component that has the given ID;
+     */
+    IGUIComponent getComponentFromID(String id);
+
+    /**
+     * Function used to clear the list of registered components. Should be called when the GUI gets closed or
+     * when the Components get reset.
+     */
+    void clearAllRegisteredComponents();
 
     /**
      * Method called when a player closed the linked UI.

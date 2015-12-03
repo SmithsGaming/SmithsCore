@@ -1,5 +1,8 @@
 package com.SmithsModding.SmithsCore.Util;
 
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 /**
  * Created by Orion
  * Created on 26.10.2015
@@ -22,5 +25,16 @@ public class CoreReferences {
         public static final String UUID_LEAST_SIG = "UUIDLeastSig";
         public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
         public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
+    }
+
+    public static final class LogMarkers {
+        public static final Marker CLIENT = MarkerManager.getMarker("[Client]");
+        public static final Marker COMMON = MarkerManager.getMarker("[Common]");
+
+        public static final Marker PREINIT = MarkerManager.getMarker("[Pre-Init]", COMMON);
+        public static final Marker INIT = MarkerManager.getMarker("[Init]", COMMON);
+        public static final Marker POSTINIT = MarkerManager.getMarker("[Post-Init]", COMMON);
+
+        public static final Marker RENDER = MarkerManager.getMarker("[Render]", CLIENT);
     }
 }
