@@ -78,9 +78,6 @@ dependencies {
 
 sourceSets {
     main {
-        java {
-            srcDir 'src'
-        }
         resources {
             srcDir 'resources'
         }
@@ -111,22 +108,12 @@ jar {
     }
 }
 
-task devJar(type: Jar, dependsOn: 'classes') {
-    from(sourceSets.main.output) {
-        include '**'
-    }
-
-    extension = 'jar'
-    classifier = 'dev'
-}
-
 task javadocJar(type: Jar, dependsOn: 'javadoc') {
     from "build/docs/javadoc"
     classifier "javadoc"
 }
 
 artifacts {
-    archives devJar
     archives javadocJar
 }
 
