@@ -12,7 +12,7 @@ import net.minecraft.inventory.Container;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public abstract class ContainerSmithsCore extends Container implements IGUIBasedComponentHost {
+public abstract class ContainerSmithsCore extends Container implements IContainerHost {
 
     IGUIManager manager;
     IContainerHost host;
@@ -34,6 +34,7 @@ public abstract class ContainerSmithsCore extends Container implements IGUIBased
      *
      * @return The ID of this Container Instance.
      */
+    @Override
     public String getContainerID() {
         return containerID;
     }

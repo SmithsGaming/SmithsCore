@@ -1,5 +1,6 @@
 package com.SmithsModding.SmithsCore.Util.Client.Color;
 
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
 import javax.vecmath.Vector2d;
@@ -215,14 +216,14 @@ public class MinecraftColor extends Color {
      * Convenient function to reset the Color in the GL Buffer to the Default.
      */
     public static final void resetOpenGLColoring() {
-        GL11.glColor4f(1F, 1F, 1F, 1F);
+        GlStateManager.color(1F, 1F, 1F, 1F);
     }
 
     /**
      * Convenient Function to perform Coloring of the GL buffer in this Color.
      */
     public void performOpenGLColoring() {
-        GL11.glColor4f(getRed() / 255F, getGreen() / 255F, getBlue() / 255F, getAlpha() / 255F);
+        GlStateManager.color(getRed() / 255F, getGreen() / 255F, getBlue() / 255F, getAlpha() / 255F);
     }
 
     /**

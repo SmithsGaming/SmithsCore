@@ -15,9 +15,11 @@ public interface IGUIComponentState
     IGUIComponent getComponent();
 
     /**
-     * Function to
+     * Method to retrieve the enabled state of the Component, when the component is disabked it will be rendered darker
+     * and it will also not retrieve any input, regardless of the fact that it had set the ForceInputRequried option to
+     * true.
      *
-     * @return
+     * @return True whem enabled, False ehn not.
      */
     boolean isEnabled();
 
@@ -27,4 +29,20 @@ public interface IGUIComponentState
      * @param state The new enabled State.
      */
     void setEnabledState(boolean state);
+
+    /**
+     * Method to retrieve the visible state of the Component, when the component is hidden (false) it will not be
+     * rendered by the RenderManager, but it will continue to get input. Allowing for hidden components that react to
+     * input but are not visible to the user.
+     *
+     * @return True when visible, false when not.
+     */
+    boolean isVisible();
+
+    /**
+     * Method to set the vsibility state of a Component.
+     *
+     * @param state Then new visibilitys state of a component.
+     */
+    void setVisibleState(boolean state);
 }

@@ -45,4 +45,8 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public void setManager(IGUIManager newManager) {
         manager = newManager;
     }
+
+    public abstract String getGlobalTileEntityId();
+
+    public abstract boolean shouldAutoSaveInventoryToNBT();
 }
