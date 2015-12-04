@@ -38,6 +38,11 @@ def getDate() {
 
 def build_mode = config.build_mode
 
+//These configurations are needed for uploading to a MavenRepo:
+configurations {
+    deployerJars
+}
+
 //Initializing the mod environment
 version = config.mod_version.toString() + "-" + System.getenv().TRAVIS_BUILD_NUMBER.toString()
 def apiversion = config.api_version.toString() + "-" + System.getenv().TRAVIS_BUILD_NUMBER.toString()
