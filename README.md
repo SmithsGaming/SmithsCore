@@ -5,7 +5,7 @@ Super mod required for all SmithsModding mods (eventually)
 
 ## Last Build Status:
   * Development:      [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=Development)](https://travis-ci.org/SmithsModding/SmithsCore)
-  * Minecraft 1.8:    [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=Development-1.8)](https://travis-ci.org/SmithsModding/SmithsCore)
+  * Development-1.8:    [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=Development-1.8)](https://travis-ci.org/SmithsModding/SmithsCore)
 
 ## Nightly Builds:
 http://mavenrepo.smithscore.orionminecraft.com/com/SmithsModding/SmithsCore/SmithsCore/
