@@ -17,6 +17,9 @@ public class ClientNetworkableEventHandler extends CommonNetworkableEventHandler
     @Override
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onEvent(NetworkableEvent pEvent) {
+        if (pEvent.getCommunicationMessage() == null)
+            return;
+
         EventNetworkManager.getInstance().sendToServer(pEvent.getCommunicationMessage());
     }
 }

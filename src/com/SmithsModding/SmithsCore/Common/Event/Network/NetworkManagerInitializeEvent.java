@@ -28,6 +28,7 @@ public class NetworkManagerInitializeEvent extends SmithsCoreEvent {
      */
     public NetworkManagerInitializeEvent(SimpleNetworkWrapper pChannel) {
         iChannel = pChannel;
+        iAdditionalMessage = new HashMap<Pair<Class, Class>, Side>();
     }
 
     /**

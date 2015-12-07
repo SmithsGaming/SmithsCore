@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * <p/>
  * The implementing event gets catched by a Event handler on the lowest priority.
  */
-public abstract class NetworkableEvent extends SmithsCoreEvent {
+public class NetworkableEvent extends SmithsCoreEvent {
 
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this Event.
@@ -31,7 +31,9 @@ public abstract class NetworkableEvent extends SmithsCoreEvent {
      *
      * @return An Instance of an IMessage class that describes this Event.
      */
-    public abstract IMessage getCommunicationMessage();
+    public IMessage getCommunicationMessage () {
+        return null;
+    }
 
     /**
      * This function is called on the reinstated event on the receiving side.
@@ -42,7 +44,9 @@ public abstract class NetworkableEvent extends SmithsCoreEvent {
      * @param pContext The Messages context.
      * @return A IMessage that describes the answer if need be, else null.
      */
-    public abstract IMessage handleCommunicationMessage(IMessage pMessage, MessageContext pContext);
+    public IMessage handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
+        return null;
+    }
 
     /**
      * Convenient function to post this event on the Network event bus within SmithsCore

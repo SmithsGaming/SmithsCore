@@ -55,6 +55,11 @@ public class NBTHelper {
         return itemStack != null && itemStack.getTagCompound() != null && itemStack.getTagCompound().hasKey(keyName);
     }
 
+    public static NBTTagCompound getTagCompound (ItemStack itemStack) {
+        initNBTTagCompound(itemStack);
+        return itemStack.getTagCompound();
+    }
+
     public static void removeTag(ItemStack itemStack, String keyName) {
         if (itemStack.getTagCompound() != null) {
             itemStack.getTagCompound().removeTag(keyName);
