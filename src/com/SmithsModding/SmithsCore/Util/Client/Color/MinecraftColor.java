@@ -1,7 +1,6 @@
 package com.SmithsModding.SmithsCore.Util.Client.Color;
 
 import net.minecraft.client.renderer.GlStateManager;
-import org.lwjgl.opengl.GL11;
 
 import javax.vecmath.Vector2d;
 import java.awt.*;
@@ -20,6 +19,7 @@ import java.awt.image.ColorModel;
  * Copyrighted according to Project specific license
  */
 public class MinecraftColor extends Color {
+
     /**
      * Creates an opaque sRGB color with the specified red, green,
      * and blue values in the range (0 - 255).
@@ -173,50 +173,58 @@ public class MinecraftColor extends Color {
     }
 
     /**
-     * Function to get the Red value in Float. 
-     * 
-      * @return A Float between 0 and 1.0 indicating the state of the Red Channel in this Color
+     * Constructor used to convert a standard Color into a MinecraftColor
+     *
+     * @param original The standard color.
      */
-    public float getRedFloat()
+    public MinecraftColor (Color original) {
+        super(original.getRed(), original.getGreen(), original.getBlue(), original.getAlpha());
+    }
+
+    /**
+     * Convenient function to reset the Color in the GL Buffer to the Default.
+     */
+    public static final void resetOpenGLColoring () {
+        GlStateManager.color(1F, 1F, 1F, 1F);
+    }
+
+    /**
+     * Function to get the Red value in Float.
+     *
+     * @return A Float between 0 and 1.0 indicating the state of the Red Channel in this Color
+     */
+    public float getRedFloat ()
     {
         return getRed() / 255F;
     }
 
     /**
-     * Function to get the Green value in Float. 
+     * Function to get the Green value in Float.
      *
      * @return A Float between 0 and 1.0 indicating the state of the Green Channel in this Color
      */
-    public float getGreenFloat()
+    public float getGreenFloat ()
     {
         return getGreen() / 255F;
     }
 
     /**
-     * Function to get the Blue value in Float. 
+     * Function to get the Blue value in Float.
      *
      * @return A Float between 0 and 1.0 indicating the state of the Blue Channel in this Color
      */
-    public float getBlueFloat()
+    public float getBlueFloat ()
     {
         return getBlue() / 255F;
     }
-
+    
     /**
-     * Function to get the Alpha value in Float. 
+     * Function to get the Alpha value in Float.
      *
      * @return A Float between 0 and 1.0 indicating the state of the Alpha Channel in this Color
      */
-    public float getAlphaFloat()
-    {
+    public float getAlphaFloat () {
         return getAlpha() / 255F;
-    }
-    
-    /**
-     * Convenient function to reset the Color in the GL Buffer to the Default.
-     */
-    public static final void resetOpenGLColoring() {
-        GlStateManager.color(1F, 1F, 1F, 1F);
     }
 
     /**
