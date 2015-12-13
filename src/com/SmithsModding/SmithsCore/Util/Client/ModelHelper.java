@@ -1,28 +1,26 @@
 package com.SmithsModding.SmithsCore.Util.Client;
 
-import com.SmithsModding.SmithsCore.Util.Client.Color.MinecraftColor;
-import com.google.common.base.Charsets;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
+import com.google.common.base.*;
+import com.google.common.collect.*;
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.IResource;
-import net.minecraft.util.ResourceLocation;
+import com.google.gson.reflect.*;
+import net.minecraft.block.*;
+import net.minecraft.block.state.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.client.resources.*;
+import net.minecraft.client.resources.model.*;
+import net.minecraft.util.*;
 import net.minecraftforge.client.model.*;
+import net.minecraftforge.client.model.pipeline.*;
 
-import javax.vecmath.Vector3f;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.util.Map;
+import javax.vecmath.*;
+import java.io.*;
+import java.lang.reflect.*;
+import java.util.*;
 
 /**
  * Created by Marc on 06.12.2015.
@@ -134,6 +132,63 @@ public class ModelHelper {
         return ImmutableMap.of();
     }
 
+    public static float[][][] getUnpackedQuadData (UnpackedBakedQuad quad, VertexFormat format) {
+        int[] vertexData = quad.getVertexData();
+        float[][][] unpackedData = new float[4][format.getElementCount()][4];
+
+        for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++) {
+            for (int vertexElementTypeIndex = 0; vertexElementTypeIndex < format.getElementCount(); vertexElementTypeIndex++) {
+                LightUtil.unpack(vertexData, unpackedData[vertexIndex][vertexElementTypeIndex], format, vertexIndex, vertexElementTypeIndex);
+            }
+        }
+
+        return unpackedData;
+    }
+
+    public static int[] getPackedQuadData (float[][][] unpackedData, VertexFormat format) {
+        int[] vertexData = new int[format.getNextOffset()];
+
+        for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++) {
+            for (int vertexElementTypeIndex = 0; vertexElementTypeIndex < format.getElementCount(); vertexElementTypeIndex++) {
+                LightUtil.pack(unpackedData[vertexIndex][vertexElementTypeIndex], vertexData, format, vertexIndex, vertexElementTypeIndex);
+            }
+        }
+
+        return vertexData;
+    }
+
+    public static void setNormalsToIgnoreLightingOnItem (float[][][] unpackedData) {
+        if (unpackedData.length != 4)
+            throw new IllegalArgumentException("The given data is not in UnpackedBakedQuad format!");
+
+        for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++) {
+            if (unpackedData[vertexIndex].length != 5)
+                throw new IllegalArgumentException("The given unpacked data contains a vertex that is not in Item format!");
+
+            float[] normalData = unpackedData[vertexIndex][3];
+
+            if (normalData.length != 4)
+                throw new IllegalArgumentException("The given unpacked data contains a vertex that is not in Item format!");
+
+            normalData[0] = 0f;
+            normalData[1] = 1f;
+            normalData[2] = 0f;
+            normalData[3] = 0f;
+        }
+    }
+
+    public static void setNormalsToIgnoreLightingOnItemModel (IBakedModel model) {
+        for (BakedQuad quad : model.getGeneralQuads()) {
+            float[][][] unmodifiedUnpackedQuadData = ModelHelper.getUnpackedQuadData((UnpackedBakedQuad) quad, DefaultVertexFormats.ITEM);
+            ModelHelper.setNormalsToIgnoreLightingOnItem(unmodifiedUnpackedQuadData);
+            int[] packedData = ModelHelper.getPackedQuadData(unmodifiedUnpackedQuadData, DefaultVertexFormats.ITEM);
+
+            for (int dataIndex = 0; dataIndex < quad.getVertexData().length; dataIndex++) {
+                quad.getVertexData()[dataIndex] = packedData[dataIndex];
+            }
+        }
+    }
+
     /**
      * Deseralizes a json in the format of { "textures": { "foo": "texture",... }}
      * Ignores all invalid json
@@ -158,4 +213,6 @@ public class ModelHelper {
             return GSON.fromJson(texElem, maptype);
         }
     }
+
+
 }
