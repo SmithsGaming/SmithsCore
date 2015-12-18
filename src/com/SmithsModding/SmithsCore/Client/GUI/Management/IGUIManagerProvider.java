@@ -1,7 +1,5 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
-
 /**
  * Created by Orion
  * Created on 01.12.2015
@@ -9,7 +7,7 @@ import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public interface IGUIManagerProvider extends IGUIComponent
+public interface IGUIManagerProvider
 {
 
     /**

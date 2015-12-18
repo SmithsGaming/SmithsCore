@@ -1,12 +1,10 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Host;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManager;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManagerProvider;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import net.minecraft.client.gui.Gui;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
+import net.minecraft.client.gui.*;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Orion
@@ -15,7 +13,7 @@ import java.util.HashMap;
  * <p/>
  * Copyrighted according to Project specific license
  */
-public interface IGUIBasedComponentHost extends IGUIManagerProvider
+public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUIComponent
 {
 
     /**

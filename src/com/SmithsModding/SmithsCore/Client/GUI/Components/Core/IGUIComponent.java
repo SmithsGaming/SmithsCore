@@ -1,9 +1,8 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Components;
+package com.SmithsModding.SmithsCore.Client.GUI.Components.Core;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 
 /**
  * Created by Orion

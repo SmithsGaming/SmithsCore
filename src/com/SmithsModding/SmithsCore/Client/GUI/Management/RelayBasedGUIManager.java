@@ -1,8 +1,8 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Orion

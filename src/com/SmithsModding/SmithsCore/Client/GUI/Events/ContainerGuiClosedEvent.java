@@ -6,15 +6,14 @@
 
 package com.SmithsModding.SmithsCore.Client.GUI.Events;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.StandardNetworkableEvent;
-import com.SmithsModding.SmithsCore.Common.Inventory.ContainerSmithsCore;
-import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
+import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.Common.Inventory.*;
+import io.netty.buffer.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Eevnt fired on the ClientSide to signal that a User opened a UI.
@@ -99,14 +98,14 @@ public class ContainerGuiClosedEvent extends StandardNetworkableEvent {
      * @return A IMessage that describes the answer if need be, else null.
      */
     @Override
-    public IMessage handleCommunicationMessage(IMessage pMessage, MessageContext pContext) {
+    public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
         //Retrieve the Player from the Context.
         if (pContext.side == Side.SERVER) {
             player = pContext.getServerHandler().playerEntity;
 
-            return super.handleCommunicationMessage(pMessage, pContext);
+            super.handleCommunicationMessage(pMessage, pContext);
         } else {
-            return super.handleCommunicationMessage(pMessage, pContext);
+            super.handleCommunicationMessage(pMessage, pContext);
         }
     }
 }

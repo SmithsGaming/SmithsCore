@@ -1,11 +1,9 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
-import com.SmithsModding.SmithsCore.SmithsCore;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Orion

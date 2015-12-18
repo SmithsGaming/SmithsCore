@@ -1,15 +1,14 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
-import com.SmithsModding.SmithsCore.Client.Registry.ClientRegistry;
-import com.SmithsModding.SmithsCore.SmithsCore;
-import com.SmithsModding.SmithsCore.Util.Client.Color.MinecraftColor;
-import com.SmithsModding.SmithsCore.Util.Client.GUI.GuiHelper;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.Client.Registry.*;
+import com.SmithsModding.SmithsCore.*;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
+import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
 
 /**
  * Created by marcf on 12/3/2015.

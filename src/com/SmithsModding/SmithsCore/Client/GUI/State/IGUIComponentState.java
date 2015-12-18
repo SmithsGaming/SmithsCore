@@ -1,6 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.State;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 
 /**
  * Created by Orion

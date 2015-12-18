@@ -6,10 +6,10 @@
 
 package com.SmithsModding.SmithsCore.Common.Event.Network;
 
-import com.SmithsModding.SmithsCore.Network.Event.Messages.StandardNetworkableEventSyncMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import io.netty.buffer.ByteBuf;
+import com.SmithsModding.SmithsCore.Network.Event.Messages.*;
+import io.netty.buffer.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Standard implementation of the Networkable Event.
@@ -49,10 +49,12 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      * A warning: You will have to register the IMessage and its handler to the EventNetworkManager.getInstance()
      * yourself
      *
+     * @param side The side this event is synced TO!
+     *
      * @return An Instance of an IMessage class that describes this Event.
      */
     @Override
-    public IMessage getCommunicationMessage() {
+    public IMessage getCommunicationMessage (Side side) {
         return new StandardNetworkableEventSyncMessage(this);
     }
 
@@ -66,9 +68,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      * @return A IMessage that describes the answer if need be, else null.
      */
     @Override
-    public IMessage handleCommunicationMessage(IMessage pMessage, MessageContext pContext) {
+    public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
         PostNetwork();
-
-        return null;
     }
 }

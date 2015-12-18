@@ -6,10 +6,11 @@
 
 package com.SmithsModding.SmithsCore.Common.Event.Network;
 
-import com.SmithsModding.SmithsCore.Common.Event.SmithsCoreEvent;
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import com.SmithsModding.SmithsCore.Common.Event.*;
+import com.SmithsModding.SmithsCore.Network.Event.*;
+import com.SmithsModding.SmithsCore.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
@@ -29,9 +30,11 @@ public class NetworkableEvent extends SmithsCoreEvent {
      * A warning: You will have to register the IMessage and its handler to the EventNetworkManager.getInstance()
      * yourself
      *
+     * @param side The side this event is synced TO!
+     *
      * @return An Instance of an IMessage class that describes this Event.
      */
-    public IMessage getCommunicationMessage () {
+    public IMessage getCommunicationMessage (Side side) {
         return null;
     }
 
@@ -44,8 +47,23 @@ public class NetworkableEvent extends SmithsCoreEvent {
      * @param pContext The Messages context.
      * @return A IMessage that describes the answer if need be, else null.
      */
-    public IMessage handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
-        return null;
+    public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
+    }
+
+    /**
+     * Method called by the EventHandler to indicate this event that it should sent it self from teh server to the
+     * client side.
+     */
+    public void handleServerToClientSide () {
+        EventNetworkManager.getInstance().sendToAll(this.getCommunicationMessage(Side.CLIENT));
+    }
+
+    /**
+     * Method called by the EventHandler to indicate this event that it should sent it self from teh client to the
+     * server side.
+     */
+    public void handleClientToServerSide () {
+        EventNetworkManager.getInstance().sendToServer(this.getCommunicationMessage(Side.SERVER));
     }
 
     /**

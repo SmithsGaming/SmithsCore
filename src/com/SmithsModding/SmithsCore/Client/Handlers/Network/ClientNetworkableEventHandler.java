@@ -6,20 +6,19 @@
 
 package com.SmithsModding.SmithsCore.Client.Handlers.Network;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.NetworkableEvent;
-import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
-import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
+import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class ClientNetworkableEventHandler extends CommonNetworkableEventHandler {
 
     @Override
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onEvent(NetworkableEvent pEvent) {
-        if (pEvent.getCommunicationMessage() == null)
+        if (pEvent.getCommunicationMessage(Side.SERVER) == null)
             return;
 
-        EventNetworkManager.getInstance().sendToServer(pEvent.getCommunicationMessage());
+        pEvent.handleClientToServerSide();
     }
 }

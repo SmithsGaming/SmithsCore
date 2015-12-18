@@ -1,7 +1,7 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.IGUIComponent;
-import net.minecraft.client.gui.Gui;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import net.minecraft.client.gui.*;
 
 /**
  * Created by marcf on 12/3/2015.

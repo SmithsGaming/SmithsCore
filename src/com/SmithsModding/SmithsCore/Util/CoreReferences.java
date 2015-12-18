@@ -1,7 +1,6 @@
 package com.SmithsModding.SmithsCore.Util;
 
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
+import org.apache.logging.log4j.*;
 
 /**
  * Created by Orion
@@ -25,6 +24,14 @@ public class CoreReferences {
         public static final String UUID_LEAST_SIG = "UUIDLeastSig";
         public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
         public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
+
+        public static final String INVENTORY = "SmithsCore.Inventory";
+        public static final String STATE = "SmithsCore.State";
+
+        public static class InventoryData {
+            public static final String SLOTINDEX = "SmithsCore.Inventory.SlotIndex";
+            public static final String STACKDATA = "SmithsCore.Inventory.ItemStackData";
+        }
     }
 
     public static final class LogMarkers {
@@ -36,5 +43,7 @@ public class CoreReferences {
         public static final Marker POSTINIT = MarkerManager.getMarker("[Post-Init]", COMMON);
 
         public static final Marker RENDER = MarkerManager.getMarker("[Render]", CLIENT);
+
+        public static final Marker TESYNC = MarkerManager.getMarker("[TE-Sync]", COMMON);
     }
 }
