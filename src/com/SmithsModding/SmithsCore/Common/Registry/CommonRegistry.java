@@ -6,14 +6,10 @@
 
 package com.SmithsModding.SmithsCore.Common.Registry;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Events.ContainerGuiOpenedEvent;
-import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIClosedEventHandler;
-import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIOpenedEventHandler;
-import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
-import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.EventBus;
+import com.SmithsModding.SmithsCore.Client.GUI.Handlers.*;
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
+import com.SmithsModding.SmithsCore.Network.Event.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
  * Central point of Data for the SmithsCore mod.
