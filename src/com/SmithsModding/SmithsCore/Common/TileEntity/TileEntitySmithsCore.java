@@ -8,6 +8,7 @@ package com.SmithsModding.SmithsCore.Common.TileEntity;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Common.Event.*;
+import com.SmithsModding.SmithsCore.Common.Fluid.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import com.SmithsModding.SmithsCore.Common.TileEntity.State.*;
 import com.SmithsModding.SmithsCore.*;
@@ -17,6 +18,9 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
+import net.minecraftforge.fluids.*;
+
+import java.util.*;
 
 public abstract class TileEntitySmithsCore extends TileEntity implements IContainerHost {
 
@@ -33,6 +37,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      */
     protected TileEntitySmithsCore (ITileEntityState initialState, IGUIManager manager) {
         setManager(manager);
+        setState(initialState);
     }
 
 
@@ -43,9 +48,11 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         if (this instanceof IInventory)
             this.readInventoryFromCompound(compound.getTag(CoreReferences.NBT.INVENTORY));
 
+        if (this instanceof IFluidContainingEntity)
+            this.readFluidsFromCompound(compound.getTag(CoreReferences.NBT.FLUIDS));
+
         if (getState().requiresNBTStorage())
             this.getState().readFromNBTTagCompound(compound.getTag(CoreReferences.NBT.STATE));
-
     }
 
     @Override
@@ -54,6 +61,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (this instanceof IInventory)
             compound.setTag(CoreReferences.NBT.INVENTORY, this.writeInventoryToCompound());
+
+        if (this instanceof IFluidContainingEntity)
+            compound.setTag(CoreReferences.NBT.FLUIDS, this.writeFluidsToCompound());
 
         if (getState().requiresNBTStorage())
             compound.setTag(CoreReferences.NBT.STATE, this.getState().writeToNBTTagCompound());
@@ -83,6 +93,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         return new Coordinate3D(this.pos);
     }
 
+
     /**
      * Function to get the IGUIManager.
      *
@@ -103,6 +114,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         manager = newManager;
     }
 
+
     /**
      * Getter for the current TE State.
      *
@@ -119,7 +131,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      */
     public void setState (ITileEntityState state) {
         this.state = state;
+        state.onStateCreated(this);
     }
+
 
     /**
      * Standard method to write the Inventory data of this TE to the NBTCompound that stores this TE's Data.
@@ -166,6 +180,49 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         }
     }
 
+
+    /**
+     * Standard method to write the fluid data of this TE to the NBTCompound that stores this TE's Data.
+     *
+     * @return A NBTTagList with all fluids in the Tile.
+     */
+    public NBTBase writeFluidsToCompound () {
+        IFluidContainingEntity fluidContainingEntity = (IFluidContainingEntity) this;
+
+        NBTTagList fluidData = new NBTTagList();
+
+        for (FluidStack stack : fluidContainingEntity.getAllFluids()) {
+            fluidData.appendTag(stack.writeToNBT(new NBTTagCompound()));
+        }
+
+        return fluidData;
+    }
+
+    /**
+     * Standard method to read the fluids data of this TE from the NBTCompound that stores this TE's Data.
+     *
+     * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the fluids in
+     *                          this TileEntity.
+     */
+    public void readFluidsFromCompound (NBTBase inventoryCompound) {
+        if (!( inventoryCompound instanceof NBTTagList ))
+            throw new IllegalArgumentException("The given store type is not compatible with this TE!");
+
+        IFluidContainingEntity fluidContainingEntity = (IFluidContainingEntity) this;
+
+        NBTTagList inventoryList = (NBTTagList) inventoryCompound;
+        ArrayList<FluidStack> fluidStacks = new ArrayList<FluidStack>();
+
+        for (int i = 0; i < inventoryList.tagCount(); i++) {
+            NBTTagCompound fluidCompound = (NBTTagCompound) inventoryList.get(i);
+
+            fluidStacks.add(FluidStack.loadFluidStackFromNBT(fluidCompound));
+        }
+
+        fluidContainingEntity.setAllFluids(fluidStacks);
+    }
+
+
     /**
      * Method called by the synchronization system to send the data to the Client.
      *
@@ -178,6 +235,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (this instanceof IInventory)
             synchronizationCompound.setTag(CoreReferences.NBT.INVENTORY, this.writeInventoryToCompound());
+
+        if (this instanceof IFluidContainingEntity)
+            synchronizationCompound.setTag(CoreReferences.NBT.FLUIDS, this.writeFluidsToCompound());
 
         if (getState().requiresSynchronization())
             synchronizationCompound.setTag(CoreReferences.NBT.STATE, this.getState().writeToSynchronizationCompound());
@@ -193,6 +253,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public void readFromSynchronizationCompound (NBTTagCompound synchronizationCompound) {
         if (this instanceof IInventory)
             this.readInventoryFromCompound(synchronizationCompound.getTag(CoreReferences.NBT.INVENTORY));
+
+        if (this instanceof IFluidContainingEntity)
+            this.readFluidsFromCompound(synchronizationCompound.getTag(CoreReferences.NBT.FLUIDS));
 
         if (getState().requiresSynchronization())
             this.getState().readFromNBTTagCompound(synchronizationCompound.getTag(CoreReferences.NBT.STATE));

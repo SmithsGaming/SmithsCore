@@ -1,18 +1,14 @@
 package com.SmithsModding.SmithsCore;
 
-import com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy;
-import com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry;
-import com.SmithsModding.SmithsCore.Util.CoreReferences;
-import com.google.common.base.Stopwatch;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.SmithsModding.SmithsCore.Common.Proxy.*;
+import com.SmithsModding.SmithsCore.Common.Registry.*;
+import com.SmithsModding.SmithsCore.Util.*;
+import com.google.common.base.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.event.*;
+import org.apache.logging.log4j.*;
 
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Created by Orion
@@ -41,7 +37,7 @@ public class SmithsCore {
 
     // Proxies used to register stuff client and server side.
     @SidedProxy(clientSide = "com.SmithsModding.SmithsCore.Client.Proxy.CoreClientProxy", serverSide = "com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy")
-    private static CoreCommonProxy iProxy;
+    private static CoreCommonProxy proxy;
 
     public static final SmithsCore getInstance(){ return instance; }
 
@@ -85,6 +81,8 @@ public class SmithsCore {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         Stopwatch watch = Stopwatch.createStarted();
+
+        proxy.Init();
 
         watch.stop();
 

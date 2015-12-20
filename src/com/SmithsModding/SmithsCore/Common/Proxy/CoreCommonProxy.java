@@ -1,12 +1,11 @@
 package com.SmithsModding.SmithsCore.Common.Proxy;
 
 
-import com.SmithsModding.SmithsCore.Common.Handlers.Network.CommonNetworkableEventHandler;
-import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraftforge.fml.relauncher.Side;
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
+import com.SmithsModding.SmithsCore.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * Common class used to manage code that runs on both sides of Minecraft.
@@ -36,7 +35,7 @@ public class CoreCommonProxy {
      * Also initializes most of the Network code for the Server.
      */
     public void Init() {
-        EventNetworkManager.Init();
+
     }
 
     /**

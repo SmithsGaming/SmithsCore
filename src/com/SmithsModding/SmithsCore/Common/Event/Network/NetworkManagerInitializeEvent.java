@@ -6,12 +6,12 @@
 
 package com.SmithsModding.SmithsCore.Common.Event.Network;
 
-import com.SmithsModding.SmithsCore.Common.Event.SmithsCoreEvent;
-import com.SmithsModding.SmithsCore.Util.Common.Pair;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
+import com.SmithsModding.SmithsCore.Common.Event.*;
+import com.SmithsModding.SmithsCore.Util.Common.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Event used to tell Other mods that a NetworkManager is about to be Initialized.
@@ -37,7 +37,7 @@ public class NetworkManagerInitializeEvent extends SmithsCoreEvent {
      * <p/>
      * Use this function instead of registering the Message directly so you don't have to worry about the Channel ID
      *
-     * @param pHandlerClass  The Message Handler class on the receiving end.
+     * @param pHandlerClass  The Message Handlers class on the receiving end.
      * @param pMessageClass  The Message Class.
      * @param pReceivingSide The Receiving side.
      */

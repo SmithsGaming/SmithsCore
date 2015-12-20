@@ -6,11 +6,11 @@
 
 package com.SmithsModding.SmithsCore.Common.Event;
 
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraft.network.INetHandler;
+import com.SmithsModding.SmithsCore.*;
+import net.minecraft.network.*;
+import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Root class for all SmithsCore Events.
@@ -33,7 +33,7 @@ public class SmithsCoreEvent extends Event {
     /**
      * Function used to get the sided NetworkingHandler.
      *
-     * @param pContext The Context of the Message for which the Handler has to be retrieved.
+     * @param pContext The Context of the Message for which the Handlers has to be retrieved.
      * @return The ClientNetHandler on the ClientSide and the ServerNetHandler on the server side.
      */
     public INetHandler getSidedPlayerHandlerFromContext(MessageContext pContext) {
