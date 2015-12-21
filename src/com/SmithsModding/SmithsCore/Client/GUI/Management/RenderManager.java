@@ -185,7 +185,43 @@ public class RenderManager implements IRenderManager {
      */
     @Override
     public void renderForegroundComponent(IGUIComponent component) {
+        if (!component.getState().isVisible())
+            return;
 
+        if (component instanceof IGUIBasedComponentHost) {
+            GlStateManager.pushMatrix();
+
+            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+
+            for (IGUIComponent subComponent : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
+                GlStateManager.pushMatrix();
+
+                this.renderForegroundComponent(subComponent);
+
+                GlStateManager.popMatrix();
+            }
+
+            GlStateManager.popMatrix();
+        } else {
+            ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
+
+            GlStateManager.pushMatrix();
+
+            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+
+            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
+
+            IGUIComponentState state = component.getState();
+
+            component.drawForeground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
+
+            if (!state.isEnabled()) {
+                MinecraftColor.resetOpenGLColoring();
+                GlStateManager.disableAlpha();
+                GlStateManager.disableBlend();
+            }
+            GlStateManager.popMatrix();
+        }
     }
 
     /**

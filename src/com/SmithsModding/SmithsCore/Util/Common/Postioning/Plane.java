@@ -17,7 +17,7 @@ public class Plane {
     public Plane() {
     }
 
-    public Plane(int pTopLeftXCoord, int pYCoord, int pWidth, int pHeigth, int pDepth) {
+    public Plane (int pTopLeftXCoord, int pYCoord, int pWidth, int pHeigth) {
         iTopLeftFrontCoord = new Coordinate2D(pTopLeftXCoord, pYCoord);
         iLowerRightBackCoord = new Coordinate2D(pTopLeftXCoord + pWidth, pYCoord + pHeigth);
 
