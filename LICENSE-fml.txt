@@ -218,7 +218,7 @@ above, provided that you also meet all of these conditions:
     application.  Therefore, Subsection 2d requires that any
     application-supplied function or table used by this function must
     be optional: if the application does not supply it, the square
-    root function must still compute square roots.)
+    parent function must still compute square roots.)
 
 These requirements apply to the modified work as a whole.  If
 identifiable sections of that work are not derived from the Library,

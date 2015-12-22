@@ -10,10 +10,14 @@ import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
 
+import java.util.*;
+
 /**
  * Created by marcf on 12/3/2015.
  */
 public class RenderManager implements IRenderManager {
+
+    private static ArrayList<MinecraftColor> colorStack = new ArrayList<MinecraftColor>();
 
     Gui root;
 
@@ -23,6 +27,33 @@ public class RenderManager implements IRenderManager {
             throw new IllegalArgumentException("The given Root for this manager is not a IGUIBasedComponentHost!");
 
         this.root = root;
+    }
+
+    /**
+     * Method should be used when rendering UI Components. It is used to set the color to a new one and remember the old
+     * one.
+     * <p/>
+     * Allows for the Enabled color to be put on the known stack, or any other color set by a component.
+     */
+    public static void pushColorOnRenderStack (MinecraftColor color) {
+        colorStack.add(0, color);
+        color.performOpenGLColoring();
+    }
+
+    /**
+     * Method should be used when rendering UI Components. It is used to reset the color to the previous state instead
+     * of to white.
+     * <p/>
+     * Allows for the Enabled color to be put on the known stack, or any other color set by a component.
+     */
+    public static void popColorFromRenderStack () {
+        if (colorStack.size() == 0) {
+            SmithsCore.getLogger().error("The color Stack is empty!");
+            return;
+        }
+
+        colorStack.remove(0);
+        colorStack.get(0).performOpenGLColoring();
     }
 
     /**
@@ -55,11 +86,12 @@ public class RenderManager implements IRenderManager {
         if (!component.getState().isVisible())
             return;
 
+
         if (component instanceof IGUIBasedComponentHost)
         {
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
             for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
             {
@@ -74,18 +106,14 @@ public class RenderManager implements IRenderManager {
         }
         else
         {
+
             ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
 
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
             GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
-
-            if (SmithsCore.isInDevenvironment())
-            {
-                GuiHelper.renderScissorDebugOverlay();
-            }
 
             IGUIComponentState state = component.getState();
 
@@ -93,17 +121,21 @@ public class RenderManager implements IRenderManager {
             {
                 GlStateManager.enableBlend();
                 GlStateManager.enableAlpha();
-                ((MinecraftColor) MinecraftColor.darkGray).performOpenGLColoring();
+                pushColorOnRenderStack(new MinecraftColor(MinecraftColor.darkGray));
             }
 
             component.drawBackground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
 
-            if (!state.isEnabled())
-            {
-                MinecraftColor.resetOpenGLColoring();
+            if (SmithsCore.isInDevenvironment()) {
+                //GuiHelper.renderScissorDebugOverlay();
+            }
+
+            if (!state.isEnabled()) {
+                popColorFromRenderStack();
                 GlStateManager.disableAlpha();
                 GlStateManager.disableBlend();
             }
+
             GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
@@ -126,15 +158,11 @@ public class RenderManager implements IRenderManager {
         {
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
             for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
             {
-                GlStateManager.pushMatrix();
-
                 this.renderSubBackgroundComponent(subComponent, !parentEnabled?false:subComponent.getState().isEnabled());
-
-                GlStateManager.popMatrix();
             }
 
             GlStateManager.popMatrix();
@@ -145,13 +173,12 @@ public class RenderManager implements IRenderManager {
 
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
             GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 
-            if (SmithsCore.isInDevenvironment())
-            {
-                GuiHelper.renderScissorDebugOverlay();
+            if (SmithsCore.isInDevenvironment()) {
+                //GuiHelper.renderScissorDebugOverlay();
             }
 
             IGUIComponentState state = component.getState();
@@ -171,6 +198,7 @@ public class RenderManager implements IRenderManager {
                 GlStateManager.disableAlpha();
                 GlStateManager.disableBlend();
             }
+
             GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
@@ -191,7 +219,7 @@ public class RenderManager implements IRenderManager {
         if (component instanceof IGUIBasedComponentHost) {
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
             for (IGUIComponent subComponent : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
                 GlStateManager.pushMatrix();
@@ -207,7 +235,7 @@ public class RenderManager implements IRenderManager {
 
             GlStateManager.pushMatrix();
 
-            GlStateManager.translate(component.getComponentRootAnchorPixel().getXComponent(), component.getComponentRootAnchorPixel().getYComponent(), 0F);
+            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
             GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 

@@ -6,8 +6,8 @@
 
 package com.SmithsModding.SmithsCore.Util.Common.Postioning;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.EnumFacing;
+import io.netty.buffer.*;
+import net.minecraft.util.*;
 
 public class Coordinate2D {
 
@@ -67,5 +67,9 @@ public class Coordinate2D {
     public void toBytes(ByteBuf pDataOut) {
         pDataOut.writeInt(getXComponent());
         pDataOut.writeInt(getYComponent());
+    }
+
+    public Coordinate2D getTranslatedCoordinate (Coordinate2D distance) {
+        return new Coordinate2D(this.iXCoord + distance.iXCoord, this.iYCoord + distance.getYComponent());
     }
 }

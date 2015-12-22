@@ -7,27 +7,19 @@
 package com.SmithsModding.SmithsCore.Util.Client.GUI;
 
 
-import com.SmithsModding.SmithsCore.Util.Client.Color.MinecraftColor;
-import com.SmithsModding.SmithsCore.Util.Client.CustomResource;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
+import com.SmithsModding.SmithsCore.Util.Client.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.texture.*;
+import net.minecraft.client.renderer.vertex.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fluids.*;
+import org.lwjgl.opengl.*;
 
 /**
  * Helper class to perform several functions while rendering
@@ -170,7 +162,6 @@ public final class GuiHelper {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-        ;
 
         worldrenderer.pos((double) (pX + 0), (double) (pY + pHeight), (double) pZ).tex((double) pIcon.getMinU(), (double) pIcon.getInterpolatedV(pHeight)).endVertex();
         worldrenderer.pos((double) (pX + pWidth), (double) (pY + pHeight), (double) pZ).tex((double) pIcon.getInterpolatedU(pWidth), (double) pIcon.getInterpolatedV(pHeight)).endVertex();
@@ -476,7 +467,7 @@ public final class GuiHelper {
 
         GL11.glPushAttrib(GL11.GL_SCISSOR_BIT);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
-        GL11.glScissor(pTargetPlane.TopLeftCoord().getXComponent() * GUISCALE, ((DISPLAYHEIGHT - pTargetPlane.TopLeftCoord().getYComponent()) * GUISCALE), (pTargetPlane.getWidth()) * GUISCALE, (pTargetPlane.getHeigth()) * GUISCALE);
+        GL11.glScissor(pTargetPlane.TopLeftCoord().getXComponent() * GUISCALE, ( ( DISPLAYHEIGHT - pTargetPlane.LowerRightCoord().getYComponent() ) * GUISCALE ), ( pTargetPlane.getWidth() ) * GUISCALE, ( pTargetPlane.getHeigth() ) * GUISCALE);
     }
 
     /**

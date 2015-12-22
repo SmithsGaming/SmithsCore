@@ -93,52 +93,10 @@ public class Textures {
                 }
             }
 
-
             public static class Images {
                 private static String IMAGETEXTUREPATH = GUITEXTUREPATH + "Images/";
                 public static CustomResource ARROWRIGHTGRAY = new CustomResource("Gui.Basic.Iamge.Arrow.Gray", IMAGETEXTUREPATH + "ArrowImage.png", Colors.DEFAULT, 0, 0, 22, 22);
                 public static CustomResource ARROWRIGHTWHITE = new CustomResource("Gui.Basic.Iamge.Arrow.White", IMAGETEXTUREPATH + "ArrowImage.png", Colors.DEFAULT, 22, 0, 22, 23);
-            }
-        }
-
-        public static class FirePit {
-            public static CustomResource THERMOMETERICON = new CustomResource("Gui.FirePit.Thermometer", TextureAddressHelper.getTextureAddress("armory", "Gui-Icons/16x Thermo"), Colors.DEFAULT);
-        }
-
-        public static class Anvil {
-            public static CustomResource HAMMER = new CustomResource("Gui.Anvil.Image.Hammer", Basic.Images.IMAGETEXTUREPATH + "AnvilHammer.png", Colors.DEFAULT, 0, 0, 30, 30);
-            public static CustomResource HAMMERSLOT = new CustomResource("Gui.Anvil.Slot.Hammer", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 18, 0, 18, 18);
-            public static CustomResource TONGSSLOT = new CustomResource("Gui.Anvil.Slot.Tongs", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 36, 0, 18, 18);
-            public static CustomResource BOOKSLOT = new CustomResource("Gui.Anvil.Slot.Book", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 55, 1, 16, 16);
-            public static CustomResource UPGRADETOOLSLOT = new CustomResource("Gui.Anvil.Slot.Book", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 73, 1, 16, 16);
-            public static CustomResource UPGRADEPAYMENTSLOT = new CustomResource("Gui.Anvil.Slot.Book", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 91, 1, 16, 16);
-            public static CustomResource EXPERIENCEORB = new CustomResource("Gui.Anvil.Image.ExperienceOrb", GUITEXTUREPATH + "Components/RandomElements.png", Colors.DEFAULT, 16, 0, 16, 16);
-
-        }
-
-        public static class BookBinder {
-            public static class TabBookBinding {
-                public static CustomResource BINDINGPROGRESSBACKGROUND = new CustomResource("Gui.BookBinder.TabBookbinding.BindingProgress.Background", GUITEXTUREPATH + "Components/" + "ProgressBars.png", Colors.DEFAULT, 0, 16, 32, 32);
-                public static CustomResource BINDINGPROGRESSFOREGROUND = new CustomResource("Gui.BookBinder.TabBookbinding.BindingProgress.Foreground", GUITEXTUREPATH + "Components/" + "ProgressBars.png", Colors.DEFAULT, 32, 16, 32, 32);
-                public static CustomResource BLUEPRINTSLOT = new CustomResource("Gui.BookBinder.TabBookbinding.Slot.Blueprint", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 109, 1, 16, 16);
-            }
-
-            public static class TabResearchStation {
-                public static CustomResource MAGNIFIER = new CustomResource("Gui.BookBinder.TabResearchStation.Magnifier", GUITEXTUREPATH + "ResearchStation/" + "ResearchButtons.png", Colors.DEFAULT, 0, 0, 16, 16);
-                public static CustomResource FLAMEFULL = new CustomResource("Gui.BookBinder.TabResearchStation.Flame.Full", COMPONENTTEXTUREPATH + "ProgressBars.png", Colors.DEFAULT, 60, 0, 16, 16);
-                public static CustomResource TONGS = new CustomResource("Gui.BookBinder.TabResearchStation.Tongs", GUITEXTUREPATH + "ResearchStation/" + "ResearchButtons.png", Colors.DEFAULT, 16, 0, 16, 16);
-                public static CustomResource HAMMER = new CustomResource("Gui.BookBinder.TabResearchStation.Hammer", GUITEXTUREPATH + "ResearchStation/" + "ResearchButtons.png", Colors.DEFAULT, 32, 0, 16, 16);
-
-                public static CustomResource BLUEPRINTSLOT = new CustomResource("Gui.BookBinder.TabResearchStation.Slot.Blueprint", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 109, 1, 16, 16);
-                public static CustomResource BOOKSLOT = new CustomResource("Gui.BookBinder.TabResearchStation.Slot.Book", Basic.BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 55, 1, 16, 16);
-            }
-        }
-
-        public static class Compatibility {
-            public static class NEI {
-                public static class ArmorsAnvil {
-                    public static CustomResource GUI = new CustomResource("Gui.Compatibility.NEI.Anvil.Gui", GUITEXTUREPATH + "NEI/ArmorsAnvil.png");
-                }
             }
         }
     }

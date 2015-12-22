@@ -39,18 +39,32 @@ public interface IGUIComponent
     IGUIBasedComponentHost getRootComponent();
 
     /**
-     * Returns to location of the most top left rendered Pixel of this Component.
+     * Method to get the rootAnchorPixel location as seen globally by the render system of OpenGL.
      *
-     * @return A Coordinate representing the Location of the most top left Pixel.
+     * @return The location of the top left pixel of this component
      */
-    Coordinate2D getComponentRootAnchorPixel();
+    Coordinate2D getGlobalCoordinate ();
 
     /**
-     * Gets the Area Occupied by this Component.
+     * Returns to location of the most top left rendered Pixel of this Component relative to its parent.
      *
-     * @return A Plane detailing the the Size of this Component.
+     * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
+     */
+    Coordinate2D getLocalCoordinate ();
+
+    /**
+     * Gets the Area Occupied by this Component, is locally oriented.
+     *
+     * @return A Plane detailing the the position and size of this Component.
      */
     Plane getAreaOccupiedByComponent();
+
+    /**
+     * Method to get the size of this component. Used to determine the total UI Size of this component.
+     *
+     * @return The size of this component.
+     */
+    Plane getSize ();
 
     /**
      * Function used to draw this components background.
@@ -82,13 +96,13 @@ public interface IGUIComponent
      *
      * When this Component or one of its SubComponents handles the Click it should return True.
      *
-     * @param relativeMouseX The relative (to the Coordinate returned by @see #getComponentRootAnchorPixel) X-Coordinate of the mouseclick.
-     * @param relativeMouseY The relative (to the Coordinate returned by @see #getComponentRootAnchorPixel) Y-Coordinate of the mouseclick.
+     * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the mouseclick.
+     * @param relativeMouseY The relative (to the Coordinate returned by @see #getLocalCoordinate) Y-Coordinate of the mouseclick.
      * @param mouseButton The 0-BasedIndex of the mouse button that was pressed.
      *
      * @return True when the click has been handled, false when it did not.
      */
-    boolean handlMouseClickedInside(int relativeMouseX, int relativeMouseY, int mouseButton);
+    boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton);
 
     /**
      * Function called when the Mouse was clicked outside of this component.
@@ -99,13 +113,13 @@ public interface IGUIComponent
      *
      * When this Component or one of its SubComponents handles the Click it should return True.
      *
-     * @param relativeMouseX The relative (to the Coordinate returned by @see #getComponentRootAnchorPixel) X-Coordinate of the mouseclick.
-     * @param relativeMouseY The relative (to the Coordinate returned by @see #getComponentRootAnchorPixel) Y-Coordinate of the mouseclick.
+     * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the mouseclick.
+     * @param relativeMouseY The relative (to the Coordinate returned by @see #getLocalCoordinate) Y-Coordinate of the mouseclick.
      * @param mouseButton The 0-BasedIndex of the mouse button that was pressed.
      *
      * @return True when the click has been handled, false when it did not.
      */
-    boolean handlMouseClickedOutside(int relativeMouseX, int relativeMouseY, int mouseButton);
+    boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton);
 
     /**
      * Method to check if this function should capture all of the buttons pressed on the mouse

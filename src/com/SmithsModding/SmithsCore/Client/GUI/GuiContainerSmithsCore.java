@@ -24,7 +24,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     private boolean isInitialized = false;
     private RenderManager renderer = new RenderManager(this);
-    private CoreGUIState state = new CoreGUIState(this);
+    private CoreComponentState state = new CoreComponentState(this);
 
     private String uniqueUIID;
     private HashMap<String, IGUIComponent> componentHashMap = new HashMap<String, IGUIComponent>();
@@ -42,13 +42,17 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public void initGui()
     {
-        super.initGui();
-
         if (!isInitialized)
         {
             SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiOpenedEvent(FMLClientHandler.instance().getClientPlayerEntity(), (ContainerSmithsCore) this.inventorySlots));
             registerComponents(this);
         }
+
+        Plane areaWithComponents = getSize();
+        this.xSize = areaWithComponents.getWidth();
+        this.ySize = areaWithComponents.getHeigth();
+
+        super.initGui();
 
         setIsInitialized(true);
     }
@@ -75,11 +79,18 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public void drawBackground (int mouseX, int mouseY) {
         renderer.renderBackgroundComponent(this);
+
+        /*
+        if (componentHashMap.size()> 0)
+        {
+            renderer.renderBackgroundComponent(componentHashMap.get("test"));
+        }
+        */
     }
 
     @Override
     public void drawForeground (int mouseX, int mouseY) {
-        renderer.renderForegroundComponent(this);
+        //renderer.renderForegroundComponent(this);
     }
 
     @Override
@@ -122,36 +133,61 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
-    public boolean handlMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+    public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
         for (IGUIComponent component : componentHashMap.values())
             if (component.requiresForcedMouseInput())
-                component.handlMouseClickedOutside(relativeMouseX, relativeMouseY, mouseButton);
+                component.handleMouseClickedOutside(relativeMouseX, relativeMouseY, mouseButton);
 
         return true;
     }
 
     @Override
-    public boolean handlMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
         for (IGUIComponent component : componentHashMap.values())
-            if (component.handlMouseClickedInside(relativeMouseX, relativeMouseY, mouseButton))
+            if (component.handleMouseClickedInside(relativeMouseX, relativeMouseY, mouseButton))
                 return true;
 
         return false;
     }
 
     @Override
-    public Plane getAreaOccupiedByComponent () {
-        return new Plane(guiLeft, guiTop, width, height);
+    public Coordinate2D getLocalCoordinate () {
+        return new Coordinate2D(guiLeft, guiTop);
     }
 
     @Override
-    public Coordinate2D getComponentRootAnchorPixel () {
-        return new Coordinate2D(guiLeft, guiTop);
+    public Plane getAreaOccupiedByComponent () {
+        Plane size = getSize();
+        return new Plane(getGlobalCoordinate(), size.getWidth(), size.getHeigth());
+    }
+
+    @Override
+    public Plane getSize () {
+        Plane area = new Plane(0, 0, 0, 0);
+
+        for (IGUIComponent component : getAllComponents().values()) {
+            area.IncludeCoordinate(component.getSize());
+        }
+
+        return area;
     }
 
     @Override
     public HashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
+    }
+
+    @Override
+    public Coordinate2D getGlobalCoordinate () {
+        return getLocalCoordinate();
+    }
+
+    @Override
+    public void registerNewComponent (IGUIComponent component) {
+        if (component instanceof IGUIBasedComponentHost)
+            ( (IGUIBasedComponentHost) component ).registerComponents((IGUIBasedComponentHost) component);
+
+        componentHashMap.put(component.getID(), component);
     }
 
     @Override
@@ -162,5 +198,15 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public Gui getRootGuiObject () {
         return this;
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer (float partialTicks, int mouseX, int mouseY) {
+        this.drawBackground(mouseX, mouseY);
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer (int mouseX, int mouseY) {
+        this.drawForeground(mouseX, mouseY);
     }
 }

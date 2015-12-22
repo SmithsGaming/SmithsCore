@@ -1,9 +1,7 @@
 package com.SmithsModding.SmithsCore.Common.Inventory;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManager;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.RelayBasedGUIManager;
-import net.minecraft.inventory.Container;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
+import net.minecraft.inventory.*;
 
 /**
  * Created by Orion
@@ -13,6 +11,9 @@ import net.minecraft.inventory.Container;
  * Copyrighted according to Project specific license
  */
 public abstract class ContainerSmithsCore extends Container implements IContainerHost {
+
+    public static final int PLAYER_INVENTORY_ROWS = 3;
+    public static final int PLAYER_INVENTORY_COLUMNS = 9;
 
     IGUIManager manager;
     IContainerHost host;

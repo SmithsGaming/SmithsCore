@@ -24,6 +24,13 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
     void registerComponents(IGUIBasedComponentHost host);
 
     /**
+     * Method used to register a new Component to this Host.
+     *
+     * @param component The new component.
+     */
+    void registerNewComponent (IGUIComponent component);
+
+    /**
      * Method to get the Root GUI Object that this Component is part of.
      *
      * @return The GUI that this component is part of.
@@ -43,4 +50,5 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      * @return A ID to Component map that holds all the Components (but not their SubComponents) of this Host.
      */
     HashMap<String, IGUIComponent> getAllComponents();
+
 }

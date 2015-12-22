@@ -35,6 +35,8 @@ public class CommonRegistry {
         getNetworkBus().register(new ContainerGUIClosedEventHandler());
 
         getCommonBus().register(new CommonNetworkableEventHandler());
+
+
     }
 
     /**

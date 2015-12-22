@@ -6,15 +6,14 @@
 
 package com.SmithsModding.SmithsCore.Client.Registry;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIClosedEventHandler;
-import com.SmithsModding.SmithsCore.Client.GUI.Handlers.ContainerGUIOpenedEventHandler;
-import com.SmithsModding.SmithsCore.Client.Handlers.Network.ClientNetworkableEventHandler;
-import com.SmithsModding.SmithsCore.Client.Mouse.MouseManager;
-import com.SmithsModding.SmithsCore.Common.Player.Handlers.PlayersConnectedUpdatedEventHandler;
-import com.SmithsModding.SmithsCore.Common.Player.Handlers.PlayersOnlineUpdatedEventHandler;
-import com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.EventBus;
+import com.SmithsModding.SmithsCore.Client.GUI.Handlers.*;
+import com.SmithsModding.SmithsCore.Client.Handlers.Network.*;
+import com.SmithsModding.SmithsCore.Client.Mouse.*;
+import com.SmithsModding.SmithsCore.Client.Textures.*;
+import com.SmithsModding.SmithsCore.Common.Player.Handlers.*;
+import com.SmithsModding.SmithsCore.Common.Registry.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
  * Used as the Central point of Data on the Client Side.
@@ -27,10 +26,10 @@ public class ClientRegistry extends CommonRegistry {
     //All other events should be fired on the CommonBus.
     //If a NetworkSyncableEvent is fired it will automatically be synced to the Server and is there fired on the NetworkRelayBus
     private final EventBus clientEventBus = new EventBus();
-    MouseManager manager;
+    private final HolographicTextureCreator holographicTextureCreator = new HolographicTextureCreator();
+    private final MouseManager mouseManager = new MouseManager();
 
-    public ClientRegistry(){
-        manager = new MouseManager();
+    public ClientRegistry () {
     }
 
     /**
@@ -46,7 +45,9 @@ public class ClientRegistry extends CommonRegistry {
         getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
         getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
 
-        MinecraftForge.EVENT_BUS.register(manager);
+
+        MinecraftForge.EVENT_BUS.register(holographicTextureCreator);
+        MinecraftForge.EVENT_BUS.register(mouseManager);
     }
 
     /**
@@ -63,6 +64,10 @@ public class ClientRegistry extends CommonRegistry {
 
     public MouseManager getMouseManager()
     {
-        return manager;
+        return mouseManager;
+    }
+
+    public HolographicTextureCreator getHolographicTextureCreator () {
+        return holographicTextureCreator;
     }
 }
