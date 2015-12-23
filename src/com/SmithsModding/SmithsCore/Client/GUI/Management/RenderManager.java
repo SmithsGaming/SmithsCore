@@ -53,6 +53,14 @@ public class RenderManager implements IRenderManager {
         }
 
         colorStack.remove(0);
+
+        if (colorStack.size() == 0) {
+            //SmithsCore.getLogger().error("The color stack under flowed.");
+
+            new MinecraftColor(MinecraftColor.WHITE).performOpenGLColoring();
+            return;
+        }
+
         colorStack.get(0).performOpenGLColoring();
     }
 
@@ -113,7 +121,7 @@ public class RenderManager implements IRenderManager {
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
-            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
+            //GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 
             IGUIComponentState state = component.getState();
 
@@ -136,7 +144,7 @@ public class RenderManager implements IRenderManager {
                 GlStateManager.disableBlend();
             }
 
-            GuiHelper.disableScissor();
+            //GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
         }
@@ -175,7 +183,7 @@ public class RenderManager implements IRenderManager {
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
-            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
+            //GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 
             if (SmithsCore.isInDevenvironment()) {
                 //GuiHelper.renderScissorDebugOverlay();
@@ -199,7 +207,7 @@ public class RenderManager implements IRenderManager {
                 GlStateManager.disableBlend();
             }
 
-            GuiHelper.disableScissor();
+            //GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
         }

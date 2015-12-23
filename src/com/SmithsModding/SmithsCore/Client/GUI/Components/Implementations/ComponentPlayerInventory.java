@@ -43,16 +43,16 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
 
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
-        registerNewComponent(new ComponentBorder(uniqueID + ".Background", parent, rootAnchorPixel, width, height, color, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts));
+        registerNewComponent(new ComponentBorder(uniqueID + ".Background", this, rootAnchorPixel, width, height, color, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts));
 
         for (int r = 0; r < ContainerSmithsCore.PLAYER_INVENTORY_ROWS; r++) {
             for (int c = 0; c < ContainerSmithsCore.PLAYER_INVENTORY_COLUMNS; c++) {
-                registerNewComponent(new ComponentSlot(uniqueID + ".Slot.Inventory." + ( r * 9 + c ), new SlotComponentState(null, ( r * 9 + c ), playerInventory, null), parent, new Coordinate2D(c * 18 + 7, r * 18 + 7), color));
+                registerNewComponent(new ComponentSlot(uniqueID + ".Slot.Inventory." + ( r * 9 + c ), new SlotComponentState(null, ( r * 9 + c ), playerInventory, null), this, new Coordinate2D(c * 18 + 7, r * 18 + 7), color));
             }
         }
 
         for (int c = 0; c < ContainerSmithsCore.PLAYER_INVENTORY_COLUMNS; c++) {
-            registerNewComponent(new ComponentSlot(uniqueID + ".Slot.Hotbar." + ( c ), new SlotComponentState(null, ( 3 * 9 + c ), playerInventory, null), parent, new Coordinate2D(c * 18 + 7, 3 * 18 + 5 + 7), color));
+            registerNewComponent(new ComponentSlot(uniqueID + ".Slot.Hotbar." + ( c ), new SlotComponentState(null, ( 3 * 9 + c ), playerInventory, null), this, new Coordinate2D(c * 18 + 7, 3 * 18 + 5 + 7), color));
         }
     }
 
