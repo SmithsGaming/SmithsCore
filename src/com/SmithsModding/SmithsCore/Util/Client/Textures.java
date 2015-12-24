@@ -9,11 +9,11 @@ import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
 public class Textures {
 
     public static class Gui {
-        private static String GUITEXTUREPATH = "armory:textures/gui/";
+        private static String GUITEXTUREPATH = "smithscore:textures/gui/";
         private static String COMPONENTTEXTUREPATH = GUITEXTUREPATH + "Components/";
 
         public static class Basic {
-            public static CustomResource INFOICON = new CustomResource("Gui.Basic.Ledgers.InfoIon", "armory:Gui-Icons/16x Info icon", Colors.DEFAULT);
+            public static CustomResource INFOICON = new CustomResource("Gui.Basic.Ledgers.InfoIon", "smithscore:Gui-Icons/16x Info icon", Colors.DEFAULT);
             private static String BASICTEXTUREPATH = GUITEXTUREPATH + "Basic/";
             public static CustomResource LEDGERLEFT = new CustomResource("Gui.Basic.Ledgers.Left", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT);
 
@@ -25,10 +25,15 @@ public class Textures {
                 public static CustomResource CENTER = new CustomResource("Gui.Basic.Border.Center", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 4, 4, 248, 248);
                 public static CustomResource STRAIGHTBORDERLIGHT = new CustomResource("Gui.Basic.Border.Border.Light", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 3, 0, 250, 3);
                 public static CustomResource STRAIGHTBORDERDARK = new CustomResource("Gui.Basic.Border.Border.Dark", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 3, 253, 250, 3);
-                public static CustomResource INWARTSCORNERLIGHT = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Ligth", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource INWARTSCORNERLIGHT = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource INWARTSCORNERLIGHTINVERTED = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 0, 253, 3, 3);
                 public static CustomResource INWARTSCORNERDARK = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Dark", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 252, 252, 4, 4);
+
                 private static String BORDERTEXTUREPATH = BASICTEXTUREPATH + "Border/";
-                public static CustomResource OUTWARTSCORNER = new CustomResource("Gui.Basic.Border.Corner.Outwarts", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERDARKDARK = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Dark", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERDARKLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 3, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERLIGHTDARK = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 6, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERLIGHTLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 9, 0, 3, 3);
             }
 
             public static class Components {

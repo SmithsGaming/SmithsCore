@@ -121,7 +121,7 @@ public class RenderManager implements IRenderManager {
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
-            //GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
+            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 
             IGUIComponentState state = component.getState();
 
@@ -144,7 +144,7 @@ public class RenderManager implements IRenderManager {
                 GlStateManager.disableBlend();
             }
 
-            //GuiHelper.disableScissor();
+            GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
         }
@@ -183,7 +183,7 @@ public class RenderManager implements IRenderManager {
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
-            //GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
+            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 
             if (SmithsCore.isInDevenvironment()) {
                 //GuiHelper.renderScissorDebugOverlay();
@@ -200,14 +200,14 @@ public class RenderManager implements IRenderManager {
 
             component.drawBackground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
 
-            if (!state.isEnabled() || parentEnabled)
+            if (!state.isEnabled() || !parentEnabled)
             {
                 MinecraftColor.resetOpenGLColoring();
                 GlStateManager.disableAlpha();
                 GlStateManager.disableBlend();
             }
 
-            //GuiHelper.disableScissor();
+            GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
         }

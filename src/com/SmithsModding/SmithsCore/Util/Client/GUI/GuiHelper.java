@@ -463,19 +463,23 @@ public final class GuiHelper {
      * @param pTargetPlane The plane that should be scissored.
      */
     public static void enableScissor(Plane pTargetPlane) {
+        /*
         calcScaleFactor();
 
         GL11.glPushAttrib(GL11.GL_SCISSOR_BIT);
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         GL11.glScissor(pTargetPlane.TopLeftCoord().getXComponent() * GUISCALE, ( ( DISPLAYHEIGHT - pTargetPlane.LowerRightCoord().getYComponent() ) * GUISCALE ), ( pTargetPlane.getWidth() ) * GUISCALE, ( pTargetPlane.getHeigth() ) * GUISCALE);
+        */
     }
 
     /**
      * Disables all Scissors currently active
      */
     public static void disableScissor() {
+        /*
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
         GL11.glPopAttrib();
+        */
     }
 
     /**

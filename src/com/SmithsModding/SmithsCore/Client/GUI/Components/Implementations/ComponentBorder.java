@@ -128,20 +128,20 @@ public class ComponentBorder implements IGUIComponent {
 
         tCornerComponents[0] = getTopLeftComponent();
         tCornerComponents[1] = getTopRightComponent();
-        //tCornerComponents[2] = getLowerRightCorner();
-        //tCornerComponents[3] = getLowerLeftCorner();
+        tCornerComponents[2] = getLowerRightCorner();
+        tCornerComponents[3] = getLowerLeftCorner();
 
 
         //tCornerComponents[0] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
         //tCornerComponents[1] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 90), new Coordinate2D(0, 0));
-        tCornerComponents[2] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERDARK, new UIRotation(false, false, false, 0), new Coordinate2D(-4, -4));
-        tCornerComponents[3] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 270), new Coordinate2D(0, 0));
+        //tCornerComponents[2] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERDARK, new UIRotation(false, false, false, 0), new Coordinate2D(-4, -4));
+        //tCornerComponents[3] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 270), new Coordinate2D(0, 0));
 
 
         TextureComponent[] tSideComponents = new TextureComponent[4];
-        tSideComponents[0] = new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERLIGHT, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
-        tSideComponents[1] = new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERDARK, new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
-        tSideComponents[2] = new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERDARK, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
+        tSideComponents[0] = getTopBorder();
+        tSideComponents[1] = getRightBorder();
+        tSideComponents[2] = getLowerBorder();
         tSideComponents[3] = new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERLIGHT, new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
 
         GuiHelper.drawRectangleStretched(tCenterComponent, tSideComponents, tCornerComponents, width, height, rootAnchorPixel);
@@ -152,15 +152,17 @@ public class ComponentBorder implements IGUIComponent {
             return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
 
         if (topLeftCorner == CornerTypes.Outwarts) {
+            CustomResource cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERDARKLIGHT;
             UIRotation rotation = new UIRotation(false, false, true, 0);
             Coordinate2D correctionVector = new Coordinate2D(0, 0);
 
             if (topRightCorner != CornerTypes.Outwarts && lowerLeftCorner == CornerTypes.Outwarts && lowerRightCorner != CornerTypes.Outwarts) {
+                cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERLIGHTDARK;
                 rotation = new UIRotation(false, false, true, 180);
                 correctionVector = new Coordinate2D(3, -3);
             }
 
-            return new TextureComponent(Textures.Gui.Basic.Border.OUTWARTSCORNER, rotation, correctionVector);
+            return new TextureComponent(Textures.Gui.Basic.Border.OUTWARTSCORNERDARKLIGHT, rotation, correctionVector);
         }
 
         if (topLeftCorner == CornerTypes.StraightVertical)
@@ -171,18 +173,20 @@ public class ComponentBorder implements IGUIComponent {
 
     private TextureComponent getTopRightComponent () {
         if (topRightCorner == CornerTypes.Inwarts)
-            return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, false, 90), new Coordinate2D(10, 10));
+            return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 90), new Coordinate2D(0, 0));
 
         if (topRightCorner == CornerTypes.Outwarts) {
+            CustomResource cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERDARKDARK;
             UIRotation rotation = new UIRotation(false, false, true, 270);
-            Coordinate2D correctionVector = new Coordinate2D(0, -3);
+            Coordinate2D correctionVector = new Coordinate2D(-3, 3);
 
             if (topLeftCorner != CornerTypes.Outwarts && lowerRightCorner == CornerTypes.Outwarts && lowerLeftCorner != CornerTypes.Outwarts) {
+                cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERLIGHTLIGHT;
                 rotation = new UIRotation(false, false, true, 90);
-                correctionVector = new Coordinate2D(-3, 0);
+                correctionVector = new Coordinate2D(0, 0);
             }
 
-            return new TextureComponent(Textures.Gui.Basic.Border.OUTWARTSCORNER, rotation, correctionVector);
+            return new TextureComponent(cornerTexture, rotation, correctionVector);
         }
 
         if (topRightCorner == CornerTypes.StraightVertical)
@@ -192,22 +196,24 @@ public class ComponentBorder implements IGUIComponent {
     }
 
     private TextureComponent getLowerRightCorner () {
-        if (topLeftCorner == CornerTypes.Inwarts)
-            return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 270), new Coordinate2D(0, 0));
+        if (lowerRightCorner == CornerTypes.Inwarts)
+            return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERDARK, new UIRotation(false, false, true, 0), new Coordinate2D(-4, -4));
 
-        if (topLeftCorner == CornerTypes.Outwarts) {
+        if (lowerRightCorner == CornerTypes.Outwarts) {
+            CustomResource cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERLIGHTDARK;
             UIRotation rotation = new UIRotation(false, false, true, 180);
-            Coordinate2D correctionVector = new Coordinate2D(3, -3);
+            Coordinate2D correctionVector = new Coordinate2D(0, 0);
 
             if (lowerLeftCorner != CornerTypes.Outwarts && topRightCorner == CornerTypes.Outwarts && topLeftCorner != CornerTypes.Outwarts) {
+                cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERDARKDARK;
                 rotation = new UIRotation(false, false, true, 0);
-                correctionVector = new Coordinate2D(0, 0);
+                correctionVector = new Coordinate2D(-3, -3);
             }
 
-            return new TextureComponent(Textures.Gui.Basic.Border.OUTWARTSCORNER, rotation, correctionVector);
+            return new TextureComponent(cornerTexture, rotation, correctionVector);
         }
 
-        if (topLeftCorner == CornerTypes.StraightVertical)
+        if (lowerRightCorner == CornerTypes.StraightVertical)
             return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Dark.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERDARK.getPrimaryLocation(), Colors.DEFAULT, 3, 0, 4, 4), new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
 
         return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Dark.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERDARK.getPrimaryLocation(), Colors.DEFAULT, 3, 0, 4, 4), new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
@@ -215,18 +221,20 @@ public class ComponentBorder implements IGUIComponent {
 
     private TextureComponent getLowerLeftCorner () {
         if (lowerLeftCorner == CornerTypes.Inwarts)
-            return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERDARK, new UIRotation(false, false, false, 0), new Coordinate2D(-4, -4));
+            return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHTINVERTED, new UIRotation(false, false, true, 0), new Coordinate2D(0, -3));
 
         if (lowerLeftCorner == CornerTypes.Outwarts) {
+            CustomResource cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERLIGHTLIGHT;
             UIRotation rotation = new UIRotation(false, false, true, 90);
-            Coordinate2D correctionVector = new Coordinate2D(-3, 0);
+            Coordinate2D correctionVector = new Coordinate2D(3, -3);
 
-            if (lowerLeftCorner != CornerTypes.Outwarts && topLeftCorner == CornerTypes.Outwarts && topRightCorner != CornerTypes.Outwarts) {
+            if (lowerRightCorner != CornerTypes.Outwarts && topLeftCorner == CornerTypes.Outwarts && topRightCorner != CornerTypes.Outwarts) {
+                cornerTexture = Textures.Gui.Basic.Border.OUTWARTSCORNERDARKLIGHT;
                 rotation = new UIRotation(false, false, true, 270);
                 correctionVector = new Coordinate2D(0, -3);
             }
 
-            return new TextureComponent(Textures.Gui.Basic.Border.OUTWARTSCORNER, rotation, correctionVector);
+            return new TextureComponent(cornerTexture, rotation, correctionVector);
         }
 
         if (lowerLeftCorner == CornerTypes.StraightVertical)
@@ -235,6 +243,29 @@ public class ComponentBorder implements IGUIComponent {
         return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Dark.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERDARK.getPrimaryLocation(), Colors.DEFAULT, 3, 0, 4, 4), new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
     }
 
+    public TextureComponent getTopBorder () {
+        if (topLeftCorner == CornerTypes.Outwarts && topRightCorner == CornerTypes.Outwarts) {
+            return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 4, 248, 4), new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
+        }
+
+        return new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERLIGHT, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
+    }
+
+    public TextureComponent getRightBorder () {
+        if (topRightCorner == CornerTypes.Outwarts && lowerRightCorner == CornerTypes.Outwarts && topLeftCorner != CornerTypes.Outwarts && lowerLeftCorner != CornerTypes.Outwarts) {
+            return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 248, 4, 4), new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
+        }
+
+        return new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERDARK, new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
+    }
+
+    public TextureComponent getLowerBorder () {
+        if (lowerRightCorner == CornerTypes.Outwarts && lowerLeftCorner == CornerTypes.Outwarts) {
+            return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 4, 248, 4), new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
+        }
+
+        return new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERDARK, new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
+    }
 
     public enum CornerTypes {
         Inwarts,
