@@ -13,28 +13,6 @@ import java.util.*;
  */
 public interface IGUIManager
 {
-
-    /**
-     * Function used to register a new Component when this manager.
-     *
-     * @param component The new Component.
-     */
-    void registerComponent(IGUIComponent component);
-
-    /**
-     * Function used to get a IGUIComponent from a ID.
-     *
-     * @param id The ID of the component you are looking for.
-     * @return Null if no component is registered to this Manager or the Component that has the given ID;
-     */
-    IGUIComponent getComponentFromID(String id);
-
-    /**
-     * Function used to clear the list of registered components. Should be called when the GUI gets closed or
-     * when the Components get reset.
-     */
-    void clearAllRegisteredComponents();
-
     /**
      * Method called when a player closed the linked UI.
      *
@@ -48,4 +26,13 @@ public interface IGUIManager
      * @param playerID The unique ID of the player that closed the UI.
      */
     void onGUIClosed(UUID playerID);
+
+    /**
+     * Method to get the value for a progressbar. RAnged between 0 and 1.
+     *
+     * @param component The component to get the value for
+     *
+     * @return A float between 0 and 1 with 0 meaning no progress on the specific bar and 1 meaning full.
+     */
+    float getProgressBarValue (IGUIComponent component);
 }

@@ -62,7 +62,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     @Override
     public void onGuiClosed() {
-        getManager().clearAllRegisteredComponents();
         SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiClosedEvent(FMLClientHandler.instance().getClientPlayerEntity(), (ContainerSmithsCore) this.inventorySlots));
 
         super.onGuiClosed();
@@ -79,13 +78,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public void drawBackground (int mouseX, int mouseY) {
         renderer.renderBackgroundComponent(this);
-
-        /*
-        if (componentHashMap.size()> 0)
-        {
-            renderer.renderBackgroundComponent(componentHashMap.get("test"));
-        }
-        */
     }
 
     @Override
