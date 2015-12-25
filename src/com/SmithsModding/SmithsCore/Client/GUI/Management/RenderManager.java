@@ -103,11 +103,7 @@ public class RenderManager implements IRenderManager {
 
             for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
             {
-                GlStateManager.pushMatrix();
-
                 this.renderSubBackgroundComponent(subComponent, component.getState().isEnabled());
-
-                GlStateManager.popMatrix();
             }
 
             GlStateManager.popMatrix();

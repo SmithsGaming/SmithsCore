@@ -82,23 +82,21 @@ public class PathFinder {
         return iResultedPath;
     }
 
-}
+    private class ValueComparator implements Comparator<IPathComponent> {
 
+        Map<IPathComponent, Float> base;
 
-class ValueComparator implements Comparator<IPathComponent> {
+        public ValueComparator (Map<IPathComponent, Float> base) {
+            this.base = base;
+        }
 
-    Map<IPathComponent, Float> base;
-
-    public ValueComparator (Map<IPathComponent, Float> base) {
-        this.base = base;
-    }
-
-    public int compare (IPathComponent a, IPathComponent b) {
-        if (base.get(a) >= base.get(b)) {
-            return -1;
-        } else {
-            return 1;
-        } // returning 0 would merge keys
+        public int compare (IPathComponent a, IPathComponent b) {
+            if (base.get(a) >= base.get(b)) {
+                return -1;
+            } else {
+                return 1;
+            } // returning 0 would merge keys
+        }
     }
 }
 

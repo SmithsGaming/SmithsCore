@@ -30,13 +30,15 @@ public class ComponentBorder implements IGUIComponent {
     private CornerTypes lowerLeftCorner;
 
     public ComponentBorder (String uniqueID, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightCorner, CornerTypes lowerLeftCorner) {
-        this(uniqueID, null, parent, rootAnchorPixel, width, height, color, topLeftType, topRightType, lowerRightCorner, lowerLeftCorner);
-        state = new CoreComponentState(this);
+        this(uniqueID, new CoreComponentState(null), parent, rootAnchorPixel, width, height, color, topLeftType, topRightType, lowerRightCorner, lowerLeftCorner);
     }
 
     public ComponentBorder (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightType, CornerTypes lowerLeftType) {
         this.uniqueID = uniqueID;
+
         this.state = state;
+        this.state.setComponent(this);
+
         this.parent = parent;
 
         this.rootAnchorPixel = rootAnchorPixel;

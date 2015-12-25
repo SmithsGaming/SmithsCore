@@ -78,10 +78,10 @@ public final class StructureManager {
     public static void createStructureComponent (IStructureComponent tNewComponent) {
         IStructureComponent tTargetStructure = null;
 
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordiante(EnumFacing.EAST, 1), tTargetStructure, tNewComponent);
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordiante(EnumFacing.WEST, 1), tTargetStructure, tNewComponent);
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordiante(EnumFacing.SOUTH, 1), tTargetStructure, tNewComponent);
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordiante(EnumFacing.NORTH, 1), tTargetStructure, tNewComponent);
+        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.EAST, 1), tTargetStructure, tNewComponent);
+        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.WEST, 1), tTargetStructure, tNewComponent);
+        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.SOUTH, 1), tTargetStructure, tNewComponent);
+        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.NORTH, 1), tTargetStructure, tNewComponent);
 
         if (tTargetStructure == null) {
             tNewComponent.initiateAsMasterEntity();

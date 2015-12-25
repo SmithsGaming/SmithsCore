@@ -15,15 +15,20 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     public static final int PLAYER_INVENTORY_ROWS = 3;
     public static final int PLAYER_INVENTORY_COLUMNS = 9;
 
-    IGUIManager manager;
-    IContainerHost host;
+    private IGUIManager manager;
+    private IContainerHost host;
 
-    String containerID;
+    private String containerID;
 
-    public ContainerSmithsCore(String containerID, IContainerHost host) {
+    private IInventory containerInventory;
+    private IInventory playerInventory;
+
+    public ContainerSmithsCore (String containerID, IContainerHost host, IInventory containerInventory, IInventory playerInventory) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host);
+        this.containerInventory = containerInventory;
+        this.playerInventory = playerInventory;
     }
 
 
@@ -59,4 +64,13 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     public void setManager(IGUIManager newManager) {
         manager = newManager;
     }
+
+    public IInventory getContainerInventory () {
+        return containerInventory;
+    }
+
+    public IInventory getPlayerInventory () {
+        return playerInventory;
+    }
+
 }

@@ -27,7 +27,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     private CoreComponentState state = new CoreComponentState(this);
 
     private String uniqueUIID;
-    private HashMap<String, IGUIComponent> componentHashMap = new HashMap<String, IGUIComponent>();
+    private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
 
     public GuiContainerSmithsCore(ContainerSmithsCore container) {
         super(container);
@@ -173,7 +173,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
-    public HashMap<String, IGUIComponent> getAllComponents () {
+    public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
     }
 

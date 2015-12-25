@@ -6,9 +6,8 @@
 
 package com.SmithsModding.SmithsCore.Util.Common.Postioning;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumFacing;
+import io.netty.buffer.*;
+import net.minecraft.util.*;
 
 
 public class Coordinate3D {
@@ -76,8 +75,8 @@ public class Coordinate3D {
         return iZCoord;
     }
 
-    public Coordinate3D moveCoordiante(EnumFacing pDirection, int pDistance) {
-        return new Coordinate3D(getXComponent() + (pDistance * pDirection.getFrontOffsetX()), getYComponent() + (pDistance * pDirection.getFrontOffsetY()), getZComponent() + (pDistance * pDirection.getFrontOffsetZ()));
+    public Coordinate3D moveCoordinate (EnumFacing pDirection, int pDistance) {
+        return new Coordinate3D(getXComponent() + ( pDistance * pDirection.getDirectionVec().getX() ), getYComponent() + ( pDistance * pDirection.getDirectionVec().getY() ), getZComponent() + ( pDistance * pDirection.getFrontOffsetZ() ));
     }
 
     public float getDistanceTo(Coordinate3D pCoordinate) {

@@ -9,6 +9,7 @@ import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Util.Client.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.inventory.*;
 
 /**
  * Created by Marc on 22.12.2015.
@@ -23,6 +24,10 @@ public class ComponentSlot implements IGUIComponent {
     private int height;
 
     private MinecraftColor color;
+
+    public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Slot connectedSlot, MinecraftColor color) {
+        this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xDisplayPosition - 1, connectedSlot.yDisplayPosition - 1), color);
+    }
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color) {
         this.uniqueID = uniqueID;
@@ -87,6 +92,8 @@ public class ComponentSlot implements IGUIComponent {
         }
 
         RenderManager.popColorFromRenderStack();
+
+        GlStateManager.popMatrix();
     }
 
     @Override

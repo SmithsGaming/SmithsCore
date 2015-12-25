@@ -49,6 +49,6 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return A ID to Component map that holds all the Components (but not their SubComponents) of this Host.
      */
-    HashMap<String, IGUIComponent> getAllComponents();
+    LinkedHashMap<String, IGUIComponent> getAllComponents ();
 
 }

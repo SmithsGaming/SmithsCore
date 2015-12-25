@@ -16,8 +16,12 @@ import java.util.*;
  * Created by Marc on 22.12.2015.
  */
 public class ComponentPlayerInventory implements IGUIBasedComponentHost {
+
+    public static int WIDTH = ContainerSmithsCore.PLAYER_INVENTORY_COLUMNS * 18 + 2 * 7;
+    public static int HEIGHT = ( ContainerSmithsCore.PLAYER_INVENTORY_ROWS + 1 ) * 18 + 5 + 2 * 7;
+
     private String uniqueID;
-    private HashMap<String, IGUIComponent> componentHashMap = new HashMap<String, IGUIComponent>();
+    private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
 
     private IGUIBasedComponentHost parent;
     private CoreComponentState state = new CoreComponentState(this);
@@ -30,20 +34,81 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
 
     private IInventory playerInventory;
 
-    public ComponentPlayerInventory (String uniqueID, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color, IInventory playerInventory) {
+    private ComponentConnectionType connectionType;
+
+    public ComponentPlayerInventory (String uniqueID, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color, IInventory playerInventory, ComponentConnectionType connectionType) {
         this.uniqueID = uniqueID;
         this.parent = parent;
         this.rootAnchorPixel = rootAnchorPixel;
         this.color = color;
         this.playerInventory = playerInventory;
 
-        this.width = ContainerSmithsCore.PLAYER_INVENTORY_COLUMNS * 18 + 2 * 7;
-        this.height = ( ContainerSmithsCore.PLAYER_INVENTORY_ROWS + 1 ) * 18 + 5 + 2 * 7;
+        this.width = WIDTH;
+        this.height = HEIGHT;
+
+        this.connectionType = connectionType;
     }
 
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
-        registerNewComponent(new ComponentBorder(uniqueID + ".Background", this, rootAnchorPixel, width, height, color, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts));
+
+        ComponentBorder.CornerTypes topLeft = ComponentBorder.CornerTypes.Inwarts;
+        ComponentBorder.CornerTypes topRight = ComponentBorder.CornerTypes.Inwarts;
+        ComponentBorder.CornerTypes lowerRight = ComponentBorder.CornerTypes.Inwarts;
+        ComponentBorder.CornerTypes lowerLeft = ComponentBorder.CornerTypes.Inwarts;
+
+        switch (connectionType) {
+            case BELOWDIRECTCONNECT:
+                topLeft = ComponentBorder.CornerTypes.StraightVertical;
+                topRight = ComponentBorder.CornerTypes.StraightVertical;
+                break;
+            case BELOWSMALLER:
+                topLeft = ComponentBorder.CornerTypes.Outwarts;
+                topRight = ComponentBorder.CornerTypes.Outwarts;
+                break;
+            case BELOWBIGGER:
+                topLeft = ComponentBorder.CornerTypes.Inwarts;
+                topRight = ComponentBorder.CornerTypes.Inwarts;
+                break;
+            case ABOVEDIRECTCONNECT:
+                lowerLeft = ComponentBorder.CornerTypes.StraightVertical;
+                lowerRight = ComponentBorder.CornerTypes.StraightVertical;
+                break;
+            case ABOVESMALLER:
+                lowerLeft = ComponentBorder.CornerTypes.Outwarts;
+                lowerRight = ComponentBorder.CornerTypes.Outwarts;
+                break;
+            case ABOVEBIGGER:
+                lowerLeft = ComponentBorder.CornerTypes.Inwarts;
+                lowerRight = ComponentBorder.CornerTypes.Inwarts;
+                break;
+            case RIGHTDIRECTCONNECT:
+                topLeft = ComponentBorder.CornerTypes.StraightHorizontal;
+                lowerLeft = ComponentBorder.CornerTypes.StraightHorizontal;
+                break;
+            case RIGHTSMALLER:
+                topLeft = ComponentBorder.CornerTypes.Outwarts;
+                lowerLeft = ComponentBorder.CornerTypes.Outwarts;
+                break;
+            case RIGHTBIGGER:
+                topLeft = ComponentBorder.CornerTypes.Inwarts;
+                lowerLeft = ComponentBorder.CornerTypes.Inwarts;
+                break;
+            case LEFTDIRECTCONNECT:
+                topRight = ComponentBorder.CornerTypes.StraightHorizontal;
+                lowerRight = ComponentBorder.CornerTypes.StraightHorizontal;
+                break;
+            case LEFTSMALLER:
+                topRight = ComponentBorder.CornerTypes.Outwarts;
+                lowerRight = ComponentBorder.CornerTypes.Outwarts;
+                break;
+            case LEFTBIGGER:
+                topRight = ComponentBorder.CornerTypes.Inwarts;
+                lowerRight = ComponentBorder.CornerTypes.Inwarts;
+                break;
+        }
+
+        registerNewComponent(new ComponentBorder(uniqueID + ".Background", this, new Coordinate2D(0, 0), width, height, color, topLeft, topRight, lowerRight, lowerLeft));
 
         for (int r = 0; r < ContainerSmithsCore.PLAYER_INVENTORY_ROWS; r++) {
             for (int c = 0; c < ContainerSmithsCore.PLAYER_INVENTORY_COLUMNS; c++) {
@@ -75,7 +140,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public HashMap<String, IGUIComponent> getAllComponents () {
+    public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
     }
 
