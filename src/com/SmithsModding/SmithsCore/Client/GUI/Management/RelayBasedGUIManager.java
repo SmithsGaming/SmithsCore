@@ -49,6 +49,6 @@ public class RelayBasedGUIManager implements IGUIManager {
      */
     @Override
     public float getProgressBarValue (IGUIComponent component) {
-        return 0F;
+        return host.getManager().getProgressBarValue(component);
     }
 }

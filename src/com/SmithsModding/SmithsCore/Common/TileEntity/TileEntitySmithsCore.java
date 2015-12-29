@@ -12,16 +12,13 @@ import com.SmithsModding.SmithsCore.Common.Fluid.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import com.SmithsModding.SmithsCore.Common.TileEntity.State.*;
 import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Network.Event.EventNetworkManager;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import com.SmithsModding.SmithsCore.Util.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.*;
 import net.minecraftforge.fluids.*;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.*;
 
@@ -262,16 +259,5 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (getState().requiresSynchronization())
             this.getState().readFromNBTTagCompound(synchronizationCompound.getTag(CoreReferences.NBT.STATE));
-    }
-
-    /**
-     * Allows for a specialized description packet to be created. This is often used to sync tile entity data from the
-     * server to the client easily. For example this is used by signs to synchronise the text to be displayed.
-     */
-    @Override
-    public Packet getDescriptionPacket() {
-        TileEntityDataUpdatedEvent event = new TileEntityDataUpdatedEvent(this);
-
-        return EventNetworkManager.getInstance().getPacketFrom(event.getCommunicationMessage(Side.CLIENT));
     }
 }
