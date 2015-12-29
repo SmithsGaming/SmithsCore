@@ -38,7 +38,7 @@ public class ComponentProgressBar implements IGUIComponent {
 
     @Override
     public String getID () {
-        return null;
+        return uniqueID;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     @Override
-    public IGUIBasedComponentHost getRootComponent () {
+    public IGUIBasedComponentHost getComponentHost() {
         return root;
     }
 
@@ -71,9 +71,21 @@ public class ComponentProgressBar implements IGUIComponent {
         return new Plane(0, 0, getWidth(), getHeight());
     }
 
+    /**
+     * Method gets called before the component gets rendered, allows for animations to calculate through.
+     *
+     * @param mouseX          The X-Coordinate of the mouse.
+     * @param mouseY          The Y-Coordinate of the mouse.
+     * @param partialTickTime The partial tick time, used to calculate fluent animations.
+     */
+    @Override
+    public void update(int mouseX, int mouseY, float partialTickTime) {
+        //NOOP
+    }
+
     @Override
     public void drawBackground (int mouseX, int mouseY) {
-        GuiHelper.drawResource(emptyResource, getLocalCoordinate().getXComponent(), getLocalCoordinate().getYComponent());
+        GuiHelper.drawResource(emptyResource, 0,0);
 
         switch (renderDirection) {
             case HORIZONTALLEFTTORIGHT:
@@ -135,7 +147,7 @@ public class ComponentProgressBar implements IGUIComponent {
 
         GuiHelper.enableScissor(renderBox);
 
-        GuiHelper.drawResource(fullResource, getLocalCoordinate().getXComponent(), getLocalCoordinate().getYComponent());
+        GuiHelper.drawResource(fullResource,0,0);
 
         GuiHelper.disableScissor();
     }
@@ -147,7 +159,7 @@ public class ComponentProgressBar implements IGUIComponent {
 
         GuiHelper.enableScissor(renderBox);
 
-        GuiHelper.drawResource(fullResource, getLocalCoordinate().getXComponent(), getLocalCoordinate().getYComponent());
+        GuiHelper.drawResource(fullResource, 0,0);
 
         GuiHelper.disableScissor();
     }
@@ -157,7 +169,7 @@ public class ComponentProgressBar implements IGUIComponent {
 
         GuiHelper.enableScissor(renderBox);
 
-        GuiHelper.drawResource(fullResource, getLocalCoordinate().getXComponent(), getLocalCoordinate().getYComponent());
+        GuiHelper.drawResource(fullResource, 0,0);
 
         GuiHelper.disableScissor();
     }
@@ -169,7 +181,7 @@ public class ComponentProgressBar implements IGUIComponent {
 
         GuiHelper.enableScissor(renderBox);
 
-        GuiHelper.drawResource(fullResource, getLocalCoordinate().getXComponent(), getLocalCoordinate().getYComponent());
+        GuiHelper.drawResource(fullResource, 0,0);
 
         GuiHelper.disableScissor();
     }

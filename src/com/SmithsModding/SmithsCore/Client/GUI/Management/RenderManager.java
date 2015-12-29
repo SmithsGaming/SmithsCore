@@ -94,12 +94,15 @@ public class RenderManager implements IRenderManager {
         if (!component.getState().isVisible())
             return;
 
+        ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
 
         if (component instanceof IGUIBasedComponentHost)
         {
             GlStateManager.pushMatrix();
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+
+            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
             for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
             {
@@ -110,12 +113,11 @@ public class RenderManager implements IRenderManager {
         }
         else
         {
-
-            ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
-
             GlStateManager.pushMatrix();
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+
+            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
             GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 
@@ -158,11 +160,15 @@ public class RenderManager implements IRenderManager {
         if (!component.getState().isVisible())
             return;
 
+        ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
+
         if (component instanceof IGUIBasedComponentHost)
         {
             GlStateManager.pushMatrix();
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+
+            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
             for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
             {
@@ -173,11 +179,13 @@ public class RenderManager implements IRenderManager {
         }
         else
         {
-            ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
+
 
             GlStateManager.pushMatrix();
 
             GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+
+            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
             GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
 

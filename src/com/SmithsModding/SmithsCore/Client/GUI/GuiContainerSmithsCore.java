@@ -20,7 +20,7 @@ import net.minecraftforge.fml.client.*;
 
 import java.util.*;
 
-public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost{
+public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost{
 
     private boolean isInitialized = false;
     private RenderManager renderer = new RenderManager(this);
@@ -106,7 +106,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
-    public IGUIBasedComponentHost getRootComponent () {
+    public IGUIBasedComponentHost getComponentHost() {
         return this;
     }
 
@@ -162,6 +162,18 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         }
 
         return area;
+    }
+
+    /**
+     * Method gets called before the component gets rendered, allows for animations to calculate through.
+     *
+     * @param mouseX          The X-Coordinate of the mouse.
+     * @param mouseY          The Y-Coordinate of the mouse.
+     * @param partialTickTime The partial tick time, used to calculate fluent animations.
+     */
+    @Override
+    public void update(int mouseX, int mouseY, float partialTickTime) {
+        //NOOP
     }
 
     @Override

@@ -28,6 +28,7 @@ public class ClientRegistry extends CommonRegistry {
     private final EventBus clientEventBus = new EventBus();
     private final HolographicTextureCreator holographicTextureCreator = new HolographicTextureCreator();
     private final MouseManager mouseManager = new MouseManager();
+    private float partialTickTime;
 
     public ClientRegistry () {
     }
@@ -69,5 +70,13 @@ public class ClientRegistry extends CommonRegistry {
 
     public HolographicTextureCreator getHolographicTextureCreator () {
         return holographicTextureCreator;
+    }
+
+    public float getPartialTickTime() {
+        return partialTickTime;
+    }
+
+    public void setPartialTickTime(float partialTickTime) {
+        this.partialTickTime = partialTickTime;
     }
 }

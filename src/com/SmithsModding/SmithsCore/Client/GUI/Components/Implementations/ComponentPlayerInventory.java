@@ -155,8 +155,8 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public IGUIBasedComponentHost getRootComponent () {
-        return parent.getRootComponent();
+    public IGUIBasedComponentHost getComponentHost() {
+        return parent.getComponentHost();
     }
 
     @Override
@@ -177,6 +177,18 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     @Override
     public Plane getSize () {
         return new Plane(0, 0, width, height);
+    }
+
+    /**
+     * Method gets called before the component gets rendered, allows for animations to calculate through.
+     *
+     * @param mouseX          The X-Coordinate of the mouse.
+     * @param mouseY          The Y-Coordinate of the mouse.
+     * @param partialTickTime The partial tick time, used to calculate fluent animations.
+     */
+    @Override
+    public void update(int mouseX, int mouseY, float partialTickTime) {
+        //NOOP
     }
 
     @Override

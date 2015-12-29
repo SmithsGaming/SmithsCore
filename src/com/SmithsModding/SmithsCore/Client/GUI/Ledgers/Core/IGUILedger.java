@@ -1,17 +1,20 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Components.Core;
+package com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.IGUIComponent;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedLedgerHost;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManager;
+import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
+import net.minecraft.client.gui.Gui;
+
+import java.util.LinkedHashMap;
 
 /**
- * Created by Orion
- * Created on 02.12.2015
- * 10:44
- * <p/>
- * Copyrighted according to Project specific license
+ * Created by marcf on 12/28/2015.
  */
-public interface IGUIComponent
+public interface IGUILedger extends IGUIBasedComponentHost
 {
 
     /**
@@ -36,7 +39,7 @@ public interface IGUIComponent
      *
      * @return This Components Host.
      */
-    IGUIBasedComponentHost getComponentHost();
+    IGUIBasedLedgerHost getLedgerHost();
 
     /**
      * Method to get the rootAnchorPixel location as seen globally by the render system of OpenGL.
@@ -144,4 +147,10 @@ public interface IGUIComponent
      * @param key The key that was typed.
      */
     void handleKeyTyped(char key);
-}
+
+    /**
+     * Method to get the primary rendered side of the Ledger.
+     *
+     * @return Left when the Ledger is rendered on the left side, right when rendered on the right side.
+     */
+    LedgerConnectionSide getPrimarySide();
