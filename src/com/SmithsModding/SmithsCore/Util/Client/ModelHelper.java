@@ -120,18 +120,6 @@ public class ModelHelper {
         return new ResourceLocation(location.getResourceDomain(), "models/" + location.getResourcePath() + ".json");
     }
 
-    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransformsFromState (IModelState state, IModelPart part) {
-        if (state instanceof IPerspectiveState) {
-            IPerspectiveState ps = (IPerspectiveState) state;
-            Map<ItemCameraTransforms.TransformType, TRSRTransformation> map = Maps.newHashMap();
-            for (ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
-                map.put(type, ps.forPerspective(type).apply(part));
-            }
-            return Maps.immutableEnumMap(map);
-        }
-        return ImmutableMap.of();
-    }
-
     public static float[][][] getUnpackedQuadData (UnpackedBakedQuad quad, VertexFormat format) {
         int[] vertexData = quad.getVertexData();
         float[][][] unpackedData = new float[4][format.getElementCount()][4];

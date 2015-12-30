@@ -1,5 +1,7 @@
+This set of MCP mappings was designed for MC 1.8.8. Use at your own peril.This set of MCP mappings was designed for MC 1.8.8. Use at your own peril.
+
 #################################################
-         ForgeGradle 2.1-SNAPSHOT-1d848ca        
+         ForgeGradle 2.1-SNAPSHOT-9fb7522        
   https://github.com/MinecraftForge/ForgeGradle  
 #################################################
                Powered by MCP unknown               
@@ -11,30 +13,41 @@ Found AccessTransformer: SmithsCore_at.cfg
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
 :getVersionJson
-:extractUserdev UP-TO-DATE
+:extractUserdev
 :extractDependencyATs SKIPPED
 :extractMcpData SKIPPED
-:extractMcpMappings SKIPPED
-:genSrgs SKIPPED
+:extractMcpMappings
+:genSrgs
 :downloadClient SKIPPED
 :downloadServer SKIPPED
 :splitServerJar SKIPPED
 :mergeJars SKIPPED
 :deobfMcSRG
 Applying SpecialSource...
-1 Broken Access Transformer lines:
- ---  net.minecraftforge.client.model.pipeline.UnpackedBakedQuad *()
-:deobfMcSRG FAILED
+Applying Exceptor...
+:decompileMc
+:fixMcSources
+:applySourcePatches
+:remapMcSources
+:recompileMc
+[ant:javac] warning: [options] bootstrap class path not set in conjunction with -source 1.6
+[ant:javac] Note: Some input files use or override a deprecated API.
+[ant:javac] Note: Recompile with -Xlint:deprecation for details.
+[ant:javac] Note: Some input files use unchecked or unsafe operations.
+[ant:javac] Note: Recompile with -Xlint:unchecked for details.
+[ant:javac] 1 warning
+:extractNatives SKIPPED
+:getAssetIndex UP-TO-DATE
+:getAssets
+:makeStart
+[ant:javac] warning: [options] bootstrap class path not set in conjunction with -source 1.6
+[ant:javac] 1 warning
+:setupDecompWorkspace
+:ideaModule
+:ideaProject
+:ideaWorkspace
+:idea
 
-FAILURE: Build failed with an exception.
+BUILD SUCCESSFUL
 
-* What went wrong:
-Execution failed for task ':deobfMcSRG'.
-> Your Access Transformers be broke!
-
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
-BUILD FAILED
-
-Total time: 13.061 secs
+Total time: 2 mins 18.481 secs
