@@ -10,6 +10,7 @@ import com.SmithsModding.SmithsCore.Common.Event.Network.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import io.netty.buffer.*;
 import net.minecraft.entity.player.*;
+import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -31,7 +32,6 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
         this.player = pPlayer;
         this.playerID = player.getUniqueID();
         this.containerID = containerSmithsCore.getContainerID();
-
     }
 
     /**
@@ -72,6 +72,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
         playerID = new UUID(pMessageBuffer.readLong(), pMessageBuffer.readLong());
+        containerID = ByteBufUtils.readUTF8String(pMessageBuffer);
     }
 
     /**
@@ -84,6 +85,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
     public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
         pMessageBuffer.writeLong(playerID.getMostSignificantBits());
         pMessageBuffer.writeLong(playerID.getLeastSignificantBits());
+        ByteBufUtils.writeUTF8String(pMessageBuffer, containerID);
     }
 
     /**

@@ -10,6 +10,7 @@ import com.SmithsModding.SmithsCore.Client.GUI.Handlers.*;
 import com.SmithsModding.SmithsCore.Client.Handlers.Network.*;
 import com.SmithsModding.SmithsCore.Client.Mouse.*;
 import com.SmithsModding.SmithsCore.Client.Textures.*;
+import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
 import com.SmithsModding.SmithsCore.Common.Player.Handlers.*;
 import com.SmithsModding.SmithsCore.Common.Registry.*;
 import net.minecraftforge.common.*;
@@ -42,6 +43,7 @@ public class ClientRegistry extends CommonRegistry {
         getNetworkBus().register(new ContainerGUIClosedEventHandler());
 
         getCommonBus().register(new ClientNetworkableEventHandler());
+        getCommonBus().register(new CommonNetworkableEventHandler());
 
         getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
         getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());

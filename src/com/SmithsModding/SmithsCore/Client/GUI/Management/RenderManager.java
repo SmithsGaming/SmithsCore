@@ -119,8 +119,6 @@ public class RenderManager implements IRenderManager {
 
             component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
-            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
-
             IGUIComponentState state = component.getState();
 
             if (!state.isEnabled())
@@ -132,17 +130,11 @@ public class RenderManager implements IRenderManager {
 
             component.drawBackground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
 
-            if (SmithsCore.isInDevenvironment()) {
-                //GuiHelper.renderScissorDebugOverlay();
-            }
-
             if (!state.isEnabled()) {
                 popColorFromRenderStack();
                 GlStateManager.disableAlpha();
                 GlStateManager.disableBlend();
             }
-
-            GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
         }
@@ -187,12 +179,6 @@ public class RenderManager implements IRenderManager {
 
             component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
-            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
-
-            if (SmithsCore.isInDevenvironment()) {
-                //GuiHelper.renderScissorDebugOverlay();
-            }
-
             IGUIComponentState state = component.getState();
 
             if (!state.isEnabled() || !parentEnabled)
@@ -210,8 +196,6 @@ public class RenderManager implements IRenderManager {
                 GlStateManager.disableAlpha();
                 GlStateManager.disableBlend();
             }
-
-            GuiHelper.disableScissor();
 
             GlStateManager.popMatrix();
         }

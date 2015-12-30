@@ -145,6 +145,9 @@ public class ComponentProgressBar implements IGUIComponent {
     public void drawTopLayerFromLeftToRight () {
         Plane renderBox = new Plane(getGlobalCoordinate(), (int) ( getWidth() * root.getRootManager().getProgressBarValue(this) ), getHeight());
 
+        if (renderBox.getWidth() == 0)
+            return;
+
         GuiHelper.enableScissor(renderBox);
 
         GuiHelper.drawResource(fullResource,0,0);
@@ -154,6 +157,9 @@ public class ComponentProgressBar implements IGUIComponent {
 
     public void drawTopLayerFromRightToLeft () {
         int fullWidth = (int) ( getWidth() * root.getRootManager().getProgressBarValue(this) );
+
+        if (fullWidth == 0)
+            return;
 
         Plane renderBox = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(getWidth() - fullWidth, 0)), fullWidth, getHeight());
 
@@ -165,7 +171,14 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     public void drawTopLayerBottomToTop () {
-        Plane renderBox = new Plane(getGlobalCoordinate(), getWidth(), (int) ( getHeight() * root.getRootManager().getProgressBarValue(this) ));
+        int fullHeight = (int) ( getHeight() * root.getRootManager().getProgressBarValue(this) );
+
+        if (fullHeight == 0)
+            return;
+
+        Plane renderBox = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, getHeight() - fullHeight)), getWidth(), fullHeight);
+
+
 
         GuiHelper.enableScissor(renderBox);
 
@@ -175,9 +188,10 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     public void drawTopLayerTopToBottom () {
-        int fullHeight = (int) ( getHeight() * root.getRootManager().getProgressBarValue(this) );
+        Plane renderBox = new Plane(getGlobalCoordinate(), getWidth(), (int) ( getHeight() * root.getRootManager().getProgressBarValue(this) ));
 
-        Plane renderBox = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, getHeight() - fullHeight)), getWidth(), fullHeight);
+        if (renderBox.getHeigth() == 0)
+            return;
 
         GuiHelper.enableScissor(renderBox);
 

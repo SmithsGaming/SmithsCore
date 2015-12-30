@@ -6,13 +6,13 @@
 
 package com.SmithsModding.SmithsCore.Network.Event.Messages;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.StandardNetworkableEvent;
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import io.netty.buffer.ByteBuf;
+import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.*;
+import io.netty.buffer.*;
+import net.minecraftforge.fml.common.network.*;
+import net.minecraftforge.fml.common.network.simpleimpl.*;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 
 public class StandardNetworkableEventSyncMessage implements IMessage {
 
@@ -40,6 +40,7 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
             Class tEventClass = Class.forName(tEventClassName);
 
             StandardNetworkableEvent tEvent = (StandardNetworkableEvent) tEventClass.getConstructor().newInstance();
+            EVENT = tEvent;
 
             tEvent.readFromMessageBuffer(buf);
         } catch (ClassNotFoundException e) {
