@@ -18,11 +18,6 @@ public class BlockModelUpdateEventHandler {
         if (!( entity instanceof IBlockModelUpdatingTileEntity ))
             return;
 
-        if (!( ( (IBlockModelUpdatingTileEntity) entity ).shouldUpdateBlock() ))
-            return;
-
-        ( (IBlockModelUpdatingTileEntity) entity ).onUpdateBlock();
-
         entity.getWorld().markBlockForUpdate(entity.getPos());
     }
 }
