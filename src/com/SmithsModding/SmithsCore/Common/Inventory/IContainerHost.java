@@ -1,6 +1,6 @@
 package com.SmithsModding.SmithsCore.Common.Inventory;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManagerProvider;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 
 /**
  * Created by Orion
@@ -20,4 +20,6 @@ public interface IContainerHost extends IGUIManagerProvider
      * @return The ID of this Container Instance.
      */
     String getContainerID();
+
+    boolean isRemote ();
 }

@@ -7,7 +7,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Events.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
@@ -16,7 +15,6 @@ import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
-import net.minecraftforge.fml.client.*;
 
 import java.util.*;
 
@@ -44,7 +42,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     {
         if (!isInitialized)
         {
-            SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiOpenedEvent(FMLClientHandler.instance().getClientPlayerEntity(), (ContainerSmithsCore) this.inventorySlots));
             registerComponents(this);
         }
 
@@ -55,16 +52,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         super.initGui();
 
         setIsInitialized(true);
-    }
-
-    /**
-     * Called when the screen is unloaded. Used to disable keyboard repeat events
-     */
-    @Override
-    public void onGuiClosed() {
-        SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiClosedEvent(FMLClientHandler.instance().getClientPlayerEntity(), (ContainerSmithsCore) this.inventorySlots));
-
-        super.onGuiClosed();
     }
 
     public boolean isInitialized() {

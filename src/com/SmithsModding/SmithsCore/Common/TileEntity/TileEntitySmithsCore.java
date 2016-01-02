@@ -7,7 +7,7 @@
 package com.SmithsModding.SmithsCore.Common.TileEntity;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import com.SmithsModding.SmithsCore.Common.Event.*;
+import com.SmithsModding.SmithsCore.Common.Events.*;
 import com.SmithsModding.SmithsCore.Common.Fluid.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import com.SmithsModding.SmithsCore.Common.TileEntity.State.*;
@@ -259,5 +259,10 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (getState().requiresSynchronization())
             this.getState().readFromNBTTagCompound(synchronizationCompound.getTag(CoreReferences.NBT.STATE));
+    }
+
+    @Override
+    public boolean isRemote () {
+        return getWorld().isRemote;
     }
 }

@@ -30,7 +30,7 @@ public class RenderDurabilityBarOverlayTransformer implements IClassTransformer 
             list.add(new VarInsnNode(Opcodes.ILOAD, 3));
             list.add(new VarInsnNode(Opcodes.ILOAD, 4));
             list.add(new VarInsnNode(Opcodes.ALOAD, 5));
-            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/SmithsModding/SmithsCore/Client/Event/OverlayRendererEvent", "onPreRender", "(Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V", false));
+            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/SmithsModding/SmithsCore/Client/Events/OverlayRendererEvent", "onPreRender", "(Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V", false));
 
             methodNode.instructions.insert(list);
         }

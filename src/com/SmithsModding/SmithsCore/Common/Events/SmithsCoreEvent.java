@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Event;
+package com.SmithsModding.SmithsCore.Common.Events;
 
 import com.SmithsModding.SmithsCore.*;
 import net.minecraft.network.*;

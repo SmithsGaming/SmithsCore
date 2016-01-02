@@ -4,9 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Event.Network;
+package com.SmithsModding.SmithsCore.Common.Events.Network;
 
-import com.SmithsModding.SmithsCore.Common.Event.*;
+import com.SmithsModding.SmithsCore.Common.Events.*;
 import com.SmithsModding.SmithsCore.Network.Event.*;
 import com.SmithsModding.SmithsCore.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
@@ -19,12 +19,12 @@ import net.minecraftforge.fml.relauncher.*;
  * <p/>
  * A good example would be an event that triggers when the user enters something into a textbox on the client side.
  * <p/>
- * The implementing event gets catched by a Event handler on the lowest priority.
+ * The implementing event gets catched by a Events handler on the lowest priority.
  */
 public class NetworkableEvent extends SmithsCoreEvent {
 
     /**
-     * Function used by the EventHandler to retrieve an IMessage that describes this Event.
+     * Function used by the EventHandler to retrieve an IMessage that describes this Events.
      * This IMessage is then send to the server or the client depending on the running side.
      * <p/>
      * A warning: You will have to register the IMessage and its handler to the EventNetworkManager.getInstance()
@@ -32,7 +32,7 @@ public class NetworkableEvent extends SmithsCoreEvent {
      *
      * @param side The side this event is synced TO!
      *
-     * @return An Instance of an IMessage class that describes this Event.
+     * @return An Instance of an IMessage class that describes this Events.
      */
     public IMessage getCommunicationMessage (Side side) {
         return null;
@@ -43,7 +43,7 @@ public class NetworkableEvent extends SmithsCoreEvent {
      * This allows you to act upon the arrival of the IMessage, as long as you have the IMessageHandler call this
      * function. A good idea is the Post this event to the NetworkRelayBus from here.
      *
-     * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this Event.
+     * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this Events.
      * @param pContext The Messages context.
      * @return A IMessage that describes the answer if need be, else null.
      */

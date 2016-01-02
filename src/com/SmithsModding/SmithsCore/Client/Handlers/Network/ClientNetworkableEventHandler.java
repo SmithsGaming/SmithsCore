@@ -6,7 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Client.Handlers.Network;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.Common.Events.Network.*;
 import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;

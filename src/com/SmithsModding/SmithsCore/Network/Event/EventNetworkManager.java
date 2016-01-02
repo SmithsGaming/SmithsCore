@@ -6,7 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Network.Event;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.Common.Events.Network.*;
 import com.SmithsModding.SmithsCore.Network.Event.Handlers.*;
 import com.SmithsModding.SmithsCore.Network.Event.Messages.*;
 import com.SmithsModding.SmithsCore.Util.Common.*;
@@ -22,7 +22,7 @@ public class EventNetworkManager {
     private static SimpleNetworkWrapper INSTANCE;
 
     /**
-     * Returns the Instance of the Channel that is used for Event Synchronizing.
+     * Returns the Instance of the Channel that is used for Events Synchronizing.
      *
      * @return A instance of the SimpleNetworkWrapper that describes the Channel that is used to Synchronize Events.
      */
@@ -41,7 +41,7 @@ public class EventNetworkManager {
         INSTANCE.registerMessage(StandardNetworkableEventSyncMessageHandler.class, StandardNetworkableEventSyncMessage.class, 0, Side.CLIENT);
         INSTANCE.registerMessage(StandardNetworkableEventSyncMessageHandler.class, StandardNetworkableEventSyncMessage.class, 1, Side.SERVER);
 
-        //Create an Event to notify other Mods that the NetworkManager is being Instantiated.
+        //Create an Events to notify other Mods that the NetworkManager is being Instantiated.
         //This gets all the Events and gives the depending Mods a chance to store a reference to this EventBus
         NetworkManagerInitializeEvent tEvent = new NetworkManagerInitializeEvent(INSTANCE);
         tEvent.PostCommon();

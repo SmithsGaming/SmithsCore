@@ -1,7 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.*;
 
 import java.util.*;
 
@@ -16,7 +15,6 @@ public class TileStorageBasedGUIManager implements IGUIManager{
 
     private ArrayList<UUID> watchingPlayers = new ArrayList<UUID>();
 
-
     /**
      * Method called when a player closed the linked UI.
      *
@@ -25,7 +23,6 @@ public class TileStorageBasedGUIManager implements IGUIManager{
     @Override
     public void onGuiOpened(UUID playerId) {
         if (watchingPlayers.contains(playerId)) {
-            SmithsCore.getLogger().warn("A player is already watching this Container!");
             return;
         }
 
@@ -40,7 +37,6 @@ public class TileStorageBasedGUIManager implements IGUIManager{
     @Override
     public void onGUIClosed(UUID playerID) {
         if (!watchingPlayers.contains(playerID)) {
-            SmithsCore.getLogger().warn("A player already stopped watching this Container!");
             return;
         }
 

@@ -6,7 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Client.Registry;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Handlers.*;
+import com.SmithsModding.SmithsCore.Client.Handlers.GUI.*;
 import com.SmithsModding.SmithsCore.Client.Handlers.Network.*;
 import com.SmithsModding.SmithsCore.Client.Mouse.*;
 import com.SmithsModding.SmithsCore.Client.Textures.*;
@@ -48,6 +48,7 @@ public class ClientRegistry extends CommonRegistry {
         getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
         getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
 
+        getNetworkBus().register(new BlockModelUpdateEventHandler());
 
         MinecraftForge.EVENT_BUS.register(holographicTextureCreator);
         MinecraftForge.EVENT_BUS.register(mouseManager);
@@ -55,7 +56,7 @@ public class ClientRegistry extends CommonRegistry {
 
     /**
      * The event bus used for client events. Under common code this is the standard Common event bus on the client side is this a special event bus
-     * not related to the Common Event bus allowing Events to be handled seperatly without having to worry about SideOnly
+     * not related to the Common Events bus allowing Events to be handled seperatly without having to worry about SideOnly
      * instances.
      *
      * @return An EventBus that is used to handle Client specific Events.

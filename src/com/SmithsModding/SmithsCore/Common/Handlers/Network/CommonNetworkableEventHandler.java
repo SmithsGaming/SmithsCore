@@ -6,7 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Common.Handlers.Network;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.Common.Events.Network.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.*;
 public class CommonNetworkableEventHandler {
 
     /**
-     * Event handler for Events on one Side that gets fired by the CommonBus to send a Message to All clients or from one Client to the Server.
+     * Events handler for Events on one Side that gets fired by the CommonBus to send a Message to All clients or from one Client to the Server.
      *
      * @param pEvent The event that should be Synchronized
      */

@@ -1,6 +1,6 @@
-package com.SmithsModding.SmithsCore.Client.Event;
+package com.SmithsModding.SmithsCore.Client.Events.GUI;
 
-import com.SmithsModding.SmithsCore.Common.Event.*;
+import com.SmithsModding.SmithsCore.Common.Events.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.item.*;
 

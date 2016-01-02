@@ -1,8 +1,8 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Handlers;
+package com.SmithsModding.SmithsCore.Client.Handlers.GUI;
 
-import com.SmithsModding.SmithsCore.Client.Registry.ClientRegistry;
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
+import com.SmithsModding.SmithsCore.Client.Registry.*;
+import com.SmithsModding.SmithsCore.*;
+import net.minecraftforge.fml.common.gameevent.*;
 
 /**
  * Created by marcf on 12/28/2015.

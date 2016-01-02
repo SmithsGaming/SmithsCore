@@ -1,6 +1,9 @@
 package com.SmithsModding.SmithsCore.Common.Inventory;
 
+import com.SmithsModding.SmithsCore.Client.Events.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
+import com.SmithsModding.SmithsCore.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 
 /**
@@ -23,14 +26,37 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     private IInventory containerInventory;
     private IInventory playerInventory;
 
-    public ContainerSmithsCore (String containerID, IContainerHost host, IInventory containerInventory, IInventory playerInventory) {
+    public ContainerSmithsCore (String containerID, IContainerHost host, IInventory containerInventory, EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host);
         this.containerInventory = containerInventory;
-        this.playerInventory = playerInventory;
+        this.playerInventory = playerMP.inventory;
+
+        this.manager.onGuiOpened(playerMP.getUniqueID());
+
+        if (this.host.isRemote())
+            return;
+
+        SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiOpenedEvent(playerMP, this));
     }
 
+    /**
+     * Called when the container is closed.
+     *
+     * @param playerIn
+     */
+    @Override
+    public void onContainerClosed (EntityPlayer playerIn) {
+        super.onContainerClosed(playerIn);
+
+        this.manager.onGUIClosed(playerIn.getUniqueID());
+
+        if (this.host.isRemote())
+            return;
+
+        SmithsCore.getRegistry().getCommonBus().post(new ContainerGuiClosedEvent(playerIn, this));
+    }
 
     /**
      * Getter for the Containers ID.
@@ -43,6 +69,11 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     @Override
     public String getContainerID() {
         return containerID;
+    }
+
+    @Override
+    public boolean isRemote () {
+        return host.isRemote();
     }
 
     /**

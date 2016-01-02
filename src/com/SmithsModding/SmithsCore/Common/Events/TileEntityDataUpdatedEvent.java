@@ -1,6 +1,6 @@
-package com.SmithsModding.SmithsCore.Common.Event;
+package com.SmithsModding.SmithsCore.Common.Events;
 
-import com.SmithsModding.SmithsCore.Common.Event.Network.*;
+import com.SmithsModding.SmithsCore.Common.Events.Network.*;
 import com.SmithsModding.SmithsCore.Common.TileEntity.*;
 import com.SmithsModding.SmithsCore.Network.Event.*;
 import com.SmithsModding.SmithsCore.*;
@@ -36,6 +36,9 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
         NBTTagCompound messageCompound = ByteBufUtils.readTag(pMessageBuffer);
 
         TileEntity tileEntity = FMLClientHandler.instance().getWorldClient().getTileEntity(new BlockPos(messageCompound.getInteger("x"), messageCompound.getInteger("y"), messageCompound.getInteger("z")));
+
+        if (tileEntity == null)
+            return;
 
         if (!( tileEntity instanceof TileEntitySmithsCore )) {
             SmithsCore.getLogger().error(CoreReferences.LogMarkers.TESYNC, "While trying to sync a TE a instance mismatch occurred. This should be impossible and is a BUG!");
