@@ -52,6 +52,7 @@ public class ClientRegistry extends CommonRegistry {
 
         MinecraftForge.EVENT_BUS.register(holographicTextureCreator);
         MinecraftForge.EVENT_BUS.register(mouseManager);
+        MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
     }
 
     /**

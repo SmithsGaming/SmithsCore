@@ -11,12 +11,12 @@ import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
 
-import java.util.*;
+import java.util.concurrent.*;
 
 public interface IStructureComponent extends IPathComponent {
     String getStructureType ();
 
-    HashMap<Coordinate3D, IStructureComponent> getSlaveEntities ();
+    ConcurrentHashMap<Coordinate3D, IStructureComponent> getSlaveEntities ();
 
     void registerNewSlave (TileEntity pNewSlaveEntity);
 
