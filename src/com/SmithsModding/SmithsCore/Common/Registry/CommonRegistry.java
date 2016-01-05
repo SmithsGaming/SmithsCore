@@ -8,7 +8,6 @@ package com.SmithsModding.SmithsCore.Common.Registry;
 
 import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
 import com.SmithsModding.SmithsCore.Network.Event.*;
-import com.SmithsModding.SmithsCore.Network.Structure.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
@@ -39,7 +38,6 @@ public class CommonRegistry {
     public void initializeNetwork()
     {
         EventNetworkManager.Init();
-        StructureNetworkManager.Init();
     }
 
 

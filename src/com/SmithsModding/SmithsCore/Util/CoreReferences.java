@@ -28,10 +28,25 @@ public class CoreReferences {
         public static final String FLUIDS = "SmithsCore.Fluids";
         public static final String INVENTORY = "SmithsCore.Inventory";
         public static final String STATE = "SmithsCore.State";
+        public static final String STRUCTURE = "SmithsCore.Structure";
 
         public static class InventoryData {
             public static final String SLOTINDEX = "SmithsCore.Inventory.SlotIndex";
             public static final String STACKDATA = "SmithsCore.Inventory.ItemStackData";
+        }
+
+        public static class StructureData {
+            public static final String ISSLAVED = "SmithsCore.Structure.Slaved";
+
+            public static final String MASTERLOCATION = "SmithsCore.Structure.MasterLocation";
+
+            public static final String SLAVELOCATIONS = "SmithsCore.Structure.SlaveLocations";
+        }
+
+        public static class Coordinates {
+            public static final String X = "SmithsCore.Coordaintes.X";
+            public static final String Y = "SmithsCore.Coordaintes.Y";
+            public static final String Z = "SmithsCore.Coordaintes.Z";
         }
     }
 

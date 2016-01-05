@@ -10,6 +10,7 @@ import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Common.Events.*;
 import com.SmithsModding.SmithsCore.Common.Fluid.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
+import com.SmithsModding.SmithsCore.Common.Structures.*;
 import com.SmithsModding.SmithsCore.Common.TileEntity.State.*;
 import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
@@ -18,6 +19,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
+import net.minecraftforge.common.util.*;
 import net.minecraftforge.fluids.*;
 
 import java.util.*;
@@ -53,6 +55,10 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (getState().requiresNBTStorage())
             this.getState().readFromNBTTagCompound(compound.getTag(CoreReferences.NBT.STATE));
+
+        if (this instanceof IStructureComponent)
+            this.readStructureComponentFromNBT((NBTTagCompound) compound.getTag(CoreReferences.NBT.STRUCTURE));
+
     }
 
     @Override
@@ -67,6 +73,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (getState().requiresNBTStorage())
             compound.setTag(CoreReferences.NBT.STATE, this.getState().writeToNBTTagCompound());
+
+        if (this instanceof IStructureComponent)
+            compound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));
     }
 
     /**
@@ -140,7 +149,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      *
      * @return A NBTTagList with all stacks in the Inventory.
      */
-    public NBTBase writeInventoryToCompound () {
+    protected NBTBase writeInventoryToCompound () {
         IInventory inventory = (IInventory) this;
         NBTTagList inventoryList = new NBTTagList();
 
@@ -166,7 +175,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the Slots in this
      *                          inventory.
      */
-    public void readInventoryFromCompound (NBTBase inventoryCompound) {
+    protected void readInventoryFromCompound (NBTBase inventoryCompound) {
         if (!( inventoryCompound instanceof NBTTagList ))
             throw new IllegalArgumentException("The given store type is not compatible with this TE!");
 
@@ -186,7 +195,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      *
      * @return A NBTTagList with all fluids in the Tile.
      */
-    public NBTBase writeFluidsToCompound () {
+    protected NBTBase writeFluidsToCompound () {
         IFluidContainingEntity fluidContainingEntity = (IFluidContainingEntity) this;
 
         NBTTagList fluidData = new NBTTagList();
@@ -204,7 +213,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the fluids in
      *                          this TileEntity.
      */
-    public void readFluidsFromCompound (NBTBase inventoryCompound) {
+    protected void readFluidsFromCompound (NBTBase inventoryCompound) {
         if (!( inventoryCompound instanceof NBTTagList ))
             throw new IllegalArgumentException("The given store type is not compatible with this TE!");
 
@@ -220,6 +229,67 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         }
 
         fluidContainingEntity.setAllFluids(fluidStacks);
+    }
+
+    /**
+     * Method used to write the structure data to NBT
+     *
+     * @param structureCompound The NBTTagCompound to write the structure data to.
+     *
+     * @return The given structureCompound with the structure data appended.
+     */
+    protected NBTTagCompound writeStructureComponentDataToNBT (NBTTagCompound structureCompound) {
+        IStructureComponent component = (IStructureComponent) this;
+
+        structureCompound.setBoolean(CoreReferences.NBT.StructureData.ISSLAVED, component.isSlaved());
+
+        if (component.isSlaved()) {
+            structureCompound.setTag(CoreReferences.NBT.StructureData.MASTERLOCATION, component.getMasterLocation().toCompound());
+            structureCompound.setTag(CoreReferences.NBT.StructureData.SLAVELOCATIONS, new NBTTagList());
+        } else {
+            structureCompound.setTag(CoreReferences.NBT.StructureData.MASTERLOCATION, getLocation().toCompound());
+
+            NBTTagList coordinateList = new NBTTagList();
+
+            Iterator<Coordinate3D> coordinate3DIterator = component.getSlaveCoordinates().iterator();
+            while (coordinate3DIterator.hasNext()) {
+                coordinateList.appendTag(coordinate3DIterator.next().toCompound());
+            }
+
+            structureCompound.setTag(CoreReferences.NBT.StructureData.SLAVELOCATIONS, coordinateList);
+        }
+
+        return structureCompound;
+    }
+
+    /**
+     * Function to read the structure data from a NBT
+     *
+     * @param structureCompound The compound with the Structure Data.
+     */
+    protected void readStructureComponentFromNBT (NBTTagCompound structureCompound) {
+        IStructureComponent component = (IStructureComponent) this;
+
+        boolean isSlaved = structureCompound.getBoolean(CoreReferences.NBT.StructureData.ISSLAVED);
+
+        Coordinate3D masterLocation = Coordinate3D.fromNBT(structureCompound.getCompoundTag(CoreReferences.NBT.StructureData.MASTERLOCATION));
+        NBTTagList slaveCoordinateTagList = structureCompound.getTagList(CoreReferences.NBT.StructureData.SLAVELOCATIONS, Constants.NBT.TAG_COMPOUND);
+
+        if (isSlaved) {
+            component.setMasterLocation(masterLocation);
+            component.setSlaveCoordinates(new ArrayList<Coordinate3D>());
+        } else {
+            component.setMasterLocation(getLocation());
+
+            ArrayList<Coordinate3D> slaveCoordinateList = new ArrayList<Coordinate3D>();
+            for (int i = 0; i < slaveCoordinateTagList.tagCount(); i++) {
+                NBTTagCompound coordinateCompound = (NBTTagCompound) slaveCoordinateTagList.get(i);
+                slaveCoordinateList.add(Coordinate3D.fromNBT(coordinateCompound));
+            }
+
+            component.setSlaveCoordinates(slaveCoordinateList);
+        }
+
     }
 
 
@@ -242,6 +312,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         if (getState().requiresSynchronization())
             synchronizationCompound.setTag(CoreReferences.NBT.STATE, this.getState().writeToSynchronizationCompound());
 
+        if (this instanceof IStructureComponent)
+            synchronizationCompound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));
+
         return synchronizationCompound;
     }
 
@@ -259,6 +332,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (getState().requiresSynchronization())
             this.getState().readFromNBTTagCompound(synchronizationCompound.getTag(CoreReferences.NBT.STATE));
+
+        if (this instanceof IStructureComponent)
+            this.readStructureComponentFromNBT((NBTTagCompound) synchronizationCompound.getTag(CoreReferences.NBT.STRUCTURE));
     }
 
     @Override

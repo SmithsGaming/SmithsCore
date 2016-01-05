@@ -1,19 +1,15 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.IGUIComponent;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedLedgerHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.IGUILedger;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.LedgerConnectionSide;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManager;
-import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
-import com.SmithsModding.SmithsCore.Client.GUI.State.LedgerComponentState;
-import com.SmithsModding.SmithsCore.Util.Client.CustomResource;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
-import net.minecraft.client.gui.Gui;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
+import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.Util.Client.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.client.gui.*;
 
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -62,7 +58,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public IGUIBasedComponentHost getComponentHost() {
-        return null;
+        return root;
     }
 
     /**
@@ -82,7 +78,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public Coordinate2D getGlobalCoordinate() {
-        return null;
+        return root.getLedgerManager().getLedgerGlobalCoordinate(getPrimarySide(), getID()).getTranslatedCoordinate(getLocalCoordinate());
     }
 
     /**
@@ -92,7 +88,11 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public Coordinate2D getLocalCoordinate() {
-        return null;
+        if (getPrimarySide() == LedgerConnectionSide.LEFT) {
+            return new Coordinate2D((int) ( -1 * ( getSize().getWidth() - 4 ) * state.getOpenProgress() ), 0);
+        } else {
+            return new Coordinate2D((int) ( ( getSize().getWidth() - 4 ) * state.getOpenProgress() ), 0);
+        }
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public Plane getAreaOccupiedByComponent() {
-        return null;
+        return new Plane();
     }
 
     /**

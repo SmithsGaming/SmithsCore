@@ -8,41 +8,39 @@ package com.SmithsModding.SmithsCore.Common.Structures;
 
 import com.SmithsModding.SmithsCore.Common.PathFinding.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import net.minecraft.nbt.*;
-import net.minecraft.tileentity.*;
 
-import java.util.concurrent.*;
+import java.util.*;
 
 public interface IStructureComponent extends IPathComponent {
-    String getStructureType ();
 
-    ConcurrentHashMap<Coordinate3D, IStructureComponent> getSlaveEntities ();
+    String getStructureTypeUniqueID ();
 
-    void registerNewSlave (TileEntity pNewSlaveEntity);
-
-    void removeSlave (Coordinate3D pSlaveCoordinate);
-
-    Cube getStructureSpace ();
-
-    void initiateAsMasterEntity ();
-
-    IStructureData getStructureRelevantData ();
-
-    void setStructureData (IStructureData pNewData);
-
-
-    float getDistanceToMasterEntity ();
-
-    boolean isSlaved ();
-
-    IStructureComponent getMasterEntity ();
-
-    void initiateAsSlaveEntity (IStructureComponent pMasterEntity);
+    Cube getStructureBoundingBox ();
 
     boolean countsAsConnectingComponent ();
 
+    IStructureData getStructureData ();
 
-    void writeStructureToNBT (NBTTagCompound pTileEntityCompound);
 
-    void readStructureFromNBT (NBTTagCompound pTileEntityCompound);
+    void initiateAsMasterEntity ();
+
+    void initiateAsSlaveEntity (Coordinate3D masterLocation);
+
+
+    ArrayList<Coordinate3D> getSlaveCoordinates ();
+
+    void setSlaveCoordinates (ArrayList<Coordinate3D> newSlaveCoordinates);
+
+    void registerNewSlave (Coordinate3D newSlaveLocation);
+
+    void removeSlave (Coordinate3D slaveLocation);
+
+
+    boolean isSlaved ();
+
+    float getDistanceToMasterEntity ();
+
+    Coordinate3D getMasterLocation ();
+
+    void setMasterLocation (Coordinate3D newMasterLocation);
 }

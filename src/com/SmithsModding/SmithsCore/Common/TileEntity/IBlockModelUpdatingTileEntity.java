@@ -6,6 +6,8 @@ package com.SmithsModding.SmithsCore.Common.TileEntity;
  */
 public interface IBlockModelUpdatingTileEntity {
 
+    void queBlockModelUpdateOnClients ();
+
     boolean shouldUpdateBlock ();
 
     void onUpdateBlock ();

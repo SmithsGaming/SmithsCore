@@ -2,14 +2,11 @@ package com.SmithsModding.SmithsCore.Common.Structures;
 
 
 import com.SmithsModding.SmithsCore.Common.PathFinding.*;
-import com.SmithsModding.SmithsCore.Network.Structure.Messages.*;
-import com.SmithsModding.SmithsCore.Network.Structure.*;
 import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
-import net.minecraftforge.fml.common.network.*;
 
 import java.util.*;
 
@@ -21,24 +18,9 @@ import java.util.*;
 public final class StructureManager {
 
     public static void joinSructure (IStructureComponent pStructureMember, IStructureComponent pNewComponent) {
-        if (!( pStructureMember.isSlaved() )) {
-            pNewComponent.initiateAsSlaveEntity(pStructureMember);
-            StructureNetworkManager.getInstance().sendToAllAround(new MessageOnCreateSlaveEntity(pNewComponent, pStructureMember), new NetworkRegistry.TargetPoint(( (TileEntity) pNewComponent ).getWorld().provider.getDimensionId(), (double) pNewComponent.getLocation().getXComponent(), (double) pNewComponent.getLocation().getYComponent(), (double) pNewComponent.getLocation().getZComponent(), 128));
-            try {
-                ( pStructureMember ).registerNewSlave((TileEntity) pNewComponent);
-                StructureNetworkManager.getInstance().sendToAllAround(new MessageOnUpdateMasterData(pStructureMember), new NetworkRegistry.TargetPoint(( (TileEntity) pStructureMember ).getWorld().provider.getDimensionId(), (double) pStructureMember.getLocation().getXComponent(), (double) pStructureMember.getLocation().getYComponent(), (double) pStructureMember.getLocation().getZComponent(), 128));
-            } catch (Exception IAEx) {
-                SmithsCore.getLogger().error("Failed to register a TE", IAEx);
-            }
-
-            return;
-        }
-
-        pNewComponent.initiateAsSlaveEntity(pStructureMember.getMasterEntity());
-        StructureNetworkManager.getInstance().sendToAllAround(new MessageOnCreateSlaveEntity(pNewComponent, pStructureMember.getMasterEntity()), new NetworkRegistry.TargetPoint(( (TileEntity) pNewComponent ).getWorld().provider.getDimensionId(), (double) pNewComponent.getLocation().getXComponent(), (double) pNewComponent.getLocation().getYComponent(), (double) pNewComponent.getLocation().getZComponent(), 128));
+        pNewComponent.initiateAsSlaveEntity(pStructureMember.getMasterLocation());
         try {
-            pStructureMember.getMasterEntity().registerNewSlave((TileEntity) pNewComponent);
-            StructureNetworkManager.getInstance().sendToAllAround(new MessageOnUpdateMasterData(pStructureMember.getMasterEntity()), new NetworkRegistry.TargetPoint(( (TileEntity) pStructureMember.getMasterEntity() ).getWorld().provider.getDimensionId(), (double) pStructureMember.getMasterEntity().getLocation().getXComponent(), (double) pStructureMember.getMasterEntity().getLocation().getYComponent(), (double) pStructureMember.getMasterEntity().getLocation().getZComponent(), 128));
+            pStructureMember.registerNewSlave(pNewComponent.getLocation());
         } catch (Exception IAEx) {
             SmithsCore.getLogger().error("Failed to register a TE on a remote master", IAEx);
         }
@@ -46,21 +28,22 @@ public final class StructureManager {
         return;
     }
 
-    public static void mergeStructures (IStructureComponent pNewStructureMaster, IStructureComponent pComponentStructureMaster, IStructureComponent pCombiningStructureComponent) {
+    public static void mergeStructures (IStructureComponent newStructureMaster, IStructureComponent merginComponentMaster, IStructureComponent combiningComponent) {
         //Add the individual slaves
-        for (IStructureComponent tNewSlaveComponent : pComponentStructureMaster.getSlaveEntities().values()) {
-            joinSructure(pNewStructureMaster, tNewSlaveComponent);
+        for (Coordinate3D slaveCoordinate : merginComponentMaster.getSlaveCoordinates()) {
+            IStructureComponent slaveComponent = (IStructureComponent) ( (TileEntity) merginComponentMaster ).getWorld().getTileEntity(slaveCoordinate.toBlockPos());
+
+            joinSructure(newStructureMaster, slaveComponent);
         }
 
         //Add the structures Master, destroying the old Structures
-        joinSructure(pNewStructureMaster, pComponentStructureMaster);
+        joinSructure(newStructureMaster, merginComponentMaster);
     }
 
     public static IStructureComponent splitStructure (IStructureComponent pOldMasterStructure, ArrayList<IStructureComponent> pSplittedComponents) {
         //Create the new Structures master Entity
         IStructureComponent tNewMasterComponent = pSplittedComponents.remove(0);
         tNewMasterComponent.initiateAsMasterEntity();
-        StructureNetworkManager.getInstance().sendToAllAround(new MessageOnCreateMasterEntity(tNewMasterComponent), new NetworkRegistry.TargetPoint(( (TileEntity) tNewMasterComponent ).getWorld().provider.getDimensionId(), (double) tNewMasterComponent.getLocation().getXComponent(), (double) tNewMasterComponent.getLocation().getYComponent(), (double) tNewMasterComponent.getLocation().getZComponent(), 128));
 
         //Let all the Slaves join the new Handlers
         for (IStructureComponent tNewSlave : pSplittedComponents) {
@@ -68,9 +51,6 @@ public final class StructureManager {
 
             pOldMasterStructure.removeSlave(tNewSlave.getLocation());
         }
-
-        StructureNetworkManager.getInstance().sendToAllAround(new MessageOnUpdateMasterData(pOldMasterStructure), new NetworkRegistry.TargetPoint(( (TileEntity) pOldMasterStructure ).getWorld().provider.getDimensionId(), (double) pOldMasterStructure.getLocation().getXComponent(), (double) pOldMasterStructure.getLocation().getYComponent(), (double) pOldMasterStructure.getLocation().getZComponent(), 128));
-        StructureNetworkManager.getInstance().sendToAllAround(new MessageOnUpdateMasterData(tNewMasterComponent), new NetworkRegistry.TargetPoint(( (TileEntity) tNewMasterComponent ).getWorld().provider.getDimensionId(), (double) tNewMasterComponent.getLocation().getXComponent(), (double) tNewMasterComponent.getLocation().getYComponent(), (double) tNewMasterComponent.getLocation().getZComponent(), 128));
 
         return tNewMasterComponent;
     }
@@ -85,7 +65,6 @@ public final class StructureManager {
 
         if (tTargetStructure == null) {
             tNewComponent.initiateAsMasterEntity();
-            StructureNetworkManager.getInstance().sendToAllAround(new MessageOnCreateMasterEntity(tNewComponent), new NetworkRegistry.TargetPoint(( (TileEntity) tNewComponent ).getWorld().provider.getDimensionId(), (double) tNewComponent.getLocation().getXComponent(), (double) tNewComponent.getLocation().getYComponent(), (double) tNewComponent.getLocation().getZComponent(), 128));
         }
     }
 
@@ -97,7 +76,7 @@ public final class StructureManager {
         if (!( tEntity instanceof IStructureComponent ))
             return pTargetStructure;
 
-        if (!( (IStructureComponent) tEntity ).getStructureType().equals(pNewComponent.getStructureType()))
+        if (!( (IStructureComponent) tEntity ).getStructureTypeUniqueID().equals(pNewComponent.getStructureTypeUniqueID()))
             return pTargetStructure;
 
         if (pTargetStructure == null) {
@@ -105,11 +84,11 @@ public final class StructureManager {
             return (IStructureComponent) tEntity;
         }
 
-        if (( (IStructureComponent) tEntity ).getMasterEntity().getLocation().equals(pNewComponent.getMasterEntity().getLocation()))
+        if (( (IStructureComponent) tEntity ).getMasterLocation().equals(pNewComponent.getMasterLocation()))
             return pTargetStructure;
 
         if (( (IStructureComponent) tEntity ).isSlaved()) {
-            mergeStructures(pTargetStructure, ( (IStructureComponent) tEntity ).getMasterEntity(), pNewComponent);
+            mergeStructures(pTargetStructure, (IStructureComponent) tEntity.getWorld().getTileEntity(( (IStructureComponent) tEntity ).getMasterLocation().toBlockPos()), pNewComponent);
         } else {
             mergeStructures(pTargetStructure, ( (IStructureComponent) tEntity ), pNewComponent);
         }
@@ -121,24 +100,19 @@ public final class StructureManager {
         IStructureComponent tMasterComponent = null;
 
         if (tToBeDestroyedComponent.isSlaved()) {
-            tToBeDestroyedComponent.getMasterEntity().removeSlave(tToBeDestroyedComponent.getLocation());
-            StructureNetworkManager.getInstance().sendToAllAround(new MessageOnUpdateMasterData(tToBeDestroyedComponent.getMasterEntity()), new NetworkRegistry.TargetPoint(( (TileEntity) tToBeDestroyedComponent.getMasterEntity() ).getWorld().provider.getDimensionId(), (double) tToBeDestroyedComponent.getMasterEntity().getLocation().getXComponent(), (double) tToBeDestroyedComponent.getMasterEntity().getLocation().getYComponent(), (double) tToBeDestroyedComponent.getMasterEntity().getLocation().getZComponent(), 128));
+            ( (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getMasterLocation().toBlockPos()) ).removeSlave(tToBeDestroyedComponent.getLocation());
 
-            tMasterComponent = tToBeDestroyedComponent.getMasterEntity();
+            tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getMasterLocation().toBlockPos());
         } else {
-            if (tToBeDestroyedComponent.getSlaveEntities().size() == 1) {
-                tMasterComponent = ( new ArrayList<IStructureComponent>(tToBeDestroyedComponent.getSlaveEntities().values()) ).get(0);
+            if (tToBeDestroyedComponent.getSlaveCoordinates().size() == 1) {
+                tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(0).toBlockPos());
                 tMasterComponent.initiateAsMasterEntity();
-                StructureNetworkManager.getInstance().sendToAllAround(new MessageOnCreateMasterEntity(tMasterComponent), new NetworkRegistry.TargetPoint(( (TileEntity) tMasterComponent ).getWorld().provider.getDimensionId(), (double) tMasterComponent.getLocation().getXComponent(), (double) tMasterComponent.getLocation().getYComponent(), (double) tMasterComponent.getLocation().getZComponent(), 128));
-            } else if (tToBeDestroyedComponent.getSlaveEntities().size() > 1) {
-                ArrayList<IStructureComponent> tComponentList = new ArrayList<IStructureComponent>(tToBeDestroyedComponent.getSlaveEntities().values());
-
-                tMasterComponent = tComponentList.get(0);
+            } else if (tToBeDestroyedComponent.getSlaveCoordinates().size() > 1) {
+                tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(0).toBlockPos());
                 tMasterComponent.initiateAsMasterEntity();
-                StructureNetworkManager.getInstance().sendToAllAround(new MessageOnCreateMasterEntity(tMasterComponent), new NetworkRegistry.TargetPoint(( (TileEntity) tMasterComponent ).getWorld().provider.getDimensionId(), (double) tMasterComponent.getLocation().getXComponent(), (double) tMasterComponent.getLocation().getYComponent(), (double) tMasterComponent.getLocation().getZComponent(), 128));
 
-                for (int tIndex = 1; tIndex < tComponentList.size(); tIndex++) {
-                    joinSructure(tMasterComponent, tComponentList.get(tIndex));
+                for (int tIndex = 1; tIndex < tToBeDestroyedComponent.getSlaveCoordinates().size(); tIndex++) {
+                    joinSructure(tMasterComponent, (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(tIndex).toBlockPos()));
                 }
             }
         }
@@ -154,14 +128,16 @@ public final class StructureManager {
     public static ArrayList<IStructureComponent> validateStructureIntegrity (IStructureComponent pMasterComponent, IPathComponent pSeperatingComponent) {
         ArrayList<IStructureComponent> tNotConnectedComponents = new ArrayList<IStructureComponent>();
 
-        for (IStructureComponent tSlave : pMasterComponent.getSlaveEntities().values()) {
-            if (!checkIfComponentStillConnected(pMasterComponent, tSlave, pSeperatingComponent))
-                tNotConnectedComponents.add(tSlave);
+        for (Coordinate3D slaveCoordinate : pMasterComponent.getSlaveCoordinates()) {
+            IStructureComponent slaveComponent = (IStructureComponent) ( (TileEntity) pMasterComponent ).getWorld().getTileEntity(slaveCoordinate.toBlockPos());
+
+            if (!checkIfComponentStillConnected(pMasterComponent, slaveComponent, pSeperatingComponent))
+                tNotConnectedComponents.add(slaveComponent);
         }
 
         for (IStructureComponent tSlave : tNotConnectedComponents) {
             SmithsCore.getLogger().info("Removing " + tSlave.getLocation().toString() + " from structure.");
-            pMasterComponent.getSlaveEntities().remove(tSlave.getLocation());
+            pMasterComponent.removeSlave(tSlave.getLocation());
         }
 
         return tNotConnectedComponents;

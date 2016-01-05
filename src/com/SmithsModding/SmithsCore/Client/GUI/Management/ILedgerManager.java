@@ -1,9 +1,8 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedLedgerHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.IGUILedger;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.LedgerConnectionSide;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 
 /**
  * Created by marcf on 12/29/2015.
@@ -32,6 +31,4 @@ public interface ILedgerManager
      * @return See method description.
      */
     Coordinate2D getLedgerGlobalCoordinate(LedgerConnectionSide side, String uniqueID);
-
-
 }

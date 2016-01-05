@@ -6,24 +6,30 @@
 
 package com.SmithsModding.SmithsCore.Util.Common.Postioning;
 
+import com.SmithsModding.SmithsCore.Util.*;
 import io.netty.buffer.*;
+import net.minecraft.nbt.*;
 import net.minecraft.util.*;
 
 
 public class Coordinate3D {
-    int iXCoord;
-    int iYCoord;
-    int iZCoord;
+    int xCoord;
+    int yCoord;
+    int zCoord;
 
     public Coordinate3D(int pXCoord, int pYCoord, int pZCoord) {
-        iXCoord = pXCoord;
-        iYCoord = pYCoord;
-        iZCoord = pZCoord;
+        xCoord = pXCoord;
+        yCoord = pYCoord;
+        zCoord = pZCoord;
     }
 
     public Coordinate3D(BlockPos pPos)
     {
         this(pPos.getX(), pPos.getY(), pPos.getZ());
+    }
+
+    public static Coordinate3D fromNBT (NBTTagCompound compound) {
+        return new Coordinate3D(compound.getInteger(CoreReferences.NBT.Coordinates.X), compound.getInteger(CoreReferences.NBT.Coordinates.Y), compound.getInteger(CoreReferences.NBT.Coordinates.Z));
     }
 
     public static Coordinate3D fromBytes(ByteBuf pData) {
@@ -36,12 +42,26 @@ public class Coordinate3D {
         pDataOut.writeInt(getZComponent());
     }
 
+    public BlockPos toBlockPos () {
+        return new BlockPos(getXComponent(), getYComponent(), getZComponent());
+    }
+
+    public NBTTagCompound toCompound () {
+        NBTTagCompound compound = new NBTTagCompound();
+
+        compound.setInteger(CoreReferences.NBT.Coordinates.X, xCoord);
+        compound.setInteger(CoreReferences.NBT.Coordinates.Y, yCoord);
+        compound.setInteger(CoreReferences.NBT.Coordinates.Z, zCoord);
+
+        return compound;
+    }
+
     @Override
     public String toString() {
         return "Coordinate{" +
-                "iXCoord=" + iXCoord +
-                ", iYCoord=" + iYCoord +
-                ", iZCoord=" + iZCoord +
+                "xCoord=" + xCoord +
+                ", yCoord=" + yCoord +
+                ", zCoord=" + zCoord +
                 '}';
     }
 
@@ -52,9 +72,9 @@ public class Coordinate3D {
 
         Coordinate3D that = (Coordinate3D) o;
 
-        if (iXCoord != that.iXCoord) return false;
-        if (iYCoord != that.iYCoord) return false;
-        return iZCoord == that.iZCoord;
+        if (xCoord != that.xCoord) return false;
+        if (yCoord != that.yCoord) return false;
+        return zCoord == that.zCoord;
 
     }
 
@@ -64,15 +84,15 @@ public class Coordinate3D {
     }
 
     public int getXComponent() {
-        return iXCoord;
+        return xCoord;
     }
 
     public int getYComponent() {
-        return iYCoord;
+        return yCoord;
     }
 
     public int getZComponent() {
-        return iZCoord;
+        return zCoord;
     }
 
     public Coordinate3D moveCoordinate (EnumFacing pDirection, int pDistance) {
@@ -81,10 +101,5 @@ public class Coordinate3D {
 
     public float getDistanceTo(Coordinate3D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2) + Math.pow(getZComponent() - pCoordinate.getZComponent(), 2));
-    }
-
-    public BlockPos toBlockPos()
-    {
-        return new BlockPos(getXComponent(), getYComponent(), getZComponent());
     }
 }

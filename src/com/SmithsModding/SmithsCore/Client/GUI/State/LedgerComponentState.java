@@ -1,6 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.State;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.IGUIComponent;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -80,7 +80,7 @@ public class LedgerComponentState implements IGUIComponentState {
      *
      * @return True if open or opening, False if closed or closing
      */
-    boolean getOpenState(){
+    public boolean getOpenState () {
         return this.openState;
     }
 
@@ -90,7 +90,7 @@ public class LedgerComponentState implements IGUIComponentState {
      * @param state True when the ledger should start opening (or continue opening), false when the ledger should (stop
      *              opening and should) start closing, or stay closed.
      */
-    void setOpenState(boolean state){
+    public void setOpenState (boolean state) {
         this.openState = state;
     }
 
@@ -99,7 +99,7 @@ public class LedgerComponentState implements IGUIComponentState {
      *
      * @return The new open state of the ledger
      */
-    boolean toggleOpenState(){
+    public boolean toggleOpenState () {
         setOpenState(!getOpenState());
 
         return getOpenState();
@@ -110,7 +110,7 @@ public class LedgerComponentState implements IGUIComponentState {
      *
      * @return A value between 1 and 0, with 0 meaning closed and 1 meaning open.
      */
-    float getOpenProgress(){
+    public float getOpenProgress () {
         return this.openProgress;
     }
 
@@ -119,7 +119,7 @@ public class LedgerComponentState implements IGUIComponentState {
      *
      * @param progress A value between 1 and 0, with 0 meaning closed and 1 meaning open.
      */
-    void setOpenProgress(float progress){
+    public void setOpenProgress (float progress) {
         this.openProgress = progress;
     }
 }

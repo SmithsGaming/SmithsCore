@@ -6,7 +6,7 @@
 
 package com.SmithsModding.SmithsCore.Util.Common.Postioning;
 
-import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.*;
 
 public class Cube {
 
@@ -51,13 +51,13 @@ public class Cube {
 
 
     public Cube Move(int pDeltaX, int pDeltaY, int pDeltaZ) {
-        this.iTopLeftFrontCoord.iXCoord += pDeltaX;
-        this.iTopLeftFrontCoord.iYCoord += pDeltaY;
-        this.iTopLeftFrontCoord.iZCoord += pDeltaZ;
+        this.iTopLeftFrontCoord.xCoord += pDeltaX;
+        this.iTopLeftFrontCoord.yCoord += pDeltaY;
+        this.iTopLeftFrontCoord.zCoord += pDeltaZ;
 
-        this.iLowerRightBackCoord.iXCoord += pDeltaX;
-        this.iLowerRightBackCoord.iYCoord += pDeltaY;
-        this.iLowerRightBackCoord.iZCoord += pDeltaZ;
+        this.iLowerRightBackCoord.xCoord += pDeltaX;
+        this.iLowerRightBackCoord.yCoord += pDeltaY;
+        this.iLowerRightBackCoord.zCoord += pDeltaZ;
 
         return this;
     }
@@ -80,12 +80,12 @@ public class Cube {
             this.ExpandToCoordinate(Math.abs(pXCoord - iLowerRightBackCoord.getXComponent()), 0, 0);
         }
 
-        if (pYCoord > this.iTopLeftFrontCoord.getYComponent()) {
-            this.ExpandToCoordinate(0, Math.abs(pXCoord - iTopLeftFrontCoord.getYComponent()), 0);
+        if (pYCoord > this.iLowerRightBackCoord.getYComponent()) {
+            this.ExpandToCoordinate(0, Math.abs(pYCoord - iLowerRightBackCoord.getYComponent()), 0);
         }
 
-        if (pYCoord < this.iLowerRightBackCoord.getYComponent()) {
-            this.ExpandToCoordinate(0, -1 * Math.abs(pXCoord - iLowerRightBackCoord.getYComponent()), 0);
+        if (pYCoord < this.iTopLeftFrontCoord.getYComponent()) {
+            this.ExpandToCoordinate(0, -1 * Math.abs(pYCoord - iTopLeftFrontCoord.getYComponent()), 0);
         }
 
         if (pZCoord < this.iTopLeftFrontCoord.getZComponent()) {
