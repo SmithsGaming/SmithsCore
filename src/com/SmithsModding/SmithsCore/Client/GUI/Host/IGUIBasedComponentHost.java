@@ -1,5 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Host;
 
+import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import net.minecraft.client.gui.*;
@@ -35,7 +36,7 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return The GUI that this component is part of.
      */
-    Gui getRootGuiObject();
+    GuiContainerSmithsCore getRootGuiObject();
 
     /**
      * Method to get the GUI Roots Manager.

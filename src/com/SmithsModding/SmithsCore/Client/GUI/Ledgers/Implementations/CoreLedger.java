@@ -1,12 +1,19 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Implementations;
 
+import com.SmithsModding.SmithsCore.Client.GUI.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Animation.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Util.Client.*;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import com.sun.prism.paint.*;
+import com.sun.webpane.platform.*;
+import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 
 import java.util.*;
@@ -14,7 +21,7 @@ import java.util.*;
 /**
  * Created by marcf on 12/28/2015.
  */
-public abstract class CoreLedger implements IGUILedger {
+public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent {
 
     private String uniqueID;
     private LedgerComponentState state;
@@ -25,8 +32,25 @@ public abstract class CoreLedger implements IGUILedger {
 
     private CustomResource ledgerIcon;
     private String translatedLedgerHeader;
+    private MinecraftColor color;
 
+    private int headerHeight;
+    private int headerWidth;
 
+    public CoreLedger (String uniqueID, LedgerComponentState state, IGUIBasedLedgerHost root, LedgerConnectionSide side, LinkedHashMap<String, IGUIComponent> components, CustomResource ledgerIcon, String translatedLedgerHeader, MinecraftColor color) {
+        this.uniqueID = uniqueID;
+        this.state = state;
+        this.state.setComponent(this);
+        this.root = root;
+        this.side = side;
+        this.components = components;
+        this.ledgerIcon = ledgerIcon;
+        this.translatedLedgerHeader = translatedLedgerHeader;
+        this.color = color;
+
+        headerHeight = ledgerIcon.getHeight() + 16;
+        headerWidth = ledgerIcon.getWidth() + 16;
+    }
 
     /**
      * Function used to get the ID of the Component.
@@ -89,9 +113,9 @@ public abstract class CoreLedger implements IGUILedger {
     @Override
     public Coordinate2D getLocalCoordinate() {
         if (getPrimarySide() == LedgerConnectionSide.LEFT) {
-            return new Coordinate2D((int) ( -1 * ( getSize().getWidth() - 4 ) * state.getOpenProgress() ), 0);
+            return new Coordinate2D(-1 * ( getSize().getWidth() - 4 ), 0);
         } else {
-            return new Coordinate2D((int) ( ( getSize().getWidth() - 4 ) * state.getOpenProgress() ), 0);
+            return new Coordinate2D(-4, 0);
         }
     }
 
@@ -102,7 +126,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public Plane getAreaOccupiedByComponent() {
-        return new Plane();
+        return new Plane(getGlobalCoordinate(), getSize().getWidth(), getSize().getWidth());
     }
 
     /**
@@ -112,8 +136,22 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public Plane getSize() {
-        return null;
+        return new Plane(0, 0, (int) ( headerWidth + ( getMaxWidth() - headerWidth ) * state.getOpenProgress() ), (int) ( headerHeight + ( getMaxHeight() - headerHeight ) * state.getOpenProgress() ));
     }
+
+    /**
+     * Method used by the rendering and animation system to determine the max size of the Ledger.
+     *
+     * @return An int bigger then 24 that describes the maximum width of the Ledger when expanded.
+     */
+    public abstract int getMaxWidth ();
+
+    /**
+     * Method used by the rendering and animation system to determine the max size of the Ledger.
+     *
+     * @return An int bigger then 24 that describes the maximum height of the Ledger when expanded.
+     */
+    public abstract int getMaxHeight ();
 
     /**
      * Method gets called before the component gets rendered, allows for animations to calculate through.
@@ -124,8 +162,34 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public void update(int mouseX, int mouseY, float partialTickTime) {
-
+        //The ledger it self has no update only an animation.
     }
+
+    /**
+     * Method called by the rendering system to perform animations. It is called before the component is rendered but
+     * after the component has been updated.
+     *
+     * @param partialTickTime The current partial tick time.
+     */
+    @Override
+    public void performAnimation (float partialTickTime) {
+        if (state.getOpenState()) {
+            float newTotalAnimationTicks = ( state.getOpenProgress() * getAnimationTime() ) + partialTickTime;
+            state.setOpenProgress(newTotalAnimationTicks / getAnimationTime());
+        } else {
+            float newTotalAnimationTicks = ( state.getOpenProgress() * getAnimationTime() ) - partialTickTime;
+            state.setOpenProgress(newTotalAnimationTicks / getAnimationTime());
+        }
+    }
+
+    /**
+     * Method used by the animation system of the Ledger to determine how fast the animation should go.
+     * Measured in game update ticks -> 20 Ticks is 1 Second. The animation system will take the partial tick time
+     * into account when it calculates the update of pixels.
+     *
+     * @return The amount of game ticks it should take to complete the opening and closing animation.
+     */
+    public abstract int getAnimationTime ();
 
     /**
      * Function used to draw this components background.
@@ -138,7 +202,13 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public void drawBackground(int mouseX, int mouseY) {
+        ComponentBorder componentBorder = new ComponentBorder(getID() + ".background", this, new Coordinate2D(0, 0), getSize().getWidth(), getSize().getHeigth(), color, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts);
+        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(8, 8), ledgerIcon);
+        ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(headerWidth, 8), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
 
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder);
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentImage);
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentLabel);
     }
 
     /**
@@ -152,7 +222,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public void drawForeground(int mouseX, int mouseY) {
-
+        //NOOP
     }
 
     /**
@@ -166,23 +236,13 @@ public abstract class CoreLedger implements IGUILedger {
     }
 
     /**
-     * Method used to register a new Component to this Host.
-     *
-     * @param component The new component.
-     */
-    @Override
-    public void registerNewComponent(IGUIComponent component) {
-
-    }
-
-    /**
      * Method to get the Root GUI Object that this Component is part of.
      *
      * @return The GUI that this component is part of.
      */
     @Override
-    public Gui getRootGuiObject() {
-        return null;
+    public GuiContainerSmithsCore getRootGuiObject () {
+        return getComponentHost().getRootGuiObject();
     }
 
     /**
@@ -192,7 +252,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public IGUIManager getRootManager() {
-        return null;
+        return root.getRootManager();
     }
 
     /**
@@ -202,8 +262,19 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents() {
-        return null;
+        return components;
     }
+
+    /**
+     * Method used to register a new Component to this Host.
+     *
+     * @param component The new component.
+     */
+    @Override
+    public void registerNewComponent (IGUIComponent component) {
+        components.put(component.getID(), component);
+    }
+
 
     /**
      * Function to get the IGUIManager.
@@ -212,7 +283,7 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public IGUIManager getManager() {
-        return null;
+        return root.getManager();
     }
 
     /**
@@ -222,6 +293,6 @@ public abstract class CoreLedger implements IGUILedger {
      */
     @Override
     public void setManager(IGUIManager newManager) {
-
+        root.setManager(newManager);
     }
 }

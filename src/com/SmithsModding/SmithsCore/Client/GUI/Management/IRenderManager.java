@@ -10,14 +10,14 @@ public interface IRenderManager
 {
 
     /**
-     * Method to get the Gui this RenderManager renders on.
+     * Method to get the Gui this StandardRenderManager renders on.
      *
      * @return The current active GUI
      */
     Gui getRootGuiObject();
 
     /**
-     * Methd to get the root GuiManager this RenderManager belongs to.
+     * Methd to get the root GuiManager this StandardRenderManager belongs to.
      *
      * @return The GuiManager of the Root GUI object.
      */

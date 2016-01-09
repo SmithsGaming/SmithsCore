@@ -21,7 +21,7 @@ import java.util.*;
 public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost{
 
     private boolean isInitialized = false;
-    private RenderManager renderer = new RenderManager(this);
+    private StandardRenderManager renderer = new StandardRenderManager(this);
     private CoreComponentState state = new CoreComponentState(this);
 
     private String uniqueUIID;
@@ -187,7 +187,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
-    public Gui getRootGuiObject () {
+    public GuiContainerSmithsCore getRootGuiObject () {
         return this;
     }
 
@@ -199,5 +199,14 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     protected void drawGuiContainerForegroundLayer (int mouseX, int mouseY) {
         this.drawForeground(mouseX, mouseY);
+    }
+
+    /**
+     * Method used to retrieve the rendermanager of this GUI,
+     *
+     * @return The currently used StandardRenderManager.
+     */
+    public IRenderManager getRenderManager () {
+        return renderer;
     }
 }

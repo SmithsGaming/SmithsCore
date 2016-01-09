@@ -102,11 +102,11 @@ public class ComponentBorder implements IGUIComponent {
 
     @Override
     public void drawBackground (int mouseX, int mouseY) {
-        RenderManager.pushColorOnRenderStack(color);
+        StandardRenderManager.pushColorOnRenderStack(color);
 
         renderWithDependentCorner(mouseX, mouseY);
 
-        RenderManager.popColorFromRenderStack();
+        StandardRenderManager.popColorFromRenderStack();
     }
 
     @Override

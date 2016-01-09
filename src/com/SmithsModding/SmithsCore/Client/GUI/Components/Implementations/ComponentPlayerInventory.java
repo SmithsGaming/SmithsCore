@@ -1,5 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations;
 
+import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
@@ -130,7 +131,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public Gui getRootGuiObject () {
+    public GuiContainerSmithsCore getRootGuiObject () {
         return parent.getRootGuiObject();
     }
 

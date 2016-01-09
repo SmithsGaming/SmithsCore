@@ -3,6 +3,9 @@ package com.SmithsModding.SmithsCore.Client.GUI.Management;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import sun.awt.image.*;
+
+import java.util.*;
 
 /**
  * Created by marcf on 12/29/2015.
@@ -17,6 +20,12 @@ public interface ILedgerManager
     void registerLedgerLeftSide(IGUILedger ledger);
 
     int getLedgerIndex(LedgerConnectionSide side, String uniqueID);
+
+    LinkedHashMap<String, IGUILedger> getRightLedgers();
+
+    LinkedHashMap<String, IGUILedger> getLeftLedgers();
+
+    Coordinate2D getLedgerLocalCoordinate(LedgerConnectionSide side, String uniqueID);
 
     /**
      * Method returns the Global coorindate of the RootAnchor pixel of the given Ledger (if it exists on the given side

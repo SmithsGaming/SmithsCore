@@ -95,7 +95,7 @@ public class ComponentSlot implements IGUIComponent {
     public void drawBackground (int mouseX, int mouseY) {
         GlStateManager.pushMatrix();
 
-        RenderManager.pushColorOnRenderStack(color);
+        StandardRenderManager.pushColorOnRenderStack(color);
 
         GuiHelper.drawRectangleStretched(new MultiComponentTexture(Textures.Gui.Basic.Slots.DEFAULT, Textures.Gui.Basic.Slots.DEFAULT.getWidth(), Textures.Gui.Basic.Slots.DEFAULT.getHeight(), 1, 1), 18, 18, new Coordinate2D(0, 0));
 
@@ -103,7 +103,7 @@ public class ComponentSlot implements IGUIComponent {
             GuiHelper.drawTexturedModelRectFromIcon(1, 1, 0, state.getHolographicSprite(), 16, 16);
         }
 
-        RenderManager.popColorFromRenderStack();
+        StandardRenderManager.popColorFromRenderStack();
 
         GlStateManager.popMatrix();
     }

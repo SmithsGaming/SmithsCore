@@ -34,7 +34,7 @@ public interface IGUIComponentState
 
     /**
      * Method to retrieve the visible state of the component, when the component is hidden (false) it will not be
-     * rendered by the RenderManager, but it will continue to get input. Allowing for hidden components that react to
+     * rendered by the StandardRenderManager, but it will continue to get input. Allowing for hidden components that react to
      * input but are not visible to the user.
      *
      * @return True when visible, false when not.

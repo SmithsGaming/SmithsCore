@@ -15,13 +15,13 @@ import java.util.*;
 /**
  * Created by marcf on 12/3/2015.
  */
-public class RenderManager implements IRenderManager {
+public class StandardRenderManager implements IRenderManager {
 
     private static ArrayList<MinecraftColor> colorStack = new ArrayList<MinecraftColor>();
 
     Gui root;
 
-    public RenderManager(Gui root)
+    public StandardRenderManager (Gui root)
     {
         if (!(root instanceof IGUIBasedComponentHost))
             throw new IllegalArgumentException("The given Root for this manager is not a IGUIBasedComponentHost!");
@@ -65,7 +65,7 @@ public class RenderManager implements IRenderManager {
     }
 
     /**
-     * Method to get the Gui this RenderManager renders on.
+     * Method to get the Gui this StandardRenderManager renders on.
      *
      * @return The current active GUI
      */
@@ -75,7 +75,7 @@ public class RenderManager implements IRenderManager {
     }
 
     /**
-     * Methd to get the root GuiManager this RenderManager belongs to.
+     * Methd to get the root GuiManager this StandardRenderManager belongs to.
      *
      * @return The GuiManager of the Root GUI object.
      */
@@ -84,6 +84,8 @@ public class RenderManager implements IRenderManager {
         return ((IGUIBasedComponentHost)root).getRootManager();
     }
 
+    //TODO: Rewrite the render manager to make it call draw methods on ComponentHosts. Allowing them to render them selfs if they not only exist
+    //TODO: out of sub components, a good example is the Ledger who also consists out of a Background, a Header Icon, and a Header Text.
     /**
      * Method to render the BackGround of a Component
      *

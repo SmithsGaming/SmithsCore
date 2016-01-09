@@ -1,5 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Host;
 
+import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import net.minecraft.client.gui.*;
@@ -11,8 +12,6 @@ import java.util.*;
  */
 public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
 {
-
-
     /**
      * Function used to register the sub components of this ComponentHost
      *
@@ -48,7 +47,7 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
      *
      * @return The GUI that this component is part of.
      */
-    Gui getRootGuiObject ();
+    GuiContainerSmithsCore getRootGuiObject ();
 
     /**
      * Method to get the GUI Roots Manager.
