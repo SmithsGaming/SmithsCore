@@ -44,6 +44,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         if (!isInitialized)
         {
             registerComponents(this);
+            registerLedgers(this);
         }
 
         Plane areaWithComponents = getSize();
