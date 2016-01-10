@@ -188,6 +188,16 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     public abstract int getAnimationTime ();
 
+    @Override
+    public boolean shouldScissor () {
+        return true;
+    }
+
+    @Override
+    public Plane getGlobalScissorLocation () {
+        return new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(4, 4)), getSize().getWidth() - 8, getSize().getHeigth() - 8);
+    }
+
     /**
      * Function used to draw this components background.
      * Usually this will incorporate all of the Components visual objects.
@@ -203,9 +213,9 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
         ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(8, 8), ledgerIcon);
         ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(headerWidth, 8), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
 
-        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder);
-        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentImage);
-        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentLabel);
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder, false);
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentImage, false);
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentLabel, false);
     }
 
     /**

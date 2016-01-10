@@ -3,9 +3,6 @@ package com.SmithsModding.SmithsCore.Client.GUI.Host;
 import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import net.minecraft.client.gui.*;
-
-import java.util.*;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -25,14 +22,6 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
      * @param ledger The new component.
      */
     void registerNewLedger (IGUILedger ledger);
-
-    /**
-     * Function to get all the Components registered to this Host.
-     *
-     * @return A ID to ledger map that holds all the Components (but not their SubComponents) of this Host.
-     */
-    LinkedHashMap<String, IGUILedger> getAllLedgers ();
-
 
     /**
      * Method to get the LedgerManager for this host.

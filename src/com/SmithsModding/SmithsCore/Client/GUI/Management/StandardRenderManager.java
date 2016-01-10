@@ -1,7 +1,11 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
+import com.SmithsModding.SmithsCore.Client.GUI.Animation.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Scissoring.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Client.Registry.*;
 import com.SmithsModding.SmithsCore.*;
@@ -55,8 +59,6 @@ public class StandardRenderManager implements IRenderManager {
         colorStack.remove(0);
 
         if (colorStack.size() == 0) {
-            //SmithsCore.getLogger().error("The color stack under flowed.");
-
             new MinecraftColor(MinecraftColor.WHITE).performOpenGLColoring();
             return;
         }
@@ -92,116 +94,71 @@ public class StandardRenderManager implements IRenderManager {
      * @param component The Component to render.
      */
     @Override
-    public void renderBackgroundComponent(IGUIComponent component) {
-        if (!component.getState().isVisible())
-            return;
-
+    public void renderBackgroundComponent (IGUIComponent component, boolean parentEnabled) {
         ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
 
-        if (component instanceof IGUIBasedComponentHost)
-        {
-            GlStateManager.pushMatrix();
+        IGUIComponentState state = component.getState();
 
-            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
-
-            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
-
-            for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
-            {
-                this.renderSubBackgroundComponent(subComponent, component.getState().isEnabled());
-            }
-
-            GlStateManager.popMatrix();
-        }
-        else
-        {
-            GlStateManager.pushMatrix();
-
-            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
-
-            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
-
-            IGUIComponentState state = component.getState();
-
-            if (!state.isEnabled())
-            {
-                GlStateManager.enableBlend();
-                GlStateManager.enableAlpha();
-                pushColorOnRenderStack(new MinecraftColor(MinecraftColor.darkGray));
-            }
-
-            component.drawBackground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
-
-            if (!state.isEnabled()) {
-                popColorFromRenderStack();
-                GlStateManager.disableAlpha();
-                GlStateManager.disableBlend();
-            }
-
-            GlStateManager.popMatrix();
-        }
-
-    }
-
-    /**
-     * This method is used when rendering SubComponents of a IGUIComponentHost, it takes the enabled state of its parent into account.
-     *
-     * @param component The subcomponent to render.
-     * @param parentEnabled The enabled state of its parent.
-     */
-    private void renderSubBackgroundComponent(IGUIComponent component, boolean parentEnabled)
-    {
-        if (!component.getState().isVisible())
+        if (!state.isVisible())
             return;
 
-        ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
+        component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
-        if (component instanceof IGUIBasedComponentHost)
+        if (component instanceof IAnimatibleGuiComponent)
+            ( (IAnimatibleGuiComponent) component ).performAnimation(registry.getPartialTickTime());
+
+        if (component instanceof IGUIBasedLedgerHost)
         {
-            GlStateManager.pushMatrix();
+            IGUIBasedLedgerHost ledgerHost = (IGUIBasedLedgerHost) component;
 
-            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
-
-            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
-
-            for(IGUIComponent subComponent : ((IGUIBasedComponentHost) component).getAllComponents().values())
+            for (IGUILedger ledger : ledgerHost.getLedgerManager().getLeftLedgers().values())
             {
-                this.renderSubBackgroundComponent(subComponent, !parentEnabled?false:subComponent.getState().isEnabled());
+                this.renderBackgroundComponent(ledger, false);
             }
 
-            GlStateManager.popMatrix();
+            for (IGUILedger ledger : ledgerHost.getLedgerManager().getRightLedgers().values()) {
+                this.renderBackgroundComponent(ledger, false);
+            }
         }
-        else
-        {
 
+        GlStateManager.pushMatrix();
 
-            GlStateManager.pushMatrix();
+        GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
 
-            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+        if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
+            GuiHelper.enableScissor(( (IScissoredGuiComponent) component ).getGlobalScissorLocation());
 
-            component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
+        if (!state.isEnabled()) {
+            GlStateManager.enableBlend();
+            GlStateManager.enableAlpha();
+            pushColorOnRenderStack(new MinecraftColor(MinecraftColor.darkGray));
+        }
 
-            IGUIComponentState state = component.getState();
-
-            if (!state.isEnabled() || !parentEnabled)
-            {
-                GlStateManager.enableBlend();
-                GlStateManager.enableAlpha();
-                ((MinecraftColor) MinecraftColor.darkGray).performOpenGLColoring();
-            }
-
+        if (!( component instanceof GuiContainerSmithsCore ))
             component.drawBackground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
 
-            if (!state.isEnabled() || !parentEnabled)
-            {
-                MinecraftColor.resetOpenGLColoring();
-                GlStateManager.disableAlpha();
-                GlStateManager.disableBlend();
-            }
-
-            GlStateManager.popMatrix();
+        if (!state.isEnabled()) {
+            popColorFromRenderStack();
+            GlStateManager.disableAlpha();
+            GlStateManager.disableBlend();
         }
 
+        if (component instanceof IGUIBasedComponentHost) {
+            for (IGUIComponent subComponent : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
+                if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor() && subComponent instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) subComponent ).shouldScissor())
+                    GuiHelper.disableScissor();
+
+                this.renderBackgroundComponent(subComponent, state.isEnabled());
+
+                if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor() && subComponent instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) subComponent ).shouldScissor())
+                    GuiHelper.enableScissor(( (IScissoredGuiComponent) component ).getGlobalScissorLocation());
+            }
+        }
+
+        if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
+            GuiHelper.disableScissor();
+
+        GlStateManager.popMatrix();
     }
 
     /**
@@ -210,44 +167,8 @@ public class StandardRenderManager implements IRenderManager {
      * @param component The Component to render
      */
     @Override
-    public void renderForegroundComponent(IGUIComponent component) {
-        if (!component.getState().isVisible())
-            return;
+    public void renderForegroundComponent (IGUIComponent component, boolean parentEnabled) {
 
-        if (component instanceof IGUIBasedComponentHost) {
-            GlStateManager.pushMatrix();
-
-            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
-
-            for (IGUIComponent subComponent : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
-                GlStateManager.pushMatrix();
-
-                this.renderForegroundComponent(subComponent);
-
-                GlStateManager.popMatrix();
-            }
-
-            GlStateManager.popMatrix();
-        } else {
-            ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
-
-            GlStateManager.pushMatrix();
-
-            GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
-
-            GuiHelper.enableScissor(component.getAreaOccupiedByComponent());
-
-            IGUIComponentState state = component.getState();
-
-            component.drawForeground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
-
-            if (!state.isEnabled()) {
-                MinecraftColor.resetOpenGLColoring();
-                GlStateManager.disableAlpha();
-                GlStateManager.disableBlend();
-            }
-            GlStateManager.popMatrix();
-        }
     }
 
     /**

@@ -16,6 +16,10 @@ public class StandardLedgerManager implements ILedgerManager {
     private LinkedHashMap<String, IGUILedger> ledgersRight = new LinkedHashMap<String, IGUILedger>();
 
 
+    public StandardLedgerManager (IGUIBasedLedgerHost host) {
+        this.host = host;
+    }
+
     @Override
     public IGUIBasedLedgerHost getHost () {
         return host;

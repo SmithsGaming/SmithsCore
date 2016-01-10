@@ -1,13 +1,14 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Scissoring.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 
 /**
  * Created by marcf on 12/28/2015.
  */
-public interface IGUILedger extends IGUIBasedComponentHost {
+public interface IGUILedger extends IGUIBasedComponentHost, IScissoredGuiComponent {
 
     /**
      * Function used to get the ID of the Component.

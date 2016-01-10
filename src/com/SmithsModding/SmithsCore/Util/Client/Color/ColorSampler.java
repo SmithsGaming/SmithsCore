@@ -1,15 +1,11 @@
 package com.SmithsModding.SmithsCore.Util.Client.Color;
 
-import com.SmithsModding.SmithsCore.SmithsCore;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import com.SmithsModding.SmithsCore.*;
+import net.minecraft.client.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.HashMap;
+import java.util.*;
 
 
 /**
@@ -98,7 +94,6 @@ public class ColorSampler {
                     tSumB += tPixel.getBlue();
 
                     tCountedPixels++;
-
                 }
             }
         }

@@ -28,14 +28,14 @@ public interface IRenderManager
      *
      * @param component The Component to render.
      */
-    void renderBackgroundComponent(IGUIComponent component);
+    void renderBackgroundComponent (IGUIComponent component, boolean parentEnabled);
 
     /**
      * Method to render the ForeGround of a Component
      *
      * @param component The Component to render
      */
-    void renderForegroundComponent(IGUIComponent component);
+    void renderForegroundComponent (IGUIComponent component, boolean parentEnabled);
 
     /**
      * Method to render the ToolTip of the Component

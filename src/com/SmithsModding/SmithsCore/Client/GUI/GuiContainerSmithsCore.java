@@ -8,12 +8,12 @@ package com.SmithsModding.SmithsCore.Client.GUI;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 
 import java.util.*;
@@ -22,6 +22,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     private boolean isInitialized = false;
     private StandardRenderManager renderer = new StandardRenderManager(this);
+    private StandardLedgerManager ledgers = new StandardLedgerManager(this);
     private CoreComponentState state = new CoreComponentState(this);
 
     private String uniqueUIID;
@@ -64,7 +65,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public void drawBackground (int mouseX, int mouseY) {
-        renderer.renderBackgroundComponent(this);
+        renderer.renderBackgroundComponent(this, false);
     }
 
     @Override
@@ -208,5 +209,30 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     public IRenderManager getRenderManager () {
         return renderer;
+    }
+
+    /**
+     * Method used to register a new Component to this Host.
+     *
+     * @param ledger The new component.
+     */
+    @Override
+    public void registerNewLedger (IGUILedger ledger) {
+        if (ledger.getPrimarySide() == LedgerConnectionSide.LEFT) {
+            getLedgerManager().registerLedgerLeftSide(ledger);
+            return;
+        }
+
+        getLedgerManager().registerLedgerRightSide(ledger);
+    }
+
+    /**
+     * Method to get the LedgerManager for this host.
+     *
+     * @return The LedgerManager of this host.
+     */
+    @Override
+    public ILedgerManager getLedgerManager () {
+        return ledgers;
     }
 }
