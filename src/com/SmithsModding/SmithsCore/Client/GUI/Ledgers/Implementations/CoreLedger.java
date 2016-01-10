@@ -1,20 +1,17 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Animation.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations.*;
+import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Util.Client.*;
 import com.SmithsModding.SmithsCore.Util.Client.Color.*;
+import com.SmithsModding.SmithsCore.Util.Client.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import com.sun.prism.paint.*;
-import com.sun.webpane.platform.*;
 import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
 
 import java.util.*;
 
