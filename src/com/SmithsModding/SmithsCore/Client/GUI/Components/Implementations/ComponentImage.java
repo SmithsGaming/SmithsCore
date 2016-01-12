@@ -6,6 +6,8 @@ import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Util.Client.*;
 import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.*;
 
 /**
  * Created by Marc on 09.01.2016.
@@ -124,7 +126,12 @@ public class ComponentImage implements IGUIComponent {
      */
     @Override
     public void drawBackground (int mouseX, int mouseY) {
-        GuiHelper.drawResource(image, 0, 0);
+        GlStateManager.enableAlpha();
+        GlStateManager.enableBlend();
+        GuiHelper.bindTexture(TextureMap.locationBlocksTexture);
+        GuiHelper.drawTexturedModelRectFromIcon(0, 0, 0, image.getIcon(), image.getIcon().getIconWidth(), image.getIcon().getIconHeight());
+        GlStateManager.disableBlend();
+        GlStateManager.disableAlpha();
     }
 
     /**

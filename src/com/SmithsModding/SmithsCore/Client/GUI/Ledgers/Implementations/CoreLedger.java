@@ -20,33 +20,31 @@ import java.util.*;
  */
 public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent {
 
+    protected CustomResource ledgerIcon;
+    protected String translatedLedgerHeader;
+    protected int closedLedgerHeight;
+    protected int closedLedgerWidth;
     private String uniqueID;
     private LedgerComponentState state;
     private IGUIBasedLedgerHost root;
-
     private LedgerConnectionSide side;
     private LinkedHashMap<String, IGUIComponent> components = new LinkedHashMap<String, IGUIComponent>();
-
-    private CustomResource ledgerIcon;
-    private String translatedLedgerHeader;
     private MinecraftColor color;
 
-    private int headerHeight;
-    private int headerWidth;
-
-    public CoreLedger (String uniqueID, LedgerComponentState state, IGUIBasedLedgerHost root, LedgerConnectionSide side, LinkedHashMap<String, IGUIComponent> components, CustomResource ledgerIcon, String translatedLedgerHeader, MinecraftColor color) {
+    public CoreLedger (String uniqueID, LedgerComponentState state, IGUIBasedLedgerHost root, LedgerConnectionSide side, CustomResource ledgerIcon, String translatedLedgerHeader, MinecraftColor color) {
         this.uniqueID = uniqueID;
         this.state = state;
         this.state.setComponent(this);
         this.root = root;
         this.side = side;
-        this.components = components;
         this.ledgerIcon = ledgerIcon;
         this.translatedLedgerHeader = translatedLedgerHeader;
         this.color = color;
 
-        headerHeight = ledgerIcon.getHeight() + 16;
-        headerWidth = ledgerIcon.getWidth() + 16;
+        closedLedgerHeight = ledgerIcon.getHeight() + 10;
+        closedLedgerWidth = ledgerIcon.getWidth() + 10;
+
+        registerComponents(this);
     }
 
     /**
@@ -133,20 +131,20 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public Plane getSize() {
-        return new Plane(0, 0, (int) ( headerWidth + ( getMaxWidth() - headerWidth ) * state.getOpenProgress() ), (int) ( headerHeight + ( getMaxHeight() - headerHeight ) * state.getOpenProgress() ));
+        return new Plane(0, 0, (int) ( closedLedgerWidth + ( getMaxWidth() - closedLedgerWidth ) * state.getOpenProgress() ), (int) ( closedLedgerHeight + ( getMaxHeight() - closedLedgerHeight ) * state.getOpenProgress() ));
     }
 
     /**
      * Method used by the rendering and animation system to determine the max size of the Ledger.
      *
-     * @return An int bigger then 24 that describes the maximum width of the Ledger when expanded.
+     * @return An int bigger then 16 plus the icon width that describes the maximum width of the Ledger when expanded.
      */
     public abstract int getMaxWidth ();
 
     /**
      * Method used by the rendering and animation system to determine the max size of the Ledger.
      *
-     * @return An int bigger then 24 that describes the maximum height of the Ledger when expanded.
+     * @return An int bigger then 16 plus the icon height that describes the maximum height of the Ledger when expanded.
      */
     public abstract int getMaxHeight ();
 
@@ -170,11 +168,19 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public void performAnimation (float partialTickTime) {
-        if (state.getOpenState()) {
+        if (state.getOpenState() && state.getOpenProgress() < 1F) {
             float newTotalAnimationTicks = ( state.getOpenProgress() * getAnimationTime() ) + partialTickTime;
+
+            if (newTotalAnimationTicks > getAnimationTime())
+                newTotalAnimationTicks = getAnimationTime();
+
             state.setOpenProgress(newTotalAnimationTicks / getAnimationTime());
-        } else {
+        } else if (!state.getOpenState() && state.getOpenProgress() > 0F) {
             float newTotalAnimationTicks = ( state.getOpenProgress() * getAnimationTime() ) - partialTickTime;
+
+            if (newTotalAnimationTicks < 0F)
+                newTotalAnimationTicks = 0f;
+
             state.setOpenProgress(newTotalAnimationTicks / getAnimationTime());
         }
     }
@@ -186,7 +192,12 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The amount of game ticks it should take to complete the opening and closing animation.
      */
-    public abstract int getAnimationTime ();
+    public int getAnimationTime () {
+        if (getMaxWidth() >= getMaxHeight())
+            return getMaxWidth() / 4 + 1;
+
+        return getMaxHeight() / 4 + 1;
+    }
 
     @Override
     public boolean shouldScissor () {
@@ -195,7 +206,95 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
 
     @Override
     public Plane getGlobalScissorLocation () {
-        return new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(4, 4)), getSize().getWidth() - 8, getSize().getHeigth() - 8);
+        return new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(3, 3)), getSize().getWidth() - 6, getSize().getHeigth() - 6);
+    }
+
+    /**
+     * Function called when a Key is typed.
+     *
+     * @param key The key that was typed.
+     */
+    @Override
+    public void handleKeyTyped (char key) {
+        for (IGUIComponent component : components.values()) {
+            component.handleKeyTyped(key);
+        }
+    }
+
+    /**
+     * Method to check if this function should capture all of the buttons pressed on the mouse regardless of the press
+     * location was inside or outside of the Component.
+     *
+     * @return True when all the mouse clicks should be captured by this component.
+     */
+    @Override
+    public boolean requiresForcedMouseInput () {
+        for (IGUIComponent component : components.values()) {
+            if (component.requiresForcedMouseInput())
+                return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Function called when the Mouse was clicked outside of this component. It is only called when the function
+     * requiresForcedMouseInput() return true Either it should pass this function to its SubComponents (making sure that
+     * it recalculates the location and checks if it is inside before hand, handle the Click them self or both.
+     * <p/>
+     * When this Component or one of its SubComponents handles the Click it should return True.
+     *
+     * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the
+     *                       mouseclick.
+     * @param relativeMouseY The relative (to the Coordinate returned by @see #getLocalCoordinate) Y-Coordinate of the
+     *                       mouseclick.
+     * @param mouseButton    The 0-BasedIndex of the mouse button that was pressed.
+     *
+     * @return True when the click has been handled, false when it did not.
+     */
+    @Override
+    public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        for (IGUIComponent component : components.values()) {
+            if (component.requiresForcedMouseInput()) {
+                Coordinate2D location = component.getLocalCoordinate();
+                component.handleMouseClickedOutside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Function called when the Mouse was clicked inside of this component. Either it should pass this function to its
+     * SubComponents (making sure that it recalculates the location and checks if it is inside before hand, handle the
+     * Click them self or both.
+     * <p/>
+     * When this Component or one of its SubComponents handles the Click it should return True.
+     *
+     * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the
+     *                       mouseclick.
+     * @param relativeMouseY The relative (to the Coordinate returned by @see #getLocalCoordinate) Y-Coordinate of the
+     *                       mouseclick.
+     * @param mouseButton    The 0-BasedIndex of the mouse button that was pressed.
+     *
+     * @return True when the click has been handled, false when it did not.
+     */
+    @Override
+    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        for (IGUIComponent component : components.values()) {
+            Coordinate2D location = component.getLocalCoordinate();
+            Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
+
+            if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
+                continue;
+
+            if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
+                return true;
+        }
+
+        getLedgerHost().getLedgerManager().onLedgerClickedInside(this);
+
+        return true;
     }
 
     /**
@@ -210,8 +309,8 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public void drawBackground(int mouseX, int mouseY) {
         ComponentBorder componentBorder = new ComponentBorder(getID() + ".background", this, new Coordinate2D(0, 0), getSize().getWidth(), getSize().getHeigth(), color, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts);
-        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(8, 8), ledgerIcon);
-        ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(headerWidth, 8), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
+        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon);
+        ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(closedLedgerWidth, 5 + ( ledgerIcon.getHeight() - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT ) / 2), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
 
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder, false);
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentImage, false);

@@ -3,7 +3,6 @@ package com.SmithsModding.SmithsCore.Client.GUI.Management;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import sun.awt.image.*;
 
 import java.util.*;
 
@@ -40,4 +39,12 @@ public interface ILedgerManager
      * @return See method description.
      */
     Coordinate2D getLedgerGlobalCoordinate(LedgerConnectionSide side, String uniqueID);
+
+    /**
+     * Method called by a ledger to indicate that the opened ledger should be changed.
+     *
+     * @param ledger The ledger in which was clicked, either to indicate that this one should be opened (and a other one
+     *               closed) or this one should be closed.
+     */
+    void onLedgerClickedInside (IGUILedger ledger);
 }

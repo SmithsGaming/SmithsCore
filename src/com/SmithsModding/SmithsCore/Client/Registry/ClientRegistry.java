@@ -13,6 +13,7 @@ import com.SmithsModding.SmithsCore.Client.Textures.*;
 import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
 import com.SmithsModding.SmithsCore.Common.Player.Handlers.*;
 import com.SmithsModding.SmithsCore.Common.Registry.*;
+import com.SmithsModding.SmithsCore.Util.Client.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
@@ -50,8 +51,10 @@ public class ClientRegistry extends CommonRegistry {
 
         getNetworkBus().register(new BlockModelUpdateEventHandler());
 
+        MinecraftForge.EVENT_BUS.register(new Textures());
         MinecraftForge.EVENT_BUS.register(holographicTextureCreator);
         MinecraftForge.EVENT_BUS.register(mouseManager);
+        MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
     }
 

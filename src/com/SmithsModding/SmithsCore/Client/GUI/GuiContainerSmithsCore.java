@@ -12,10 +12,10 @@ import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
-import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.gui.inventory.*;
 
+import java.io.*;
 import java.util.*;
 
 public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost{
@@ -99,38 +99,178 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         return this;
     }
 
+    /**
+     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
+     *
+     * @param mouseX
+     * @param mouseY
+     * @param mouseButton
+     */
     @Override
-    public void handleKeyTyped (char key) {
-        SmithsCore.getLogger().error("Still to implement. KeyTyped: " + key);
+    protected void mouseClicked (int mouseX, int mouseY, int mouseButton) throws IOException {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+
+        if (requiresForcedMouseInput())
+            this.handleMouseClickedOutside(mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent(), mouseButton);
+
+        this.handleMouseClickedInside(mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent(), mouseButton);
     }
 
+    /**
+     * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
+     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
+     *
+     * @param typedChar
+     * @param keyCode
+     */
+    @Override
+    protected void keyTyped (char typedChar, int keyCode) throws IOException {
+        super.keyTyped(typedChar, keyCode);
+
+        this.handleKeyTyped(typedChar);
+    }
+
+    /**
+     * Function called when a Key is typed.
+     *
+     * @param key The key that was typed.
+     */
+    @Override
+    public void handleKeyTyped (char key) {
+        for (IGUIComponent component : getLedgerManager().getLeftLedgers().values()) {
+            component.handleKeyTyped(key);
+        }
+
+        for (IGUIComponent component : getLedgerManager().getRightLedgers().values()) {
+            component.handleKeyTyped(key);
+        }
+
+        for (IGUIComponent component : componentHashMap.values()) {
+            component.handleKeyTyped(key);
+        }
+    }
+
+    /**
+     * Method to check if this function should capture all of the buttons pressed on the mouse regardless of the press
+     * location was inside or outside of the Component.
+     *
+     * @return True when all the mouse clicks should be captured by this component.
+     */
     @Override
     public boolean requiresForcedMouseInput () {
-        for (IGUIComponent component : componentHashMap.values())
+        for (IGUIComponent component : getLedgerManager().getLeftLedgers().values()) {
             if (component.requiresForcedMouseInput())
                 return true;
+        }
+
+        for (IGUIComponent component : getLedgerManager().getRightLedgers().values()) {
+            if (component.requiresForcedMouseInput())
+                return true;
+        }
+
+        for (IGUIComponent component : componentHashMap.values()) {
+            if (component.requiresForcedMouseInput())
+                return true;
+        }
 
         return false;
     }
 
+    /**
+     * Function called when the Mouse was clicked outside of this component. It is only called when the function
+     * requiresForcedMouseInput() return true Either it should pass this function to its SubComponents (making sure that
+     * it recalculates the location and checks if it is inside before hand, handle the Click them self or both.
+     * <p/>
+     * When this Component or one of its SubComponents handles the Click it should return True.
+     *
+     * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the
+     *                       mouseclick.
+     * @param relativeMouseY The relative (to the Coordinate returned by @see #getLocalCoordinate) Y-Coordinate of the
+     *                       mouseclick.
+     * @param mouseButton    The 0-BasedIndex of the mouse button that was pressed.
+     *
+     * @return True when the click has been handled, false when it did not.
+     */
     @Override
     public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        for (IGUIComponent component : componentHashMap.values())
-            if (component.requiresForcedMouseInput())
-                component.handleMouseClickedOutside(relativeMouseX, relativeMouseY, mouseButton);
+        for (IGUIComponent component : getLedgerManager().getLeftLedgers().values()) {
+            if (component.requiresForcedMouseInput()) {
+                Coordinate2D location = component.getLocalCoordinate();
+                component.handleMouseClickedOutside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton);
+            }
+        }
+
+        for (IGUIComponent component : getLedgerManager().getRightLedgers().values()) {
+            if (component.requiresForcedMouseInput()) {
+                Coordinate2D location = component.getLocalCoordinate();
+                component.handleMouseClickedOutside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton);
+            }
+        }
+
+        for (IGUIComponent component : componentHashMap.values()) {
+            if (component.requiresForcedMouseInput()) {
+                Coordinate2D location = component.getLocalCoordinate();
+                component.handleMouseClickedOutside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton);
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Function called when the Mouse was clicked inside of this component. Either it should pass this function to its
+     * SubComponents (making sure that it recalculates the location and checks if it is inside before hand, handle the
+     * Click them self or both.
+     * <p/>
+     * When this Component or one of its SubComponents handles the Click it should return True.
+     *
+     * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the
+     *                       mouseclick.
+     * @param relativeMouseY The relative (to the Coordinate returned by @see #getLocalCoordinate) Y-Coordinate of the
+     *                       mouseclick.
+     * @param mouseButton    The 0-BasedIndex of the mouse button that was pressed.
+     *
+     * @return True when the click has been handled, false when it did not.
+     */
+    @Override
+    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        for (IGUIComponent component : componentHashMap.values()) {
+            Coordinate2D location = component.getLocalCoordinate();
+            Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
+
+            if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
+                continue;
+
+            if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
+                return true;
+
+        }
+
+        for (IGUIComponent component : getLedgerManager().getLeftLedgers().values()) {
+            Coordinate2D location = component.getLocalCoordinate();
+            Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
+
+            if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
+                continue;
+
+            if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
+                return true;
+        }
+
+        for (IGUIComponent component : getLedgerManager().getRightLedgers().values()) {
+            Coordinate2D location = component.getLocalCoordinate();
+            Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
+
+            if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
+                continue;
+
+            if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
+                return true;
+        }
+
 
         return true;
     }
-
-    @Override
-    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        for (IGUIComponent component : componentHashMap.values())
-            if (component.handleMouseClickedInside(relativeMouseX, relativeMouseY, mouseButton))
-                return true;
-
-        return false;
-    }
-
     @Override
     public Coordinate2D getLocalCoordinate () {
         return new Coordinate2D(guiLeft, guiTop);

@@ -2,7 +2,11 @@ package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.*;
+import com.SmithsModding.SmithsCore.Util.Common.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import com.SmithsModding.SmithsCore.Util.*;
 
 import java.util.*;
 
@@ -71,10 +75,17 @@ public class StandardLedgerManager implements ILedgerManager {
         Iterator<String> iterator = ledgers.keySet().iterator();
         Coordinate2D root = new Coordinate2D(horizontalOffset, 0);
 
-        while (iterator.hasNext()) {
-            String key = iterator.next();
+        String key, last;
 
-            root = root.getTranslatedCoordinate(new Coordinate2D(0, ledgers.get(key).getSize().getHeigth()));
+        key = "";
+        last = "";
+
+        while (iterator.hasNext()) {
+            last = key;
+            key = iterator.next();
+
+            if (last != "")
+                root = root.getTranslatedCoordinate(new Coordinate2D(0, ledgers.get(last).getSize().getHeigth()));
 
             if (key.equals(uniqueID))
                 return root;
@@ -98,5 +109,40 @@ public class StandardLedgerManager implements ILedgerManager {
     @Override
     public Coordinate2D getLedgerGlobalCoordinate (LedgerConnectionSide side, String uniqueID) {
         return getHost().getGlobalCoordinate().getTranslatedCoordinate(getLedgerLocalCoordinate(side, uniqueID));
+    }
+
+    /**
+     * Method called by a ledger to indicate that the opened ledger should be changed.
+     *
+     * @param ledger The ledger in which was clicked, either to indicate that this one should be opened (and a other one
+     *               closed) or this one should be closed.
+     */
+    @Override
+    public void onLedgerClickedInside (IGUILedger ledger) {
+        String openLedgerID = (String) InstanceVariableManager.getVariable(this.getHost().getID() + ".LastOpenLedger");
+
+        if (openLedgerID == null)
+            openLedgerID = "";
+
+        if (openLedgerID != "" && openLedgerID != ledger.getID()) {
+            //Closing the old Ledger
+            int i = getLedgerIndex(LedgerConnectionSide.LEFT, openLedgerID);
+            if (i > -1) {
+                //Closing a left ledger
+                IGUILedger ledger1 = getLeftLedgers().get(openLedgerID);
+                ( (LedgerComponentState) ledger1.getState() ).toggleOpenState();
+            } else {
+                i = getLedgerIndex(LedgerConnectionSide.RIGHT, openLedgerID);
+                if (i > -1) {
+                    //Closing a right ledger
+                    IGUILedger ledger1 = getRightLedgers().get(openLedgerID);
+                    ( (LedgerComponentState) ledger1.getState() ).toggleOpenState();
+                } else {
+                    SmithsCore.getLogger().error(CoreReferences.LogMarkers.RENDER, "A saved ledger cannot be found!");
+                }
+            }
+        }
+
+        ( (LedgerComponentState) ledger.getState() ).toggleOpenState();
     }
 }

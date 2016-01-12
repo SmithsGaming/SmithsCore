@@ -45,7 +45,7 @@ public class Plane {
         return iHeigth;
     }
 
-    public Plane Move(int pDeltaX, int pDeltaY, int pDeltaZ) {
+    public Plane Move (int pDeltaX, int pDeltaY) {
         this.iTopLeftFrontCoord.iXCoord += pDeltaX;
         this.iTopLeftFrontCoord.iYCoord += pDeltaY;
 
@@ -113,7 +113,7 @@ public class Plane {
     }
 
     public boolean ContainsCoordinate(int pXCoord, int pYCoord) {
-        return this.TopLeftCoord().getXComponent() <= pXCoord && pXCoord <= this.LowerRightCoord().getXComponent() && this.LowerRightCoord().getYComponent() <= pYCoord && pYCoord <= this.TopLeftCoord().getYComponent();
+        return this.TopLeftCoord().getXComponent() <= pXCoord && pXCoord <= this.LowerRightCoord().getXComponent() && this.TopLeftCoord().getYComponent() <= pYCoord && pYCoord <= this.LowerRightCoord().getYComponent();
     }
 
     public boolean Intersects(Plane pPlaneToCheck) {

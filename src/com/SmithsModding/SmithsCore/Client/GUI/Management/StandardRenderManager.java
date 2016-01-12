@@ -86,8 +86,6 @@ public class StandardRenderManager implements IRenderManager {
         return ((IGUIBasedComponentHost)root).getRootManager();
     }
 
-    //TODO: Rewrite the render manager to make it call draw methods on ComponentHosts. Allowing them to render them selfs if they not only exist
-    //TODO: out of sub components, a good example is the Ledger who also consists out of a Background, a Header Icon, and a Header Text.
     /**
      * Method to render the BackGround of a Component
      *
@@ -104,15 +102,17 @@ public class StandardRenderManager implements IRenderManager {
 
         component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
 
+        GlStateManager.pushMatrix();
+
+        GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+
         if (component instanceof IAnimatibleGuiComponent)
             ( (IAnimatibleGuiComponent) component ).performAnimation(registry.getPartialTickTime());
 
-        if (component instanceof IGUIBasedLedgerHost)
-        {
+        if (component instanceof IGUIBasedLedgerHost) {
             IGUIBasedLedgerHost ledgerHost = (IGUIBasedLedgerHost) component;
 
-            for (IGUILedger ledger : ledgerHost.getLedgerManager().getLeftLedgers().values())
-            {
+            for (IGUILedger ledger : ledgerHost.getLedgerManager().getLeftLedgers().values()) {
                 this.renderBackgroundComponent(ledger, false);
             }
 
@@ -120,13 +120,6 @@ public class StandardRenderManager implements IRenderManager {
                 this.renderBackgroundComponent(ledger, false);
             }
         }
-
-        GlStateManager.pushMatrix();
-
-        GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
-
-        if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
-            GuiHelper.enableScissor(( (IScissoredGuiComponent) component ).getGlobalScissorLocation());
 
         if (!state.isEnabled()) {
             GlStateManager.enableBlend();
@@ -142,6 +135,9 @@ public class StandardRenderManager implements IRenderManager {
             GlStateManager.disableAlpha();
             GlStateManager.disableBlend();
         }
+
+        if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
+            GuiHelper.enableScissor(( (IScissoredGuiComponent) component ).getGlobalScissorLocation());
 
         if (component instanceof IGUIBasedComponentHost) {
             for (IGUIComponent subComponent : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {

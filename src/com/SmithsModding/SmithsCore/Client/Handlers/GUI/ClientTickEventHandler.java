@@ -2,6 +2,7 @@ package com.SmithsModding.SmithsCore.Client.Handlers.GUI;
 
 import com.SmithsModding.SmithsCore.Client.Registry.*;
 import com.SmithsModding.SmithsCore.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.*;
 
 /**
@@ -16,6 +17,7 @@ public class ClientTickEventHandler
      *
      * @param event The RenderTickEvent fired by MinecraftForge.
      */
+    @SubscribeEvent
     public void handleEvent(TickEvent.RenderTickEvent event)
     {
         ((ClientRegistry) SmithsCore.getRegistry()).setPartialTickTime(event.renderTickTime);

@@ -2,18 +2,38 @@ package com.SmithsModding.SmithsCore.Util.Client;
 
 import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
+import net.minecraft.util.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
  * Created by Marc on 06.12.2015.
  */
 public class Textures {
 
+    /**
+     * Actual construction method is called from the ForgeEvent system. This method kicks the creation of the textures
+     * of and provided a map to put the textures in.
+     *
+     * @param event The Events fired before the TextureSheet is stitched. TextureStitchEvent.Pre instance.
+     */
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void loadTextures (TextureStitchEvent.Pre event) {
+        //Only run the creation once, after all mods have been loaded.
+        if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
+            return;
+        }
+
+        Gui.Basic.INFOICON.addIcon(event.map.registerSprite(new ResourceLocation(Gui.Basic.INFOICON.getPrimaryLocation())));
+    }
+
     public static class Gui {
         private static String GUITEXTUREPATH = "smithscore:textures/gui/";
         private static String COMPONENTTEXTUREPATH = GUITEXTUREPATH + "Components/";
 
         public static class Basic {
-            public static CustomResource INFOICON = new CustomResource("Gui.Basic.Ledgers.InfoIon", "smithscore:Gui-Icons/16x Info icon", Colors.DEFAULT);
+            public static CustomResource INFOICON = new CustomResource("Gui.Basic.Ledgers.InfoIon", "smithscore:gui/Icons/16x Info icon", Colors.DEFAULT, 0, 0, 16, 16);
             private static String BASICTEXTUREPATH = GUITEXTUREPATH + "Basic/";
             public static CustomResource LEDGERLEFT = new CustomResource("Gui.Basic.Ledgers.Left", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT);
 

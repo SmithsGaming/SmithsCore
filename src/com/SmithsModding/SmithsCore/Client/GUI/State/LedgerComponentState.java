@@ -9,8 +9,8 @@ public class LedgerComponentState implements IGUIComponentState {
 
     private IGUIComponent component;
 
-    private boolean enabled;
-    private boolean visible;
+    private boolean enabled = true;
+    private boolean visible = true;
 
     private boolean openState;
     private float openProgress;
