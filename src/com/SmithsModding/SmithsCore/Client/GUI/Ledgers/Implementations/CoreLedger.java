@@ -107,8 +107,10 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public Coordinate2D getLocalCoordinate() {
+        Coordinate2D primaryCorner = getLedgerHost().getLedgerManager().getLedgerLocalCoordinate(getPrimarySide(), getID());
+
         if (getPrimarySide() == LedgerConnectionSide.LEFT) {
-            return new Coordinate2D(-1 * ( getSize().getWidth() - 4 ), 0);
+            return primaryCorner.getTranslatedCoordinate(new Coordinate2D(-1 * ( getSize().getWidth() - 4 ), 0));
         } else {
             return new Coordinate2D(-4, 0);
         }
@@ -206,7 +208,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
 
     @Override
     public Plane getGlobalScissorLocation () {
-        return new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(3, 3)), getSize().getWidth() - 6, getSize().getHeigth() - 6);
+        return new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(4, 4)), getSize().getWidth() - 8, getSize().getHeigth() - 8);
     }
 
     /**

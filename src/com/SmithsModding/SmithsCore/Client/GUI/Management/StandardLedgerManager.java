@@ -73,7 +73,7 @@ public class StandardLedgerManager implements ILedgerManager {
         }
 
         Iterator<String> iterator = ledgers.keySet().iterator();
-        Coordinate2D root = new Coordinate2D(horizontalOffset, 0);
+        Coordinate2D root = new Coordinate2D(horizontalOffset, 4);
 
         String key, last;
 
