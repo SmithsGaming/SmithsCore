@@ -223,6 +223,11 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
         }
     }
 
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
+    }
+
     /**
      * Method to check if this function should capture all of the buttons pressed on the mouse regardless of the press
      * location was inside or outside of the Component.

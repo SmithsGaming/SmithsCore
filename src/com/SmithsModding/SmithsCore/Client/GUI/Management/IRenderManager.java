@@ -42,5 +42,5 @@ public interface IRenderManager
      *
      * @param component The Component to render the tooltip from.
      */
-    void renderToolTipComponent(IGUIComponent component);
+    void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY);
 }

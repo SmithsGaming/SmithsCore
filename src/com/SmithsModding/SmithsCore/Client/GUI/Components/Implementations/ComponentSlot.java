@@ -11,6 +11,8 @@ import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.inventory.*;
 
+import java.util.*;
+
 /**
  * Created by Marc on 22.12.2015.
  */
@@ -131,5 +133,10 @@ public class ComponentSlot implements IGUIComponent {
     @Override
     public void handleKeyTyped (char key) {
         return;
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
     }
 }

@@ -13,6 +13,7 @@ import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 
 import java.io.*;
@@ -67,6 +68,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public void drawBackground (int mouseX, int mouseY) {
         renderer.renderBackgroundComponent(this, false);
+        renderer.renderToolTipComponent(this, mouseX, mouseY);
     }
 
     @Override
@@ -148,6 +150,11 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         for (IGUIComponent component : componentHashMap.values()) {
             component.handleKeyTyped(key);
         }
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
     }
 
     /**
@@ -284,10 +291,34 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public Plane getSize () {
-        Plane area = new Plane(0, 0, 0, 0);
+        Plane area = new Plane(guiLeft, guiTop, 0, 0);
 
         for (IGUIComponent component : getAllComponents().values()) {
-            area.IncludeCoordinate(component.getSize());
+            area.IncludeCoordinate(component.getAreaOccupiedByComponent());
+        }
+
+        ArrayList<Float> oldStates = new ArrayList<Float>();
+
+        for (IGUILedger ledger : getLedgerManager().getLeftLedgers().values()) {
+            oldStates.add(( (LedgerComponentState) ledger.getState() ).getOpenProgress());
+            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(1F);
+
+            area.IncludeCoordinate(ledger.getAreaOccupiedByComponent());
+        }
+
+        for (IGUILedger ledger : getLedgerManager().getRightLedgers().values()) {
+            oldStates.add(( (LedgerComponentState) ledger.getState() ).getOpenProgress());
+            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(1F);
+
+            area.IncludeCoordinate(ledger.getAreaOccupiedByComponent());
+        }
+
+        for (IGUILedger ledger : getLedgerManager().getLeftLedgers().values()) {
+            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(oldStates.remove(0));
+        }
+
+        for (IGUILedger ledger : getLedgerManager().getRightLedgers().values()) {
+            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(oldStates.remove(0));
         }
 
         return area;
@@ -341,6 +372,11 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     protected void drawGuiContainerForegroundLayer (int mouseX, int mouseY) {
         this.drawForeground(mouseX, mouseY);
+    }
+
+    @Override
+    public void drawHoveringText (List<String> textLines, int x, int y, FontRenderer font) {
+        super.drawHoveringText(textLines, x, y, font);
     }
 
     /**

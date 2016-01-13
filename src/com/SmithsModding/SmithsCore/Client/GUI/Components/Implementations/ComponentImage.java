@@ -9,6 +9,8 @@ import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.*;
 
+import java.util.*;
+
 /**
  * Created by Marc on 09.01.2016.
  */
@@ -206,5 +208,10 @@ public class ComponentImage implements IGUIComponent {
     @Override
     public void handleKeyTyped (char key) {
 
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
     }
 }

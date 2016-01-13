@@ -4,6 +4,8 @@ import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 
+import java.util.*;
+
 /**
  * Created by Orion
  * Created on 02.12.2015
@@ -144,4 +146,6 @@ public interface IGUIComponent
      * @param key The key that was typed.
      */
     void handleKeyTyped(char key);
+
+    ArrayList<String> getToolTipContent ();
 }

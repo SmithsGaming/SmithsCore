@@ -1,0 +1,6 @@
+#
+#GUI-Components
+SmithsCore.GUI.Components.ProgressBar.ToolTip=Progress
+SmithsCore.Gui.Components.FluidTank.ToolTip.Amount=Amount
+SmithsCore.Gui.Components.FluidTank.ToolTip.Capacity=Capacity
+SmithsCore.Gui.Components.FluidTank.ToolTip.NoLiquid=No fluid in the tank.

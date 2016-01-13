@@ -9,6 +9,8 @@ import com.SmithsModding.SmithsCore.Util.Client.*;
 import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 
+import java.util.*;
+
 /**
  * Created by Marc on 21.12.2015.
  */
@@ -134,6 +136,11 @@ public class ComponentBorder implements IGUIComponent {
         return;
     }
 
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
+    }
+
     private void renderWithDependentCorner (int mouseX, int mouseY) {
         TextureComponent tCenterComponent = new TextureComponent(Textures.Gui.Basic.Border.CENTER, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
 
@@ -144,13 +151,6 @@ public class ComponentBorder implements IGUIComponent {
         tCornerComponents[1] = getTopRightComponent();
         tCornerComponents[2] = getLowerRightCorner();
         tCornerComponents[3] = getLowerLeftCorner();
-
-
-        //tCornerComponents[0] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
-        //tCornerComponents[1] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 90), new Coordinate2D(0, 0));
-        //tCornerComponents[2] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERDARK, new UIRotation(false, false, false, 0), new Coordinate2D(-4, -4));
-        //tCornerComponents[3] = new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 270), new Coordinate2D(0, 0));
-
 
         TextureComponent[] tSideComponents = new TextureComponent[4];
         tSideComponents[0] = getTopBorder();

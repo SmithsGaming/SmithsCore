@@ -11,7 +11,7 @@ import com.SmithsModding.SmithsCore.Client.Registry.*;
 import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 
 import java.util.*;
@@ -23,9 +23,9 @@ public class StandardRenderManager implements IRenderManager {
 
     private static ArrayList<MinecraftColor> colorStack = new ArrayList<MinecraftColor>();
 
-    Gui root;
+    GuiContainerSmithsCore root;
 
-    public StandardRenderManager (Gui root)
+    public StandardRenderManager (GuiContainerSmithsCore root)
     {
         if (!(root instanceof IGUIBasedComponentHost))
             throw new IllegalArgumentException("The given Root for this manager is not a IGUIBasedComponentHost!");
@@ -72,7 +72,7 @@ public class StandardRenderManager implements IRenderManager {
      * @return The current active GUI
      */
     @Override
-    public Gui getRootGuiObject() {
+    public GuiContainerSmithsCore getRootGuiObject () {
         return root;
     }
 
@@ -83,7 +83,7 @@ public class StandardRenderManager implements IRenderManager {
      */
     @Override
     public IGUIManager getRootGuiManager() {
-        return ((IGUIBasedComponentHost)root).getRootManager();
+        return root.getRootManager();
     }
 
     /**
@@ -173,7 +173,30 @@ public class StandardRenderManager implements IRenderManager {
      * @param component The Component to render the tooltip from.
      */
     @Override
-    public void renderToolTipComponent(IGUIComponent component) {
+    public void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY) {
+        if (!component.getAreaOccupiedByComponent().ContainsCoordinate(mouseX, mouseY))
+            return;
 
+        if (component.getToolTipContent() == null || component.getToolTipContent().size() == 0) {
+            if (component instanceof IGUIBasedComponentHost) {
+                for (IGUIComponent component1 : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
+                    this.renderToolTipComponent(component1, mouseX, mouseY);
+                }
+            }
+
+            if (component instanceof IGUIBasedLedgerHost) {
+                for (IGUIComponent component1 : ( (IGUIBasedLedgerHost) component ).getLedgerManager().getLeftLedgers().values()) {
+                    this.renderToolTipComponent(component1, mouseX, mouseY);
+                }
+
+                for (IGUIComponent component1 : ( (IGUIBasedLedgerHost) component ).getLedgerManager().getRightLedgers().values()) {
+                    this.renderToolTipComponent(component1, mouseX, mouseY);
+                }
+            }
+
+            return;
+        }
+
+        getRootGuiObject().drawHoveringText(component.getToolTipContent(), mouseX + 4, mouseY + 4, Minecraft.getMinecraft().fontRendererObj);
     }
 }

@@ -1,12 +1,13 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.IGUIComponent;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
-import com.SmithsModding.SmithsCore.Util.Client.Color.MinecraftColor;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
-import net.minecraft.client.gui.FontRenderer;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.client.gui.*;
+
+import java.util.*;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -205,5 +206,10 @@ public class ComponentLabel implements IGUIComponent
     @Override
     public void handleKeyTyped(char key) {
 
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
     }
 }

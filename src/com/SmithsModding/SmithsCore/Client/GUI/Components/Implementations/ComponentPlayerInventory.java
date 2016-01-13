@@ -1,14 +1,13 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import net.minecraft.client.gui.*;
 import net.minecraft.inventory.*;
 
 import java.util.*;
@@ -220,6 +219,11 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     @Override
     public void handleKeyTyped (char key) {
 
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
     }
 
     @Override

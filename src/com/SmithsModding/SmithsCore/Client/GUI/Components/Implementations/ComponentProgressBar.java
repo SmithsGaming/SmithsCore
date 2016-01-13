@@ -6,6 +6,9 @@ import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Util.Client.*;
 import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.util.*;
+
+import java.util.*;
 
 /**
  * Created by Marc on 25.12.2015.
@@ -126,6 +129,14 @@ public class ComponentProgressBar implements IGUIComponent {
     @Override
     public void handleKeyTyped (char key) {
 
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        ArrayList<String> tips = new ArrayList<String>();
+        tips.add(StatCollector.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(root.getRootManager().getProgressBarValue(this) * 100) + "%");
+
+        return tips;
     }
 
     private int getWidth () {
