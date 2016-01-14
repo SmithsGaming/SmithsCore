@@ -291,10 +291,10 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public Plane getSize () {
-        Plane area = new Plane(guiLeft, guiTop, 0, 0);
+        Plane area = new Plane(0, 0, 0, 0);
 
         for (IGUIComponent component : getAllComponents().values()) {
-            area.IncludeCoordinate(component.getAreaOccupiedByComponent());
+            area.IncludeCoordinate(new Plane(component.getLocalCoordinate(), component.getSize().getWidth(), component.getSize().getHeigth()));
         }
 
         return area;
@@ -342,13 +342,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     @Override
     public int getRightLedgerOffSet() {
-        Plane area = new Plane(guiLeft, guiTop, 0, 0);
-
-        for (IGUIComponent component : getAllComponents().values()) {
-            area.IncludeCoordinate(component.getAreaOccupiedByComponent());
-        }
-
-        return area.getWidth();
+        return getSize().getWidth();
     }
 
     /**
