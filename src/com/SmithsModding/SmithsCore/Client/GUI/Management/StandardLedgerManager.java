@@ -66,10 +66,10 @@ public class StandardLedgerManager implements ILedgerManager {
         int horizontalOffset;
         if (side == LedgerConnectionSide.LEFT) {
             ledgers = ledgersLeft;
-            horizontalOffset = 0;
+            horizontalOffset = getHost().getLeftLedgerOffSet();
         } else {
             ledgers = ledgersRight;
-            horizontalOffset = getHost().getSize().getWidth();
+            horizontalOffset = getHost().getRightLedgerOffSet();
         }
 
         Iterator<String> iterator = ledgers.keySet().iterator();
@@ -87,8 +87,9 @@ public class StandardLedgerManager implements ILedgerManager {
             if (last != "")
                 root = root.getTranslatedCoordinate(new Coordinate2D(0, ledgers.get(last).getSize().getHeigth()));
 
-            if (key.equals(uniqueID))
+            if (key.equals(uniqueID)) {
                 return root;
+            }
         }
 
         return new Coordinate2D(-1000, -1000);
@@ -108,7 +109,17 @@ public class StandardLedgerManager implements ILedgerManager {
      */
     @Override
     public Coordinate2D getLedgerGlobalCoordinate (LedgerConnectionSide side, String uniqueID) {
-        return getHost().getGlobalCoordinate().getTranslatedCoordinate(getLedgerLocalCoordinate(side, uniqueID));
+        IGUILedger ledger;
+
+        if (side == LedgerConnectionSide.LEFT) {
+            ledger = ledgersLeft.get(uniqueID);
+        }
+        else
+        {
+            ledger = ledgersRight.get(uniqueID);
+        }
+
+        return ledger.getGlobalCoordinate();
     }
 
     /**

@@ -10,6 +10,7 @@ import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
 import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Client.*;
+import com.SmithsModding.SmithsCore.Util.Client.GUI.GuiHelper;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.*;
 
@@ -97,7 +98,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public Coordinate2D getGlobalCoordinate() {
-        return root.getLedgerManager().getLedgerGlobalCoordinate(getPrimarySide(), getID()).getTranslatedCoordinate(getLocalCoordinate());
+        return root.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
     }
 
     /**
@@ -112,7 +113,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
         if (getPrimarySide() == LedgerConnectionSide.LEFT) {
             return primaryCorner.getTranslatedCoordinate(new Coordinate2D(-1 * ( getSize().getWidth() - 4 ), 0));
         } else {
-            return new Coordinate2D(-4, 0);
+            return primaryCorner.getTranslatedCoordinate(new Coordinate2D(-4, 0));
         }
     }
 
@@ -133,7 +134,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public Plane getSize() {
-        return new Plane(0, 0, (int) ( closedLedgerWidth + ( getMaxWidth() - closedLedgerWidth ) * state.getOpenProgress() ), (int) ( closedLedgerHeight + ( getMaxHeight() - closedLedgerHeight ) * state.getOpenProgress() ));
+        return new Plane(0, 0, (int) Math.ceil(closedLedgerWidth + (getMaxWidth() - closedLedgerWidth) * state.getOpenProgress()), (int) Math.ceil( closedLedgerHeight + ( getMaxHeight() - closedLedgerHeight ) * state.getOpenProgress() ));
     }
 
     /**
@@ -320,8 +321,14 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
         ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(closedLedgerWidth, 5 + ( ledgerIcon.getHeight() - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT ) / 2), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
 
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder, false);
+
+        Coordinate2D globalLocation = getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(3,3));
+        Plane headerInternal = new Plane(globalLocation, componentBorder.getSize().getWidth() - 6, closedLedgerHeight - 6);
+
+        GuiHelper.enableScissor(headerInternal);
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentImage, false);
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentLabel, false);
+        GuiHelper.disableScissor();
     }
 
     /**

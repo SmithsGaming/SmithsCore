@@ -297,30 +297,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
             area.IncludeCoordinate(component.getAreaOccupiedByComponent());
         }
 
-        ArrayList<Float> oldStates = new ArrayList<Float>();
-
-        for (IGUILedger ledger : getLedgerManager().getLeftLedgers().values()) {
-            oldStates.add(( (LedgerComponentState) ledger.getState() ).getOpenProgress());
-            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(1F);
-
-            area.IncludeCoordinate(ledger.getAreaOccupiedByComponent());
-        }
-
-        for (IGUILedger ledger : getLedgerManager().getRightLedgers().values()) {
-            oldStates.add(( (LedgerComponentState) ledger.getState() ).getOpenProgress());
-            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(1F);
-
-            area.IncludeCoordinate(ledger.getAreaOccupiedByComponent());
-        }
-
-        for (IGUILedger ledger : getLedgerManager().getLeftLedgers().values()) {
-            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(oldStates.remove(0));
-        }
-
-        for (IGUILedger ledger : getLedgerManager().getRightLedgers().values()) {
-            ( (LedgerComponentState) ledger.getState() ).setOpenProgress(oldStates.remove(0));
-        }
-
         return area;
     }
 
@@ -357,6 +333,32 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public IGUIManager getRootManager () {
         return ( (ContainerSmithsCore) inventorySlots ).getManager();
+    }
+
+    /**
+     * A number bigger then 0 that describes the offset of the right side ledgers with the top left corner as origin
+     *
+     * @return THe right side ledger offset
+     */
+    @Override
+    public int getRightLedgerOffSet() {
+        Plane area = new Plane(guiLeft, guiTop, 0, 0);
+
+        for (IGUIComponent component : getAllComponents().values()) {
+            area.IncludeCoordinate(component.getAreaOccupiedByComponent());
+        }
+
+        return area.getWidth();
+    }
+
+    /**
+     * A number bigger then 0 that describes the offset of the left side ledgers with the top left corner as origin
+     *
+     * @return THe right left ledger offset
+     */
+    @Override
+    public int getLeftLedgerOffSet() {
+        return 0;
     }
 
     @Override

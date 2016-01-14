@@ -44,4 +44,18 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
      * @return The Manager that is at the root for the GUI Tree.
      */
     IGUIManager getRootManager ();
+
+    /**
+     * A number bigger then 0 that describes the offset of the right side ledgers with the top left corner as origin
+     *
+     * @return THe right side ledger offset
+     */
+    int getRightLedgerOffSet();
+
+    /**
+     * A number bigger then 0 that describes the offset of the left side ledgers with the top left corner as origin
+     *
+     * @return THe right left ledger offset
+     */
+    int getLeftLedgerOffSet();
 }
