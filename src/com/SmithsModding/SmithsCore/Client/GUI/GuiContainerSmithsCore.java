@@ -69,7 +69,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     public void drawBackground (int mouseX, int mouseY) {
         renderer.renderBackgroundComponent(this, false);
         renderer.renderToolTipComponent(this, mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent());
-        //renderer.renderToolTipComponent(this, -10, 10);
     }
 
     @Override
