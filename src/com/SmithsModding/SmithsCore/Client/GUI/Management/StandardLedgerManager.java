@@ -42,12 +42,10 @@ public class StandardLedgerManager implements ILedgerManager {
     @Override
     public int getLedgerIndex (LedgerConnectionSide side, String uniqueID) {
         if (side == LedgerConnectionSide.LEFT) {
-            ( ( new ArrayList<String>(ledgersLeft.keySet()) ) ).indexOf(uniqueID);
+            return ( ( new ArrayList<String>(ledgersLeft.keySet()) ) ).indexOf(uniqueID);
         } else {
-            ( ( new ArrayList<String>(ledgersRight.keySet()) ) ).indexOf(uniqueID);
+            return ( ( new ArrayList<String>(ledgersRight.keySet()) ) ).indexOf(uniqueID);
         }
-
-        return -1;
     }
 
     @Override
@@ -155,5 +153,13 @@ public class StandardLedgerManager implements ILedgerManager {
         }
 
         ( (LedgerComponentState) ledger.getState() ).toggleOpenState();
+
+        if (!((LedgerComponentState) ledger.getState()).getOpenState()) {
+            InstanceVariableManager.setVariable(this.getHost().getID() + ".LastOpenLedger", "");
+        }
+        else {
+            InstanceVariableManager.setVariable(this.getHost().getID() + ".LastOpenLedger", ledger.getID());
+        }
+
     }
 }

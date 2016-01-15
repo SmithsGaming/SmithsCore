@@ -11,6 +11,7 @@ import com.SmithsModding.SmithsCore.Client.Registry.*;
 import com.SmithsModding.SmithsCore.*;
 import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 
@@ -174,8 +175,13 @@ public class StandardRenderManager implements IRenderManager {
      */
     @Override
     public void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY) {
-        if (!component.getAreaOccupiedByComponent().ContainsCoordinate(mouseX, mouseY))
+        Plane localPlane = new Plane(component.getLocalCoordinate(), component.getSize().getWidth(), component.getSize().getHeigth());
+
+        if (!localPlane.ContainsCoordinate(mouseX, mouseY))
             return;
+
+        mouseX -= component.getLocalCoordinate().getXComponent();
+        mouseY -= component.getLocalCoordinate().getYComponent();
 
         if (component.getToolTipContent() == null || component.getToolTipContent().size() == 0) {
             if (component instanceof IGUIBasedComponentHost) {
@@ -197,6 +203,9 @@ public class StandardRenderManager implements IRenderManager {
             return;
         }
 
-        getRootGuiObject().drawHoveringText(component.getToolTipContent(), mouseX + 4, mouseY + 4, Minecraft.getMinecraft().fontRendererObj);
+        int globalMouseX = component.getGlobalCoordinate().getXComponent() + mouseX;
+        int globalMouseY = component.getGlobalCoordinate().getYComponent() + mouseY;
+
+        getRootGuiObject().drawHoveringText(component.getToolTipContent(), globalMouseX + 4, globalMouseY + 4, Minecraft.getMinecraft().fontRendererObj);
     }
 }
