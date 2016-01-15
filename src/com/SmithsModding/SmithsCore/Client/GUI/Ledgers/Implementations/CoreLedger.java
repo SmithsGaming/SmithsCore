@@ -44,8 +44,6 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
 
         closedLedgerHeight = ledgerIcon.getHeight() + 10;
         closedLedgerWidth = ledgerIcon.getWidth() + 10;
-
-        registerComponents(this);
     }
 
     /**
@@ -161,6 +159,25 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public void update(int mouseX, int mouseY, float partialTickTime) {
         //The ledger it self has no update only an animation.
+    }
+
+    /**
+     * Function used to register the sub components of this ComponentHost
+     *
+     * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
+     */
+    @Override
+    public void registerComponents(IGUIBasedComponentHost host) {
+        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon){
+            @Override
+            public ArrayList<String> getToolTipContent() {
+                return getIconToolTipText();
+            }
+        };
+        ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(closedLedgerWidth, 5 + ( ledgerIcon.getHeight() - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT ) / 2), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
+
+        registerNewComponent(componentImage);
+        registerNewComponent(componentLabel);
     }
 
     /**
@@ -317,18 +334,8 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public void drawBackground(int mouseX, int mouseY) {
         ComponentBorder componentBorder = new ComponentBorder(getID() + ".background", this, new Coordinate2D(0, 0), getSize().getWidth(), getSize().getHeigth(), color, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts);
-        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon);
-        ComponentLabel componentLabel = new ComponentLabel(getID() + ".header.label", this, new CoreComponentState(null), new Coordinate2D(closedLedgerWidth, 5 + ( ledgerIcon.getHeight() - Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT ) / 2), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, translatedLedgerHeader);
 
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder, false);
-
-        Coordinate2D globalLocation = getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(3,3));
-        Plane headerInternal = new Plane(globalLocation, componentBorder.getSize().getWidth() - 6, closedLedgerHeight - 6);
-
-        GuiHelper.enableScissor(headerInternal);
-        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentImage, false);
-        getRootGuiObject().getRenderManager().renderBackgroundComponent(componentLabel, false);
-        GuiHelper.disableScissor();
     }
 
     /**
@@ -353,6 +360,20 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public LedgerConnectionSide getPrimarySide() {
         return side;
+    }
+
+    /**
+     * Method used by the ToolTip system to dynamically get the ToolTip that is displayed when hovered over the Icon.
+     *
+     * @return The Icons ToolTip.
+     */
+    @Override
+    public ArrayList<String> getIconToolTipText() {
+        ArrayList<String> result = new ArrayList<String>();
+
+        result.add(translatedLedgerHeader);
+
+        return result;
     }
 
     /**

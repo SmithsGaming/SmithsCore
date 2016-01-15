@@ -31,11 +31,17 @@ public class StandardLedgerManager implements ILedgerManager {
 
     @Override
     public void registerLedgerRightSide (IGUILedger ledger) {
+        ledger.getAllComponents().clear();
+        ledger.registerComponents(ledger);
+
         ledgersRight.put(ledger.getID(), ledger);
     }
 
     @Override
     public void registerLedgerLeftSide (IGUILedger ledger) {
+        ledger.getAllComponents().clear();
+        ledger.registerComponents(ledger);
+
         ledgersLeft.put(ledger.getID(), ledger);
     }
 

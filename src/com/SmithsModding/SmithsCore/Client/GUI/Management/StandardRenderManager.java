@@ -175,28 +175,25 @@ public class StandardRenderManager implements IRenderManager {
      */
     @Override
     public void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY) {
-        Plane localPlane = new Plane(component.getLocalCoordinate(), component.getSize().getWidth(), component.getSize().getHeigth());
+        Plane localPlane = new Plane(0,0, component.getSize().getWidth(), component.getSize().getHeigth());
 
-        if (!localPlane.ContainsCoordinate(mouseX, mouseY))
+        if ((component.getToolTipContent() != null || component.getToolTipContent().size() != 0) &&(!(component instanceof IGUIBasedComponentHost)) && !localPlane.ContainsCoordinate(mouseX, mouseY))
             return;
-
-        mouseX -= component.getLocalCoordinate().getXComponent();
-        mouseY -= component.getLocalCoordinate().getYComponent();
 
         if (component.getToolTipContent() == null || component.getToolTipContent().size() == 0) {
             if (component instanceof IGUIBasedComponentHost) {
                 for (IGUIComponent component1 : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
-                    this.renderToolTipComponent(component1, mouseX, mouseY);
+                    this.renderToolTipComponent(component1, mouseX - component1.getLocalCoordinate().getXComponent(), mouseY - component1.getLocalCoordinate().getYComponent());
                 }
             }
 
             if (component instanceof IGUIBasedLedgerHost) {
                 for (IGUIComponent component1 : ( (IGUIBasedLedgerHost) component ).getLedgerManager().getLeftLedgers().values()) {
-                    this.renderToolTipComponent(component1, mouseX, mouseY);
+                    this.renderToolTipComponent(component1, mouseX - component1.getLocalCoordinate().getXComponent(), mouseY - component1.getLocalCoordinate().getYComponent());
                 }
 
                 for (IGUIComponent component1 : ( (IGUIBasedLedgerHost) component ).getLedgerManager().getRightLedgers().values()) {
-                    this.renderToolTipComponent(component1, mouseX, mouseY);
+                    this.renderToolTipComponent(component1, mouseX - component1.getLocalCoordinate().getXComponent(), mouseY - component1.getLocalCoordinate().getYComponent());
                 }
             }
 

@@ -27,8 +27,6 @@ public class InformationLedger extends CoreLedger {
             if (translatedDisplayedStrings.indexOf(line) != translatedDisplayedStrings.size() - 1)
                 this.translatedDisplayedStrings.add("");
         }
-
-        registerComponents(this);
     }
 
     /**
@@ -59,8 +57,7 @@ public class InformationLedger extends CoreLedger {
      */
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
-        if (translatedDisplayedStrings == null)
-            return;
+        super.registerComponents(host);
 
         for (String line : translatedDisplayedStrings) {
             registerNewComponent(new ComponentLabel(getID() + ".line." + line, this, new CoreComponentState(null), new Coordinate2D(8, closedLedgerHeight + translatedDisplayedStrings.indexOf(line) * ( Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 3 )), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, line));
