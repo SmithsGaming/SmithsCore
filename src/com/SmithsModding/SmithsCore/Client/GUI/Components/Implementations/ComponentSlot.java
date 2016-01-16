@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * Created by Marc on 22.12.2015.
  */
-public class ComponentSlot implements IGUIComponent {
+public class ComponentSlot extends CoreComponent {
     private String uniqueID;
     private SlotComponentState state;
     private IGUIBasedComponentHost parent;
@@ -32,53 +32,9 @@ public class ComponentSlot implements IGUIComponent {
     }
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color) {
-        this.uniqueID = uniqueID;
-
-        this.state = state;
-        this.state.setComponent(this);
-
-        this.parent = parent;
-
-        this.rootAnchorPixel = rootAnchorPixel;
-        this.width = 18;
-        this.height = 18;
+        super(uniqueID, parent, state, rootAnchorPixel, 18, 18);
 
         this.color = color;
-    }
-
-    @Override
-    public String getID () {
-        return uniqueID;
-    }
-
-    @Override
-    public IGUIComponentState getState () {
-        return state;
-    }
-
-    @Override
-    public IGUIBasedComponentHost getComponentHost() {
-        return parent.getComponentHost();
-    }
-
-    @Override
-    public Coordinate2D getGlobalCoordinate () {
-        return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
-    }
-
-    @Override
-    public Coordinate2D getLocalCoordinate () {
-        return rootAnchorPixel;
-    }
-
-    @Override
-    public Plane getAreaOccupiedByComponent () {
-        return new Plane(getGlobalCoordinate(), width, height);
-    }
-
-    @Override
-    public Plane getSize () {
-        return new Plane(0, 0, width, height);
     }
 
     /**
@@ -113,30 +69,5 @@ public class ComponentSlot implements IGUIComponent {
     @Override
     public void drawForeground (int mouseX, int mouseY) {
         //NOOP
-    }
-
-    @Override
-    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        return false;
-    }
-
-    @Override
-    public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        return false;
-    }
-
-    @Override
-    public boolean requiresForcedMouseInput () {
-        return false;
-    }
-
-    @Override
-    public void handleKeyTyped (char key) {
-        return;
-    }
-
-    @Override
-    public ArrayList<String> getToolTipContent () {
-        return new ArrayList<String>();
     }
 }

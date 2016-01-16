@@ -14,15 +14,7 @@ import java.util.*;
 /**
  * Created by Marc on 21.12.2015.
  */
-public class ComponentBorder implements IGUIComponent {
-
-    private String uniqueID;
-    private IGUIComponentState state;
-    private IGUIBasedComponentHost parent;
-
-    private Coordinate2D rootAnchorPixel;
-    private int width;
-    private int height;
+public class ComponentBorder extends CoreComponent {
 
     private MinecraftColor color;
 
@@ -36,16 +28,9 @@ public class ComponentBorder implements IGUIComponent {
     }
 
     public ComponentBorder (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightType, CornerTypes lowerLeftType) {
-        this.uniqueID = uniqueID;
+        super(uniqueID, parent, state, rootAnchorPixel, height, width);
 
-        this.state = state;
         this.state.setComponent(this);
-
-        this.parent = parent;
-
-        this.rootAnchorPixel = rootAnchorPixel;
-        this.width = width;
-        this.height = height;
 
         this.color = color;
 
@@ -53,41 +38,6 @@ public class ComponentBorder implements IGUIComponent {
         this.topRightCorner = topRightType;
         this.lowerRightCorner = lowerRightType;
         this.lowerLeftCorner = lowerLeftType;
-    }
-
-    @Override
-    public String getID () {
-        return uniqueID;
-    }
-
-    @Override
-    public IGUIComponentState getState () {
-        return state;
-    }
-
-    @Override
-    public IGUIBasedComponentHost getComponentHost() {
-        return parent.getComponentHost();
-    }
-
-    @Override
-    public Coordinate2D getGlobalCoordinate () {
-        return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
-    }
-
-    @Override
-    public Coordinate2D getLocalCoordinate () {
-        return rootAnchorPixel;
-    }
-
-    @Override
-    public Plane getAreaOccupiedByComponent () {
-        return new Plane(getGlobalCoordinate(), width, height);
-    }
-
-    @Override
-    public Plane getSize () {
-        return new Plane(0, 0, width, height);
     }
 
     /**
@@ -114,31 +64,6 @@ public class ComponentBorder implements IGUIComponent {
     @Override
     public void drawForeground (int mouseX, int mouseY) {
         //NOOP
-    }
-
-    @Override
-    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        return false;
-    }
-
-    @Override
-    public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        return false;
-    }
-
-    @Override
-    public boolean requiresForcedMouseInput () {
-        return false;
-    }
-
-    @Override
-    public void handleKeyTyped (char key) {
-        return;
-    }
-
-    @Override
-    public ArrayList<String> getToolTipContent () {
-        return new ArrayList<String>();
     }
 
     private void renderWithDependentCorner (int mouseX, int mouseY) {

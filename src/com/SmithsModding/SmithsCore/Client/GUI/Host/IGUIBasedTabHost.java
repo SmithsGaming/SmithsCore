@@ -1,5 +1,6 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Host;
 
+import com.SmithsModding.SmithsCore.Client.GUI.Management.ITabManager;
 import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.IGUITab;
 
 /**
@@ -23,4 +24,10 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
      */
     void registerNewTab(IGUITab tab);
 
+    /**
+     * Method to get the TabManager to handle Tab Interactions.
+     *
+     * @return The current TabManager for this host.
+     */
+    ITabManager getTabManager();
 }

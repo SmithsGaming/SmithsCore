@@ -13,13 +13,7 @@ import java.util.*;
 /**
  * Created by Marc on 25.12.2015.
  */
-public class ComponentProgressBar implements IGUIComponent {
-
-    private String uniqueID;
-    private IGUIComponentState state;
-    private IGUIBasedComponentHost root;
-
-    private Coordinate2D localCoordinate;
+public class ComponentProgressBar extends CoreComponent {
 
     private ComponentDirection renderDirection;
 
@@ -27,51 +21,21 @@ public class ComponentProgressBar implements IGUIComponent {
     private CustomResource fullResource;
 
     public ComponentProgressBar (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost root, Coordinate2D localCoordinate, ComponentDirection componentDirection, CustomResource emptyResource, CustomResource fullResource) {
-        this.uniqueID = uniqueID;
+        super(uniqueID, root, state, localCoordinate, 0,0);
 
-        this.state = state;
-        this.state.setComponent(this);
-
-        this.root = root;
-        this.localCoordinate = localCoordinate;
         this.renderDirection = componentDirection;
         this.emptyResource = emptyResource;
         this.fullResource = fullResource;
     }
 
     @Override
-    public String getID () {
-        return uniqueID;
+    public Plane getAreaOccupiedByComponent() {
+        return new Plane(getGlobalCoordinate(), getWidth(), getHeight());
     }
 
     @Override
-    public IGUIComponentState getState () {
-        return state;
-    }
-
-    @Override
-    public IGUIBasedComponentHost getComponentHost() {
-        return root;
-    }
-
-    @Override
-    public Coordinate2D getGlobalCoordinate () {
-        return root.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
-    }
-
-    @Override
-    public Coordinate2D getLocalCoordinate () {
-        return localCoordinate;
-    }
-
-    @Override
-    public Plane getAreaOccupiedByComponent () {
-        return new Plane(getLocalCoordinate(), getWidth(), getHeight());
-    }
-
-    @Override
-    public Plane getSize () {
-        return new Plane(0, 0, getWidth(), getHeight());
+    public Plane getSize() {
+        return new Plane(0,0, getWidth(), getHeight());
     }
 
     /**
@@ -112,29 +76,9 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     @Override
-    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        return false;
-    }
-
-    @Override
-    public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        return false;
-    }
-
-    @Override
-    public boolean requiresForcedMouseInput () {
-        return false;
-    }
-
-    @Override
-    public void handleKeyTyped (char key) {
-
-    }
-
-    @Override
     public ArrayList<String> getToolTipContent () {
         ArrayList<String> tips = new ArrayList<String>();
-        tips.add(StatCollector.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(root.getRootManager().getProgressBarValue(this) * 100) + "%");
+        tips.add(StatCollector.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%");
 
         return tips;
     }
@@ -154,7 +98,7 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     public void drawTopLayerFromLeftToRight () {
-        Plane renderBox = new Plane(getGlobalCoordinate(), (int) ( getWidth() * root.getRootManager().getProgressBarValue(this) ), getHeight());
+        Plane renderBox = new Plane(getGlobalCoordinate(), (int) ( getWidth() * getComponentHost().getRootManager().getProgressBarValue(this) ), getHeight());
 
         if (renderBox.getWidth() == 0)
             return;
@@ -167,7 +111,7 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     public void drawTopLayerFromRightToLeft () {
-        int fullWidth = (int) ( getWidth() * root.getRootManager().getProgressBarValue(this) );
+        int fullWidth = (int) ( getWidth() * getComponentHost().getRootManager().getProgressBarValue(this) );
 
         if (fullWidth == 0)
             return;
@@ -182,7 +126,7 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     public void drawTopLayerBottomToTop () {
-        int fullHeight = (int) ( getHeight() * root.getRootManager().getProgressBarValue(this) );
+        int fullHeight = (int) ( getHeight() * getComponentHost().getRootManager().getProgressBarValue(this) );
 
         if (fullHeight == 0)
             return;
@@ -199,7 +143,7 @@ public class ComponentProgressBar implements IGUIComponent {
     }
 
     public void drawTopLayerTopToBottom () {
-        Plane renderBox = new Plane(getGlobalCoordinate(), getWidth(), (int) ( getHeight() * root.getRootManager().getProgressBarValue(this) ));
+        Plane renderBox = new Plane(getGlobalCoordinate(), getWidth(), (int) ( getHeight() * getComponentHost().getRootManager().getProgressBarValue(this) ));
 
         if (renderBox.getHeigth() == 0)
             return;
