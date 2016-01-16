@@ -17,14 +17,6 @@ import java.util.*;
  * Created by Marc on 22.12.2015.
  */
 public class ComponentSlot extends CoreComponent {
-    private String uniqueID;
-    private SlotComponentState state;
-    private IGUIBasedComponentHost parent;
-
-    private Coordinate2D rootAnchorPixel;
-    private int width;
-    private int height;
-
     private MinecraftColor color;
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Slot connectedSlot, MinecraftColor color) {
@@ -56,6 +48,8 @@ public class ComponentSlot extends CoreComponent {
         StandardRenderManager.pushColorOnRenderStack(color);
 
         GuiHelper.drawRectangleStretched(new MultiComponentTexture(Textures.Gui.Basic.Slots.DEFAULT, Textures.Gui.Basic.Slots.DEFAULT.getWidth(), Textures.Gui.Basic.Slots.DEFAULT.getHeight(), 1, 1), 18, 18, new Coordinate2D(0, 0));
+
+        SlotComponentState state = (SlotComponentState) getState();
 
         if (state.requiresHoloRendering() && state.getHolographicSprite() != null) {
             GuiHelper.drawTexturedModelRectFromIcon(1, 1, 0, state.getHolographicSprite(), 16, 16);
