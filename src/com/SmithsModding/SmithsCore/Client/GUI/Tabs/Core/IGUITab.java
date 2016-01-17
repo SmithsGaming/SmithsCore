@@ -20,6 +20,8 @@ public interface IGUITab extends IGUIBasedComponentHost
      */
     IGUIBasedTabHost getTabHost();
 
+    ItemStack getDisplayStack();
+
     /**
      * Function to get the tooltiptext of the GUI System.
      *

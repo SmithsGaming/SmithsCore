@@ -54,7 +54,7 @@ public class ComponentBorder extends CoreComponent {
 
     @Override
     public void drawBackground (int mouseX, int mouseY) {
-        StandardRenderManager.pushColorOnRenderStack(color);
+        StandardRenderManager.pushColorOnRenderStack(getColor());
 
         renderWithDependentCorner(mouseX, mouseY);
 
@@ -64,6 +64,10 @@ public class ComponentBorder extends CoreComponent {
     @Override
     public void drawForeground (int mouseX, int mouseY) {
         //NOOP
+    }
+
+    public MinecraftColor getColor(){
+        return color;
     }
 
     private void renderWithDependentCorner (int mouseX, int mouseY) {

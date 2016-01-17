@@ -278,6 +278,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
         return true;
     }
+
     @Override
     public Coordinate2D getLocalCoordinate () {
         return new Coordinate2D(guiLeft, guiTop);

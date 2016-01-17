@@ -26,6 +26,8 @@ public abstract class CoreComponent implements IGUIComponent {
         this.state = state;
         this.width = width;
         this.parent = parent;
+
+        this.state.setComponent(this);
     }
 
     @Override

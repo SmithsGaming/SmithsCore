@@ -16,6 +16,8 @@ public class CoreComponentState implements IGUIComponentState {
         this.component = component;
     }
 
+    public CoreComponentState(){};
+
     @Override
     public IGUIComponent getComponent () {
         return component;

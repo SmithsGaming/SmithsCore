@@ -10,7 +10,7 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
 {
 
     /**
-     * M<ethod called by the gui system to intialize this tab host.
+     * Method called by the gui system to initialize this tab host.
      *
      * @param host The host for the tabs.
      */
