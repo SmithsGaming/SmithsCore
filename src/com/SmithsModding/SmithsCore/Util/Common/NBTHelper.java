@@ -4,11 +4,11 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Common;
+package com.smithsmodding.smithscore.util.Common;
 
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate3D;
-import com.SmithsModding.SmithsCore.Util.CoreReferences;
+import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate3D;
+import com.smithsmodding.smithscore.util.CoreReferences;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

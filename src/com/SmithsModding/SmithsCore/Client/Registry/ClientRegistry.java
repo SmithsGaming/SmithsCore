@@ -4,27 +4,19 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Client.Registry;
+package com.smithsmodding.smithscore.client.Registry;
 
-import com.SmithsModding.SmithsCore.Client.Handlers.GUI.*;
-import com.SmithsModding.SmithsCore.Client.Handlers.Network.*;
-import com.SmithsModding.SmithsCore.Client.Mouse.*;
-import com.SmithsModding.SmithsCore.Client.Textures.*;
-import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
-import com.SmithsModding.SmithsCore.Common.Player.Handlers.*;
-import com.SmithsModding.SmithsCore.Common.Registry.*;
-import com.SmithsModding.SmithsCore.Util.Client.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
- * Used as the Central point of Data on the Client Side.
+ * Used as the Central point of Data on the client Side.
  * <p/>
- * Defines the special Client EventBus.
+ * Defines the special client EventBus.
  */
 public class ClientRegistry extends CommonRegistry {
 
-    //This event bus is used for client specific stuff only. It handles GUI Events.
+    //This event bus is used for client specific stuff only. It handles gui events.
     //All other events should be fired on the CommonBus.
     //If a NetworkSyncableEvent is fired it will automatically be synced to the Server and is there fired on the NetworkRelayBus
     private final EventBus clientEventBus = new EventBus();
@@ -59,11 +51,11 @@ public class ClientRegistry extends CommonRegistry {
     }
 
     /**
-     * The event bus used for client events. Under common code this is the standard Common event bus on the client side is this a special event bus
-     * not related to the Common Events bus allowing Events to be handled seperatly without having to worry about SideOnly
+     * The event bus used for client events. Under common code this is the standard common event bus on the client side is this a special event bus
+     * not related to the common events bus allowing events to be handled seperatly without having to worry about SideOnly
      * instances.
      *
-     * @return An EventBus that is used to handle Client specific Events.
+     * @return An EventBus that is used to handle client specific events.
      */
     @Override
     public EventBus getClientBus() {

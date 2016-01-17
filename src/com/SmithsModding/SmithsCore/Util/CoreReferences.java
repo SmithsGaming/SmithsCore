@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Util;
+package com.smithsmodding.smithscore.util;
 
 import org.apache.logging.log4j.*;
 
@@ -12,7 +12,7 @@ import org.apache.logging.log4j.*;
 public class CoreReferences {
 
     public static final class General {
-        public static final String MOD_ID = "SmithsCore";
+        public static final String MOD_ID = "smithscore";
         public static final String VERSION = "@VERSION@";
         public static final String MC_VERSION = "@MCVERSION@";
         public static final String API_VERSION = "@APIVERSION@";
@@ -25,34 +25,34 @@ public class CoreReferences {
         public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
         public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
 
-        public static final String FLUIDS = "SmithsCore.Fluids";
-        public static final String INVENTORY = "SmithsCore.Inventory";
-        public static final String STATE = "SmithsCore.State";
-        public static final String STRUCTURE = "SmithsCore.Structure";
+        public static final String FLUIDS = "smithscore.Fluids";
+        public static final String INVENTORY = "smithscore.inventory";
+        public static final String STATE = "smithscore.state";
+        public static final String STRUCTURE = "smithscore.Structure";
 
         public static class InventoryData {
-            public static final String SLOTINDEX = "SmithsCore.Inventory.SlotIndex";
-            public static final String STACKDATA = "SmithsCore.Inventory.ItemStackData";
+            public static final String SLOTINDEX = "smithscore.inventory.SlotIndex";
+            public static final String STACKDATA = "smithscore.inventory.ItemStackData";
         }
 
         public static class StructureData {
-            public static final String ISSLAVED = "SmithsCore.Structure.Slaved";
+            public static final String ISSLAVED = "smithscore.Structure.Slaved";
 
-            public static final String MASTERLOCATION = "SmithsCore.Structure.MasterLocation";
+            public static final String MASTERLOCATION = "smithscore.Structure.MasterLocation";
 
-            public static final String SLAVELOCATIONS = "SmithsCore.Structure.SlaveLocations";
+            public static final String SLAVELOCATIONS = "smithscore.Structure.SlaveLocations";
         }
 
         public static class Coordinates {
-            public static final String X = "SmithsCore.Coordaintes.X";
-            public static final String Y = "SmithsCore.Coordaintes.Y";
-            public static final String Z = "SmithsCore.Coordaintes.Z";
+            public static final String X = "smithscore.Coordaintes.X";
+            public static final String Y = "smithscore.Coordaintes.Y";
+            public static final String Z = "smithscore.Coordaintes.Z";
         }
     }
 
     public static final class LogMarkers {
-        public static final Marker CLIENT = MarkerManager.getMarker("[Client]");
-        public static final Marker COMMON = MarkerManager.getMarker("[Common]");
+        public static final Marker CLIENT = MarkerManager.getMarker("[client]");
+        public static final Marker COMMON = MarkerManager.getMarker("[common]");
 
         public static final Marker PREINIT = MarkerManager.getMarker("[Pre-Init]", COMMON);
         public static final Marker INIT = MarkerManager.getMarker("[Init]", COMMON);

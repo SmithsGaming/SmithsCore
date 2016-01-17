@@ -1,6 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.GUI.State;
+package com.smithsmodding.smithscore.client.GUI.State;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.inventory.*;
 

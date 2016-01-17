@@ -4,10 +4,8 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Client.Events.GUI;
+package com.smithsmodding.smithscore.client.Events.GUI;
 
-import com.SmithsModding.SmithsCore.Common.Events.Network.*;
-import com.SmithsModding.SmithsCore.Common.Inventory.*;
 import io.netty.buffer.*;
 import net.minecraft.entity.player.*;
 import net.minecraftforge.fml.common.network.*;
@@ -35,7 +33,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
     }
 
     /**
-     * Function to get the Player Opening the UI
+     * Function to get the player Opening the UI
      *
      * @return The entity opening the UI.
      */
@@ -44,18 +42,18 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
     }
 
     /**
-     * Getter for the ID of the Player opening the UI.
+     * Getter for the ID of the player opening the UI.
      * Should be used when this event is received on the Networkbus of the ClientSide.
      *
-     * @return The UUID of the Player opening the UI.
+     * @return The UUID of the player opening the UI.
      */
     public UUID getPlayerID() {
         return playerID;
     }
 
     /**
-     * The ID of the Container that the Player Opened.
-     * Used to keep track of which UI was opened when this event is received on the NetworkBus on the Client side.
+     * The ID of the Container that the player Opened.
+     * Used to keep track of which UI was opened when this event is received on the NetworkBus on the client side.
      *
      * @return THe containers ID.
      */
@@ -67,7 +65,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      * Function used by the instance created on the receiving side to reset its state from the sending side stored
      * by it in the Buffer before it is being fired on the NetworkRelayBus.
      *
-     * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing Events.
+     * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
@@ -95,13 +93,13 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      * <p/>
      * In this case, some additional values are reconstructed based of the Side this Message is received on.
      *
-     * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this Events.
-     * @param pContext The Messages Context.
+     * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this events.
+     * @param pContext The messages Context.
      * @return A IMessage that describes the answer if need be, else null.
      */
     @Override
     public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
-        //Retrieve the Player from the Context.
+        //Retrieve the player from the Context.
         if (pContext.side == Side.SERVER) {
             player = pContext.getServerHandler().playerEntity;
 

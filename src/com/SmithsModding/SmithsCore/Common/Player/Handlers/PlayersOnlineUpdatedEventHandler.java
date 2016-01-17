@@ -4,18 +4,18 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Player.Handlers;
+package com.smithsmodding.smithscore.common.Player.Handlers;
 
-import com.SmithsModding.SmithsCore.Common.Player.Event.PlayersOnlineUpdatedEvent;
-import com.SmithsModding.SmithsCore.Common.Player.Management.PlayerManager;
-import com.SmithsModding.SmithsCore.SmithsCore;
+import com.smithsmodding.smithscore.common.Player.Event.PlayersOnlineUpdatedEvent;
+import com.smithsmodding.smithscore.common.Player.Management.PlayerManager;
+import com.smithsmodding.smithscore.SmithsCore;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class PlayersOnlineUpdatedEventHandler {
 
-    //Automatically Registers this to the NetworkEventBus when the system is running on the Client Side
+    //Automatically Registers this to the NetworkEventBus when the system is running on the client Side
     static {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
             SmithsCore.getRegistry().getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
@@ -23,7 +23,7 @@ public class PlayersOnlineUpdatedEventHandler {
     }
 
     /**
-     * Method for handling the Network event when it arrives on the client side.
+     * Method for handling the network event when it arrives on the client side.
      *
      * @param event
      */

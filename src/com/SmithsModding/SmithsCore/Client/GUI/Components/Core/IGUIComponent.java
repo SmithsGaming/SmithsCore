@@ -1,8 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Components.Core;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+package com.smithsmodding.smithscore.client.GUI.Components.Core;
 
 import java.util.*;
 
@@ -26,17 +22,17 @@ public interface IGUIComponent
     /**
      * Function used to get the StateObject of this Component.
      * A good example of what to find in the state Object is the Visibility of it.
-     * But also things like the Displayed Text of a label or TextBox are stored in the Components
-     * State Object.
+     * But also things like the Displayed Text of a label or TextBox are stored in the components
+     * state Object.
      *
-     * @return This Components State Object.
+     * @return This components state Object.
      */
     IGUIComponentState getState();
 
     /**
-     * Function to get this Components Host.
+     * Function to get this components host.
      *
-     * @return This Components Host.
+     * @return This components host.
      */
     IGUIBasedComponentHost getComponentHost();
 
@@ -79,28 +75,28 @@ public interface IGUIComponent
 
     /**
      * Function used to draw this components background.
-     * Usually this will incorporate all of the Components visual objects.
+     * Usually this will incorporate all of the components visual objects.
      * A good example of a Component that only uses the drawBackground function is the
      * BackgroundComponent.
      *
-     * @param mouseX The current X-Coordinate of the Mouse
-     * @param mouseY The current Y-Coordinate of the Mouse
+     * @param mouseX The current X-Coordinate of the mouse
+     * @param mouseY The current Y-Coordinate of the mouse
      */
     void drawBackground(int mouseX, int mouseY);
 
     /**
      * Function used to draw this components foreground.
-     * Usually this will incorporate very few of teh Components visual Objects.
+     * Usually this will incorporate very few of teh components visual Objects.
      * A good example of a Component that only uses the drawForeground function is the
      * GUIDescriptionLabel (The labels that describe thins like your inventory and the TE's inventory).
      *
-     * @param mouseX The current X-Coordinate of the Mouse
-     * @param mouseY The current Y-Coordinate of the Mouse
+     * @param mouseX The current X-Coordinate of the mouse
+     * @param mouseY The current Y-Coordinate of the mouse
      */
     void drawForeground(int mouseX, int mouseY);
 
     /**
-     * Function called when the Mouse was clicked inside of this component.
+     * Function called when the mouse was clicked inside of this component.
      * Either it should pass this function to its SubComponents
      * (making sure that it recalculates the location and checks if it is inside before hand,
      * handle the Click them self or both.
@@ -116,7 +112,7 @@ public interface IGUIComponent
     boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton);
 
     /**
-     * Function called when the Mouse was clicked outside of this component.
+     * Function called when the mouse was clicked outside of this component.
      * It is only called when the function
      * Either it should pass this function to its SubComponents
      * (making sure that it recalculates the location and checks if it is inside before hand,

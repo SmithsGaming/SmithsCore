@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Common.Fluid;
+package com.smithsmodding.smithscore.common.Fluid;
 
 import net.minecraftforge.fluids.*;
 

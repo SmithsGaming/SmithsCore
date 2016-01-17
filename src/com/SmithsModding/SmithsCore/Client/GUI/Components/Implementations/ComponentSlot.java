@@ -1,17 +1,7 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations;
+package com.smithsmodding.smithscore.client.GUI.Components.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
-import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Util.Client.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.inventory.*;
-
-import java.util.*;
 
 /**
  * Created by Marc on 22.12.2015.

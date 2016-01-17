@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Util.Client.Color;
+package com.smithsmodding.smithscore.util.Client.Color;
 
 import net.minecraft.client.renderer.GlStateManager;
 
@@ -8,7 +8,7 @@ import java.awt.color.ColorSpace;
 import java.awt.image.ColorModel;
 
 /**
- * A standard MinecraftColor class for SmithsModding.
+ * A standard MinecraftColor class for smithsmodding.
  *
  * Extends the Standard Java color class with some functions.
  *

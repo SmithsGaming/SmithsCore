@@ -1,6 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.State;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+package com.smithsmodding.smithscore.client.GUI.State;
 
 /**
  * Created by Marc on 21.12.2015.

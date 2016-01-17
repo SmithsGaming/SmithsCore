@@ -4,17 +4,15 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Events.Network;
+package com.smithsmodding.smithscore.common.Events.Network;
 
-import com.SmithsModding.SmithsCore.Common.Events.*;
-import com.SmithsModding.SmithsCore.Util.Common.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
 import java.util.*;
 
 /**
- * Events used to tell Other mods that a NetworkManager is about to be Initialized.
+ * events used to tell Other mods that a NetworkManager is about to be Initialized.
  */
 public class NetworkManagerInitializeEvent extends SmithsCoreEvent {
 
@@ -32,12 +30,12 @@ public class NetworkManagerInitializeEvent extends SmithsCoreEvent {
     }
 
     /**
-     * Function used by catching handlers to register additional Messages to the channel that is about to be initialized
+     * Function used by catching handlers to register additional messages to the channel that is about to be initialized
      * without having to have direct contact the the SimpleNetworkWrapper Instance that describes this Channel.
      * <p/>
      * Use this function instead of registering the Message directly so you don't have to worry about the Channel ID
      *
-     * @param pHandlerClass  The Message Handlers class on the receiving end.
+     * @param pHandlerClass  The Message handlers class on the receiving end.
      * @param pMessageClass  The Message Class.
      * @param pReceivingSide The Receiving side.
      */
@@ -46,9 +44,9 @@ public class NetworkManagerInitializeEvent extends SmithsCoreEvent {
     }
 
     /**
-     * Return a HashMap with all Additional Messages for this Channel.
+     * Return a HashMap with all Additional messages for this Channel.
      *
-     * @return A HashMap with all the additional Messages.
+     * @return A HashMap with all the additional messages.
      */
     public HashMap<Pair<Class, Class>, Side> getAdditionalMessages() {
         return iAdditionalMessage;

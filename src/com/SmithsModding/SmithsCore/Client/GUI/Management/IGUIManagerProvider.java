@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Management;
+package com.smithsmodding.smithscore.client.GUI.Management;
 
 /**
  * Created by Orion

@@ -1,9 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Host;
-
-import com.SmithsModding.SmithsCore.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import net.minecraft.client.gui.*;
+package com.smithsmodding.smithscore.client.GUI.Host;
 
 import java.util.*;
 
@@ -25,30 +20,30 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
     void registerComponents(IGUIBasedComponentHost host);
 
     /**
-     * Method used to register a new Component to this Host.
+     * Method used to register a new Component to this host.
      *
      * @param component The new component.
      */
     void registerNewComponent (IGUIComponent component);
 
     /**
-     * Method to get the Root GUI Object that this Component is part of.
+     * Method to get the Root gui Object that this Component is part of.
      *
-     * @return The GUI that this component is part of.
+     * @return The gui that this component is part of.
      */
     GuiContainerSmithsCore getRootGuiObject();
 
     /**
-     * Method to get the GUI Roots Manager.
+     * Method to get the gui Roots Manager.
      *
-     * @return The Manager that is at the root for the GUI Tree.
+     * @return The Manager that is at the root for the gui Tree.
      */
     IGUIManager getRootManager();
 
     /**
-     * Function to get all the Components registered to this Host.
+     * Function to get all the components registered to this host.
      *
-     * @return A ID to Component map that holds all the Components (but not their SubComponents) of this Host.
+     * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
     LinkedHashMap<String, IGUIComponent> getAllComponents ();
 

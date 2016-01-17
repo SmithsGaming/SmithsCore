@@ -1,17 +1,7 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Management;
+package com.smithsmodding.smithscore.client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Animation.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Scissoring.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Client.Registry.*;
-import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
-import com.SmithsModding.SmithsCore.Util.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.util.Common.Postioning.Plane;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 
@@ -35,7 +25,7 @@ public class StandardRenderManager implements IRenderManager {
     }
 
     /**
-     * Method should be used when rendering UI Components. It is used to set the color to a new one and remember the old
+     * Method should be used when rendering UI components. It is used to set the color to a new one and remember the old
      * one.
      * <p/>
      * Allows for the Enabled color to be put on the known stack, or any other color set by a component.
@@ -46,7 +36,7 @@ public class StandardRenderManager implements IRenderManager {
     }
 
     /**
-     * Method should be used when rendering UI Components. It is used to reset the color to the previous state instead
+     * Method should be used when rendering UI components. It is used to reset the color to the previous state instead
      * of to white.
      * <p/>
      * Allows for the Enabled color to be put on the known stack, or any other color set by a component.
@@ -70,7 +60,7 @@ public class StandardRenderManager implements IRenderManager {
     /**
      * Method to get the Gui this StandardRenderManager renders on.
      *
-     * @return The current active GUI
+     * @return The current active gui
      */
     @Override
     public GuiContainerSmithsCore getRootGuiObject () {
@@ -80,7 +70,7 @@ public class StandardRenderManager implements IRenderManager {
     /**
      * Methd to get the root GuiManager this StandardRenderManager belongs to.
      *
-     * @return The GuiManager of the Root GUI object.
+     * @return The GuiManager of the Root gui object.
      */
     @Override
     public IGUIManager getRootGuiManager() {

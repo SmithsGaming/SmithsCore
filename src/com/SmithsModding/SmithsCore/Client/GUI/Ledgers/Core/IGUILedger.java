@@ -1,9 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Scissoring.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+package com.smithsmodding.smithscore.client.GUI.Ledgers.Core;
 
 import java.util.ArrayList;
 
@@ -13,9 +8,9 @@ import java.util.ArrayList;
 public interface IGUILedger extends IGUIBasedComponentHost, IScissoredGuiComponent {
 
     /**
-     * Function to get this Components Host.
+     * Function to get this components host.
      *
-     * @return This Components Host.
+     * @return This components host.
      */
     IGUIBasedLedgerHost getLedgerHost ();
 

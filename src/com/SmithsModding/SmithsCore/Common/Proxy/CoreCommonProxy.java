@@ -1,14 +1,13 @@
-package com.SmithsModding.SmithsCore.Common.Proxy;
+package com.smithsmodding.smithscore.common.Proxy;
 
 
-import com.SmithsModding.SmithsCore.Common.Handlers.Network.*;
-import com.SmithsModding.SmithsCore.*;
+import com.smithsmodding.smithscore.*;
 import net.minecraftforge.fml.relauncher.*;
 
 import java.io.*;
 
 /**
- * Common class used to manage code that runs on both sides of Minecraft.
+ * common class used to manage code that runs on both sides of Minecraft.
  * It is the common point of entry after the Modclass receives notice of a Init-state update, on the dedicated server side,
  * through one of his eventhandlers.
  * <p/>
@@ -31,8 +30,8 @@ public class CoreCommonProxy {
 
     /**
      * Function used to initialize this mod.
-     * It sets parameters used in most of its functions as common mod for SmithsModding mods.
-     * Also initializes most of the Network code for the Server.
+     * It sets parameters used in most of its functions as common mod for smithsmodding mods.
+     * Also initializes most of the network code for the Server.
      */
     public void Init() {
 
@@ -59,21 +58,21 @@ public class CoreCommonProxy {
 
     /**
      * Function used to get the effective running side.
-     * Basically indicates if elements marked with SideOnly(Side.Client) or SideOnly(Side.SERVER) are available to the JVM
-     * As the Client side of this Proxy inherits from this Common one it overrides this function and returns Side.Client instead of value returned from here.
+     * Basically indicates if elements marked with SideOnly(Side.client) or SideOnly(Side.SERVER) are available to the JVM
+     * As the client side of this proxy inherits from this common one it overrides this function and returns Side.client instead of value returned from here.
      * <p/>
-     * The value returned here does not indicate if the user is running a dedicated or a internal server. It only indicated that the instance of minecraft has GUI-Capabilities or not.
+     * The value returned here does not indicate if the user is running a dedicated or a internal server. It only indicated that the instance of minecraft has gui-Capabilities or not.
      *
-     * @return The effective running Side of this Proxy
+     * @return The effective running Side of this proxy
      * @see net.minecraftforge.fml.relauncher.SideOnly
-     * @see com.SmithsModding.SmithsCore.Client.Proxy.CoreClientProxy
+     * @see com.smithsmodding.smithscore.client.Proxy.CoreClientProxy
      */
     public Side getEffectiveSide() {
         return Side.SERVER;
     }
 
     /**
-     * Function called from preInit() to register all of the Eventhandlers used by Common code.
+     * Function called from preInit() to register all of the Eventhandlers used by common code.
      */
     protected void registerEventHandlers() {
         SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());

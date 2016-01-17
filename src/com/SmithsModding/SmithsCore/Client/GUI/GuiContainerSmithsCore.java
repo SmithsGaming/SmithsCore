@@ -4,20 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Client.GUI;
+package com.smithsmodding.smithscore.client.GUI;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Implementations.*;
-import com.SmithsModding.SmithsCore.Common.Inventory.*;
-import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import com.SmithsModding.SmithsCore.Util.*;
+import com.smithsmodding.smithscore.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 
@@ -40,11 +29,11 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     public GuiContainerSmithsCore(ContainerSmithsCore container) {
         super(container);
 
-        uniqueUIID = container.getContainerID() + "-GUI";
+        uniqueUIID = container.getContainerID() + "-gui";
     }
 
     /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
+     * Adds the buttons (and other controls) to the screen in question. Called when the gui is displayed and when the
      * window resizes, the buttonList is cleared beforehand.
      */
     @Override
@@ -192,7 +181,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     /**
-     * Function called when the Mouse was clicked outside of this component. It is only called when the function
+     * Function called when the mouse was clicked outside of this component. It is only called when the function
      * requiresForcedMouseInput() return true Either it should pass this function to its SubComponents (making sure that
      * it recalculates the location and checks if it is inside before hand, handle the Click them self or both.
      * <p/>
@@ -233,7 +222,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     /**
-     * Function called when the Mouse was clicked inside of this component. Either it should pass this function to its
+     * Function called when the mouse was clicked inside of this component. Either it should pass this function to its
      * SubComponents (making sure that it recalculates the location and checks if it is inside before hand, handle the
      * Click them self or both.
      * <p/>
@@ -388,7 +377,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     /**
-     * Method used to retrieve the rendermanager of this GUI,
+     * Method used to retrieve the rendermanager of this gui,
      *
      * @return The currently used StandardRenderManager.
      */
@@ -397,7 +386,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     /**
-     * Method used to register a new Component to this Host.
+     * Method used to register a new Component to this host.
      *
      * @param ledger The new component.
      */
@@ -432,7 +421,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     /**
-     * Method used to register a new Tab to this Host. Should be called from the registerTabs method to handle sub
+     * Method used to register a new Tab to this host. Should be called from the registerTabs method to handle sub
      * component init properly.
      *
      * @param tab The new Tab to register.

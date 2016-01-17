@@ -1,6 +1,6 @@
-package com.SmithsModding.SmithsCore.Util.Client.Color;
+package com.smithsmodding.smithscore.util.Client.Color;
 
-import com.SmithsModding.SmithsCore.*;
+import com.smithsmodding.smithscore.*;
 import net.minecraft.client.*;
 import net.minecraft.item.*;
 import net.minecraft.util.*;

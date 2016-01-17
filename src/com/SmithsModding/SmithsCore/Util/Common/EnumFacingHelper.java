@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Common;
+package com.smithsmodding.smithscore.util.Common;
 /*
  *   EnumFacingHelper
  *   Created by: Orion

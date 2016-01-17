@@ -4,10 +4,10 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client.GUI;
+package com.smithsmodding.smithscore.util.Client.GUI;
 
-import com.SmithsModding.SmithsCore.Util.Client.CustomResource;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.Client.CustomResource;
+import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
 import net.minecraft.client.renderer.texture.TextureMap;
 
 /**

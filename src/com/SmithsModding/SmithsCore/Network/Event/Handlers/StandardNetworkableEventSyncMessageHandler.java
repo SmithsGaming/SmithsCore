@@ -4,9 +4,8 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Network.Event.Handlers;
+package com.smithsmodding.smithscore.network.event.handlers;
 
-import com.SmithsModding.SmithsCore.Network.Event.Messages.*;
 import net.minecraft.client.*;
 import net.minecraft.util.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;

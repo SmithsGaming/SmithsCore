@@ -1,8 +1,5 @@
-package com.SmithsModding.SmithsCore;
+package com.smithsmodding.smithscore;
 
-import com.SmithsModding.SmithsCore.Common.Proxy.*;
-import com.SmithsModding.SmithsCore.Common.Registry.*;
-import com.SmithsModding.SmithsCore.Util.*;
 import com.google.common.base.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
@@ -18,7 +15,7 @@ import java.util.concurrent.*;
  * Copyrighted according to Project specific license
  */
 
-@Mod(modid = CoreReferences.General.MOD_ID, name = "SmithsCore", version = CoreReferences.General.VERSION,
+@Mod(modid = CoreReferences.General.MOD_ID, name = "smithscore", version = CoreReferences.General.VERSION,
         dependencies = "required-after:Forge@[10.13,)")
 public class SmithsCore {
 
@@ -26,17 +23,17 @@ public class SmithsCore {
     @Mod.Instance(CoreReferences.General.MOD_ID)
     private static SmithsCore instance;
 
-    // Logger used to output log messages from SmithsCore
+    // Logger used to output log messages from smithscore
     private static Logger iLogger = LogManager.getLogger(CoreReferences.General.MOD_ID);
 
-    private static boolean isInDevEnvironment = Boolean.parseBoolean(System.getProperties().getProperty("SmithsCore.Dev", "false"));
+    private static boolean isInDevEnvironment = Boolean.parseBoolean(System.getProperties().getProperty("smithscore.Dev", "false"));
 
-    // Private variable for the Sided Registry
-    @SidedProxy(clientSide = "com.SmithsModding.SmithsCore.Client.Registry.ClientRegistry", serverSide = "com.SmithsModding.SmithsCore.Common.Registry.CommonRegistry")
+    // Private variable for the Sided registry
+    @SidedProxy(clientSide = "com.smithsmodding.smithscore.client.registry.ClientRegistry", serverSide = "com.smithsmodding.smithscore.common.registry.CommonRegistry")
     private static CommonRegistry iRegistry;
 
     // Proxies used to register stuff client and server side.
-    @SidedProxy(clientSide = "com.SmithsModding.SmithsCore.Client.Proxy.CoreClientProxy", serverSide = "com.SmithsModding.SmithsCore.Common.Proxy.CoreCommonProxy")
+    @SidedProxy(clientSide = "com.smithsmodding.smithscore.client.proxy.CoreClientProxy", serverSide = "com.smithsmodding.smithscore.common.proxy.CoreCommonProxy")
     private static CoreCommonProxy proxy;
 
     public static final SmithsCore getInstance(){ return instance; }
@@ -56,16 +53,16 @@ public class SmithsCore {
         if (isInDevenvironment()){
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "SmithsCore starting in Dev mode. Current active Features:");
+            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "smithscore starting in Dev mode. Current active Features:");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Additional log output.");
-            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Debug rendering of Structures.");
-            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Debug overlay rendering of UI Components,");
+            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Debug rendering of structures.");
+            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Debug overlay rendering of UI components,");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "");
         }
         else
         {
-            getLogger().info(CoreReferences.LogMarkers.PREINIT, "SmithsCore starting in Normal mode.");
+            getLogger().info(CoreReferences.LogMarkers.PREINIT, "smithscore starting in Normal mode.");
         }
 
         getLogger().info(CoreReferences.LogMarkers.PREINIT, "Initializing event handlers.");
@@ -75,7 +72,7 @@ public class SmithsCore {
         watch.stop();
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
-        getLogger().info(CoreReferences.LogMarkers.PREINIT, "SmithsCore Pre-Init completed after: " + milliseconds + " mS.");
+        getLogger().info(CoreReferences.LogMarkers.PREINIT, "smithscore Pre-Init completed after: " + milliseconds + " mS.");
     }
 
     @Mod.EventHandler
@@ -87,7 +84,7 @@ public class SmithsCore {
         watch.stop();
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
-        getLogger().info(CoreReferences.LogMarkers.INIT, "SmithsCore Init completed after: " + milliseconds + " ms.");
+        getLogger().info(CoreReferences.LogMarkers.INIT, "smithscore Init completed after: " + milliseconds + " ms.");
     }
 
     @Mod.EventHandler
@@ -97,6 +94,6 @@ public class SmithsCore {
         watch.stop();
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
-        getLogger().info(CoreReferences.LogMarkers.POSTINIT, "SmithsCore Post-Init completed after: " + milliseconds + " ms.");
+        getLogger().info(CoreReferences.LogMarkers.POSTINIT, "smithscore Post-Init completed after: " + milliseconds + " ms.");
     }
 }

@@ -4,19 +4,18 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Handlers.Network;
+package com.smithsmodding.smithscore.common.Handlers.Network;
 
-import com.SmithsModding.SmithsCore.Common.Events.Network.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
- * Eventhandler used to catch Networkable Events on the Server Side.
+ * Eventhandler used to catch Networkable events on the Server Side.
  */
 public class CommonNetworkableEventHandler {
 
     /**
-     * Events handler for Events on one Side that gets fired by the CommonBus to send a Message to All clients or from one Client to the Server.
+     * events handler for events on one Side that gets fired by the CommonBus to send a Message to All clients or from one client to the Server.
      *
      * @param pEvent The event that should be Synchronized
      */

@@ -4,17 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.TileEntity;
+package com.smithsmodding.smithscore.common.tileentity;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import com.SmithsModding.SmithsCore.Common.Events.*;
-import com.SmithsModding.SmithsCore.Common.Fluid.*;
-import com.SmithsModding.SmithsCore.Common.Inventory.*;
-import com.SmithsModding.SmithsCore.Common.Structures.*;
-import com.SmithsModding.SmithsCore.Common.TileEntity.State.*;
-import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
-import com.SmithsModding.SmithsCore.Util.*;
+import com.smithsmodding.smithscore.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -30,11 +22,11 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     private ITileEntityState state;
 
     /**
-     * Constructor to create a new TileEntity for a SmithsCore Mod.
+     * Constructor to create a new tileentity for a smithscore Mod.
      *
      * Handles the setting of the core system values like the state, and the GUIManager.
      *
-     * @param initialState The TE State that gets set on default when a new Instance is created.
+     * @param initialState The TE state that gets set on default when a new Instance is created.
      * @param manager The GUIManager that handles interactins with events comming from UI's
      */
     protected TileEntitySmithsCore (ITileEntityState initialState, IGUIManager manager) {
@@ -125,7 +117,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
 
     /**
-     * Getter for the current TE State.
+     * Getter for the current TE state.
      *
      * @return The current ITileEntityState.
      */
@@ -145,9 +137,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
 
     /**
-     * Standard method to write the Inventory data of this TE to the NBTCompound that stores this TE's Data.
+     * Standard method to write the inventory data of this TE to the NBTCompound that stores this TE's Data.
      *
-     * @return A NBTTagList with all stacks in the Inventory.
+     * @return A NBTTagList with all stacks in the inventory.
      */
     protected NBTBase writeInventoryToCompound () {
         IInventory inventory = (IInventory) this;
@@ -170,7 +162,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     }
 
     /**
-     * Standard method to read the Inventory data of this TE from the NBTCompound that stores this TE's Data.
+     * Standard method to read the inventory data of this TE from the NBTCompound that stores this TE's Data.
      *
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the Slots in this
      *                          inventory.
@@ -211,7 +203,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      * Standard method to read the fluids data of this TE from the NBTCompound that stores this TE's Data.
      *
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the fluids in
-     *                          this TileEntity.
+     *                          this tileentity.
      */
     protected void readFluidsFromCompound (NBTBase inventoryCompound) {
         if (!( inventoryCompound instanceof NBTTagList ))
@@ -294,7 +286,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
 
     /**
-     * Method called by the synchronization system to send the data to the Client.
+     * Method called by the synchronization system to send the data to the client.
      *
      * @param synchronizationCompound The NBTTagCompound to write your data to.
      *

@@ -4,14 +4,14 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Common;
+package com.smithsmodding.smithscore.util.Common;
 /*
  *   ItemStackHelper
  *   Created by: Orion
  *   Created on: 16-1-2015
  */
 
-import com.SmithsModding.SmithsCore.Util.CoreReferences;
+import com.smithsmodding.smithscore.util.CoreReferences;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

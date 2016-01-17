@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client.Color;
+package com.smithsmodding.smithscore.util.Client.Color;
 /*
 *   Colors
 *   Created by: Orion
@@ -12,7 +12,7 @@ package com.SmithsModding.SmithsCore.Util.Client.Color;
 */
 
 /**
- * General Color Dictionary for SmithsModding
+ * General Color Dictionary for smithsmodding
  */
 public final class Colors {
     //White

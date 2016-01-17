@@ -1,6 +1,6 @@
-package com.SmithsModding.SmithsCore.Client.Textures;
+package com.smithsmodding.smithscore.client.Textures;
 
-import com.SmithsModding.SmithsCore.*;
+import com.smithsmodding.smithscore.*;
 import com.google.common.collect.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.texture.*;

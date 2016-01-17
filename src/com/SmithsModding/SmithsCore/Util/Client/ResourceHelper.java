@@ -1,6 +1,6 @@
-package com.SmithsModding.SmithsCore.Util.Client;
+package com.smithsmodding.smithscore.util.Client;
 
-import com.SmithsModding.SmithsCore.SmithsCore;
+import com.smithsmodding.smithscore.SmithsCore;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

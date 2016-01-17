@@ -1,7 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.Handlers.GUI;
 
-import com.SmithsModding.SmithsCore.Client.Events.Models.Block.*;
-import com.SmithsModding.SmithsCore.Common.TileEntity.*;
 import net.minecraft.tileentity.*;
 import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.common.eventhandler.*;

@@ -4,11 +4,8 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Player.Event;
+package com.smithsmodding.smithscore.common.Player.Event;
 
-import com.SmithsModding.SmithsCore.Common.Events.Network.*;
-import com.SmithsModding.SmithsCore.Common.Player.Management.*;
-import com.SmithsModding.SmithsCore.Util.Common.*;
 import io.netty.buffer.*;
 
 import java.util.*;
@@ -35,7 +32,7 @@ public class PlayersOnlineUpdatedEvent extends StandardNetworkableEvent {
      * Function used by the instance created on the receiving side to reset its state from the sending side stored
      * by it in the Buffer before it is being fired on the NetworkRelayBus.
      *
-     * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing Events.
+     * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {

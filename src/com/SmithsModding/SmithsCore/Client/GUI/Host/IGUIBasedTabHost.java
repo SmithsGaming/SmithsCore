@@ -1,7 +1,7 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Host;
+package com.smithsmodding.smithscore.client.GUI.Host;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Management.ITabManager;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.IGUITab;
+import com.smithsmodding.smithscore.client.GUI.Management.ITabManager;
+import com.smithsmodding.smithscore.client.GUI.Tabs.Core.IGUITab;
 
 /**
  * Created by marcf on 1/15/2016.
@@ -17,7 +17,7 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
     void registerTabs(IGUIBasedTabHost host);
 
     /**
-     * Method used to register a new Tab to this Host.
+     * Method used to register a new Tab to this host.
      * Should be called from the registerTabs method to handle sub component init properly.
      *
      * @param tab The new Tab to register.

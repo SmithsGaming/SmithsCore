@@ -1,6 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.State;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+package com.smithsmodding.smithscore.client.GUI.State;
 
 /**
  * Created by Orion
@@ -26,9 +24,9 @@ public interface IGUIComponentState
     boolean isEnabled();
 
     /**
-     * Function to set the State of tha Button if it is enabled or not.
+     * Function to set the state of tha Button if it is enabled or not.
      *
-     * @param state The new enabled State.
+     * @param state The new enabled state.
      */
     void setEnabledState(boolean state);
 

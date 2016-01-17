@@ -54,8 +54,8 @@ if(System.getenv().TRAVIS_BRANCH.toString().contains("Development"))
     apiversion = apiversion + "-SNAPSHOT"
 }
 
-group = "com.SmithsModding.SmithsCore"
-archivesBaseName = "SmithsCore"
+group = "com.smithsmodding.smithscore"
+archivesBaseName = "smithscore"
 
 minecraft {
     version = config.minecraft_version+ "-" + config.forge_version
@@ -153,18 +153,18 @@ uploadArchives {
         pom.project {
             name project.archivesBaseName
             packaging 'jar'
-            description 'SmithsCore'
-            url 'https://github.com/SmithsModding/SmithsCore'
+            description 'smithscore'
+            url 'https://github.com/smithsmodding/smithscore'
 
             scm {
-                url 'https://github.com/SmithsModding/SmithsCore'
-                connection 'scm:git:git://github.com/SmithsModding/SmithsCore.git'
-                developerConnection 'scm:git:git@github.com/SmithsModding/SmithsCore.git'
+                url 'https://github.com/smithsmodding/smithscore'
+                connection 'scm:git:git://github.com/smithsmodding/smithscore.git'
+                developerConnection 'scm:git:git@github.com/smithsmodding/smithscore.git'
             }
 
             issueManagement {
                 system 'github'
-                url 'https://github.com/SmithsModding/SmithsCore/issues'
+                url 'https://github.com/smithsmodding/smithscore/issues'
             }
 
             developers {
@@ -199,7 +199,7 @@ task('createGithubBranches') << {
         addTagProg.waitFor()
 
         logger.lifecycle("Uploading force push to repo.")
-        def setUrlCMD = "git config remote.origin.url https://" + System.getenv().GitUsername.toString() + ":" + System.getenv().GitPassword.toString() + "@github.com/SmithsModding/SmithsCore"
+        def setUrlCMD = "git config remote.origin.url https://" + System.getenv().GitUsername.toString() + ":" + System.getenv().GitPassword.toString() + "@github.com/smithsmodding/smithscore"
         def setURLProg = setUrlCMD.execute()
         setURLProg.waitFor()
 

@@ -1,7 +1,6 @@
-package com.SmithsModding.SmithsCore.Client.Textures;
+package com.smithsmodding.smithscore.client.Textures;
 
-import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Util.Client.*;
+import com.smithsmodding.smithscore.*;
 import com.google.common.collect.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.client.resources.*;
@@ -36,7 +35,7 @@ public class HolographicTextureCreator implements IResourceManagerReloadListener
     /**
      * Static method to register more then one GrayScale texture to the Creator.
      *
-     * @param locations The location of the Textures to register.
+     * @param locations The location of the textures to register.
      */
     public static void registerBaseTexture (Collection<ResourceLocation> locations) {
         baseTextures.addAll(locations);
@@ -55,7 +54,7 @@ public class HolographicTextureCreator implements IResourceManagerReloadListener
      * Actual construction method is called from the ForgeEvent system. This method kicks the creation of the textures
      * of and provided a map to put the textures in.
      *
-     * @param event The Events fired before the TextureSheet is stitched. TextureStitchEvent.Pre instance.
+     * @param event The events fired before the TextureSheet is stitched. TextureStitchEvent.Pre instance.
      */
     @SubscribeEvent(priority = EventPriority.LOW)
     public void createCustomTextures (TextureStitchEvent.Pre event) {

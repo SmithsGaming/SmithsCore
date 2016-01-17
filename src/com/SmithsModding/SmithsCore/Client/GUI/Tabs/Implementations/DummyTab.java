@@ -1,8 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Tabs.Implementations;
+package com.smithsmodding.smithscore.client.GUI.Tabs.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import net.minecraft.item.*;
 
 /**
@@ -17,7 +14,7 @@ public class DummyTab extends CoreTab {
     /**
      * Method used by the Tab system to make sure that the tabs register their components properly.
      *
-     * @param host The host for this Tabs components.
+     * @param host The host for this tabs components.
      */
     @Override
     protected void registerTabComponents (IGUIBasedComponentHost host) {

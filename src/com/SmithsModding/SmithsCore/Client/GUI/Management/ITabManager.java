@@ -1,7 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Management;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.*;
+package com.smithsmodding.smithscore.client.GUI.Management;
 
 import java.util.*;
 
@@ -52,9 +49,9 @@ public interface ITabManager
     void registerNewTab (IGUITab newTab);
 
     /**
-     * Method used to retrieve all the possible Tabs for this TabManager.
+     * Method used to retrieve all the possible tabs for this TabManager.
      *
-     * @return A LinkedHashMap<String, IGUITab> that holds all the possible Tabs sorted on registration order with their ID as keys.
+     * @return A LinkedHashMap<String, IGUITab> that holds all the possible tabs sorted on registration order with their ID as keys.
      */
     LinkedHashMap<String, IGUITab> getTabs();
 

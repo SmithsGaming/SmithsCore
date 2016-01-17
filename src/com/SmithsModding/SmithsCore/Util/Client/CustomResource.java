@@ -4,15 +4,15 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client;
+package com.smithsmodding.smithscore.util.Client;
 /*
 /  CustomResource
 /  Created by : Orion
 /  Created on : 15/06/2014
 */
 
-import com.SmithsModding.SmithsCore.Util.Client.Color.Colors;
-import com.SmithsModding.SmithsCore.Util.Client.Color.MinecraftColor;
+import com.smithsmodding.smithscore.util.Client.Color.Colors;
+import com.smithsmodding.smithscore.util.Client.Color.MinecraftColor;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import java.util.ArrayList;
@@ -110,9 +110,9 @@ public class CustomResource {
 
     /**
      * Special Contstuctor used for resources that have a location inside there file.
-     * Usually used for textures in the GUI
+     * Usually used for textures in the gui
      * @param pInternalName The ID used to identify this Resource.
-     * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon, but in this case it would be the GUI parts texture location
+     * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon, but in this case it would be the gui parts texture location
      * @param pLeft The U Index inside the texture file
      * @param pTop The V Index inside the texture file
      * @param pWidth The width of the Resource
@@ -124,10 +124,10 @@ public class CustomResource {
 
     /**
      * Special Constructor used for resources that have a location inside there file and a color.
-     * Usually used for textures in the GUI
+     * Usually used for textures in the gui
      *
      * @param pInternalName The ID used to identify this Resource.
-     * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon, but in this case it would be the GUI parts texture location
+     * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon, but in this case it would be the gui parts texture location
      * @param pColor The MinecraftColor instance used as Color.
      * @param pLeft The U Index inside the texture file
      * @param pTop The V Index inside the texture file

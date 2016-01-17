@@ -1,6 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.Handlers.GUI;
 
-import com.SmithsModding.SmithsCore.Client.Block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.*;
 import net.minecraft.util.*;

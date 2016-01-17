@@ -1,6 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Animation;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+package com.smithsmodding.smithscore.client.GUI.Animation;
 
 /**
  * Created by Marc on 09.01.2016.

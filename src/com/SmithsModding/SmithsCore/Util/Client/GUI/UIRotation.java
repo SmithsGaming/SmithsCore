@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client.GUI;
+package com.smithsmodding.smithscore.util.Client.GUI;
 
 import org.lwjgl.opengl.GL11;
 

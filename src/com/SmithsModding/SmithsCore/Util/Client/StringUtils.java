@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client;
+package com.smithsmodding.smithscore.util.Client;
 /*
 /  StringUtils
 /  Created by : Orion

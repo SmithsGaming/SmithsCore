@@ -1,9 +1,7 @@
-package com.SmithsModding.SmithsCore.Common.Structures;
+package com.smithsmodding.smithscore.common.structures;
 
 
-import com.SmithsModding.SmithsCore.Common.PathFinding.*;
-import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import com.smithsmodding.smithscore.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
@@ -36,16 +34,16 @@ public final class StructureManager {
             joinSructure(newStructureMaster, slaveComponent);
         }
 
-        //Add the structures Master, destroying the old Structures
+        //Add the structures Master, destroying the old structures
         joinSructure(newStructureMaster, merginComponentMaster);
     }
 
     public static IStructureComponent splitStructure (IStructureComponent pOldMasterStructure, ArrayList<IStructureComponent> pSplittedComponents) {
-        //Create the new Structures master Entity
+        //Create the new structures master Entity
         IStructureComponent tNewMasterComponent = pSplittedComponents.remove(0);
         tNewMasterComponent.initiateAsMasterEntity();
 
-        //Let all the Slaves join the new Handlers
+        //Let all the Slaves join the new handlers
         for (IStructureComponent tNewSlave : pSplittedComponents) {
             joinSructure(tNewMasterComponent, tNewSlave);
 

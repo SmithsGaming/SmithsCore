@@ -1,7 +1,7 @@
-package com.SmithsModding.SmithsCore.Util.Common;
+package com.smithsmodding.smithscore.util.Common;
 
-import com.SmithsModding.SmithsCore.Common.Player.Management.PlayerManager;
-import com.SmithsModding.SmithsCore.SmithsCore;
+import com.smithsmodding.smithscore.common.Player.Management.PlayerManager;
+import com.smithsmodding.smithscore.SmithsCore;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ public class PlayerHelper {
                 return PlayerManager.getInstance().getServerSidedJoinedMap().get(pID);
             }
 
-            SmithsCore.getLogger().info("[PlayerHelper] Falling back on ServerConfiguration Manager - No Player found in PlayerManager!");
+            SmithsCore.getLogger().info("[PlayerHelper] Falling back on ServerConfiguration Manager - No player found in PlayerManager!");
         }
 
         for (Object tPlayerObject : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {

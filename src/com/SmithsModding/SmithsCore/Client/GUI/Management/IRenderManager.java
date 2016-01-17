@@ -1,6 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Management;
+package com.smithsmodding.smithscore.client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
 import net.minecraft.client.gui.*;
 
 /**
@@ -12,14 +11,14 @@ public interface IRenderManager
     /**
      * Method to get the Gui this StandardRenderManager renders on.
      *
-     * @return The current active GUI
+     * @return The current active gui
      */
     Gui getRootGuiObject();
 
     /**
      * Methd to get the root GuiManager this StandardRenderManager belongs to.
      *
-     * @return The GuiManager of the Root GUI object.
+     * @return The GuiManager of the Root gui object.
      */
     IGUIManager getRootGuiManager();
 

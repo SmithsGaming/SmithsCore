@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Util.Common;
+package com.smithsmodding.smithscore.util.Common;
 
 import java.util.HashMap;
 

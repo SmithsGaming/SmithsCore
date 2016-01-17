@@ -4,9 +4,8 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Common.Postioning;
+package com.smithsmodding.smithscore.util.Common.Postioning;
 
-import com.SmithsModding.SmithsCore.Util.*;
 import io.netty.buffer.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;

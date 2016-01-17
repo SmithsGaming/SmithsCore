@@ -1,6 +1,5 @@
-package com.SmithsModding.SmithsCore.Util.Client;
+package com.smithsmodding.smithscore.util.Client;
 
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.google.common.base.*;
 import com.google.common.collect.*;
 import com.google.gson.*;
@@ -26,7 +25,7 @@ import java.util.*;
  * Created by Marc on 06.12.2015.
  * <p/>
  * The original ModelHelper comes from TinkersConstruct.
- * Added some special Case Objects for SmithsModding.
+ * Added some special Case Objects for smithsmodding.
  */
 public class ModelHelper {
 

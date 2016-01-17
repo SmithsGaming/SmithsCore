@@ -1,6 +1,5 @@
-package com.SmithsModding.SmithsCore.Core;
+package com.smithsmodding.smithscore.core;
 
-import com.SmithsModding.SmithsCore.Core.ASM.*;
 import net.minecraftforge.fml.relauncher.*;
 
 import java.util.*;
@@ -9,7 +8,7 @@ import java.util.*;
  * Created by Marc on 30.12.2015.
  */
 @IFMLLoadingPlugin.SortingIndex(1001)
-@IFMLLoadingPlugin.TransformerExclusions("com.SmithsModding.SmithsCore.Core.ASM.")
+@IFMLLoadingPlugin.TransformerExclusions("com.smithsmodding.smithscore.core.asm.")
 public class CoreLoadingPlugin implements IFMLLoadingPlugin {
     /**
      * Return a list of classes that implements the IClassTransformer interface

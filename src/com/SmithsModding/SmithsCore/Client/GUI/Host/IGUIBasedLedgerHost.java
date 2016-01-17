@@ -1,8 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Host;
-
-import com.SmithsModding.SmithsCore.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
+package com.smithsmodding.smithscore.client.GUI.Host;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -17,7 +13,7 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
     void registerLedgers(IGUIBasedLedgerHost parent);
 
     /**
-     * Method used to register a new Component to this Host.
+     * Method used to register a new Component to this host.
      *
      * @param ledger The new component.
      */
@@ -32,16 +28,16 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
 
 
     /**
-     * Method to get the Root GUI Object that this Component is part of.
+     * Method to get the Root gui Object that this Component is part of.
      *
-     * @return The GUI that this component is part of.
+     * @return The gui that this component is part of.
      */
     GuiContainerSmithsCore getRootGuiObject ();
 
     /**
-     * Method to get the GUI Roots Manager.
+     * Method to get the gui Roots Manager.
      *
-     * @return The Manager that is at the root for the GUI Tree.
+     * @return The Manager that is at the root for the gui Tree.
      */
     IGUIManager getRootManager ();
 

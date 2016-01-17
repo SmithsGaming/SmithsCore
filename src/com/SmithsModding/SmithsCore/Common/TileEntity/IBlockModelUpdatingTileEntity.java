@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Common.TileEntity;
+package com.smithsmodding.smithscore.common.tileentity;
 
 
 /**

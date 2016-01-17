@@ -1,4 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.Block;
+package com.smithsmodding.smithscore.client.Block;
 
 import net.minecraft.util.*;
 import net.minecraft.world.*;

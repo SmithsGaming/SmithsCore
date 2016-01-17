@@ -4,12 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client.GUI;
+package com.smithsmodding.smithscore.util.Client.GUI;
 
 
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
-import com.SmithsModding.SmithsCore.Util.Client.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;
@@ -84,8 +81,8 @@ public final class GuiHelper {
      * The unwrapped variant of drawRectangleStretched using the individual components.
      *
      * @param pCenterComponent   A TextureComponent that describes the center of this Texture.
-     * @param pCornerComponents  An Array with the Components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
-     * @param pSideComponents    An Array with the Components for the Sides in this order: Top, Right, Bottom, Left.
+     * @param pCornerComponents  An Array with the components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
+     * @param pSideComponents    An Array with the components for the Sides in this order: Top, Right, Bottom, Left.
      * @param pWidth             The total width
      * @param pHeight            The total Height
      * @param pElementCoordinate The Offset
@@ -283,7 +280,7 @@ public final class GuiHelper {
     }
 
     /**
-     * Helper function copied from the GUI class to make it possible to use it outside of a GUI class.
+     * Helper function copied from the gui class to make it possible to use it outside of a gui class.
      * <p/>
      * TRhe function comes with regards to the Minecraft Team
      *
@@ -309,7 +306,7 @@ public final class GuiHelper {
     }
 
     /**
-     * Helper function copied from the GUI class to make it possible to use it outside of a GUI class.
+     * Helper function copied from the gui class to make it possible to use it outside of a gui class.
      * <p/>
      * TRhe function comes with regards to the Minecraft Team
      *

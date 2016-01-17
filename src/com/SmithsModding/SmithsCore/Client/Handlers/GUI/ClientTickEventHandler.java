@@ -1,7 +1,6 @@
-package com.SmithsModding.SmithsCore.Client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.Handlers.GUI;
 
-import com.SmithsModding.SmithsCore.Client.Registry.*;
-import com.SmithsModding.SmithsCore.*;
+import com.smithsmodding.smithscore.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.*;
 
@@ -12,8 +11,8 @@ public class ClientTickEventHandler
 {
 
     /**
-     * Method event handler for the render tick event. Is only fired on the Client side, so this code can safely cast the
-     * current Registry to a ClientRegistry.
+     * Method event handler for the render tick event. Is only fired on the client side, so this code can safely cast the
+     * current registry to a ClientRegistry.
      *
      * @param event The RenderTickEvent fired by MinecraftForge.
      */

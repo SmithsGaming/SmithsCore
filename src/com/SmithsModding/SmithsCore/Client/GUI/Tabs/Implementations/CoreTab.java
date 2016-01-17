@@ -1,14 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Tabs.Implementations;
+package com.smithsmodding.smithscore.client.GUI.Tabs.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations.*;
-import com.SmithsModding.SmithsCore.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.item.*;
 import scala.actors.threadpool.Arrays;
 
@@ -41,7 +32,7 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Method to get the Host of this Tab
+     * Method to get the host of this Tab
      *
      * @return The current tabs host.
      */
@@ -66,7 +57,7 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Function to get the tooltiptext of the GUI System.
+     * Function to get the tooltiptext of the gui System.
      *
      * @return
      */
@@ -76,7 +67,7 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Method used to register a new Component to this Host.
+     * Method used to register a new Component to this host.
      *
      * @param component The new component.
      */
@@ -89,9 +80,9 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Method to get the Root GUI Object that this Component is part of.
+     * Method to get the Root gui Object that this Component is part of.
      *
-     * @return The GUI that this component is part of.
+     * @return The gui that this component is part of.
      */
     @Override
     public GuiContainerSmithsCore getRootGuiObject() {
@@ -99,9 +90,9 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Method to get the GUI Roots Manager.
+     * Method to get the gui Roots Manager.
      *
-     * @return The Manager that is at the root for the GUI Tree.
+     * @return The Manager that is at the root for the gui Tree.
      */
     @Override
     public IGUIManager getRootManager() {
@@ -109,9 +100,9 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Function to get all the Components registered to this Host.
+     * Function to get all the components registered to this host.
      *
-     * @return A ID to Component map that holds all the Components (but not their SubComponents) of this Host.
+     * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents() {
@@ -131,10 +122,10 @@ public abstract class CoreTab implements IGUITab {
     /**
      * Function used to get the StateObject of this Component.
      * A good example of what to find in the state Object is the Visibility of it.
-     * But also things like the Displayed Text of a label or TextBox are stored in the Components
-     * State Object.
+     * But also things like the Displayed Text of a label or TextBox are stored in the components
+     * state Object.
      *
-     * @return This Components State Object.
+     * @return This components state Object.
      */
     @Override
     public IGUIComponentState getState() {
@@ -142,9 +133,9 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Function to get this Components Host.
+     * Function to get this components host.
      *
-     * @return This Components Host.
+     * @return This components host.
      */
     @Override
     public IGUIBasedComponentHost getComponentHost() {
@@ -218,12 +209,12 @@ public abstract class CoreTab implements IGUITab {
 
     /**
      * Function used to draw this components background.
-     * Usually this will incorporate all of the Components visual objects.
+     * Usually this will incorporate all of the components visual objects.
      * A good example of a Component that only uses the drawBackground function is the
      * BackgroundComponent.
      *
-     * @param mouseX The current X-Coordinate of the Mouse
-     * @param mouseY The current Y-Coordinate of the Mouse
+     * @param mouseX The current X-Coordinate of the mouse
+     * @param mouseY The current Y-Coordinate of the mouse
      */
     @Override
     public void drawBackground(int mouseX, int mouseY) {
@@ -232,12 +223,12 @@ public abstract class CoreTab implements IGUITab {
 
     /**
      * Function used to draw this components foreground.
-     * Usually this will incorporate very few of teh Components visual Objects.
+     * Usually this will incorporate very few of teh components visual Objects.
      * A good example of a Component that only uses the drawForeground function is the
      * GUIDescriptionLabel (The labels that describe thins like your inventory and the TE's inventory).
      *
-     * @param mouseX The current X-Coordinate of the Mouse
-     * @param mouseY The current Y-Coordinate of the Mouse
+     * @param mouseX The current X-Coordinate of the mouse
+     * @param mouseY The current Y-Coordinate of the mouse
      */
     @Override
     public void drawForeground(int mouseX, int mouseY) {
@@ -261,7 +252,7 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Function called when the Mouse was clicked outside of this component. It is only called when the function
+     * Function called when the mouse was clicked outside of this component. It is only called when the function
      * requiresForcedMouseInput() return true Either it should pass this function to its SubComponents (making sure that
      * it recalculates the location and checks if it is inside before hand, handle the Click them self or both.
      * <p/>
@@ -288,7 +279,7 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Function called when the Mouse was clicked inside of this component. Either it should pass this function to its
+     * Function called when the mouse was clicked inside of this component. Either it should pass this function to its
      * SubComponents (making sure that it recalculates the location and checks if it is inside before hand, handle the
      * Click them self or both.
      * <p/>
@@ -411,7 +402,7 @@ public abstract class CoreTab implements IGUITab {
     /**
      * Method used by the Tab system to make sure that the tabs register their components properly.
      *
-     * @param host The host for this Tabs components.
+     * @param host The host for this tabs components.
      */
     protected abstract void registerTabComponents(IGUIBasedComponentHost host);
 }

@@ -4,13 +4,13 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client.GUI;
+package com.smithsmodding.smithscore.util.Client.GUI;
 
-import com.SmithsModding.SmithsCore.Util.Client.CustomResource;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.Client.CustomResource;
+import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
 
 /**
- * A Texture that is made up out of several (9) Components.
+ * A Texture that is made up out of several (9) components.
  * By repeating the individual components you can create a Texture as big as you want.
  */
 public class MultiComponentTexture {
@@ -19,11 +19,11 @@ public class MultiComponentTexture {
     TextureComponent[] iSideComponents = new TextureComponent[4];
 
     /**
-     * Standard constructor that sets the Components based on the given Arrays and the CenterComponent
+     * Standard constructor that sets the components based on the given Arrays and the CenterComponent
      *
      * @param pCenterComponent  A TextureComponent that describes the center of this Texture.
-     * @param pCornerComponents An Array with the Components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
-     * @param pSideComponents   An Array with the Components for the Sides in this order: Top, Right, Bottom, Left.
+     * @param pCornerComponents An Array with the components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
+     * @param pSideComponents   An Array with the components for the Sides in this order: Top, Right, Bottom, Left.
      */
     public MultiComponentTexture(TextureComponent pCenterComponent, TextureComponent[] pCornerComponents, TextureComponent[] pSideComponents) {
         iCenterComponent = pCenterComponent;

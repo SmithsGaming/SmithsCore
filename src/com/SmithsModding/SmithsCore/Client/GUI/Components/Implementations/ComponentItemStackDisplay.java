@@ -1,9 +1,9 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations;
+package com.smithsmodding.smithscore.client.GUI.Components.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
-import com.SmithsModding.SmithsCore.Util.Client.GUI.GuiHelper;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
+import com.smithsmodding.smithscore.client.GUI.Host.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.GUI.State.IGUIComponentState;
+import com.smithsmodding.smithscore.util.Client.GUI.GuiHelper;
+import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.FMLClientHandler;

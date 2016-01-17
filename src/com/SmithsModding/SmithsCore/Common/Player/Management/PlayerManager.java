@@ -4,11 +4,11 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.Player.Management;
+package com.smithsmodding.smithscore.common.Player.Management;
 
-import com.SmithsModding.SmithsCore.Common.Player.Event.PlayersConnectedUpdatedEvent;
-import com.SmithsModding.SmithsCore.Common.Player.Event.PlayersOnlineUpdatedEvent;
-import com.SmithsModding.SmithsCore.SmithsCore;
+import com.smithsmodding.smithscore.common.Player.Event.PlayersConnectedUpdatedEvent;
+import com.smithsmodding.smithscore.common.Player.Event.PlayersOnlineUpdatedEvent;
+import com.smithsmodding.smithscore.SmithsCore;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -133,7 +133,7 @@ public class PlayerManager {
     }
 
     /**
-     * Method used to handle a Player logging of. Is used to keep track of who is online.
+     * Method used to handle a player logging of. Is used to keep track of who is online.
      *
      * @param event The event fired when a player logs of.
      */
@@ -144,21 +144,21 @@ public class PlayerManager {
 
 
     /**
-     * Client side only method to handle a Client disconnecting from a Server.
-     * Resets the connected player list on the Client Side.
+     * client side only method to handle a client disconnecting from a Server.
+     * Resets the connected player list on the client Side.
      *
-     * @param event The event indicating that the Player Disconnected from the Server.
+     * @param event The event indicating that the player Disconnected from the Server.
      */
     @SideOnly(Side.CLIENT)
     public void onClientDisconnectServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
-        SmithsCore.getLogger().info("Disconnect: Clearing cached connected Player list.");
+        SmithsCore.getLogger().info("Disconnect: Clearing cached connected player list.");
         commonSidedJoinedMap.clear();
         commonSidedOnlineMap.clear();
     }
 
 
     /**
-     * Method used to create a list of all players that connected to this server before SmithsCore was installed.
+     * Method used to create a list of all players that connected to this server before smithscore was installed.
      */
     @SideOnly(Side.SERVER)
     private void refreshPlayerUUIDList() {

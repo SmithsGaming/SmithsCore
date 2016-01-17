@@ -1,8 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Management;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+package com.smithsmodding.smithscore.client.GUI.Management;
 
 import java.util.*;
 
@@ -30,8 +26,8 @@ public interface ILedgerManager
      * Method returns the Global coorindate of the RootAnchor pixel of the given Ledger (if it exists on the given side
      * else null)
      *
-     * For a Ledger on the left side of the GUI it will return the top most right pixel that is visible.
-     * For a Ledher on the right side of the GUI it will return the top most left pixel that is visible.
+     * For a Ledger on the left side of the gui it will return the top most right pixel that is visible.
+     * For a Ledher on the right side of the gui it will return the top most left pixel that is visible.
      *
      * @param side The side you want a Ledger coordinate for.
      * @param uniqueID The unique ID of the ledger.

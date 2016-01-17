@@ -4,10 +4,10 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Util.Client.GUI;
+package com.smithsmodding.smithscore.util.Client.GUI;
 
 /**
- * Enum to determine movement on the GUI
+ * Enum to determine movement on the gui
  */
 public enum GuiDirection {
     HORIZONTAL,

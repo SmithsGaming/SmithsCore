@@ -1,6 +1,4 @@
-package com.SmithsModding.SmithsCore.Client.GUI.State;
-
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+package com.smithsmodding.smithscore.client.GUI.State;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -43,9 +41,9 @@ public class LedgerComponentState implements IGUIComponentState {
     }
 
     /**
-     * Function to set the State of tha Button if it is enabled or not.
+     * Function to set the state of tha Button if it is enabled or not.
      *
-     * @param state The new enabled State.
+     * @param state The new enabled state.
      */
     @Override
     public void setEnabledState(boolean state) {

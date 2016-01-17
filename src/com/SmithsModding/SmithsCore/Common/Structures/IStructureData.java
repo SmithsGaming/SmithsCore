@@ -1,6 +1,4 @@
-package com.SmithsModding.SmithsCore.Common.Structures;
-
-import com.SmithsModding.SmithsCore.Common.TileEntity.State.*;
+package com.smithsmodding.smithscore.common.structures;
 
 /**
  * Created by Orion Created on 04.07.2015 20:10

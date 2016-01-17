@@ -1,13 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations;
+package com.smithsmodding.smithscore.client.GUI.Components.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
-import com.SmithsModding.SmithsCore.Client.GUI.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
-import com.SmithsModding.SmithsCore.Client.GUI.State.*;
-import com.SmithsModding.SmithsCore.Common.Inventory.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
 import net.minecraft.inventory.*;
 
 import java.util.*;
@@ -112,7 +104,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
 
         for (int r = 0; r < ContainerSmithsCore.PLAYER_INVENTORY_ROWS; r++) {
             for (int c = 0; c < ContainerSmithsCore.PLAYER_INVENTORY_COLUMNS; c++) {
-                registerNewComponent(new ComponentSlot(uniqueID + ".Slot.Inventory." + ( r * 9 + c ), new SlotComponentState(null, ( r * 9 + c ), playerInventory, null), this, new Coordinate2D(c * 18 + 7, r * 18 + 7), color));
+                registerNewComponent(new ComponentSlot(uniqueID + ".Slot.inventory." + ( r * 9 + c ), new SlotComponentState(null, ( r * 9 + c ), playerInventory, null), this, new Coordinate2D(c * 18 + 7, r * 18 + 7), color));
             }
         }
 

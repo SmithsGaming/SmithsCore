@@ -1,10 +1,6 @@
-package com.SmithsModding.SmithsCore.Common.Events;
+package com.smithsmodding.smithscore.common.Events;
 
-import com.SmithsModding.SmithsCore.Common.Events.Network.*;
-import com.SmithsModding.SmithsCore.Common.TileEntity.*;
-import com.SmithsModding.SmithsCore.Network.Event.*;
-import com.SmithsModding.SmithsCore.*;
-import com.SmithsModding.SmithsCore.Util.*;
+import com.smithsmodding.smithscore.*;
 import io.netty.buffer.*;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;

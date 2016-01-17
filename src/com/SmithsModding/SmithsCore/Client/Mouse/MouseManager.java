@@ -1,6 +1,6 @@
-package com.SmithsModding.SmithsCore.Client.Mouse;
+package com.smithsmodding.smithscore.client.Mouse;
 
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -14,7 +14,7 @@ public class MouseManager
     private Coordinate2D location;
 
     /**
-     * Method to get the last known location of the Mouse.
+     * Method to get the last known location of the mouse.
      *
      * @return The last known location of the mouse.
      */
@@ -24,9 +24,9 @@ public class MouseManager
 
     /**
      * Function called when the ForgeMouseEvent is fired.
-     * Updates the location of the Mouse.
+     * Updates the location of the mouse.
      *
-     * @param event The MouseEvent containing the data of the Mouse at the current tick.
+     * @param event The MouseEvent containing the data of the mouse at the current tick.
      */
     @SubscribeEvent
     public void onMouseEvent(MouseEvent event)

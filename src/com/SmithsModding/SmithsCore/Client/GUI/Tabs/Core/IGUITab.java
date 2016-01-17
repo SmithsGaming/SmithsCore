@@ -1,7 +1,5 @@
-package com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core;
+package com.smithsmodding.smithscore.client.GUI.Tabs.Core;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
-import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import net.minecraft.item.*;
 
 import java.util.*;
@@ -13,7 +11,7 @@ public interface IGUITab extends IGUIBasedComponentHost
 {
 
     /**
-     * Method to get the Host of this Tab
+     * Method to get the host of this Tab
      *
      * @return The current tabs host.
      */
@@ -34,7 +32,7 @@ public interface IGUITab extends IGUIBasedComponentHost
     MinecraftColor getTabColor ();
 
     /**
-     * Function to get the tooltiptext of the GUI System.
+     * Function to get the tooltiptext of the gui System.
      *
      * @return
      */

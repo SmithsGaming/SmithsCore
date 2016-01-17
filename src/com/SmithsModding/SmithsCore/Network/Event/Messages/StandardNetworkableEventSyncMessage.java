@@ -4,10 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Network.Event.Messages;
+package com.smithsmodding.smithscore.network.event.messages;
 
-import com.SmithsModding.SmithsCore.Common.Events.Network.*;
-import com.SmithsModding.SmithsCore.*;
+import com.smithsmodding.smithscore.*;
 import io.netty.buffer.*;
 import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
@@ -44,15 +43,15 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
 
             tEvent.readFromMessageBuffer(buf);
         } catch (ClassNotFoundException e) {
-            SmithsCore.getLogger().error("Failed to handle a Events Sync for: " + tEventClassName + " The in the Message stored class for the event does not exist.", e);
+            SmithsCore.getLogger().error("Failed to handle a events Sync for: " + tEventClassName + " The in the Message stored class for the event does not exist.", e);
         } catch (InvocationTargetException e) {
-            SmithsCore.getLogger().error("Failed to handle a Events Sync for: " + tEventClassName + " The creation of the Events failed.", e);
+            SmithsCore.getLogger().error("Failed to handle a events Sync for: " + tEventClassName + " The creation of the events failed.", e);
         } catch (NoSuchMethodException e) {
-            SmithsCore.getLogger().error("Failed to handle a Events Sync for: " + tEventClassName + " The event has no empty constructor. ", e);
+            SmithsCore.getLogger().error("Failed to handle a events Sync for: " + tEventClassName + " The event has no empty constructor. ", e);
         } catch (InstantiationException e) {
-            SmithsCore.getLogger().error("Failed to handle a Events Sync for: " + tEventClassName + " Failed to retrieve a proper constructor to call.", e);
+            SmithsCore.getLogger().error("Failed to handle a events Sync for: " + tEventClassName + " Failed to retrieve a proper constructor to call.", e);
         } catch (IllegalAccessException e) {
-            SmithsCore.getLogger().error("Failed to handle a Events Sync for: " + tEventClassName + " The given constructor does not have public access rights.", e);
+            SmithsCore.getLogger().error("Failed to handle a events Sync for: " + tEventClassName + " The given constructor does not have public access rights.", e);
         }
     }
 

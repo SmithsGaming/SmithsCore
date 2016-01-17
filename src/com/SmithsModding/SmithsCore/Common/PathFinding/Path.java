@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.SmithsModding.SmithsCore.Common.PathFinding;
+package com.smithsmodding.smithscore.common.PathFinding;
 
 import java.util.*;
 
