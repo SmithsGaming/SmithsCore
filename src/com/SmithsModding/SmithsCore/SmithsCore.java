@@ -1,6 +1,9 @@
 package com.smithsmodding.smithscore;
 
 import com.google.common.base.*;
+import com.smithsmodding.smithscore.common.proxy.*;
+import com.smithsmodding.smithscore.common.registry.*;
+import com.smithsmodding.smithscore.util.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.*;

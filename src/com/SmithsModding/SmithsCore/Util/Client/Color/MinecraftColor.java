@@ -1,11 +1,11 @@
-package com.smithsmodding.smithscore.util.Client.Color;
+package com.smithsmodding.smithscore.util.client.color;
 
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.*;
 
-import javax.vecmath.Vector2d;
+import javax.vecmath.*;
 import java.awt.*;
-import java.awt.color.ColorSpace;
-import java.awt.image.ColorModel;
+import java.awt.color.*;
+import java.awt.image.*;
 
 /**
  * A standard MinecraftColor class for smithsmodding.

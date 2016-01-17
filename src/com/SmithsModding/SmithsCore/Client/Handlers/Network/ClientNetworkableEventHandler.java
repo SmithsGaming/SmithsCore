@@ -4,8 +4,10 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.client.Handlers.Network;
+package com.smithsmodding.smithscore.client.handlers.network;
 
+import com.smithsmodding.smithscore.common.events.network.*;
+import com.smithsmodding.smithscore.common.handlers.network.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 

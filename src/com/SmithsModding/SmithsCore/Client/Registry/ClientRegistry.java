@@ -4,8 +4,16 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.client.Registry;
+package com.smithsmodding.smithscore.client.registry;
 
+import com.smithsmodding.smithscore.client.handlers.gui.*;
+import com.smithsmodding.smithscore.client.handlers.network.*;
+import com.smithsmodding.smithscore.client.mouse.*;
+import com.smithsmodding.smithscore.client.textures.*;
+import com.smithsmodding.smithscore.common.handlers.network.*;
+import com.smithsmodding.smithscore.common.player.handlers.*;
+import com.smithsmodding.smithscore.common.registry.*;
+import com.smithsmodding.smithscore.util.client.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 

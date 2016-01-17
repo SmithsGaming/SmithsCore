@@ -1,5 +1,16 @@
-package com.smithsmodding.smithscore.client.GUI.Ledgers.Implementations;
+package com.smithsmodding.smithscore.client.gui.legders.implementations;
 
+import com.smithsmodding.smithscore.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.animation.*;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.client.gui.components.implementations.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.client.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.*;
 
 import java.util.*;
@@ -40,20 +51,19 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return The ID of this Component.
      */
     @Override
-    public String getID() {
+    public String getID () {
         return uniqueID;
     }
 
     /**
-     * Function used to get the StateObject of this Component.
-     * A good example of what to find in the state Object is the Visibility of it.
-     * But also things like the Displayed Text of a label or TextBox are stored in the components
+     * Function used to get the StateObject of this Component. A good example of what to find in the state Object is the
+     * Visibility of it. But also things like the Displayed Text of a label or TextBox are stored in the components
      * state Object.
      *
      * @return This components state Object.
      */
     @Override
-    public IGUIComponentState getState() {
+    public IGUIComponentState getState () {
         return state;
     }
 
@@ -63,7 +73,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return This components host.
      */
     @Override
-    public IGUIBasedComponentHost getComponentHost() {
+    public IGUIBasedComponentHost getComponentHost () {
         return root;
     }
 
@@ -73,7 +83,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return This components host.
      */
     @Override
-    public IGUIBasedLedgerHost getLedgerHost() {
+    public IGUIBasedLedgerHost getLedgerHost () {
         return root;
     }
 
@@ -83,7 +93,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return The location of the top left pixel of this component
      */
     @Override
-    public Coordinate2D getGlobalCoordinate() {
+    public Coordinate2D getGlobalCoordinate () {
         return root.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
     }
 
@@ -93,7 +103,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
      */
     @Override
-    public Coordinate2D getLocalCoordinate() {
+    public Coordinate2D getLocalCoordinate () {
         Coordinate2D primaryCorner = getLedgerHost().getLedgerManager().getLedgerLocalCoordinate(getPrimarySide(), getID());
 
         if (getPrimarySide() == LedgerConnectionSide.LEFT) {
@@ -109,7 +119,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return A Plane detailing the the position and size of this Component.
      */
     @Override
-    public Plane getAreaOccupiedByComponent() {
+    public Plane getAreaOccupiedByComponent () {
         return new Plane(getGlobalCoordinate(), getSize().getWidth(), getSize().getWidth());
     }
 
@@ -119,8 +129,8 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return The size of this component.
      */
     @Override
-    public Plane getSize() {
-        return new Plane(0, 0, (int) Math.ceil(closedLedgerWidth + (getMaxWidth() - closedLedgerWidth) * state.getOpenProgress()), (int) Math.ceil( closedLedgerHeight + ( getMaxHeight() - closedLedgerHeight ) * state.getOpenProgress() ));
+    public Plane getSize () {
+        return new Plane(0, 0, (int) Math.ceil(closedLedgerWidth + ( getMaxWidth() - closedLedgerWidth ) * state.getOpenProgress()), (int) Math.ceil(closedLedgerHeight + ( getMaxHeight() - closedLedgerHeight ) * state.getOpenProgress()));
     }
 
     /**
@@ -145,7 +155,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @param partialTickTime The partial tick time, used to calculate fluent animations.
      */
     @Override
-    public void update(int mouseX, int mouseY, float partialTickTime) {
+    public void update (int mouseX, int mouseY, float partialTickTime) {
         //The ledger it self has no update only an animation.
     }
 
@@ -155,10 +165,10 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents(IGUIBasedComponentHost host) {
-        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon){
+    public void registerComponents (IGUIBasedComponentHost host) {
+        ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon) {
             @Override
-            public ArrayList<String> getToolTipContent() {
+            public ArrayList<String> getToolTipContent () {
                 return getIconToolTipText();
             }
         };
@@ -194,9 +204,9 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     }
 
     /**
-     * Method used by the animation system of the Ledger to determine how fast the animation should go.
-     * Measured in game update ticks -> 20 Ticks is 1 Second. The animation system will take the partial tick time
-     * into account when it calculates the update of pixels.
+     * Method used by the animation system of the Ledger to determine how fast the animation should go. Measured in game
+     * update ticks -> 20 Ticks is 1 Second. The animation system will take the partial tick time into account when it
+     * calculates the update of pixels.
      *
      * @return The amount of game ticks it should take to complete the opening and closing animation.
      */
@@ -311,32 +321,29 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     }
 
     /**
-     * Function used to draw this components background.
-     * Usually this will incorporate all of the components visual objects.
-     * A good example of a Component that only uses the drawBackground function is the
-     * BackgroundComponent.
+     * Function used to draw this components background. Usually this will incorporate all of the components visual
+     * objects. A good example of a Component that only uses the drawBackground function is the BackgroundComponent.
      *
      * @param mouseX The current X-Coordinate of the mouse
      * @param mouseY The current Y-Coordinate of the mouse
      */
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground (int mouseX, int mouseY) {
         ComponentBorder componentBorder = new ComponentBorder(getID() + ".background", this, new Coordinate2D(0, 0), getSize().getWidth(), getSize().getHeigth(), color, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts);
 
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder, false);
     }
 
     /**
-     * Function used to draw this components foreground.
-     * Usually this will incorporate very few of teh components visual Objects.
-     * A good example of a Component that only uses the drawForeground function is the
-     * GUIDescriptionLabel (The labels that describe thins like your inventory and the TE's inventory).
+     * Function used to draw this components foreground. Usually this will incorporate very few of teh components visual
+     * Objects. A good example of a Component that only uses the drawForeground function is the GUIDescriptionLabel (The
+     * labels that describe thins like your inventory and the TE's inventory).
      *
      * @param mouseX The current X-Coordinate of the mouse
      * @param mouseY The current Y-Coordinate of the mouse
      */
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground (int mouseX, int mouseY) {
         //NOOP
     }
 
@@ -346,7 +353,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return Left when the Ledger is rendered on the left side, right when rendered on the right side.
      */
     @Override
-    public LedgerConnectionSide getPrimarySide() {
+    public LedgerConnectionSide getPrimarySide () {
         return side;
     }
 
@@ -356,7 +363,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return The Icons ToolTip.
      */
     @Override
-    public ArrayList<String> getIconToolTipText() {
+    public ArrayList<String> getIconToolTipText () {
         ArrayList<String> result = new ArrayList<String>();
 
         result.add(translatedLedgerHeader);
@@ -380,7 +387,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return The Manager that is at the root for the gui Tree.
      */
     @Override
-    public IGUIManager getRootManager() {
+    public IGUIManager getRootManager () {
         return root.getRootManager();
     }
 
@@ -390,7 +397,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
     @Override
-    public LinkedHashMap<String, IGUIComponent> getAllComponents() {
+    public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return components;
     }
 
@@ -411,7 +418,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return Returns the current GUIManager.
      */
     @Override
-    public IGUIManager getManager() {
+    public IGUIManager getManager () {
         return root.getManager();
     }
 
@@ -421,7 +428,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @param newManager THe new IGUIManager.
      */
     @Override
-    public void setManager(IGUIManager newManager) {
+    public void setManager (IGUIManager newManager) {
         root.setManager(newManager);
     }
 }

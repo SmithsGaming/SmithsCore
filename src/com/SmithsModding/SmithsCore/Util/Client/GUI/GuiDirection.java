@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client.GUI;
+package com.smithsmodding.smithscore.util.client.gui;
 
 /**
  * Enum to determine movement on the gui

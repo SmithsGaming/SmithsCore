@@ -1,6 +1,12 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.*;
+import com.smithsmodding.smithscore.util.common.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package com.smithsmodding.smithscore.client.GUI.Components.Core;
+package com.smithsmodding.smithscore.client.gui.components.core;
 
 /**
  * Created by Marc on 25.12.2015.

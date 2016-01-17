@@ -1,14 +1,14 @@
-package com.smithsmodding.smithscore.client.GUI.Components.Implementations;
+package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.GUI.Host.IGUIBasedComponentHost;
-import com.smithsmodding.smithscore.client.GUI.State.IGUIComponentState;
-import com.smithsmodding.smithscore.util.Client.GUI.GuiHelper;
-import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.client.FMLClientHandler;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.client.gui.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
+import net.minecraft.client.*;
+import net.minecraft.item.*;
+import net.minecraftforge.fml.client.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by marcf on 1/17/2016.

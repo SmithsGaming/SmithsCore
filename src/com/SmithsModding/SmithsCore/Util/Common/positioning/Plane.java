@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common.Postioning;
+package com.smithsmodding.smithscore.util.common.positioning;
 
 public class Plane {
 
@@ -14,7 +14,7 @@ public class Plane {
     private Coordinate2D iTopLeftFrontCoord;
     private Coordinate2D iLowerRightBackCoord;
 
-    public Plane() {
+    public Plane () {
     }
 
     public Plane (Coordinate2D coordinate2D, int width, int heigth) {
@@ -29,19 +29,19 @@ public class Plane {
         this.iHeigth = pHeigth;
     }
 
-    public Coordinate2D TopLeftCoord() {
+    public Coordinate2D TopLeftCoord () {
         return this.iTopLeftFrontCoord;
     }
 
-    public Coordinate2D LowerRightCoord() {
+    public Coordinate2D LowerRightCoord () {
         return this.iLowerRightBackCoord;
     }
 
-    public int getWidth() {
+    public int getWidth () {
         return iWidth;
     }
 
-    public int getHeigth() {
+    public int getHeigth () {
         return iHeigth;
     }
 
@@ -83,7 +83,7 @@ public class Plane {
         return this;
     }
 
-    public Plane ExpandToCoordinate(int pDeltaX, int pDeltaY) {
+    public Plane ExpandToCoordinate (int pDeltaX, int pDeltaY) {
         if (pDeltaX < 0) {
             iTopLeftFrontCoord = new Coordinate2D(iTopLeftFrontCoord.getXComponent() + pDeltaX, iTopLeftFrontCoord.getYComponent());
         }
@@ -105,22 +105,22 @@ public class Plane {
         return this;
     }
 
-    public boolean ContainsCoordinate(Coordinate2D pCoord) {
+    public boolean ContainsCoordinate (Coordinate2D pCoord) {
         if (pCoord.getYComponent() != iTopLeftFrontCoord.getYComponent())
             return false;
 
         return this.ContainsCoordinate(pCoord.getXComponent(), pCoord.getYComponent());
     }
 
-    public boolean ContainsCoordinate(int pXCoord, int pYCoord) {
+    public boolean ContainsCoordinate (int pXCoord, int pYCoord) {
         return this.TopLeftCoord().getXComponent() <= pXCoord && pXCoord <= this.LowerRightCoord().getXComponent() && this.TopLeftCoord().getYComponent() <= pYCoord && pYCoord <= this.LowerRightCoord().getYComponent();
     }
 
-    public boolean Intersects(Plane pPlaneToCheck) {
+    public boolean Intersects (Plane pPlaneToCheck) {
         return pPlaneToCheck.TopLeftCoord().getXComponent() + pPlaneToCheck.iWidth > this.TopLeftCoord().getXComponent() && pPlaneToCheck.TopLeftCoord().getXComponent() < this.TopLeftCoord().getXComponent() + this.iWidth && pPlaneToCheck.TopLeftCoord().getYComponent() + pPlaneToCheck.iHeigth > this.TopLeftCoord().getYComponent() && pPlaneToCheck.TopLeftCoord().getYComponent() < this.TopLeftCoord().getYComponent() + this.iHeigth;
     }
 
-    public int Contents() {
+    public int Contents () {
         return this.iWidth * this.iHeigth;
     }
 }

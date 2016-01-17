@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common.Postioning;
+package com.smithsmodding.smithscore.util.common.positioning;
 
 import io.netty.buffer.*;
 import net.minecraft.util.*;
@@ -14,17 +14,17 @@ public class Coordinate2D {
     int iXCoord;
     int iYCoord;
 
-    public Coordinate2D(int pXCoord, int pYCoord) {
+    public Coordinate2D (int pXCoord, int pYCoord) {
         iXCoord = pXCoord;
         iYCoord = pYCoord;
     }
 
-    public static Coordinate2D fromBytes(ByteBuf pData) {
+    public static Coordinate2D fromBytes (ByteBuf pData) {
         return new Coordinate2D(pData.readInt(), pData.readInt());
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         return "Coordinate{" +
                 "X=" + iXCoord +
                 ", Y=" + iYCoord +
@@ -32,7 +32,7 @@ public class Coordinate2D {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -44,27 +44,27 @@ public class Coordinate2D {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode () {
         return getXComponent() + getYComponent();
     }
 
-    public int getXComponent() {
+    public int getXComponent () {
         return iXCoord;
     }
 
-    public int getYComponent() {
+    public int getYComponent () {
         return iYCoord;
     }
 
-    public Coordinate2D moveCoordiante(EnumFacing pDirection, int pDistance) {
-        return new Coordinate2D(getXComponent() + (pDistance * pDirection.getFrontOffsetX()), getYComponent() + (pDistance * pDirection.getFrontOffsetY()));
+    public Coordinate2D moveCoordiante (EnumFacing pDirection, int pDistance) {
+        return new Coordinate2D(getXComponent() + ( pDistance * pDirection.getFrontOffsetX() ), getYComponent() + ( pDistance * pDirection.getFrontOffsetY() ));
     }
 
-    public float getDistanceTo(Coordinate2D pCoordinate) {
+    public float getDistanceTo (Coordinate2D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2));
     }
 
-    public void toBytes(ByteBuf pDataOut) {
+    public void toBytes (ByteBuf pDataOut) {
         pDataOut.writeInt(getXComponent());
         pDataOut.writeInt(getYComponent());
     }

@@ -4,18 +4,17 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client;
+package com.smithsmodding.smithscore.util.client;
 /*
 /  CustomResource
 /  Created by : Orion
 /  Created on : 15/06/2014
 */
 
-import com.smithsmodding.smithscore.util.Client.Color.Colors;
-import com.smithsmodding.smithscore.util.Client.Color.MinecraftColor;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import com.smithsmodding.smithscore.util.client.color.*;
+import net.minecraft.client.renderer.texture.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Class used to manage resource combinations.

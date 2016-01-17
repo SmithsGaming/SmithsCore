@@ -4,16 +4,14 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 
-import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
-import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate3D;
-import com.smithsmodding.smithscore.util.CoreReferences;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import com.smithsmodding.smithscore.util.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
 
-import java.util.UUID;
+import java.util.*;
 
 public class NBTHelper {
 

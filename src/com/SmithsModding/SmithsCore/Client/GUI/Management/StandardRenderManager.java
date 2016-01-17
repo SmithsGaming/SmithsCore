@@ -1,7 +1,17 @@
-package com.smithsmodding.smithscore.client.GUI.Management;
+package com.smithsmodding.smithscore.client.gui.management;
 
 import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.util.Common.Postioning.Plane;
+import com.smithsmodding.smithscore.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.animation.*;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.scissoring.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.client.registry.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.client.gui.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 
@@ -18,7 +28,7 @@ public class StandardRenderManager implements IRenderManager {
 
     public StandardRenderManager (GuiContainerSmithsCore root)
     {
-        if (!(root instanceof IGUIBasedComponentHost))
+        if (!(root instanceof IGUIBasedComponentHost ))
             throw new IllegalArgumentException("The given Root for this manager is not a IGUIBasedComponentHost!");
 
         this.root = root;

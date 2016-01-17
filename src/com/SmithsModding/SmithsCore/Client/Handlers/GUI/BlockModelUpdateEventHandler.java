@@ -1,5 +1,7 @@
-package com.smithsmodding.smithscore.client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.handlers.gui;
 
+import com.smithsmodding.smithscore.client.events.models.Block.*;
+import com.smithsmodding.smithscore.common.tileentity.*;
 import net.minecraft.tileentity.*;
 import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.common.eventhandler.*;

@@ -1,4 +1,6 @@
-package com.smithsmodding.smithscore.client.GUI.State;
+package com.smithsmodding.smithscore.client.gui.state;
+
+import com.smithsmodding.smithscore.client.gui.components.core.*;
 
 /**
  * Created by marcf on 12/28/2015.

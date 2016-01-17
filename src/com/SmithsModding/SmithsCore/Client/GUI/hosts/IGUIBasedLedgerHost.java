@@ -1,16 +1,19 @@
-package com.smithsmodding.smithscore.client.GUI.Host;
+package com.smithsmodding.smithscore.client.gui.hosts;
+
+import com.smithsmodding.smithscore.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
 
 /**
  * Created by marcf on 12/28/2015.
  */
-public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
-{
+public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost {
     /**
      * Function used to register the sub components of this ComponentHost
      *
      * @param parent This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
-    void registerLedgers(IGUIBasedLedgerHost parent);
+    void registerLedgers (IGUIBasedLedgerHost parent);
 
     /**
      * Method used to register a new Component to this host.
@@ -25,7 +28,6 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
      * @return The LedgerManager of this host.
      */
     ILedgerManager getLedgerManager ();
-
 
     /**
      * Method to get the Root gui Object that this Component is part of.
@@ -46,12 +48,12 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost
      *
      * @return THe right side ledger offset
      */
-    int getRightLedgerOffSet();
+    int getRightLedgerOffSet ();
 
     /**
      * A number bigger then 0 that describes the offset of the left side ledgers with the top left corner as origin
      *
      * @return THe right left ledger offset
      */
-    int getLeftLedgerOffSet();
+    int getLeftLedgerOffSet ();
 }

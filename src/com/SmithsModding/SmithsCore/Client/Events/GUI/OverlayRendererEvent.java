@@ -1,5 +1,6 @@
-package com.smithsmodding.smithscore.client.Events.GUI;
+package com.smithsmodding.smithscore.client.events.gui;
 
+import com.smithsmodding.smithscore.common.events.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.item.*;
 

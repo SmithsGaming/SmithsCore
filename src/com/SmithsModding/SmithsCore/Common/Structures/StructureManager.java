@@ -2,6 +2,8 @@ package com.smithsmodding.smithscore.common.structures;
 
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.pathfinding.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
 import net.minecraft.world.*;

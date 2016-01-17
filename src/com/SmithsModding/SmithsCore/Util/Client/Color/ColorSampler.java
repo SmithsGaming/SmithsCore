@@ -1,4 +1,4 @@
-package com.smithsmodding.smithscore.util.Client.Color;
+package com.smithsmodding.smithscore.util.client.color;
 
 import com.smithsmodding.smithscore.*;
 import net.minecraft.client.*;

@@ -1,5 +1,6 @@
-package com.smithsmodding.smithscore.client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.handlers.gui;
 
+import com.smithsmodding.smithscore.client.block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.*;
 import net.minecraft.util.*;

@@ -1,4 +1,6 @@
-package com.smithsmodding.smithscore.client.GUI.State;
+package com.smithsmodding.smithscore.client.gui.state;
+
+import com.smithsmodding.smithscore.client.gui.components.core.*;
 
 /**
  * Created by Marc on 21.12.2015.
@@ -14,7 +16,7 @@ public class CoreComponentState implements IGUIComponentState {
         this.component = component;
     }
 
-    public CoreComponentState(){};
+    public CoreComponentState(){}
 
     @Override
     public IGUIComponent getComponent () {

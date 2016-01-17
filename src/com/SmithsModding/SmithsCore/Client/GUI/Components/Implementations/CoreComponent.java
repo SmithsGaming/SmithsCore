@@ -1,12 +1,11 @@
-package com.smithsmodding.smithscore.client.GUI.Components.Implementations;
+package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.GUI.Components.Core.IGUIComponent;
-import com.smithsmodding.smithscore.client.GUI.Host.IGUIBasedComponentHost;
-import com.smithsmodding.smithscore.client.GUI.State.IGUIComponentState;
-import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
-import com.smithsmodding.smithscore.util.Common.Postioning.Plane;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by marcf on 1/16/2016.

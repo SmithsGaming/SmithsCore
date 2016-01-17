@@ -4,8 +4,10 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.client.Events.GUI;
+package com.smithsmodding.smithscore.client.events.gui;
 
+import com.smithsmodding.smithscore.common.events.network.*;
+import com.smithsmodding.smithscore.common.inventory.*;
 import io.netty.buffer.*;
 import net.minecraft.entity.player.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;

@@ -1,6 +1,7 @@
-package com.smithsmodding.smithscore.client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.handlers.gui;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.registry.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.*;
 

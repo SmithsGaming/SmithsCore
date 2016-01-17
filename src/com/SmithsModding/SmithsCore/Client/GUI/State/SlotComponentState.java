@@ -1,5 +1,6 @@
-package com.smithsmodding.smithscore.client.GUI.State;
+package com.smithsmodding.smithscore.client.gui.state;
 
+import com.smithsmodding.smithscore.client.gui.components.implementations.*;
 import net.minecraft.client.renderer.texture.*;
 import net.minecraft.inventory.*;
 

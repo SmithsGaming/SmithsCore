@@ -1,6 +1,8 @@
-package com.smithsmodding.smithscore.common.Inventory;
+package com.smithsmodding.smithscore.common.inventory;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.events.gui.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 

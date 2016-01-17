@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client.Color;
+package com.smithsmodding.smithscore.util.client.color;
 /*
 *   Colors
 *   Created by: Orion

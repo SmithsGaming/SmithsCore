@@ -4,9 +4,20 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.client.GUI;
+package com.smithsmodding.smithscore.client.gui;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.client.gui.tabs.core.*;
+import com.smithsmodding.smithscore.client.gui.tabs.implementations.*;
+import com.smithsmodding.smithscore.common.inventory.*;
+import com.smithsmodding.smithscore.util.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 
@@ -129,6 +140,12 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         this.handleKeyTyped(typedChar);
     }
 
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        return new ArrayList<String>();
+    }
+
     /**
      * Function called when a Key is typed.
      *
@@ -147,11 +164,6 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
             component.handleKeyTyped(key);
         }
-    }
-
-    @Override
-    public ArrayList<String> getToolTipContent () {
-        return new ArrayList<String>();
     }
 
     /**

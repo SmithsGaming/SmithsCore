@@ -4,8 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.common.Events.Network;
+package com.smithsmodding.smithscore.common.events.network;
 
+import com.smithsmodding.smithscore.network.event.messages.*;
 import io.netty.buffer.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;

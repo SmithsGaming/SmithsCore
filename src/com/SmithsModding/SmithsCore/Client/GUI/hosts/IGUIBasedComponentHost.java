@@ -1,23 +1,24 @@
-package com.smithsmodding.smithscore.client.GUI.Host;
+package com.smithsmodding.smithscore.client.gui.hosts;
+
+import com.smithsmodding.smithscore.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
 
 import java.util.*;
 
 /**
- * Created by Orion
- * Created on 01.12.2015
- * 18:13
+ * Created by Orion Created on 01.12.2015 18:13
  * <p/>
  * Copyrighted according to Project specific license
  */
-public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUIComponent
-{
+public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUIComponent {
 
     /**
      * Function used to register the sub components of this ComponentHost
      *
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
-    void registerComponents(IGUIBasedComponentHost host);
+    void registerComponents (IGUIBasedComponentHost host);
 
     /**
      * Method used to register a new Component to this host.
@@ -31,14 +32,14 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return The gui that this component is part of.
      */
-    GuiContainerSmithsCore getRootGuiObject();
+    GuiContainerSmithsCore getRootGuiObject ();
 
     /**
      * Method to get the gui Roots Manager.
      *
      * @return The Manager that is at the root for the gui Tree.
      */
-    IGUIManager getRootManager();
+    IGUIManager getRootManager ();
 
     /**
      * Function to get all the components registered to this host.

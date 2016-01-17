@@ -1,4 +1,8 @@
-package com.smithsmodding.smithscore.client.GUI.Components.Core;
+package com.smithsmodding.smithscore.client.gui.components.core;
+
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 
 import java.util.*;
 

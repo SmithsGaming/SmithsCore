@@ -6,6 +6,8 @@
 
 package com.smithsmodding.smithscore.common.registry;
 
+import com.smithsmodding.smithscore.common.handlers.network.*;
+import com.smithsmodding.smithscore.network.event.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
 /**

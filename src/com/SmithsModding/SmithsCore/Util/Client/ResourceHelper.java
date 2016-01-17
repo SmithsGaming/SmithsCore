@@ -1,12 +1,12 @@
-package com.smithsmodding.smithscore.util.Client;
+package com.smithsmodding.smithscore.util.client;
 
-import com.smithsmodding.smithscore.SmithsCore;
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
+import com.smithsmodding.smithscore.*;
+import net.minecraft.client.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraftforge.fml.common.registry.*;
 
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by Marc on 06.12.2015.

@@ -1,5 +1,12 @@
-package com.smithsmodding.smithscore.client.GUI.Ledgers.Implementations;
+package com.smithsmodding.smithscore.client.gui.legders.implementations;
 
+import com.smithsmodding.smithscore.client.gui.components.implementations.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.client.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.*;
 
 import java.util.*;

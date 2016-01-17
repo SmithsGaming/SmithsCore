@@ -1,5 +1,7 @@
-package com.smithsmodding.smithscore.util.Client;
+package com.smithsmodding.smithscore.util.client;
 
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.client.gui.*;
 import net.minecraft.util.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.common.*;

@@ -4,9 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client.GUI;
+package com.smithsmodding.smithscore.util.client.gui;
 
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.*;
 
 /**
  * Class used to store Rotation in the UI in Memory

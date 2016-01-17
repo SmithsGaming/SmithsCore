@@ -6,6 +6,7 @@
 
 package com.smithsmodding.smithscore.network.event.handlers;
 
+import com.smithsmodding.smithscore.network.event.messages.*;
 import net.minecraft.client.*;
 import net.minecraft.util.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;

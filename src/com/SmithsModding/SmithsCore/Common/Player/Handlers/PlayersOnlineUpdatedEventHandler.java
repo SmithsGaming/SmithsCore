@@ -4,14 +4,14 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.common.Player.Handlers;
+package com.smithsmodding.smithscore.common.player.handlers;
 
-import com.smithsmodding.smithscore.common.Player.Event.PlayersOnlineUpdatedEvent;
-import com.smithsmodding.smithscore.common.Player.Management.PlayerManager;
-import com.smithsmodding.smithscore.SmithsCore;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.player.event.*;
+import com.smithsmodding.smithscore.common.player.management.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.relauncher.*;
 
 public class PlayersOnlineUpdatedEventHandler {
 

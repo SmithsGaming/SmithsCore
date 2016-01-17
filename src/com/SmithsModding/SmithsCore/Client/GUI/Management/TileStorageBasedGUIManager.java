@@ -1,4 +1,6 @@
-package com.smithsmodding.smithscore.client.GUI.Management;
+package com.smithsmodding.smithscore.client.gui.management;
+
+import com.smithsmodding.smithscore.client.gui.components.core.*;
 
 import java.util.*;
 

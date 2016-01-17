@@ -1,9 +1,10 @@
-package com.smithsmodding.smithscore.util.Client;
+package com.smithsmodding.smithscore.util.client;
 
 import com.google.common.base.*;
 import com.google.common.collect.*;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
+import com.smithsmodding.smithscore.util.client.color.*;
 import net.minecraft.block.*;
 import net.minecraft.block.state.*;
 import net.minecraft.client.*;

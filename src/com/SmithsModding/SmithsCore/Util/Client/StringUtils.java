@@ -4,15 +4,15 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client;
+package com.smithsmodding.smithscore.util.client;
 /*
 /  StringUtils
 /  Created by : Orion
 /  Created on : 23/01/2015
 */
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.*;
+import net.minecraft.client.gui.*;
 
 public class StringUtils {
 

@@ -1,5 +1,14 @@
-package com.smithsmodding.smithscore.client.GUI.Tabs.Implementations;
+package com.smithsmodding.smithscore.client.gui.tabs.implementations;
 
+import com.smithsmodding.smithscore.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.client.gui.components.implementations.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.client.gui.tabs.core.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.item.*;
 import scala.actors.threadpool.Arrays;
 

@@ -1,6 +1,10 @@
-package com.smithsmodding.smithscore.common.Events;
+package com.smithsmodding.smithscore.common.events;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.events.network.*;
+import com.smithsmodding.smithscore.common.tileentity.*;
+import com.smithsmodding.smithscore.network.event.*;
+import com.smithsmodding.smithscore.util.*;
 import io.netty.buffer.*;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;

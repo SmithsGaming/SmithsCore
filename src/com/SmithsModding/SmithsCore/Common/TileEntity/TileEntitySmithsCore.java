@@ -7,6 +7,14 @@
 package com.smithsmodding.smithscore.common.tileentity;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.common.events.*;
+import com.smithsmodding.smithscore.common.fluid.*;
+import com.smithsmodding.smithscore.common.inventory.*;
+import com.smithsmodding.smithscore.common.structures.*;
+import com.smithsmodding.smithscore.common.tileentity.state.*;
+import com.smithsmodding.smithscore.util.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;

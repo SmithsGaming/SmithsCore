@@ -1,7 +1,7 @@
-package com.smithsmodding.smithscore.client.GUI.Host;
+package com.smithsmodding.smithscore.client.gui.hosts;
 
-import com.smithsmodding.smithscore.client.GUI.Management.ITabManager;
-import com.smithsmodding.smithscore.client.GUI.Tabs.Core.IGUITab;
+import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.client.gui.tabs.core.*;
 
 /**
  * Created by marcf on 1/15/2016.

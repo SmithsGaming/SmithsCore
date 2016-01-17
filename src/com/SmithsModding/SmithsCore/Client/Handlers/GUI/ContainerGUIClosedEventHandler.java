@@ -4,8 +4,10 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.client.Handlers.GUI;
+package com.smithsmodding.smithscore.client.handlers.gui;
 
+import com.smithsmodding.smithscore.client.events.gui.*;
+import com.smithsmodding.smithscore.common.inventory.*;
 import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;

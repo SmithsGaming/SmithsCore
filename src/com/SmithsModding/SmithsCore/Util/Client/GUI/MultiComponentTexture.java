@@ -4,10 +4,10 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client.GUI;
+package com.smithsmodding.smithscore.util.client.gui;
 
-import com.smithsmodding.smithscore.util.Client.CustomResource;
-import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.client.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 
 /**
  * A Texture that is made up out of several (9) components.

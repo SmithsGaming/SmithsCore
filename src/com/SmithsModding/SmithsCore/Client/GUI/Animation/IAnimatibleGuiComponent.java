@@ -1,4 +1,6 @@
-package com.smithsmodding.smithscore.client.GUI.Animation;
+package com.smithsmodding.smithscore.client.gui.animation;
+
+import com.smithsmodding.smithscore.client.gui.components.core.*;
 
 /**
  * Created by Marc on 09.01.2016.

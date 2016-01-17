@@ -4,20 +4,18 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 /*
  *   ItemStackHelper
  *   Created by: Orion
  *   Created on: 16-1-2015
  */
 
-import com.smithsmodding.smithscore.util.CoreReferences;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import com.smithsmodding.smithscore.util.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
 
-import java.util.Comparator;
-import java.util.UUID;
+import java.util.*;
 
 public class ItemStackHelper
 

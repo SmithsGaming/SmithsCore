@@ -1,5 +1,6 @@
 package com.smithsmodding.smithscore.common.tileentity.state;
 
+import com.smithsmodding.smithscore.common.tileentity.*;
 import net.minecraft.nbt.*;
 
 /**

@@ -4,25 +4,20 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.common.Player.Management;
+package com.smithsmodding.smithscore.common.player.management;
 
-import com.smithsmodding.smithscore.common.Player.Event.PlayersConnectedUpdatedEvent;
-import com.smithsmodding.smithscore.common.Player.Event.PlayersOnlineUpdatedEvent;
-import com.smithsmodding.smithscore.SmithsCore;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.common.network.FMLNetworkEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.common.UsernameCache;
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.player.event.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.common.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.gameevent.*;
+import net.minecraftforge.fml.common.network.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 public class PlayerManager {
 

@@ -4,8 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common.Postioning;
+package com.smithsmodding.smithscore.util.common.positioning;
 
+import com.smithsmodding.smithscore.util.*;
 import io.netty.buffer.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;
@@ -16,14 +17,13 @@ public class Coordinate3D {
     int yCoord;
     int zCoord;
 
-    public Coordinate3D(int pXCoord, int pYCoord, int pZCoord) {
+    public Coordinate3D (int pXCoord, int pYCoord, int pZCoord) {
         xCoord = pXCoord;
         yCoord = pYCoord;
         zCoord = pZCoord;
     }
 
-    public Coordinate3D(BlockPos pPos)
-    {
+    public Coordinate3D (BlockPos pPos) {
         this(pPos.getX(), pPos.getY(), pPos.getZ());
     }
 
@@ -31,11 +31,11 @@ public class Coordinate3D {
         return new Coordinate3D(compound.getInteger(CoreReferences.NBT.Coordinates.X), compound.getInteger(CoreReferences.NBT.Coordinates.Y), compound.getInteger(CoreReferences.NBT.Coordinates.Z));
     }
 
-    public static Coordinate3D fromBytes(ByteBuf pData) {
+    public static Coordinate3D fromBytes (ByteBuf pData) {
         return new Coordinate3D(pData.readInt(), pData.readInt(), pData.readInt());
     }
 
-    public void toBytes(ByteBuf pDataOut) {
+    public void toBytes (ByteBuf pDataOut) {
         pDataOut.writeInt(getXComponent());
         pDataOut.writeInt(getYComponent());
         pDataOut.writeInt(getZComponent());
@@ -56,7 +56,7 @@ public class Coordinate3D {
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         return "Coordinate{" +
                 "xCoord=" + xCoord +
                 ", yCoord=" + yCoord +
@@ -65,7 +65,7 @@ public class Coordinate3D {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals (Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -78,19 +78,19 @@ public class Coordinate3D {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode () {
         return getXComponent() + getYComponent() + getZComponent();
     }
 
-    public int getXComponent() {
+    public int getXComponent () {
         return xCoord;
     }
 
-    public int getYComponent() {
+    public int getYComponent () {
         return yCoord;
     }
 
-    public int getZComponent() {
+    public int getZComponent () {
         return zCoord;
     }
 
@@ -98,7 +98,7 @@ public class Coordinate3D {
         return new Coordinate3D(getXComponent() + ( pDistance * pDirection.getDirectionVec().getX() ), getYComponent() + ( pDistance * pDirection.getDirectionVec().getY() ), getZComponent() + ( pDistance * pDirection.getFrontOffsetZ() ));
     }
 
-    public float getDistanceTo(Coordinate3D pCoordinate) {
+    public float getDistanceTo (Coordinate3D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2) + Math.pow(getZComponent() - pCoordinate.getZComponent(), 2));
     }
 }

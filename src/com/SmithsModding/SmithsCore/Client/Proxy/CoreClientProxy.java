@@ -1,13 +1,12 @@
-package com.smithsmodding.smithscore.client.Proxy;
+package com.smithsmodding.smithscore.client.proxy;
 
-import com.smithsmodding.smithscore.client.Handlers.Network.ClientNetworkableEventHandler;
-import com.smithsmodding.smithscore.common.Proxy.CoreCommonProxy;
-import com.smithsmodding.smithscore.SmithsCore;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.handlers.network.*;
+import com.smithsmodding.smithscore.common.proxy.*;
+import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * Specific proxy class used to initialize client only sides of this Mod

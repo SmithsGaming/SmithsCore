@@ -6,6 +6,11 @@
 
 package com.smithsmodding.smithscore.network.event;
 
+import com.smithsmodding.smithscore.common.events.network.*;
+import com.smithsmodding.smithscore.network.event.handlers.*;
+import com.smithsmodding.smithscore.network.event.messages.*;
+import com.smithsmodding.smithscore.util.*;
+import com.smithsmodding.smithscore.util.common.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 

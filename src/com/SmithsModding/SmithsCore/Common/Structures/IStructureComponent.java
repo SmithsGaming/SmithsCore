@@ -6,6 +6,9 @@
 
 package com.smithsmodding.smithscore.common.structures;
 
+import com.smithsmodding.smithscore.common.pathfinding.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
+
 import java.util.*;
 
 public interface IStructureComponent extends IPathComponent {

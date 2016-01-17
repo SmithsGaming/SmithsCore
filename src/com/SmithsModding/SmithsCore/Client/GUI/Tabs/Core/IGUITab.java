@@ -1,5 +1,7 @@
-package com.smithsmodding.smithscore.client.GUI.Tabs.Core;
+package com.smithsmodding.smithscore.client.gui.tabs.core;
 
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.util.client.color.*;
 import net.minecraft.item.*;
 
 import java.util.*;

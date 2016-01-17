@@ -4,9 +4,12 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Client.GUI;
+package com.smithsmodding.smithscore.util.client.gui;
 
 
+import com.smithsmodding.smithscore.util.client.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.*;

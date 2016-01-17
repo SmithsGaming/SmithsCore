@@ -1,6 +1,9 @@
-package com.smithsmodding.smithscore.client.GUI.Ledgers.Core;
+package com.smithsmodding.smithscore.client.gui.legders.core;
 
-import java.util.ArrayList;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.scissoring.*;
+
+import java.util.*;
 
 /**
  * Created by marcf on 12/28/2015.

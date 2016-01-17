@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common.Postioning;
+package com.smithsmodding.smithscore.util.common.positioning;
 
 import net.minecraft.util.*;
 
@@ -17,10 +17,10 @@ public class Cube {
     private Coordinate3D iTopLeftFrontCoord;
     private Coordinate3D iLowerRightBackCoord;
 
-    public Cube() {
+    public Cube () {
     }
 
-    public Cube(int pTopLeftXCoord, int pYCoord, int pTopLeftZCoord, int pWidth, int pHeigth, int pDepth) {
+    public Cube (int pTopLeftXCoord, int pYCoord, int pTopLeftZCoord, int pWidth, int pHeigth, int pDepth) {
         iTopLeftFrontCoord = new Coordinate3D(pTopLeftXCoord, pYCoord, pTopLeftZCoord);
         iLowerRightBackCoord = new Coordinate3D(pTopLeftXCoord + pWidth, pYCoord + pHeigth, pTopLeftZCoord + pDepth);
 
@@ -29,28 +29,28 @@ public class Cube {
         this.iDepth = pDepth;
     }
 
-    public int getWidth() {
+    public int getWidth () {
         return iWidth;
     }
 
-    public int getHeigth() {
+    public int getHeigth () {
         return iHeigth;
     }
 
-    public int getDepth() {
+    public int getDepth () {
         return iDepth;
     }
 
-    public Coordinate3D TopLeftFrontCoord() {
+    public Coordinate3D TopLeftFrontCoord () {
         return this.iTopLeftFrontCoord;
     }
 
-    public Coordinate3D LowerRightBackCoord() {
+    public Coordinate3D LowerRightBackCoord () {
         return this.iLowerRightBackCoord;
     }
 
 
-    public Cube Move(int pDeltaX, int pDeltaY, int pDeltaZ) {
+    public Cube Move (int pDeltaX, int pDeltaY, int pDeltaZ) {
         this.iTopLeftFrontCoord.xCoord += pDeltaX;
         this.iTopLeftFrontCoord.yCoord += pDeltaY;
         this.iTopLeftFrontCoord.zCoord += pDeltaZ;
@@ -62,16 +62,16 @@ public class Cube {
         return this;
     }
 
-    public Cube IncludeCoordinate(Cube pCubeToInclude) {
+    public Cube IncludeCoordinate (Cube pCubeToInclude) {
         this.IncludeCoordinate(pCubeToInclude.TopLeftFrontCoord());
         return this.IncludeCoordinate(pCubeToInclude.LowerRightBackCoord());
     }
 
-    public Cube IncludeCoordinate(Coordinate3D pCoordinateToInclude) {
+    public Cube IncludeCoordinate (Coordinate3D pCoordinateToInclude) {
         return this.IncludeCoordinate(pCoordinateToInclude.getXComponent(), pCoordinateToInclude.getYComponent(), pCoordinateToInclude.getZComponent());
     }
 
-    public Cube IncludeCoordinate(int pXCoord, int pYCoord, int pZCoord) {
+    public Cube IncludeCoordinate (int pXCoord, int pYCoord, int pZCoord) {
         if (pXCoord < this.iTopLeftFrontCoord.getXComponent()) {
             this.ExpandToCoordinate(-1 * Math.abs(pXCoord - iTopLeftFrontCoord.getXComponent()), 0, 0);
         }
@@ -99,7 +99,7 @@ public class Cube {
         return this;
     }
 
-    public Cube ExpandToCoordinate(int pDeltaX, int pDeltaY, int pDeltaZ) {
+    public Cube ExpandToCoordinate (int pDeltaX, int pDeltaY, int pDeltaZ) {
         if (pDeltaX < 0) {
             iTopLeftFrontCoord = new Coordinate3D(iTopLeftFrontCoord.getXComponent() + pDeltaX, iTopLeftFrontCoord.getYComponent(), iTopLeftFrontCoord.getZComponent());
         }
@@ -130,22 +130,22 @@ public class Cube {
         return this;
     }
 
-    public boolean ContainsCoordinate(Coordinate3D pCoord) {
+    public boolean ContainsCoordinate (Coordinate3D pCoord) {
         if (pCoord.getYComponent() != iTopLeftFrontCoord.getYComponent())
             return false;
 
         return this.ContainsCoordinate(pCoord.getXComponent(), pCoord.getYComponent(), pCoord.getZComponent());
     }
 
-    public boolean ContainsCoordinate(int pXCoord, int pYCoord, int pZCoord) {
+    public boolean ContainsCoordinate (int pXCoord, int pYCoord, int pZCoord) {
         return this.TopLeftFrontCoord().getXComponent() <= pXCoord && pXCoord <= this.LowerRightBackCoord().getXComponent() && this.LowerRightBackCoord().getYComponent() <= pYCoord && pYCoord <= this.TopLeftFrontCoord().getYComponent() && this.TopLeftFrontCoord().getZComponent() <= pZCoord && pZCoord < this.LowerRightBackCoord().getZComponent();
     }
 
-    public boolean Intersects(Cube pCubeToCheck) {
+    public boolean Intersects (Cube pCubeToCheck) {
         return pCubeToCheck.TopLeftFrontCoord().getXComponent() + pCubeToCheck.iWidth > this.TopLeftFrontCoord().getXComponent() && pCubeToCheck.TopLeftFrontCoord().getXComponent() < this.TopLeftFrontCoord().getXComponent() + this.iWidth && pCubeToCheck.TopLeftFrontCoord().getYComponent() + pCubeToCheck.iHeigth > this.TopLeftFrontCoord().getYComponent() && pCubeToCheck.TopLeftFrontCoord().getYComponent() < this.TopLeftFrontCoord().getYComponent() + this.iHeigth && pCubeToCheck.TopLeftFrontCoord().getZComponent() + pCubeToCheck.iDepth > this.TopLeftFrontCoord().getZComponent() && pCubeToCheck.TopLeftFrontCoord().getZComponent() < this.TopLeftFrontCoord().getZComponent() + this.iDepth;
     }
 
-    public AxisAlignedBB BoundingBox() {
+    public AxisAlignedBB BoundingBox () {
         int tDiffX = 1;
         int tDiffY = 1;
         int tDiffZ = 1;
@@ -163,7 +163,7 @@ public class Cube {
         return new AxisAlignedBB(iTopLeftFrontCoord.getXComponent() - tDiffX, iTopLeftFrontCoord.getYComponent() - tDiffY, iTopLeftFrontCoord.getZComponent() - tDiffZ, iLowerRightBackCoord.getXComponent(), iLowerRightBackCoord.getYComponent(), iLowerRightBackCoord.getZComponent());
     }
 
-    public int Contents() {
+    public int Contents () {
         return this.iWidth * this.iHeigth * this.iDepth;
     }
 

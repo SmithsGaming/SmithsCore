@@ -1,4 +1,6 @@
-package com.smithsmodding.smithscore.common.Inventory;
+package com.smithsmodding.smithscore.common.inventory;
+
+import com.smithsmodding.smithscore.client.gui.management.*;
 
 /**
  * Created by Orion

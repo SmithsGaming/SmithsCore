@@ -7,6 +7,7 @@
 package com.smithsmodding.smithscore.network.event.messages;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.events.network.*;
 import io.netty.buffer.*;
 import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;

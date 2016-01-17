@@ -1,12 +1,12 @@
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 
-import com.smithsmodding.smithscore.common.Player.Management.PlayerManager;
-import com.smithsmodding.smithscore.SmithsCore;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayer;
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.player.management.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.relauncher.*;
 
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by Orion

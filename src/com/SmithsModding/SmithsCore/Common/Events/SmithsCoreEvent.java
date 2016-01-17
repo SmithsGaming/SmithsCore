@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.common.Events;
+package com.smithsmodding.smithscore.common.events;
 
 import com.smithsmodding.smithscore.*;
 import net.minecraft.network.*;

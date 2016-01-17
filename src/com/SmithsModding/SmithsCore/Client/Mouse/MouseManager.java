@@ -1,8 +1,8 @@
-package com.smithsmodding.smithscore.client.Mouse;
+package com.smithsmodding.smithscore.client.mouse;
 
-import com.smithsmodding.smithscore.util.Common.Postioning.Coordinate2D;
-import net.minecraftforge.client.event.MouseEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import com.smithsmodding.smithscore.util.common.positioning.*;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 
 /**

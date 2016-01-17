@@ -4,14 +4,14 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 /*
  *   EnumFacingHelper
  *   Created by: Orion
  *   Created on: 13-1-2015
  */
 
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.*;
 
 public class EnumFacingHelper {
     //{DOWN, UP, NORTH, SOUTH, WEST, EAST}

@@ -1,6 +1,6 @@
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by marcf on 12/28/2015.

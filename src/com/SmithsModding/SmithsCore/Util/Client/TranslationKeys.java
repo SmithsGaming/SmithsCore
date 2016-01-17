@@ -1,4 +1,4 @@
-package com.smithsmodding.smithscore.util.Client;
+package com.smithsmodding.smithscore.util.client;
 
 /**
  * Created by Marc on 13.01.2016.

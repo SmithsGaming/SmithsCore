@@ -1,5 +1,9 @@
-package com.smithsmodding.smithscore.client.Events.Models.Block;
+package com.smithsmodding.smithscore.client.events.models.Block;
 
+import com.smithsmodding.smithscore.common.events.network.*;
+import com.smithsmodding.smithscore.common.tileentity.*;
+import com.smithsmodding.smithscore.network.event.*;
+import com.smithsmodding.smithscore.util.common.positioning.*;
 import io.netty.buffer.*;
 import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;

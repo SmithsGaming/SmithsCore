@@ -4,9 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 
-import java.util.HashMap;
+import java.util.*;
 
 public class Pair<K, V> {
     K iObjectOne;

@@ -1,7 +1,8 @@
-package com.smithsmodding.smithscore.common.Proxy;
+package com.smithsmodding.smithscore.common.proxy;
 
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.common.handlers.network.*;
 import net.minecraftforge.fml.relauncher.*;
 
 import java.io.*;
@@ -65,7 +66,7 @@ public class CoreCommonProxy {
      *
      * @return The effective running Side of this proxy
      * @see net.minecraftforge.fml.relauncher.SideOnly
-     * @see com.smithsmodding.smithscore.client.Proxy.CoreClientProxy
+     * @see com.smithsmodding.smithscore.client.proxy.CoreClientProxy
      */
     public Side getEffectiveSide() {
         return Side.SERVER;

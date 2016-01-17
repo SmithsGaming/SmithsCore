@@ -4,9 +4,9 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.Common;
+package com.smithsmodding.smithscore.util.common;
 
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.*;
 
 public class XPUtil {
 

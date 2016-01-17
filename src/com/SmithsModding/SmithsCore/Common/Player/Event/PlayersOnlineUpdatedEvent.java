@@ -4,8 +4,11 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.common.Player.Event;
+package com.smithsmodding.smithscore.common.player.event;
 
+import com.smithsmodding.smithscore.common.events.network.*;
+import com.smithsmodding.smithscore.common.player.management.*;
+import com.smithsmodding.smithscore.util.common.*;
 import io.netty.buffer.*;
 
 import java.util.*;

@@ -4,11 +4,11 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.common.Player.Handlers;
+package com.smithsmodding.smithscore.common.player.handlers;
 
-import com.smithsmodding.smithscore.common.Player.Event.PlayersConnectedUpdatedEvent;
-import com.smithsmodding.smithscore.common.Player.Management.PlayerManager;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import com.smithsmodding.smithscore.common.player.event.*;
+import com.smithsmodding.smithscore.common.player.management.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 
 public class PlayersConnectedUpdatedEventHandler {
 
