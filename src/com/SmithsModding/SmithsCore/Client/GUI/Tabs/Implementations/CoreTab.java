@@ -343,7 +343,17 @@ public abstract class CoreTab implements IGUITab {
      */
     @Override
     public void registerComponents(IGUIBasedComponentHost host) {
+        ITabManager manager = root.getTabManager();
 
+        int tabIndex = manager.getCurrentTabIndex();
+        int selectorIndex = tabIndex % manager.getTabSelectorCount();
+
+        for (int i = 0; i < manager.getTabSelectorCount(); i++) {
+            if (i != selectorIndex)
+            {
+                //Coordinate2D selectorRootCoord = new Coordinate2D()
+            }
+        }
     }
 
     /**

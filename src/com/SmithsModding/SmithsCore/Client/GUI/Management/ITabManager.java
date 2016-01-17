@@ -44,6 +44,47 @@ public interface ITabManager
     LinkedHashMap<String, IGUITab> getTabs();
 
     /**
+     * Method used to get to total tab selector count.
+     *
+     * @return The total amount of tab selectors that could fit on the host.
+     */
+    int getTabSelectorCount();
+
+    /**
+     * Method to get the width of a Tab Selector
+     *
+     * @return The width of a Tab Selector. Vanilla standard is 28.
+     */
+    int getTabSelectorWidth();
+
+    /**
+     * Method to get the height of a Tab Selector.
+     *
+     * @return The height of a Tab Selector. Vanilla standard is 30. Due to border mechanics defailt is 33.
+     */
+    int getTabSelectorHeight();
+
+    /**
+     * Method used to grab the vertical offset for a Tab Selector when he is InActive.
+     *
+     * @return The amount of pixels a InActive Tab Selector is placed lower then a Active one.
+     */
+    int getInActiveSelectorVerticalOffset();
+
+    /**
+     * Method used to get the horizontal offset of the Tab Selectors from the top left corner of the UI.
+     *
+     * @return The horizontal offset of the Selectors.
+     */
+    int getSelectorsHorizontalOffset();
+
+    /**
+     * Method used to get the vertical offset of the Display area of a Ta
+     * @return
+     */
+    int getDisplayAreaVerticalOffset();
+
+    /**
      * Method called when a click outside of the Tab in the TabSelection area occured.
      *
      * @param mouseX The relative X position of the mouse to the top left corner of the first tab selector
