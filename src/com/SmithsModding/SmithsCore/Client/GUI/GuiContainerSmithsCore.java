@@ -11,15 +11,22 @@ import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Ledgers.Core.*;
 import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
 import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Implementations.*;
 import com.SmithsModding.SmithsCore.Common.Inventory.*;
+import com.SmithsModding.SmithsCore.*;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
 import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import com.SmithsModding.SmithsCore.Util.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
 
+import java.awt.*;
 import java.io.*;
 import java.util.*;
+import java.util.List;
 
-public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost{
+public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost, IGUIBasedTabHost {
 
     private boolean isInitialized = false;
     private StandardRenderManager renderer = new StandardRenderManager(this);
@@ -27,7 +34,8 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     private CoreComponentState state = new CoreComponentState(this);
 
     private String uniqueUIID;
-    private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
+
+    private ITabManager tabs;
 
     public GuiContainerSmithsCore(ContainerSmithsCore container) {
         super(container);
@@ -44,7 +52,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     {
         if (!isInitialized)
         {
-            registerComponents(this);
+            registerTabs(this);
             registerLedgers(this);
         }
 
@@ -147,7 +155,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
             component.handleKeyTyped(key);
         }
 
-        for (IGUIComponent component : componentHashMap.values()) {
+        for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
             component.handleKeyTyped(key);
         }
     }
@@ -175,7 +183,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
                 return true;
         }
 
-        for (IGUIComponent component : componentHashMap.values()) {
+        for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
             if (component.requiresForcedMouseInput())
                 return true;
         }
@@ -214,7 +222,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
             }
         }
 
-        for (IGUIComponent component : componentHashMap.values()) {
+        for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
             if (component.requiresForcedMouseInput()) {
                 Coordinate2D location = component.getLocalCoordinate();
                 component.handleMouseClickedOutside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton);
@@ -241,7 +249,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     @Override
     public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        for (IGUIComponent component : componentHashMap.values()) {
+        for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
             Coordinate2D location = component.getLocalCoordinate();
             Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
 
@@ -315,7 +323,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
-        return componentHashMap;
+        return tabs.getCurrentTab().getAllComponents();
     }
 
     @Override
@@ -325,10 +333,13 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public void registerNewComponent (IGUIComponent component) {
-        if (component instanceof IGUIBasedComponentHost)
-            ( (IGUIBasedComponentHost) component ).registerComponents((IGUIBasedComponentHost) component);
+        //Thanks to the dummy tab this method should never be called.
+        //If it ever is called i will redirect it to the active tab if it was set and print a warning.
 
-        componentHashMap.put(component.getID(), component);
+        if (tabs.getCurrentTab() != null)
+            tabs.getCurrentTab().registerNewComponent(component);
+
+        SmithsCore.getLogger().warn(CoreReferences.LogMarkers.RENDER, "Tried to register a component on the UI it self. This should be impossible!");
     }
 
     @Override
@@ -408,5 +419,46 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public ILedgerManager getLedgerManager () {
         return ledgers;
+    }
+
+    /**
+     * Method called by the gui system to initialize this tab host.
+     *
+     * @param host The host for the tabs.
+     */
+    @Override
+    public void registerTabs (IGUIBasedTabHost host) {
+        registerNewTab(new DummyTab(getID() + ".Dummy", this, new CoreComponentState(), null, new MinecraftColor(Color.white), ""));
+    }
+
+    /**
+     * Method used to register a new Tab to this Host. Should be called from the registerTabs method to handle sub
+     * component init properly.
+     *
+     * @param tab The new Tab to register.
+     */
+    @Override
+    public void registerNewTab (IGUITab tab) {
+        tabs.registerNewTab(tab);
+    }
+
+    /**
+     * Method to get the TabManager to handle Tab Interactions.
+     *
+     * @return The current TabManager for this host.
+     */
+    @Override
+    public ITabManager getTabManager () {
+        return tabs;
+    }
+
+    /**
+     * Function used to register the sub components of this ComponentHost
+     *
+     * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
+     */
+    @Override
+    public void registerComponents (IGUIBasedComponentHost host) {
+        SmithsCore.getLogger().warn(CoreReferences.LogMarkers.RENDER, "Created a UI without components.");
     }
 }

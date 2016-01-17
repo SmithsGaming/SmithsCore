@@ -1,20 +1,18 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Tabs.Implementations;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.IGUIComponent;
-import com.SmithsModding.SmithsCore.Client.GUI.GuiContainerSmithsCore;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedComponentHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedTabHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.IGUIManager;
-import com.SmithsModding.SmithsCore.Client.GUI.Management.ITabManager;
-import com.SmithsModding.SmithsCore.Client.GUI.State.IGUIComponentState;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.IGUITab;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Coordinate2D;
-import com.SmithsModding.SmithsCore.Util.Common.Postioning.Plane;
-import net.minecraft.item.ItemStack;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Core.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Components.Implementations.*;
+import com.SmithsModding.SmithsCore.Client.GUI.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Management.*;
+import com.SmithsModding.SmithsCore.Client.GUI.State.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.*;
+import com.SmithsModding.SmithsCore.Util.Client.Color.*;
+import com.SmithsModding.SmithsCore.Util.Common.Postioning.*;
+import net.minecraft.item.*;
 import scala.actors.threadpool.Arrays;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Created by marcf on 1/17/2016.
@@ -28,7 +26,19 @@ public abstract class CoreTab implements IGUITab {
     LinkedHashMap<String, IGUIComponent> components = new LinkedHashMap<String, IGUIComponent>();
 
     ItemStack displayStack;
+    MinecraftColor tabColor;
     String toolTipString;
+
+    public CoreTab (String uniqueID, IGUIBasedTabHost root, IGUIComponentState state, ItemStack displayStack, MinecraftColor tabColor, String toolTipString) {
+        this.uniqueID = uniqueID;
+        this.root = root;
+        this.state = state;
+        this.displayStack = displayStack;
+        this.tabColor = tabColor;
+        this.toolTipString = toolTipString;
+
+        this.state.setComponent(this);
+    }
 
     /**
      * Method to get the Host of this Tab
@@ -43,6 +53,16 @@ public abstract class CoreTab implements IGUITab {
     @Override
     public ItemStack getDisplayStack() {
         return displayStack;
+    }
+
+    /**
+     * Method to get the tabs color.
+     *
+     * @return The tabs color.
+     */
+    @Override
+    public MinecraftColor getTabColor () {
+        return null;
     }
 
     /**
@@ -299,6 +319,18 @@ public abstract class CoreTab implements IGUITab {
         return true;
     }
 
+    /**
+     * Function called when a Key is typed.
+     *
+     * @param key The key that was typed.
+     */
+    @Override
+    public void handleKeyTyped (char key) {
+        for (IGUIComponent component : components.values()) {
+            component.handleKeyTyped(key);
+        }
+    }
+
     @Override
     public ArrayList<String> getToolTipContent() {
         return new ArrayList<String>();
@@ -325,18 +357,6 @@ public abstract class CoreTab implements IGUITab {
     }
 
     /**
-     * Function called when a Key is typed.
-     *
-     * @param key The key that was typed.
-     */
-    @Override
-    public void handleKeyTyped (char key) {
-        for (IGUIComponent component : components.values()) {
-            component.handleKeyTyped(key);
-        }
-    }
-
-    /**
      * Function used to register the sub components of this ComponentHost
      *
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
@@ -348,12 +368,44 @@ public abstract class CoreTab implements IGUITab {
         int tabIndex = manager.getCurrentTabIndex();
         int selectorIndex = tabIndex % manager.getTabSelectorCount();
 
-        for (int i = 0; i < manager.getTabSelectorCount(); i++) {
+        for (int i = tabIndex - selectorIndex; i < tabIndex - selectorIndex + manager.getTabSelectorCount(); i++) {
             if (i != selectorIndex)
             {
-                //Coordinate2D selectorRootCoord = new Coordinate2D()
+                final IGUITab tab = manager.getTabFromSelectorIndex(i);
+
+                Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * ( i - tabIndex - selectorIndex ), manager.getInActiveSelectorVerticalOffset());
+                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", host, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(tab.getTabColor().darker()), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+
+                int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
+                ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + i + ".Display", host, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
+                    @Override
+                    public ArrayList<String> getToolTipContent () {
+                        return tab.getToolTipContent();
+                    }
+                };
+
+                registerNewComponent(inActiveBorder);
+                registerNewComponent(selectorDisplay);
             }
         }
+
+        registerTabComponents(host);
+
+        final IGUITab tab = manager.getTabFromSelectorIndex(selectorIndex);
+
+        Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * selectorIndex, manager.getInActiveSelectorVerticalOffset());
+        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", host, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+
+        int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
+        ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + selectorIndex + ".Display", host, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
+            @Override
+            public ArrayList<String> getToolTipContent () {
+                return tab.getToolTipContent();
+            }
+        };
+
+        registerNewComponent(activeBorder);
+        registerNewComponent(selectorDisplay);
     }
 
     /**

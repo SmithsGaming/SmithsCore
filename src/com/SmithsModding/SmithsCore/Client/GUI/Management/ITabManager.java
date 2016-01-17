@@ -1,10 +1,9 @@
 package com.SmithsModding.SmithsCore.Client.GUI.Management;
 
-import com.SmithsModding.SmithsCore.Client.GUI.Host.IGUIBasedTabHost;
-import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.IGUITab;
+import com.SmithsModding.SmithsCore.Client.GUI.Host.*;
+import com.SmithsModding.SmithsCore.Client.GUI.Tabs.Core.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Created by marcf on 1/15/2016.
@@ -35,6 +34,22 @@ public interface ITabManager
      * @return The index of the currently displayed Index.
      */
     int getCurrentTabIndex();
+
+    /**
+     * Method used to get the tab from a Selector index.
+     *
+     * @param selectorIndex The index you want the tab for.
+     *
+     * @return The tab for the requested selector index.
+     */
+    IGUITab getTabFromSelectorIndex (int selectorIndex);
+
+    /**
+     * Method used to register a new Tab
+     *
+     * @param newTab The new tab.
+     */
+    void registerNewTab (IGUITab newTab);
 
     /**
      * Method used to retrieve all the possible Tabs for this TabManager.
