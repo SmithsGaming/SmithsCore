@@ -227,7 +227,46 @@ public abstract class CoreTab implements IGUITab {
      */
     @Override
     public void drawBackground(int mouseX, int mouseY) {
-        //NOOP
+        ITabManager manager = root.getTabManager();
+
+        int tabIndex = manager.getCurrentTabIndex();
+        int selectorIndex = tabIndex % manager.getTabSelectorCount();
+
+        for (int i = tabIndex - selectorIndex; i < tabIndex - selectorIndex + manager.getTabSelectorCount(); i++) {
+            if (i != selectorIndex) {
+                final IGUITab tab = manager.getTabFromSelectorIndex(i);
+
+                Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * ( i - tabIndex - selectorIndex ), manager.getInActiveSelectorVerticalOffset());
+                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(tab.getTabColor().darker()), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+
+                int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
+                ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + i + ".Display", this, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
+                    @Override
+                    public ArrayList<String> getToolTipContent () {
+                        return tab.getToolTipContent();
+                    }
+                };
+
+                getRootGuiObject().getRenderManager().renderBackgroundComponent(inActiveBorder, getState().isEnabled());
+                getRootGuiObject().getRenderManager().renderBackgroundComponent(selectorDisplay, getState().isEnabled());
+            }
+        }
+
+        final IGUITab tab = manager.getTabFromSelectorIndex(selectorIndex);
+
+        Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * selectorIndex, manager.getInActiveSelectorVerticalOffset());
+        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+
+        int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
+        ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + selectorIndex + ".Display", this, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
+            @Override
+            public ArrayList<String> getToolTipContent () {
+                return tab.getToolTipContent();
+            }
+        };
+
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(activeBorder, getState().isEnabled());
+        getRootGuiObject().getRenderManager().renderBackgroundComponent(selectorDisplay, getState().isEnabled());
     }
 
     /**
@@ -356,62 +395,10 @@ public abstract class CoreTab implements IGUITab {
         root.setManager(newManager);
     }
 
-    /**
-     * Function used to register the sub components of this ComponentHost
-     *
-     * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
+    /*
+
+
+
+
      */
-    @Override
-    public void registerComponents(IGUIBasedComponentHost host) {
-        ITabManager manager = root.getTabManager();
-
-        int tabIndex = manager.getCurrentTabIndex();
-        int selectorIndex = tabIndex % manager.getTabSelectorCount();
-
-        for (int i = tabIndex - selectorIndex; i < tabIndex - selectorIndex + manager.getTabSelectorCount(); i++) {
-            if (i != selectorIndex)
-            {
-                final IGUITab tab = manager.getTabFromSelectorIndex(i);
-
-                Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * ( i - tabIndex - selectorIndex ), manager.getInActiveSelectorVerticalOffset());
-                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", host, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(tab.getTabColor().darker()), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
-
-                int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
-                ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + i + ".Display", host, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
-                    @Override
-                    public ArrayList<String> getToolTipContent () {
-                        return tab.getToolTipContent();
-                    }
-                };
-
-                registerNewComponent(inActiveBorder);
-                registerNewComponent(selectorDisplay);
-            }
-        }
-
-        registerTabComponents(host);
-
-        final IGUITab tab = manager.getTabFromSelectorIndex(selectorIndex);
-
-        Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * selectorIndex, manager.getInActiveSelectorVerticalOffset());
-        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", host, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
-
-        int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
-        ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + selectorIndex + ".Display", host, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
-            @Override
-            public ArrayList<String> getToolTipContent () {
-                return tab.getToolTipContent();
-            }
-        };
-
-        registerNewComponent(activeBorder);
-        registerNewComponent(selectorDisplay);
-    }
-
-    /**
-     * Method used by the Tab system to make sure that the tabs register their components properly.
-     *
-     * @param host The host for this tabs components.
-     */
-    protected abstract void registerTabComponents(IGUIBasedComponentHost host);
 }

@@ -56,4 +56,6 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost {
      * @return THe right left ledger offset
      */
     int getLeftLedgerOffSet ();
+
+    int getVerticalLedgerOffset ();
 }

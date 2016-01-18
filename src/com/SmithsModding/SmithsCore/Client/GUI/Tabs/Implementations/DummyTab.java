@@ -15,12 +15,12 @@ public class DummyTab extends CoreTab {
     }
 
     /**
-     * Method used by the Tab system to make sure that the tabs register their components properly.
+     * Function used to register the sub components of this ComponentHost
      *
-     * @param host The host for this tabs components.
+     * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    protected void registerTabComponents (IGUIBasedComponentHost host) {
+    public void registerComponents (IGUIBasedComponentHost host) {
         getRootGuiObject().registerComponents(this);
     }
 }

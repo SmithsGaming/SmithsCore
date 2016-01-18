@@ -1,17 +1,14 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.SmithsCore;
-import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedLedgerHost;
-import com.smithsmodding.smithscore.client.gui.legders.core.IGUILedger;
-import com.smithsmodding.smithscore.client.gui.legders.core.LedgerConnectionSide;
-import com.smithsmodding.smithscore.client.gui.state.LedgerComponentState;
-import com.smithsmodding.smithscore.util.CoreReferences;
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.*;
 import com.smithsmodding.smithscore.util.common.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Created by Marc on 09.01.2016.
@@ -80,7 +77,7 @@ public class StandardLedgerManager implements ILedgerManager {
         }
 
         Iterator<String> iterator = ledgers.keySet().iterator();
-        Coordinate2D root = new Coordinate2D(horizontalOffset, 4);
+        Coordinate2D root = new Coordinate2D(horizontalOffset, getHost().getVerticalLedgerOffset());
 
         String key, last;
 

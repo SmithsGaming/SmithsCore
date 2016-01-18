@@ -22,6 +22,13 @@ public interface ITabManager
     IGUIBasedTabHost getHost();
 
     /**
+     * Method called by the Host.
+     *
+     * To notify the Manager that all tabs have been registered.
+     */
+    void onTabRegistrationComplete ();
+
+    /**
      * Method used to get the currently displayed Tab.
      *
      * @return The currently displayed Tab.
@@ -75,7 +82,7 @@ public interface ITabManager
     /**
      * Method to get the height of a Tab Selector.
      *
-     * @return The height of a Tab Selector. Vanilla standard is 30. Due to border mechanics defailt is 33.
+     * @return The height of a Tab Selector. Vanilla standard is 30. Due to border mechanics default is 33.
      */
     int getTabSelectorHeight();
 
@@ -100,13 +107,9 @@ public interface ITabManager
     int getDisplayAreaVerticalOffset();
 
     /**
-     * Method called when a click outside of the Tab in the TabSelection area occured.
+     * Method to set the currently displayed tab.
      *
-     * @param mouseX The relative X position of the mouse to the top left corner of the first tab selector
-     * @param mouseY The relative Y position of the mouse to the top left corner of the first tab selector
-     *
+     * @param tab The tab to be displayed.
      */
-    boolean handleClickOutsideTab(int mouseX, int mouseY, int mouseButton);
-
-
+    void setActiveTab (IGUITab tab);
 }

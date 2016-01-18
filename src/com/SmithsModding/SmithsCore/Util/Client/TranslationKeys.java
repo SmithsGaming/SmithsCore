@@ -7,6 +7,6 @@ public class TranslationKeys {
 
     public class GUI {
 
-        public static final String PROGRESS = "smithscore.gui.components.ProgressBar.ToolTip";
+        public static final String PROGRESS = "SmithsCore.GUI.Components.ProgressBar.ToolTip";
     }
 }

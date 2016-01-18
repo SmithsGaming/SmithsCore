@@ -35,7 +35,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     private String uniqueUIID;
 
-    private ITabManager tabs;
+    private ITabManager tabs = new StandardTabManager(this);
 
     public GuiContainerSmithsCore(ContainerSmithsCore container) {
         super(container);
@@ -53,6 +53,8 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         if (!isInitialized)
         {
             registerTabs(this);
+            tabs.onTabRegistrationComplete();
+
             registerLedgers(this);
         }
 
@@ -366,6 +368,11 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public int getLeftLedgerOffSet() {
         return 0;
+    }
+
+    @Override
+    public int getVerticalLedgerOffset () {
+        return tabs.getTabs().size() > 2 ? tabs.getDisplayAreaVerticalOffset() + 4 : 4;
     }
 
     @Override
