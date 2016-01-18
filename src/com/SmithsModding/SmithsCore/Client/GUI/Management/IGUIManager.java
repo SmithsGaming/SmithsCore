@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
+import net.minecraftforge.fluids.*;
 
 import java.util.*;
 
@@ -35,4 +36,8 @@ public interface IGUIManager
      * @return A float between 0 and 1 with 0 meaning no progress on the specific bar and 1 meaning full.
      */
     float getProgressBarValue (IGUIComponent component);
+
+    ArrayList<FluidStack> getTankContents (IGUIComponent component);
+
+    int getTotalTankContents (IGUIComponent component);
 }
