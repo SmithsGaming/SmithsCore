@@ -9,7 +9,7 @@ import java.util.*;
 
 
 /**
- * Color Sampler to retrieve Colors from a ItemStack as well as converting a Color to the Minecraft Chat
+ * color Sampler to retrieve Colors from a ItemStack as well as converting a color to the Minecraft Chat
  * equivalent.
  *
  * Created by Orion
@@ -27,7 +27,7 @@ public class ColorSampler {
     private static HashMap<MinecraftColor, EnumChatFormatting> iMappedColors;
 
     /**
-     * Function used to initialize the Color to formatting cache.
+     * Function used to initialize the color to formatting cache.
      * <p/>
      * It leaves black out, cause all conversions will else return Black.
      */
@@ -75,7 +75,7 @@ public class ColorSampler {
      * See Through pixels (with alpha value = 0) will be skipped.
      *
      * @param pixelData The Image to analyze
-     * @return A Minecraft Color that is the average RGB value of the Pixels in the Image with its Alpha value being 255
+     * @return A Minecraft color that is the average RGB value of the Pixels in the Image with its Alpha value being 255
      */
     public static MinecraftColor calculateAverageMinecraftColor(int[][] pixelData) {
         long tSumR = 0, tSumG = 0, tSumB = 0;
@@ -108,7 +108,7 @@ public class ColorSampler {
 
     /**
      * Attempt to convert a given MinecraftColor to the closest EnumChatFormatting.
-     * It uses the VectorCalculation system to determine which Color in the EnumChatFormatting describes the given source
+     * It uses the VectorCalculation system to determine which color in the EnumChatFormatting describes the given source
      * the best.
      *
      * @param pSource The Source color for the Conversion
@@ -162,14 +162,14 @@ public class ColorSampler {
     /**
      * Calculates the distance between two Colors.
      *
-     * It determines which of the RGB Channels is by far the strongest in the First Color and then creates and abstract
+     * It determines which of the RGB Channels is by far the strongest in the First color and then creates and abstract
      * numerical distance between the two Colors.
      *
      * I once knew why this works, but not anymore. Yet it works for the conversion from MinecraftColor to EnumChat-
      * Formatting so i am keeping it. :D
      *
-     * @param pMinecraftColor1 Color 1
-     * @param pMinecraftColor2 Color 2
+     * @param pMinecraftColor1 color 1
+     * @param pMinecraftColor2 color 2
      * @return The Distance in Double that describes the distance between two colors.
      */
     private static double MinecraftColorDistance(MinecraftColor pMinecraftColor1, MinecraftColor pMinecraftColor2) {

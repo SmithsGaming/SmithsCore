@@ -1,14 +1,17 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.legders.core.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedLedgerHost;
+import com.smithsmodding.smithscore.client.gui.legders.core.IGUILedger;
+import com.smithsmodding.smithscore.client.gui.legders.core.LedgerConnectionSide;
+import com.smithsmodding.smithscore.client.gui.state.LedgerComponentState;
+import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Marc on 09.01.2016.

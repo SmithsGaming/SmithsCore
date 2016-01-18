@@ -334,7 +334,7 @@ public final class GuiHelper {
     /**
      * Draws a colored rectangle over the given plane.
      *
-     * @param pPlane  The plane to cover in the Color on the Screen
+     * @param pPlane  The plane to cover in the color on the Screen
      * @param pZKoord The Z-Level to render on.
      * @param pColor  The color to render.
      */

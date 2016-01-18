@@ -173,7 +173,7 @@ public class MinecraftColor extends Color {
     }
 
     /**
-     * Constructor used to convert a standard Color into a MinecraftColor
+     * Constructor used to convert a standard color into a MinecraftColor
      *
      * @param original The standard color.
      */
@@ -182,7 +182,7 @@ public class MinecraftColor extends Color {
     }
 
     /**
-     * Convenient function to reset the Color in the GL Buffer to the Default.
+     * Convenient function to reset the color in the GL Buffer to the Default.
      */
     public static final void resetOpenGLColoring () {
         GlStateManager.color(1F, 1F, 1F, 1F);
@@ -191,7 +191,7 @@ public class MinecraftColor extends Color {
     /**
      * Function to get the Red value in Float.
      *
-     * @return A Float between 0 and 1.0 indicating the state of the Red Channel in this Color
+     * @return A Float between 0 and 1.0 indicating the state of the Red Channel in this color
      */
     public float getRedFloat ()
     {
@@ -201,7 +201,7 @@ public class MinecraftColor extends Color {
     /**
      * Function to get the Green value in Float.
      *
-     * @return A Float between 0 and 1.0 indicating the state of the Green Channel in this Color
+     * @return A Float between 0 and 1.0 indicating the state of the Green Channel in this color
      */
     public float getGreenFloat ()
     {
@@ -211,7 +211,7 @@ public class MinecraftColor extends Color {
     /**
      * Function to get the Blue value in Float.
      *
-     * @return A Float between 0 and 1.0 indicating the state of the Blue Channel in this Color
+     * @return A Float between 0 and 1.0 indicating the state of the Blue Channel in this color
      */
     public float getBlueFloat ()
     {
@@ -221,14 +221,14 @@ public class MinecraftColor extends Color {
     /**
      * Function to get the Alpha value in Float.
      *
-     * @return A Float between 0 and 1.0 indicating the state of the Alpha Channel in this Color
+     * @return A Float between 0 and 1.0 indicating the state of the Alpha Channel in this color
      */
     public float getAlphaFloat () {
         return getAlpha() / 255F;
     }
 
     /**
-     * Convenient Function to perform Coloring of the GL buffer in this Color.
+     * Convenient Function to perform Coloring of the GL buffer in this color.
      */
     public void performOpenGLColoring() {
         GlStateManager.color(getRed() / 255F, getGreen() / 255F, getBlue() / 255F, getAlpha() / 255F);
@@ -237,7 +237,7 @@ public class MinecraftColor extends Color {
     /**
      * Calculates the Angle of two Colors in Degrees, can be used to determine which color is closer to a third color.
      *
-     * @return A Angle in 360 Degrees describing the color on the Adobe Color wheel.
+     * @return A Angle in 360 Degrees describing the color on the Adobe color wheel.
      */
     public double getAngleInDegrees() {
         Vector2d tRedVec = new Vector2d(getRed() * Math.cos(Math.toRadians(0)), getRed() * Math.sin(Math.toRadians(0)));

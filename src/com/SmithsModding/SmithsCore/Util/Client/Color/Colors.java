@@ -12,7 +12,7 @@ package com.smithsmodding.smithscore.util.client.color;
 */
 
 /**
- * General Color Dictionary for smithsmodding
+ * General color Dictionary for smithsmodding
  */
 public final class Colors {
     //White
@@ -37,7 +37,7 @@ public final class Colors {
     }
 
     /**
-     * Color Dictionary for Rendering Experience.
+     * color Dictionary for Rendering Experience.
      */
     public static class Experience {
         public static MinecraftColor ORB = new MinecraftColor(189, 255, 0);

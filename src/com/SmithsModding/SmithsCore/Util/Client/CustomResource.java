@@ -55,26 +55,26 @@ public class CustomResource {
     }
 
     /**
-     * Special Constructor for a resource with Color
+     * Special Constructor for a resource with color
      *
      * @param pInternalName The ID used to identify this Resource.
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon.
      * @param pModelLocation The Texturelocation for the second resource. Usually this is the location of the Modeltexture.
-     * @param pRed The Red Channel for the Color (0-255)
-     * @param pGreen The Green Channel for the Color (0-255)
-     * @param pBlue The Blue Channel for the Color (0-255)
+     * @param pRed The Red Channel for the color (0-255)
+     * @param pGreen The Green Channel for the color (0-255)
+     * @param pBlue The Blue Channel for the color (0-255)
      */
     public CustomResource(String pInternalName, String pIconLocation, String pModelLocation, int pRed, int pGreen, int pBlue) {
         this(pInternalName, pIconLocation, pModelLocation, new MinecraftColor(pRed, pGreen, pBlue));
     }
 
     /**
-     * Special Constructor for a resource with Color
+     * Special Constructor for a resource with color
      *
      * @param pInternalName The ID used to identify this Resource.
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon.
      * @param pModelLocation The Texturelocation for the second resource. Usually this is the location of the Modeltexture.
-     * @param pColor The MinecraftColor instance used as Color.
+     * @param pColor The MinecraftColor instance used as color.
      */
     public CustomResource(String pInternalName, String pIconLocation, String pModelLocation, MinecraftColor pColor) {
         iInternalName = pInternalName;
@@ -84,24 +84,24 @@ public class CustomResource {
     }
 
     /**
-     * Special Constructor for a single texture resource with Color
+     * Special Constructor for a single texture resource with color
      *
      * @param pInternalName The ID used to identify this Resource.
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon.
-     * @param pRed The Red Channel for the Color (0-255)
-     * @param pGreen The Green Channel for the Color (0-255)
-     * @param pBlue The Blue Channel for the Color (0-255)
+     * @param pRed The Red Channel for the color (0-255)
+     * @param pGreen The Green Channel for the color (0-255)
+     * @param pBlue The Blue Channel for the color (0-255)
      */
     public CustomResource(String pInternalName, String pIconLocation, int pRed, int pGreen, int pBlue) {
         this(pInternalName, pIconLocation, new MinecraftColor(pRed, pGreen, pBlue));
     }
 
     /**
-     * Special Constructor for a single texture resource with Color
+     * Special Constructor for a single texture resource with color
      *
      * @param pInternalName The ID used to identify this Resource.
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon.
-     * @param pColor The MinecraftColor instance used as Color.
+     * @param pColor The MinecraftColor instance used as color.
      */
     public CustomResource(String pInternalName, String pIconLocation, MinecraftColor pColor) {
         this(pInternalName, pIconLocation, "", pColor);
@@ -127,7 +127,7 @@ public class CustomResource {
      *
      * @param pInternalName The ID used to identify this Resource.
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon, but in this case it would be the gui parts texture location
-     * @param pColor The MinecraftColor instance used as Color.
+     * @param pColor The MinecraftColor instance used as color.
      * @param pLeft The U Index inside the texture file
      * @param pTop The V Index inside the texture file
      * @param pWidth The width of the Resource
@@ -227,9 +227,9 @@ public class CustomResource {
     }
 
     /**
-     * Holds the Color used to color grayscaled textures.
+     * Holds the color used to color grayscaled textures.
      *
-     * @return The Color for rendering grayscaled textures.
+     * @return The color for rendering grayscaled textures.
      */
     public MinecraftColor getColor() {
         return iColor;
