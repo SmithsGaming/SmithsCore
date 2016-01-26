@@ -116,6 +116,29 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     }
 
     @Override
+    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex) {
+        ItemStack newItemStack = null;
+        Slot slot = (Slot) inventorySlots.get(slotIndex);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemStack = slot.getStack();
+            newItemStack = itemStack.copy();
+            if (slotIndex < containerInventory.getSizeInventory()) {
+                if (!this.mergeItemStack(itemStack, containerInventory.getSizeInventory(), inventorySlots.size(), false)) {
+                    return null;
+                }
+            } else if (!this.mergeItemStack(itemStack, 0, containerInventory.getSizeInventory(), false)) {
+                return null;
+            }
+            if (itemStack.stackSize == 0) {
+                slot.putStack(null);
+            } else {
+                slot.onSlotChanged();
+            }
+        }
+        return newItemStack;
+    }
+
+    @Override
     protected boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
         boolean slotFound = false;
         int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
