@@ -42,7 +42,6 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         setState(initialState);
     }
 
-
     @Override
     public void readFromNBT (NBTTagCompound compound) {
         super.readFromNBT(compound);

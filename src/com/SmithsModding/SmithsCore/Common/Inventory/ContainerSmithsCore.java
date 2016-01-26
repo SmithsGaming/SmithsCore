@@ -3,8 +3,10 @@ package com.smithsmodding.smithscore.common.inventory;
 import com.smithsmodding.smithscore.*;
 import com.smithsmodding.smithscore.client.events.gui.*;
 import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.util.common.ItemStackHelper;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by Orion
@@ -26,7 +28,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     private IInventory containerInventory;
     private IInventory playerInventory;
 
-    public ContainerSmithsCore (String containerID, IContainerHost host, IInventory containerInventory, EntityPlayer playerMP) {
+    public ContainerSmithsCore(String containerID, IContainerHost host, IInventory containerInventory, EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host, this);
@@ -47,7 +49,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
      * @param playerIn
      */
     @Override
-    public void onContainerClosed (EntityPlayer playerIn) {
+    public void onContainerClosed(EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
         this.manager.onGUIClosed(playerIn.getUniqueID());
@@ -72,7 +74,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     }
 
     @Override
-    public boolean isRemote () {
+    public boolean isRemote() {
         return host.isRemote();
     }
 
@@ -96,16 +98,68 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         manager = newManager;
     }
 
-    public IInventory getContainerInventory () {
+    public IInventory getContainerInventory() {
         return containerInventory;
     }
 
-    public IInventory getPlayerInventory () {
+    public IInventory getPlayerInventory() {
         return playerInventory;
     }
 
-    public void onTabChanged (String newActiveTabID) {
+    public void onTabChanged(String newActiveTabID) {
         return;
     }
 
+    @Override
+    public boolean canInteractWith(EntityPlayer playerIn) {
+        return true;
+    }
+
+    @Override
+    protected boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
+        boolean slotFound = false;
+        int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
+        Slot slot;
+        ItemStack stackInSlot;
+        if (itemStack.isStackable()) {
+            while (itemStack.stackSize > 0 && (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin)) {
+                slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+                stackInSlot = slot.getStack();
+                if (slot.isItemValid(itemStack) && ItemStackHelper.equalsIgnoreStackSize(itemStack, stackInSlot)) {
+                    int combinedStackSize = stackInSlot.stackSize + itemStack.stackSize;
+                    int slotStackSizeLimit = Math.min(stackInSlot.getMaxStackSize(), slot.getSlotStackLimit());
+                    if (combinedStackSize <= slotStackSizeLimit) {
+                        itemStack.stackSize = 0;
+                        stackInSlot.stackSize = combinedStackSize;
+                        slot.onSlotChanged();
+                        slotFound = true;
+                    } else if (stackInSlot.stackSize < slotStackSizeLimit) {
+                        itemStack.stackSize -= slotStackSizeLimit - stackInSlot.stackSize;
+                        stackInSlot.stackSize = slotStackSizeLimit;
+                        slot.onSlotChanged();
+                        slotFound = true;
+                    }
+                }
+                currentSlotIndex += ascending ? -1 : 1;
+            }
+        }
+        if (itemStack.stackSize > 0) {
+            currentSlotIndex = ascending ? slotMax - 1 : slotMin;
+            while (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin) {
+                slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+                stackInSlot = slot.getStack();
+                if (slot.isItemValid(itemStack) && stackInSlot == null) {
+                    slot.putStack(ItemStackHelper.cloneItemStack(itemStack, Math.min(itemStack.stackSize, slot.getSlotStackLimit())));
+                    slot.onSlotChanged();
+                    if (slot.getStack() != null) {
+                        itemStack.stackSize -= slot.getStack().stackSize;
+                        slotFound = true;
+                    }
+                    break;
+                }
+                currentSlotIndex += ascending ? -1 : 1;
+            }
+        }
+        return slotFound;
+    }
 }
