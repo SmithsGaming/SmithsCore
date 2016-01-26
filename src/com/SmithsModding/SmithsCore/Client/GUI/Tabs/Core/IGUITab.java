@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.tabs.core;
 
 import com.smithsmodding.smithscore.client.gui.hosts.*;
+import com.smithsmodding.smithscore.client.gui.management.*;
 import com.smithsmodding.smithscore.util.client.color.*;
 import net.minecraft.item.*;
 
@@ -18,6 +19,13 @@ public interface IGUITab extends IGUIBasedComponentHost
      * @return The current tabs host.
      */
     IGUIBasedTabHost getTabHost();
+
+    /**
+     * Method to get this tabs TabManger.
+     *
+     * @return The TabManager of this Tab.
+     */
+    ITabManager getTabManager ();
 
     /**
      * Method to get the display stack.

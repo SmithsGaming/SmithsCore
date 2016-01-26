@@ -37,7 +37,28 @@ public interface IGUIManager
      */
     float getProgressBarValue (IGUIComponent component);
 
+    /**
+     * Method used by components to get the Fluids to display
+     *
+     * @param component The component that is requesting the Fluids
+     *
+     * @return The Fluids to display.
+     */
     ArrayList<FluidStack> getTankContents (IGUIComponent component);
 
+    /**
+     * Method used by components to get the total fluid amount they can display, used for scaling.
+     *
+     * @param component The component requesting the total fluid amount
+     *
+     * @return Total fluid amount to display. Used for scaling.
+     */
     int getTotalTankContents (IGUIComponent component);
+
+    /**
+     * Method called by GUI's that are tab based when the active Tab changed.
+     *
+     * @param newActiveTabId The new active Tabs ID.
+     */
+    void onTabChanged (String newActiveTabId);
 }

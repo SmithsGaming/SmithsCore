@@ -9,6 +9,8 @@ import com.smithsmodding.smithscore.client.gui.state.*;
 import com.smithsmodding.smithscore.client.gui.tabs.core.*;
 import com.smithsmodding.smithscore.util.client.color.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
+import net.minecraft.client.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.item.*;
 import scala.actors.threadpool.Arrays;
 
@@ -50,6 +52,16 @@ public abstract class CoreTab implements IGUITab {
         return root;
     }
 
+    /**
+     * Method to get this tabs TabManger.
+     *
+     * @return The TabManager of this Tab.
+     */
+    @Override
+    public ITabManager getTabManager () {
+        return getTabHost().getTabManager();
+    }
+
     @Override
     public ItemStack getDisplayStack() {
         return displayStack;
@@ -62,7 +74,7 @@ public abstract class CoreTab implements IGUITab {
      */
     @Override
     public MinecraftColor getTabColor () {
-        return null;
+        return tabColor;
     }
 
     /**
@@ -173,7 +185,7 @@ public abstract class CoreTab implements IGUITab {
         if (manager.getTabs().size() > 2)
             return new Coordinate2D(0,0);
 
-        else return new Coordinate2D(0, 30);
+        else return new Coordinate2D(0, manager.getTabSelectorHeight() - 3);
     }
 
     /**
@@ -236,8 +248,8 @@ public abstract class CoreTab implements IGUITab {
             if (i != selectorIndex) {
                 final IGUITab tab = manager.getTabFromSelectorIndex(i);
 
-                Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * ( i - tabIndex - selectorIndex ), manager.getInActiveSelectorVerticalOffset());
-                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(tab.getTabColor().darker()), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+                Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * i, manager.getInActiveSelectorVerticalOffset()).getTranslatedCoordinate(new Coordinate2D(0, -1 * ( manager.getTabSelectorHeight() + 1 ))).getTranslatedCoordinate(new Coordinate2D(0, manager.getInActiveSelectorVerticalOffset()));
+                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(new MinecraftColor(tab.getTabColor()).darker()), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
 
                 int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
                 ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + i + ".Display", this, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
@@ -249,15 +261,21 @@ public abstract class CoreTab implements IGUITab {
 
                 getRootGuiObject().getRenderManager().renderBackgroundComponent(inActiveBorder, getState().isEnabled());
                 getRootGuiObject().getRenderManager().renderBackgroundComponent(selectorDisplay, getState().isEnabled());
+
+                if (selectorDisplay.getAreaOccupiedByComponent().ContainsCoordinate(mouseX, mouseY)) {
+                    GlStateManager.translate(0, 0, 5);
+                    getRootGuiObject().drawHoveringText(tab.getToolTipContent(), mouseX + 4, mouseY + 4, Minecraft.getMinecraft().fontRendererObj);
+                    GlStateManager.translate(0, 0, -5);
+                }
             }
         }
 
         final IGUITab tab = manager.getTabFromSelectorIndex(selectorIndex);
 
-        Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * selectorIndex, manager.getInActiveSelectorVerticalOffset());
-        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+        Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * selectorIndex, manager.getInActiveSelectorVerticalOffset()).getTranslatedCoordinate(new Coordinate2D(0, -1 * ( manager.getTabSelectorHeight() + 1 )));
+        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Outwarts);
 
-        int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
+        int displayOffset = ( activeBorder.getSize().getWidth() - 16 ) / 2;
         ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + selectorIndex + ".Display", this, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
             @Override
             public ArrayList<String> getToolTipContent () {
@@ -265,8 +283,25 @@ public abstract class CoreTab implements IGUITab {
             }
         };
 
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(0, 0, 2);
+
         getRootGuiObject().getRenderManager().renderBackgroundComponent(activeBorder, getState().isEnabled());
         getRootGuiObject().getRenderManager().renderBackgroundComponent(selectorDisplay, getState().isEnabled());
+
+        GlStateManager.translate(0, 0, -2);
+        GlStateManager.popMatrix();
+
+        /*
+        TODO: Fix tooltip drawing on TabSelectors.
+
+        if (selectorDisplay.getAreaOccupiedByComponent().ContainsCoordinate(mouseX, mouseY))
+        {
+            GlStateManager.translate(0,0,5);
+            getRootGuiObject().drawHoveringText(tab.getToolTipContent(), mouseX + 4, mouseY + 4, Minecraft.getMinecraft().fontRendererObj);
+            GlStateManager.translate(0,0,-5);
+        }
+        */
     }
 
     /**
@@ -343,8 +378,18 @@ public abstract class CoreTab implements IGUITab {
      */
     @Override
     public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        if (relativeMouseY < getTabManager().getDisplayAreaVerticalOffset() && relativeMouseX > getTabManager().getSelectorsHorizontalOffset() && relativeMouseX < getSize().getWidth() - getTabManager().getSelectorsHorizontalOffset() && relativeMouseX < getTabManager().getSelectorsHorizontalOffset() + ( getTabManager().getTabSelectorWidth() * getTabManager().getTabSelectorCount() ) && relativeMouseY > 0) {
+            int selectorMouseX = relativeMouseX - getTabManager().getSelectorsHorizontalOffset();
+            int selectorIndex = selectorMouseX / getTabManager().getTabSelectorWidth();
+
+            getTabManager().setActiveTab(getTabManager().getTabFromSelectorIndex(selectorIndex));
+
+            return false;
+        }
+
+
         for (IGUIComponent component : components.values()) {
-            Coordinate2D location = component.getLocalCoordinate();
+            Coordinate2D location = component.getLocalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, getTabManager().getDisplayAreaVerticalOffset()));
             Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
 
             if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
@@ -355,7 +400,7 @@ public abstract class CoreTab implements IGUITab {
 
         }
 
-        return true;
+        return false;
     }
 
     /**

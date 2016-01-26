@@ -252,17 +252,8 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     @Override
     public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
-            Coordinate2D location = component.getLocalCoordinate();
-            Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
-
-            if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
-                continue;
-
-            if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
-                return true;
-
-        }
+        if (tabs.getCurrentTab().handleMouseClickedInside(relativeMouseX, relativeMouseY, mouseButton))
+            return true;
 
         for (IGUIComponent component : getLedgerManager().getLeftLedgers().values()) {
             Coordinate2D location = component.getLocalCoordinate();
@@ -326,7 +317,10 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
-        return tabs.getCurrentTab().getAllComponents();
+        LinkedHashMap<String, IGUIComponent> activeTabs = new LinkedHashMap<String, IGUIComponent>();
+        activeTabs.put(tabs.getCurrentTab().getID(), tabs.getCurrentTab());
+
+        return activeTabs;
     }
 
     @Override
@@ -372,7 +366,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
 
     @Override
     public int getVerticalLedgerOffset () {
-        return tabs.getTabs().size() > 2 ? tabs.getDisplayAreaVerticalOffset() + 4 : 4;
+        return tabs.getTabs().size() > 1 ? tabs.getDisplayAreaVerticalOffset() + 4 : 4;
     }
 
     @Override

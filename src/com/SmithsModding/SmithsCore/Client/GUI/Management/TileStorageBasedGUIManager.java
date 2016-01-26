@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
+import net.minecraftforge.fluids.*;
 
 import java.util.*;
 
@@ -53,5 +54,25 @@ public class TileStorageBasedGUIManager implements IGUIManager{
     @Override
     public float getProgressBarValue (IGUIComponent component) {
         return 0F;
+    }
+
+    @Override
+    public ArrayList<FluidStack> getTankContents (IGUIComponent component) {
+        return new ArrayList<FluidStack>();
+    }
+
+    @Override
+    public int getTotalTankContents (IGUIComponent component) {
+        return 0;
+    }
+
+    /**
+     * Method called by GUI's that are tab based when the active Tab changed.
+     *
+     * @param newActiveTabId The new active Tabs ID.
+     */
+    @Override
+    public void onTabChanged (String newActiveTabId) {
+        return;
     }
 }

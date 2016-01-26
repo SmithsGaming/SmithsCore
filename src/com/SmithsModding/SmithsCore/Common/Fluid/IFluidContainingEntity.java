@@ -19,4 +19,6 @@ public interface IFluidContainingEntity {
     void addFluidToTheBottom (FluidStack stack);
 
     void addFluidToTheTop (FluidStack stack);
+
+    int getTankSize ();
 }

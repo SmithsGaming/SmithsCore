@@ -29,7 +29,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     public ContainerSmithsCore (String containerID, IContainerHost host, IInventory containerInventory, EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
-        this.manager = new RelayBasedGUIManager(host);
+        this.manager = new RelayBasedGUIManager(host, this);
         this.containerInventory = containerInventory;
         this.playerInventory = playerMP.inventory;
 
@@ -102,6 +102,10 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
 
     public IInventory getPlayerInventory () {
         return playerInventory;
+    }
+
+    public void onTabChanged (String newActiveTabID) {
+        return;
     }
 
 }

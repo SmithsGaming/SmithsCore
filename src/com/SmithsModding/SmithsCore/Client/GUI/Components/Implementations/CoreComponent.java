@@ -18,7 +18,7 @@ public abstract class CoreComponent implements IGUIComponent {
     protected int width;
     protected int height;
 
-    public CoreComponent(String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int height, int width) {
+    public CoreComponent (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
         this.rootAnchorPixel = rootAnchorPixel;
         this.height = height;
         this.uniqueID = uniqueID;

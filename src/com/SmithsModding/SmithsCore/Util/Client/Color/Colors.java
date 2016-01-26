@@ -22,7 +22,7 @@ public final class Colors {
      * General colors dictionary for Omni Purpose use.
      */
     public static class General {
-        public static MinecraftColor RED = (MinecraftColor) MinecraftColor.RED;
+        public static MinecraftColor RED = new MinecraftColor(MinecraftColor.RED);
         public static MinecraftColor GREEN = (MinecraftColor) MinecraftColor.GREEN;
         public static MinecraftColor BLUE = (MinecraftColor) MinecraftColor.BLUE;
         public static MinecraftColor YELLOW = (MinecraftColor) MinecraftColor.YELLOW;

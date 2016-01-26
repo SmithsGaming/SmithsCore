@@ -1,6 +1,8 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
+import com.smithsmodding.smithscore.common.inventory.*;
+import net.minecraftforge.fluids.*;
 
 import java.util.*;
 
@@ -14,10 +16,12 @@ import java.util.*;
 public class RelayBasedGUIManager implements IGUIManager {
 
     IGUIManagerProvider host;
+    ContainerSmithsCore containerSmithsCore;
 
-    public RelayBasedGUIManager(IGUIManagerProvider host)
+    public RelayBasedGUIManager(IGUIManagerProvider host, ContainerSmithsCore containerSmithsCore)
     {
         this.host = host;
+        this.containerSmithsCore = containerSmithsCore;
     }
 
     /**
@@ -50,5 +54,26 @@ public class RelayBasedGUIManager implements IGUIManager {
     @Override
     public float getProgressBarValue (IGUIComponent component) {
         return host.getManager().getProgressBarValue(component);
+    }
+
+    @Override
+    public ArrayList<FluidStack> getTankContents (IGUIComponent component) {
+        return host.getManager().getTankContents(component);
+    }
+
+    @Override
+    public int getTotalTankContents (IGUIComponent component) {
+        return host.getManager().getTotalTankContents(component);
+    }
+
+    /**
+     * Method called by GUI's that are tab based when the active Tab changed.
+     *
+     * @param newActiveTabId The new active Tabs ID.
+     */
+    @Override
+    public void onTabChanged (String newActiveTabId) {
+        containerSmithsCore.onTabChanged(newActiveTabId);
+        host.getManager().onTabChanged(newActiveTabId);
     }
 }

@@ -74,7 +74,7 @@ public class StandardTabManager implements ITabManager {
 
         tabIndex -= selectedSelectorIndex;
 
-        return ( new ArrayList<IGUITab>(tabs.values()) ).get(tabIndex + selectedSelectorIndex);
+        return ( new ArrayList<IGUITab>(tabs.values()) ).get(tabIndex + selectorIndex);
     }
 
     /**
@@ -108,7 +108,12 @@ public class StandardTabManager implements ITabManager {
      */
     @Override
     public int getTabSelectorCount () {
-        return ( host.getSize().getWidth() - 2 * getSelectorsHorizontalOffset() ) / getTabSelectorWidth();
+        int maxCount = ( host.getSize().getWidth() - 2 * getSelectorsHorizontalOffset() ) / getTabSelectorWidth();
+
+        if (maxCount > getTabs().size())
+            return getTabs().size();
+
+        return maxCount;
     }
 
     /**
@@ -118,7 +123,7 @@ public class StandardTabManager implements ITabManager {
      */
     @Override
     public int getTabSelectorWidth () {
-        return 28;
+        return 24;
     }
 
     /**
@@ -128,7 +133,7 @@ public class StandardTabManager implements ITabManager {
      */
     @Override
     public int getTabSelectorHeight () {
-        return 33;
+        return 27;
     }
 
     /**
@@ -158,7 +163,7 @@ public class StandardTabManager implements ITabManager {
      */
     @Override
     public int getDisplayAreaVerticalOffset () {
-        return 30;
+        return getTabSelectorHeight() - 3;
     }
 
     /**
@@ -169,6 +174,8 @@ public class StandardTabManager implements ITabManager {
     @Override
     public void setActiveTab (IGUITab tab) {
         activeTabId = tab.getID();
+
+        host.getManager().onTabChanged(tab.getID());
     }
 
 }

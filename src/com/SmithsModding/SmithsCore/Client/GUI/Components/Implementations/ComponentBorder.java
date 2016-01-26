@@ -25,7 +25,7 @@ public class ComponentBorder extends CoreComponent {
     }
 
     public ComponentBorder (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightType, CornerTypes lowerLeftType) {
-        super(uniqueID, parent, state, rootAnchorPixel, height, width);
+        super(uniqueID, parent, state, rootAnchorPixel, width, height);
 
         this.state.setComponent(this);
 
@@ -72,7 +72,6 @@ public class ComponentBorder extends CoreComponent {
 
         TextureComponent[] tCornerComponents = new TextureComponent[4];
 
-
         tCornerComponents[0] = getTopLeftComponent();
         tCornerComponents[1] = getTopRightComponent();
         tCornerComponents[2] = getLowerRightCorner();
@@ -84,7 +83,7 @@ public class ComponentBorder extends CoreComponent {
         tSideComponents[2] = getLowerBorder();
         tSideComponents[3] = getLeftBorder();
 
-        GuiHelper.drawRectangleStretched(tCenterComponent, tSideComponents, tCornerComponents, width, height, rootAnchorPixel);
+        GuiHelper.drawRectangleStretched(tCenterComponent, tSideComponents, tCornerComponents, width, height, new Coordinate2D(0, 0));
     }
 
     private TextureComponent getTopLeftComponent () {

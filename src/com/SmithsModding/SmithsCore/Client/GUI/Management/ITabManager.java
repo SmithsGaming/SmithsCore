@@ -10,10 +10,6 @@ import java.util.*;
  */
 public interface ITabManager
 {
-
-    //SELECTED TAB SIZE: 28*30
-    //VERTICAL NOT SELECTED OFFSET: 4
-
     /**
      * Method to get this TabManagers host.
      *

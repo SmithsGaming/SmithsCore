@@ -130,9 +130,7 @@ public final class GuiHelper {
         MinecraftColor fluidColor = new MinecraftColor(pFluidStack.getFluid().getColor(pFluidStack));
 
         bindTexture(TextureMap.locationBlocksTexture);
-        GlStateManager.color(fluidColor.getRedFloat(), fluidColor.getGreenFloat(), fluidColor.getBlueFloat(), fluidColor.getAlphaFloat());
-
-        GlStateManager.enableColorLogic();
+        fluidColor.performOpenGLColoring();
 
         int tFullX = pWidth / 16 + 1;
         int tFullY = pHeight / 16 + 1;
@@ -141,8 +139,6 @@ public final class GuiHelper {
                 drawCutIcon(texture, pX + i * 16, pY + j * 16, pZ, 16, 16, 0);
             }
         }
-
-        GlStateManager.disableColorLogic();
     }
 
     /**
@@ -367,10 +363,10 @@ public final class GuiHelper {
         Tessellator tessellator = Tessellator.getInstance();
         WorldRenderer worldrenderer = tessellator.getWorldRenderer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-        worldrenderer.pos((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), (double) pZKoord).color(f1, f2, f3, f).endVertex();
-        worldrenderer.pos((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), (double) pZKoord).color(f1, f2, f3, f).endVertex();
-        worldrenderer.pos((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), (double) pZKoord).color(f5, f6, f7, f4).endVertex();
-        worldrenderer.pos((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), (double) pZKoord).color(f5, f6, f7, f4).endVertex();
+        worldrenderer.pos((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), (double) pZKoord).color(f3, f2, f1, f).endVertex();
+        worldrenderer.pos((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.TopLeftCoord().getYComponent(), (double) pZKoord).color(f3, f2, f1, f).endVertex();
+        worldrenderer.pos((double) pPlane.TopLeftCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), (double) pZKoord).color(f7, f6, f5, f4).endVertex();
+        worldrenderer.pos((double) pPlane.LowerRightCoord().getXComponent(), (double) pPlane.LowerRightCoord().getYComponent(), (double) pZKoord).color(f7, f6, f5, f4).endVertex();
         tessellator.draw();
         GlStateManager.shadeModel(7424);
         GlStateManager.disableBlend();
@@ -386,7 +382,10 @@ public final class GuiHelper {
      * @param y     The Y Coordinate to render on
      */
     public static void drawItemStack(ItemStack stack, int x, int y) {
-        GlStateManager.translate(0.0F, 0.0F, 32.0F);
+        GlStateManager.enableLighting();
+        GlStateManager.enableDepth();
+        RenderHelper.enableGUIStandardItemLighting();
+
         FontRenderer font = null;
         if (stack != null) {
             font = stack.getItem().getFontRenderer(stack);
@@ -398,6 +397,10 @@ public final class GuiHelper {
 
         ITEMRENDERER.renderItemAndEffectIntoGUI(stack, x, y);
         ITEMRENDERER.renderItemOverlayIntoGUI(font, stack, x, y, "");
+
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.enableDepth();
+        GlStateManager.disableLighting();
     }
 
     /**
@@ -409,7 +412,10 @@ public final class GuiHelper {
      * @param altText The overlay text to render.
      */
     private static void drawItemStack(ItemStack stack, int x, int y, String altText) {
-        GlStateManager.translate(0.0F, 0.0F, 32.0F);
+        GlStateManager.enableLighting();
+        GlStateManager.enableDepth();
+        RenderHelper.enableGUIStandardItemLighting();
+
         FontRenderer font = null;
         if (stack != null) {
             font = stack.getItem().getFontRenderer(stack);
@@ -421,6 +427,10 @@ public final class GuiHelper {
 
         ITEMRENDERER.renderItemAndEffectIntoGUI(stack, x, y);
         ITEMRENDERER.renderItemOverlayIntoGUI(font, stack, x, y - 8, altText);
+
+        RenderHelper.disableStandardItemLighting();
+        GlStateManager.enableDepth();
+        GlStateManager.disableLighting();
     }
 
     /**
