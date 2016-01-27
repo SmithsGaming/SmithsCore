@@ -184,7 +184,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         for (int i = 0; i < inventoryList.tagCount(); i++) {
             NBTTagCompound slotCompound = (NBTTagCompound) inventoryList.get(i);
 
-            inventory.setInventorySlotContents(slotCompound.getInteger(CoreReferences.NBT.InventoryData.SLOTINDEX), ItemStack.loadItemStackFromNBT(slotCompound.getCompoundTag(CoreReferences.NBT.InventoryData.STACKDATA)));
+            ItemStack newStack = ItemStack.loadItemStackFromNBT(slotCompound.getCompoundTag(CoreReferences.NBT.InventoryData.STACKDATA));
+
+            inventory.setInventorySlotContents(slotCompound.getInteger(CoreReferences.NBT.InventoryData.SLOTINDEX), newStack);
         }
     }
 

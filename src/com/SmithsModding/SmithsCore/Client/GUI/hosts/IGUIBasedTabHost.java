@@ -30,4 +30,11 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
      * @return The current TabManager for this host.
      */
     ITabManager getTabManager();
+
+    /**
+     * Method called by a TabManager to indicate that the active tab has been changed.
+     *
+     * @param newActiveTabID The ID of the new active tab.
+     */
+    void onTabChanged (String newActiveTabID);
 }

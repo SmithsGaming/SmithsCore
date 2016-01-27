@@ -8,6 +8,8 @@ package com.smithsmodding.smithscore.common.events.network;
 
 import com.smithsmodding.smithscore.network.event.messages.*;
 import io.netty.buffer.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -20,10 +22,20 @@ import net.minecraftforge.fml.relauncher.*;
  */
 public abstract class StandardNetworkableEvent extends NetworkableEvent {
 
+    EntityPlayer player;
+
     /**
      * Standard empty Constructor.
      */
     public StandardNetworkableEvent() {
+    }
+
+    public EntityPlayer getPlayer () {
+        return player;
+    }
+
+    public void setPlayer (EntityPlayer player) {
+        this.player = player;
     }
 
     /**
@@ -69,6 +81,16 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      */
     @Override
     public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
+        if (pContext.side == Side.CLIENT)
+        {
+            setPlayer(FMLClientHandler.instance().getClientPlayerEntity());
+        }
+        else
+        {
+            setPlayer(pContext.getServerHandler().playerEntity);
+        }
+
+
         PostNetwork();
     }
 }

@@ -56,7 +56,7 @@ public class SmithsCore {
         if (isInDevenvironment()){
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "smithscore starting in Dev mode. Current active Features:");
+            getLogger().warn(CoreReferences.LogMarkers.PREINIT, "SmithsCore starting in Dev mode. Current active Features:");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Additional log output.");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Debug rendering of structures.");
             getLogger().warn(CoreReferences.LogMarkers.PREINIT, "  > Debug overlay rendering of UI components,");
@@ -65,17 +65,15 @@ public class SmithsCore {
         }
         else
         {
-            getLogger().info(CoreReferences.LogMarkers.PREINIT, "smithscore starting in Normal mode.");
+            getLogger().info(CoreReferences.LogMarkers.PREINIT, "SmithsCore starting in Normal mode.");
         }
 
-        getLogger().info(CoreReferences.LogMarkers.PREINIT, "Initializing event handlers.");
-        getRegistry().registerEventHandlers();
-        getRegistry().initializeNetwork();
+        proxy.preInit();
 
         watch.stop();
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
-        getLogger().info(CoreReferences.LogMarkers.PREINIT, "smithscore Pre-Init completed after: " + milliseconds + " mS.");
+        getLogger().info(CoreReferences.LogMarkers.PREINIT, "SmithsCore Pre-Init completed after: " + milliseconds + " mS.");
     }
 
     @Mod.EventHandler

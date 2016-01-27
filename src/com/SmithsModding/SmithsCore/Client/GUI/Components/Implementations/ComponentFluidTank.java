@@ -85,11 +85,11 @@ public class ComponentFluidTank extends CoreComponent {
                 GuiHelper.drawColoredRect(new Plane(new Coordinate2D(iter, 1), 1, barHeight), 0, new MinecraftColor(255, 0, 0));
             }
         } else {
-            int blockDistance = ( getSize().getHeigth() - 2 ) / 9;
+            int blockDistance = (getSize().getHeigth() - 2) / 10;
 
-            for (int iter = blockDistance; iter < ( getSize().getHeigth() - 2 ); iter += blockDistance) {
+            for (int iter = blockDistance + 1; iter < ( getSize().getHeigth()); iter += (blockDistance + 1)) {
                 int barWidth = (int) ( getSize().getWidth() * 0.3 );
-                if (iter == 5 * blockDistance) {
+                if (iter == 5 * (blockDistance + 1)) {
                     barWidth *= 2;
                 }
 
@@ -207,5 +207,10 @@ public class ComponentFluidTank extends CoreComponent {
 
             fluidY += fluidHeight;
         }
+    }
+
+    @Override
+    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        return false;
     }
 }

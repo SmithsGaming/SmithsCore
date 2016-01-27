@@ -2,7 +2,10 @@ package com.smithsmodding.smithscore.common.proxy;
 
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.handlers.gui.*;
 import com.smithsmodding.smithscore.common.handlers.network.*;
+import com.smithsmodding.smithscore.network.event.*;
+import com.smithsmodding.smithscore.util.*;
 import net.minecraftforge.fml.relauncher.*;
 
 import java.io.*;
@@ -26,7 +29,9 @@ public class CoreCommonProxy {
      * The configuration handler is initialized by a different function.
      */
     public void preInit() {
+        SmithsCore.getLogger().info(CoreReferences.LogMarkers.PREINIT, "Initializing event handlers.");
         registerEventHandlers();
+        initializeNetwork();
     }
 
     /**
@@ -77,5 +82,13 @@ public class CoreCommonProxy {
      */
     protected void registerEventHandlers() {
         SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
+        SmithsCore.getRegistry().getNetworkBus().register(new GuiInputEventHandler());
+    }
+
+    /**
+     * Function used to initialize the network components of smithscore.
+     */
+    protected void initializeNetwork () {
+        EventNetworkManager.Init();
     }
 }

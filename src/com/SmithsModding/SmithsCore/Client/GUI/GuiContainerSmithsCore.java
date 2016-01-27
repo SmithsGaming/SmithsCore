@@ -455,6 +455,20 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     /**
+     * Method called by a TabManager to indicate that the active tab has been changed.
+     *
+     * @param newActiveTabID The ID of the new active tab.
+     */
+    @Override
+    public void onTabChanged (String newActiveTabID) {
+        Plane areaWithComponents = getSize();
+        this.xSize = areaWithComponents.getWidth();
+        this.ySize = areaWithComponents.getHeigth();
+
+        super.initGui();
+    }
+
+    /**
      * Function used to register the sub components of this ComponentHost
      *
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..

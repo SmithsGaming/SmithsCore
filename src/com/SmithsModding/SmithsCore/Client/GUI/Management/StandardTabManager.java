@@ -1,5 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
+import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.events.gui.*;
 import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.tabs.core.*;
 
@@ -36,8 +38,11 @@ public class StandardTabManager implements ITabManager {
     @Override
     public void onTabRegistrationComplete () {
         for (IGUITab tab : tabs.values()) {
+            host.getManager().onTabChanged(tab.getID());
             tab.registerComponents(tab);
         }
+
+        host.onTabChanged(activeTabId);
     }
 
     /**
@@ -175,7 +180,9 @@ public class StandardTabManager implements ITabManager {
     public void setActiveTab (IGUITab tab) {
         activeTabId = tab.getID();
 
+        host.onTabChanged(tab.getID());
         host.getManager().onTabChanged(tab.getID());
+        SmithsCore.getRegistry().getClientBus().post(new GuiInputEvent(GuiInputEvent.InputTypes.TABCHANGED, host.getID(), tab.getID()));
     }
 
 }

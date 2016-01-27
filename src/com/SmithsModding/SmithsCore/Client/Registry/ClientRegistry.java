@@ -6,15 +6,9 @@
 
 package com.smithsmodding.smithscore.client.registry;
 
-import com.smithsmodding.smithscore.client.handlers.gui.*;
-import com.smithsmodding.smithscore.client.handlers.network.*;
 import com.smithsmodding.smithscore.client.mouse.*;
 import com.smithsmodding.smithscore.client.textures.*;
-import com.smithsmodding.smithscore.common.handlers.network.*;
-import com.smithsmodding.smithscore.common.player.handlers.*;
 import com.smithsmodding.smithscore.common.registry.*;
-import com.smithsmodding.smithscore.util.client.*;
-import net.minecraftforge.common.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
@@ -33,29 +27,6 @@ public class ClientRegistry extends CommonRegistry {
     private float partialTickTime;
 
     public ClientRegistry () {
-    }
-
-    /**
-     * Function used to register the EventHandlers
-     */
-    @Override
-    public void registerEventHandlers() {
-        getNetworkBus().register(new ContainerGUIOpenedEventHandler());
-        getNetworkBus().register(new ContainerGUIClosedEventHandler());
-
-        getCommonBus().register(new ClientNetworkableEventHandler());
-        getCommonBus().register(new CommonNetworkableEventHandler());
-
-        getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
-        getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
-
-        getNetworkBus().register(new BlockModelUpdateEventHandler());
-
-        MinecraftForge.EVENT_BUS.register(new Textures());
-        MinecraftForge.EVENT_BUS.register(holographicTextureCreator);
-        MinecraftForge.EVENT_BUS.register(mouseManager);
-        MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
-        MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
     }
 
     /**

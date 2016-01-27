@@ -185,7 +185,7 @@ public abstract class CoreTab implements IGUITab {
         if (manager.getTabs().size() > 2)
             return new Coordinate2D(0,0);
 
-        else return new Coordinate2D(0, manager.getTabSelectorHeight() - 3);
+        else return new Coordinate2D(0, manager.getDisplayAreaVerticalOffset());
     }
 
     /**

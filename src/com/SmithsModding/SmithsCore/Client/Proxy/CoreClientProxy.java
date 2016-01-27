@@ -1,8 +1,14 @@
 package com.smithsmodding.smithscore.client.proxy;
 
 import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.client.handlers.gui.*;
 import com.smithsmodding.smithscore.client.handlers.network.*;
+import com.smithsmodding.smithscore.client.registry.*;
+import com.smithsmodding.smithscore.common.handlers.network.*;
+import com.smithsmodding.smithscore.common.player.handlers.*;
 import com.smithsmodding.smithscore.common.proxy.*;
+import com.smithsmodding.smithscore.util.client.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -85,5 +91,22 @@ public class CoreClientProxy extends CoreCommonProxy {
     protected void registerEventHandlers() {
         SmithsCore.getRegistry().getClientBus().register(new ClientNetworkableEventHandler());
         SmithsCore.getRegistry().getCommonBus().register(new ClientNetworkableEventHandler());
+        SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
+
+        SmithsCore.getRegistry().getNetworkBus().register(new GuiInputEventHandler());
+
+        SmithsCore.getRegistry().getNetworkBus().register(new ContainerGUIOpenedEventHandler());
+        SmithsCore.getRegistry().getNetworkBus().register(new ContainerGUIClosedEventHandler());
+
+        SmithsCore.getRegistry().getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
+        SmithsCore.getRegistry().getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
+
+        SmithsCore.getRegistry().getNetworkBus().register(new BlockModelUpdateEventHandler());
+
+        MinecraftForge.EVENT_BUS.register(new Textures());
+        MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getHolographicTextureCreator());
+        MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getMouseManager());
+        MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
+        MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
     }
 }

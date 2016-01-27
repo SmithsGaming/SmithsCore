@@ -6,8 +6,6 @@
 
 package com.smithsmodding.smithscore.common.registry;
 
-import com.smithsmodding.smithscore.common.handlers.network.*;
-import com.smithsmodding.smithscore.network.event.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
 /**
@@ -23,23 +21,6 @@ public class CommonRegistry {
     //Eventbus used for events that are fired commonly on both sides of Minecraft. It is for example used the handle Container and TE Initialization or
     //to handle access right management for blocks that implement it.
     private final EventBus iCommonEventBus = new EventBus();
-
-    /**
-     * Function used to register the EventHandlers
-     */
-    public void registerEventHandlers()
-    {
-        getCommonBus().register(new CommonNetworkableEventHandler());
-    }
-
-    /**
-     * Function used to initialize the network components of smithscore.
-     */
-    public void initializeNetwork()
-    {
-        EventNetworkManager.Init();
-    }
-
 
     /**
      * Function used to handle specific events that happened on the client side, and were synced over because they could have an impact on the server side.
