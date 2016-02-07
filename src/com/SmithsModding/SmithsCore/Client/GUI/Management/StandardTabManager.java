@@ -43,6 +43,8 @@ public class StandardTabManager implements ITabManager {
         }
 
         host.onTabChanged(activeTabId);
+        host.getManager().onTabChanged(activeTabId);
+        SmithsCore.getRegistry().getClientBus().post(new GuiInputEvent(GuiInputEvent.InputTypes.TABCHANGED, host.getID(), activeTabId));
     }
 
     /**

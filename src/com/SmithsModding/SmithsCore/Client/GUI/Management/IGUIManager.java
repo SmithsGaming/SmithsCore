@@ -38,6 +38,15 @@ public interface IGUIManager
     float getProgressBarValue (IGUIComponent component);
 
     /**
+     * Method used by the rendering system to dynamically update a Label.
+     *
+     * @param component The component requesting the content.
+     *
+     * @return THe string that should be displayed.
+     */
+    String getLabelContents (IGUIComponent component);
+
+    /**
      * Method used by components to get the Fluids to display
      *
      * @param component The component that is requesting the Fluids

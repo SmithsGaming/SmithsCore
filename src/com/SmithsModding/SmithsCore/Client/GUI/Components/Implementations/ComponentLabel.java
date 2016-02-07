@@ -10,9 +10,9 @@ import net.minecraft.client.gui.*;
  * Created by marcf on 12/28/2015.
  */
 public class ComponentLabel extends CoreComponent {
+    protected String displayedText;
+    protected MinecraftColor color;
     private FontRenderer renderer;
-    private String displayedText;
-    private MinecraftColor color;
 
     public ComponentLabel(String uniqueID, IGUIBasedComponentHost root, IGUIComponentState state, Coordinate2D localCoordinate, MinecraftColor color, FontRenderer renderer, String displayedText) {
         super(uniqueID, root, state, localCoordinate, renderer.getStringWidth(displayedText), renderer.FONT_HEIGHT);
