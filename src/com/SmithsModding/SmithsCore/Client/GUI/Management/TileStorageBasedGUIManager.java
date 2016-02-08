@@ -56,6 +56,18 @@ public class TileStorageBasedGUIManager implements IGUIManager{
         return 0F;
     }
 
+    /**
+     * Method used by the rendering system to dynamically update a Label.
+     *
+     * @param component The component requesting the content.
+     *
+     * @return THe string that should be displayed.
+     */
+    @Override
+    public String getLabelContents (IGUIComponent component) {
+        return "";
+    }
+
     @Override
     public ArrayList<FluidStack> getTankContents (IGUIComponent component) {
         return new ArrayList<FluidStack>();

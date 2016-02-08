@@ -56,6 +56,18 @@ public class RelayBasedGUIManager implements IGUIManager {
         return host.getManager().getProgressBarValue(component);
     }
 
+    /**
+     * Method used by the rendering system to dynamically update a Label.
+     *
+     * @param component The component requesting the content.
+     *
+     * @return THe string that should be displayed.
+     */
+    @Override
+    public String getLabelContents (IGUIComponent component) {
+        return host.getManager().getLabelContents(component);
+    }
+
     @Override
     public ArrayList<FluidStack> getTankContents (IGUIComponent component) {
         return host.getManager().getTankContents(component);
