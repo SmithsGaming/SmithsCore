@@ -45,6 +45,18 @@ public class TileStorageBasedGUIManager implements IGUIManager{
     }
 
     /**
+     * Method used by components that support overriding tooltips to grab the new tooltip string.
+     *
+     * @param component The component requesting the override.
+     *
+     * @return A string displayed as tooltip for the IGUIComponent during rendering.
+     */
+    @Override
+    public String getCustomToolTipDisplayString (IGUIComponent component) {
+        return "";
+    }
+
+    /**
      * Method to get the value for a progressbar. RAnged between 0 and 1.
      *
      * @param component The component to get the value for

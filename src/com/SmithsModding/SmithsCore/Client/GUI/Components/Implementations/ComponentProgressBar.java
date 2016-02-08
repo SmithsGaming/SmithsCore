@@ -78,7 +78,14 @@ public class ComponentProgressBar extends CoreComponent {
     @Override
     public ArrayList<String> getToolTipContent () {
         ArrayList<String> tips = new ArrayList<String>();
-        tips.add(StatCollector.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%");
+
+        String displayString = getComponentHost().getRootManager().getCustomToolTipDisplayString(this);
+        if (displayString == null || displayString == "" || displayString.length() == 0)
+        {
+            displayString = StatCollector.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%";
+        }
+
+        tips.add(displayString);
 
         return tips;
     }
