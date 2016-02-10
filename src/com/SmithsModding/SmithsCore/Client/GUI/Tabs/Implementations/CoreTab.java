@@ -130,6 +130,26 @@ public abstract class CoreTab implements IGUITab {
         return components;
     }
 
+    public IGUIComponent getComponentByID (String uniqueUIID) {
+        if (getID().equals(uniqueUIID))
+            return this;
+
+        if (getAllComponents().get(uniqueUIID) != null)
+            return getAllComponents().get(uniqueUIID);
+
+        for (IGUIComponent childComponent : getAllComponents().values()) {
+            if (childComponent instanceof IGUIBasedComponentHost) {
+                IGUIComponent foundComponent = ( (IGUIBasedComponentHost) childComponent ).getComponentByID(uniqueUIID);
+
+                if (foundComponent != null)
+                    return foundComponent;
+            }
+        }
+
+        return null;
+    }
+
+
     /**
      * Function used to get the ID of the Component.
      *

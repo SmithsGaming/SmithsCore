@@ -48,4 +48,13 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      */
     LinkedHashMap<String, IGUIComponent> getAllComponents ();
 
+    /**
+     * Method for outside systems to retrieve a UI Component based of its ID.
+     *
+     * @param uniqueUIID The uniqueUIID that is being searched for.
+     *
+     * @return A IGUIComponent with then given ID or null if no child components exists with that ID.
+     */
+    IGUIComponent getComponentByID (String uniqueUIID);
+
 }
