@@ -5,9 +5,11 @@ import com.smithsmodding.smithscore.client.gui.components.core.*;
 import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.management.*;
 import com.smithsmodding.smithscore.client.gui.state.*;
+import com.smithsmodding.smithscore.util.client.*;
+import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.client.gui.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.renderer.*;
-import org.apache.commons.lang3.*;
 
 import java.util.*;
 
@@ -42,7 +44,9 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      */
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
-        throw new NotImplementedException("Hello");
+        registerNewComponent(new ComponentButton(getID() + ".Buttons.Up", this, getLocalCoordinate(), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.UPARROW));
+        registerNewComponent(new ComponentButton(getID() + ".Buttons.ScrollDrag", this, getLocalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, 10)), WIDTH, 10, true, Textures.Gui.Basic.Components.Button.SCROLLBAR));
+        registerNewComponent(new ComponentButton(getID() + ".Buttons.Down", this, getLocalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, height - 10)), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.DOWNARROW));
     }
 
     /**
@@ -204,7 +208,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     @Override
     public void drawBackground (int mouseX, int mouseY) {
         GlStateManager.pushMatrix();
-        //GuiHelper.drawColoredRect(new Plane(0, iUpButton.getHeight(), iWidth, iHeight - iUpButton.getHeight() - iDownButton.getHeight()), Colors.General.GRAY);
+        GuiHelper.drawColoredRect(new Plane(0, 7, WIDTH, height - 20), 0, Colors.General.GRAY);
         GlStateManager.popMatrix();
     }
 
@@ -238,6 +242,18 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      */
     @Override
     public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        for(IGUIComponent component : getAllComponents().values())
+        {
+            Coordinate2D location = component.getLocalCoordinate();
+            Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
+
+            if (!localOccupiedArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
+                continue;
+
+            if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
+                return true;
+        }
+
         return false;
     }
 
@@ -258,6 +274,13 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      */
     @Override
     public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+        for (IGUIComponent component : getAllComponents().values()) {
+            if (component.requiresForcedMouseInput()) {
+                Coordinate2D location = component.getLocalCoordinate();
+                component.handleMouseClickedOutside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton);
+            }
+        }
+
         return false;
     }
 
@@ -307,5 +330,26 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
         parent.setManager(newManager);
     }
 
-    //public void onInternalButtonClick(Componentb)
+    public void onInternalButtonClick(IGUIComponent component)
+    {
+        if (!(component instanceof ComponentButton))
+            throw new IllegalArgumentException("The given component is not a Button.");
+
+        ScrollBarComponentState state = (ScrollBarComponentState) getState();
+
+        if (component.getID().endsWith(".Up"))
+        {
+            state.onUpClick();
+        }
+        else if(component.getID().endsWith(".Down"))
+        {
+            state.onDownClick();
+        }
+        else if(component.getID().endsWith(".ScrollDrag"))
+        {
+            state.onDragClick();
+        }
+
+
+    }
 }

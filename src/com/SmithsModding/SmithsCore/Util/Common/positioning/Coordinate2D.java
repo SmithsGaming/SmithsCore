@@ -56,6 +56,10 @@ public class Coordinate2D {
         return iYCoord;
     }
 
+    public void setXComponent (int newX) { iXCoord = newX; }
+
+    public void setYComponent (int newY) { iYCoord = newY; }
+
     public Coordinate2D moveCoordiante (EnumFacing pDirection, int pDistance) {
         return new Coordinate2D(getXComponent() + ( pDistance * pDirection.getFrontOffsetX() ), getYComponent() + ( pDistance * pDirection.getFrontOffsetY() ));
     }

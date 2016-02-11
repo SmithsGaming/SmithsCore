@@ -2,11 +2,13 @@ package com.smithsmodding.smithscore.client.events.gui;
 
 import com.smithsmodding.smithscore.common.events.network.*;
 import io.netty.buffer.*;
+import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.network.*;
 
 /**
  * Created by Marc on 26.01.2016.
  */
+@Cancelable
 public class GuiInputEvent extends StandardNetworkableEvent {
     InputTypes type;
 
@@ -63,6 +65,7 @@ public class GuiInputEvent extends StandardNetworkableEvent {
     public enum InputTypes {
         TABCHANGED,
         BUTTONCLICKED,
+        SCROLLED,
         FLUIDPRIORITIZED,
         TEXTCHANGED,
     }

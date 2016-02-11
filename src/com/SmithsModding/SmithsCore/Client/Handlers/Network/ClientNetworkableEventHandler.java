@@ -19,6 +19,9 @@ public class ClientNetworkableEventHandler extends CommonNetworkableEventHandler
         if (pEvent.getCommunicationMessage(Side.SERVER) == null)
             return;
 
+        if (pEvent.isCanceled())
+            return;
+
         pEvent.handleClientToServerSide();
     }
 }
