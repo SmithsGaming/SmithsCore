@@ -218,6 +218,8 @@ public class ScrollBarComponentState extends CoreComponentState
             return;
 
         ComponentButton dragButton = (ComponentButton) host.getAllComponents().get(host.getID() + ".Buttons.ScrollDrag");
+        if (dragButton == null)
+            return;
 
         int yOffset = 10 + (int) (current / moveDelta);
 

@@ -43,6 +43,8 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
         this.state.setComponent(this);
 
         innerArea = new Plane(0,10,WIDTH,height - 20);
+
+        state.setCurrent(0F);
     }
 
     /**

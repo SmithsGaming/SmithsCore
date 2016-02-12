@@ -70,8 +70,10 @@ public class InformationLedger extends CoreLedger {
 
         @Override
         public void registerContentComponents (ComponentContentArea host) {
-            for (String line : translatedDisplayedStrings) {
-                host.registerNewComponent(new ComponentLabel(getID() + ".line." + line, host, new CoreComponentState(null), new Coordinate2D(0, 0 + translatedDisplayedStrings.indexOf(line) * ( Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 3 )), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, line));
+            for (int i = 0; i < translatedDisplayedStrings.size(); i++) {
+                String line = translatedDisplayedStrings.get(i);
+
+                host.registerNewComponent(new ComponentLabel(getID() + ".line." + i, host, new CoreComponentState(null), new Coordinate2D(0, i * ( Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 3 )), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, line));
             }
         }
     }

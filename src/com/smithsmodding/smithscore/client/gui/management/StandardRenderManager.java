@@ -25,6 +25,7 @@ public class StandardRenderManager implements IRenderManager {
     private static ArrayList<MinecraftColor> colorStack = new ArrayList<MinecraftColor>();
 
     GuiContainerSmithsCore root;
+    StandardScissorRegionManager scissorer = new StandardScissorRegionManager();
 
     public StandardRenderManager (GuiContainerSmithsCore root)
     {
@@ -88,6 +89,16 @@ public class StandardRenderManager implements IRenderManager {
     }
 
     /**
+     * Method to get this RenderManagers ScissorRegionManager.
+     *
+     * @return This RenderManagers ScissorRegionManager.
+     */
+    @Override
+    public IScissorRegionManager getScissorRegionManager () {
+        return scissorer;
+    }
+
+    /**
      * Method to render the BackGround of a Component
      *
      * @param component The Component to render.
@@ -95,6 +106,70 @@ public class StandardRenderManager implements IRenderManager {
     @Override
     public void renderBackgroundComponent (IGUIComponent component, boolean parentEnabled) {
         ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
+
+        IGUIComponentState state = component.getState();
+
+        if (!state.isVisible())
+            return;
+
+        component.update(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent(), registry.getPartialTickTime());
+
+        GlStateManager.pushMatrix();
+
+        GlStateManager.translate(component.getLocalCoordinate().getXComponent(), component.getLocalCoordinate().getYComponent(), 0F);
+
+        if (component instanceof IAnimatibleGuiComponent)
+            ( (IAnimatibleGuiComponent) component ).performAnimation(registry.getPartialTickTime());
+
+        if (component instanceof IGUIBasedLedgerHost) {
+            IGUIBasedLedgerHost ledgerHost = (IGUIBasedLedgerHost) component;
+
+            for (IGUILedger ledger : ledgerHost.getLedgerManager().getLeftLedgers().values()) {
+                this.renderBackgroundComponent(ledger, false);
+            }
+
+            for (IGUILedger ledger : ledgerHost.getLedgerManager().getRightLedgers().values()) {
+                this.renderBackgroundComponent(ledger, false);
+            }
+        }
+
+        if (!state.isEnabled()) {
+            GlStateManager.enableBlend();
+            GlStateManager.enableAlpha();
+            pushColorOnRenderStack(new MinecraftColor(MinecraftColor.darkGray));
+        }
+
+        if (!( component instanceof GuiContainerSmithsCore ))
+            component.drawBackground(registry.getMouseManager().getLocation().getXComponent(), registry.getMouseManager().getLocation().getYComponent());
+
+        if (!state.isEnabled()) {
+            popColorFromRenderStack();
+            GlStateManager.disableAlpha();
+            GlStateManager.disableBlend();
+        }
+
+        if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
+            if (!scissorer.setScissorRegionTo(((IScissoredGuiComponent) component).getGlobalScissorLocation()))
+            {
+                GlStateManager.popMatrix();
+                return;
+            }
+
+        if (component instanceof IGUIBasedComponentHost) {
+            for (IGUIComponent subComponent : ( (IGUIBasedComponentHost) component ).getAllComponents().values()) {
+                this.renderBackgroundComponent(subComponent, state.isEnabled());
+            }
+        }
+
+        if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
+            scissorer.popCurrentScissorRegion();
+
+        GlStateManager.popMatrix();
+
+
+
+
+/*        ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
 
         IGUIComponentState state = component.getState();
 
@@ -155,7 +230,7 @@ public class StandardRenderManager implements IRenderManager {
         if (component instanceof IScissoredGuiComponent && ( (IScissoredGuiComponent) component ).shouldScissor())
             GuiHelper.disableScissor();
 
-        GlStateManager.popMatrix();
+        GlStateManager.popMatrix();*/
     }
 
     /**

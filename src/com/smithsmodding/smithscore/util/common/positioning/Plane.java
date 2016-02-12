@@ -29,6 +29,22 @@ public class Plane {
         this.iHeigth = pHeigth;
     }
 
+    public Plane (Coordinate2D topLeft, Coordinate2D lowerRight)
+    {
+        iTopLeftFrontCoord = topLeft;
+        iLowerRightBackCoord = lowerRight;
+
+        if (iTopLeftFrontCoord.getXComponent() < 0)
+            this.iWidth = Math.abs(iTopLeftFrontCoord.getXComponent()) + iLowerRightBackCoord.getXComponent();
+        else
+            this.iWidth = iLowerRightBackCoord.getXComponent() - iTopLeftFrontCoord.getXComponent();
+
+        if (iTopLeftFrontCoord.getYComponent() < 0)
+            this.iHeigth = Math.abs(iTopLeftFrontCoord.getYComponent()) + iLowerRightBackCoord.getYComponent();
+        else
+            this.iHeigth = iLowerRightBackCoord.getYComponent() - iTopLeftFrontCoord.getYComponent();
+    }
+
     public Coordinate2D TopLeftCoord () {
         return this.iTopLeftFrontCoord;
     }
@@ -120,6 +136,37 @@ public class Plane {
         return pPlaneToCheck.TopLeftCoord().getXComponent() + pPlaneToCheck.iWidth > this.TopLeftCoord().getXComponent() && pPlaneToCheck.TopLeftCoord().getXComponent() < this.TopLeftCoord().getXComponent() + this.iWidth && pPlaneToCheck.TopLeftCoord().getYComponent() + pPlaneToCheck.iHeigth > this.TopLeftCoord().getYComponent() && pPlaneToCheck.TopLeftCoord().getYComponent() < this.TopLeftCoord().getYComponent() + this.iHeigth;
     }
 
+    public Plane getInstersection (Plane toIntersect)
+    {
+        if (!Intersects(toIntersect))
+            return null;
+        
+        int x1, y1, x2, y2;
+        
+        if (toIntersect.TopLeftCoord().getXComponent() <= TopLeftCoord().getXComponent())
+            x1 = TopLeftCoord().getXComponent();
+        else
+            x1 = toIntersect.TopLeftCoord().getXComponent();
+        
+        if (toIntersect.LowerRightCoord().getXComponent() <= LowerRightCoord().getXComponent())
+            x2 = toIntersect.LowerRightCoord().getXComponent();
+        else
+            x2 = LowerRightCoord().getXComponent();
+
+
+        if (toIntersect.TopLeftCoord().getYComponent() <= TopLeftCoord().getYComponent())
+            y1 = TopLeftCoord().getYComponent();
+        else
+            y1 = toIntersect.TopLeftCoord().getYComponent();
+
+        if (toIntersect.LowerRightCoord().getYComponent() <= LowerRightCoord().getYComponent())
+            y2 = toIntersect.LowerRightCoord().getYComponent();
+        else
+            y2 = LowerRightCoord().getYComponent();
+        
+        return new Plane(new Coordinate2D(x1, y1), new Coordinate2D(x2, y2));
+    }
+    
     public int Contents () {
         return this.iWidth * this.iHeigth;
     }

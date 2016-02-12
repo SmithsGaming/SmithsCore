@@ -139,11 +139,11 @@ public class ComponentFluidTank extends CoreComponent {
                 fluidWidth = getSize().getWidth() - fluidX - 2;
 
             Plane fluidArea = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(fluidX, 1)), fluidWidth, getSize().getHeigth() - 2);
-            GuiHelper.enableScissor(fluidArea);
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(fluidArea);
 
             GuiHelper.drawFluid(stack, 1, 1, 0, getSize().getWidth() - 2, getSize().getHeigth() - 2);
 
-            GuiHelper.disableScissor();
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
 
             fluidX += fluidWidth;
         }
@@ -161,11 +161,11 @@ public class ComponentFluidTank extends CoreComponent {
             fluidX -= fluidWidth;
 
             Plane fluidArea = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(fluidX, 1)), fluidWidth, getSize().getHeigth() - 2);
-            GuiHelper.enableScissor(fluidArea);
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(fluidArea);
 
             GuiHelper.drawFluid(stack, 1, 1, 0, getSize().getWidth() - 2, getSize().getHeigth() - 2);
 
-            GuiHelper.disableScissor();
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
         }
     }
 
@@ -181,11 +181,11 @@ public class ComponentFluidTank extends CoreComponent {
             fluidY -= fluidHeight;
 
             Plane fluidArea = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(1, fluidY)), getSize().getWidth() - 2, fluidHeight);
-            GuiHelper.enableScissor(fluidArea);
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(fluidArea);
 
             GuiHelper.drawFluid(stack, 1, 1, 0, getSize().getWidth() - 2, getSize().getHeigth() - 2);
 
-            GuiHelper.disableScissor();
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
         }
     }
 
@@ -199,11 +199,11 @@ public class ComponentFluidTank extends CoreComponent {
                 fluidHeight = getSize().getHeigth() - fluidY - 2;
 
             Plane fluidArea = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(1, fluidY)), getSize().getWidth() - 2, fluidHeight);
-            GuiHelper.enableScissor(fluidArea);
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(fluidArea);
 
             GuiHelper.drawFluid(stack, 1, 1, 0, getSize().getWidth() - 2, getSize().getHeigth() - 2);
 
-            GuiHelper.disableScissor();
+            getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
 
             fluidY += fluidHeight;
         }

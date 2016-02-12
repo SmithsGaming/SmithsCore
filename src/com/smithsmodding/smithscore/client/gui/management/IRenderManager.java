@@ -24,6 +24,13 @@ public interface IRenderManager
     IGUIManager getRootGuiManager();
 
     /**
+     * Method to get this RenderManagers ScissorRegionManager.
+     *
+     * @return This RenderManagers ScissorRegionManager.
+     */
+    IScissorRegionManager getScissorRegionManager();
+
+    /**
      * Method to render the BackGround of a Component
      *
      * @param component The Component to render.

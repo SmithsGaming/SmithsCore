@@ -110,11 +110,11 @@ public class ComponentProgressBar extends CoreComponent {
         if (renderBox.getWidth() == 0)
             return;
 
-        GuiHelper.enableScissor(renderBox);
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(renderBox);
 
         GuiHelper.drawResource(fullResource,0,0);
 
-        GuiHelper.disableScissor();
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
     }
 
     public void drawTopLayerFromRightToLeft () {
@@ -125,11 +125,11 @@ public class ComponentProgressBar extends CoreComponent {
 
         Plane renderBox = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(getWidth() - fullWidth, 0)), fullWidth, getHeight());
 
-        GuiHelper.enableScissor(renderBox);
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(renderBox);
 
         GuiHelper.drawResource(fullResource, 0,0);
 
-        GuiHelper.disableScissor();
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
     }
 
     public void drawTopLayerBottomToTop () {
@@ -140,13 +140,11 @@ public class ComponentProgressBar extends CoreComponent {
 
         Plane renderBox = new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, getHeight() - fullHeight)), getWidth(), fullHeight);
 
-
-
-        GuiHelper.enableScissor(renderBox);
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(renderBox);
 
         GuiHelper.drawResource(fullResource, 0,0);
 
-        GuiHelper.disableScissor();
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
     }
 
     public void drawTopLayerTopToBottom () {
@@ -155,10 +153,10 @@ public class ComponentProgressBar extends CoreComponent {
         if (renderBox.getHeigth() == 0)
             return;
 
-        GuiHelper.enableScissor(renderBox);
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().setScissorRegionTo(renderBox);
 
         GuiHelper.drawResource(fullResource, 0,0);
 
-        GuiHelper.disableScissor();
+        getComponentHost().getRootGuiObject().getRenderManager().getScissorRegionManager().popCurrentScissorRegion();
     }
 }
