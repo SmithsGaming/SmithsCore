@@ -429,6 +429,9 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public void registerNewComponent (IGUIComponent component) {
         components.put(component.getID(), component);
+
+        if (component instanceof IGUIBasedComponentHost)
+            ( (IGUIBasedComponentHost) component ).registerComponents((IGUIBasedComponentHost) component);
     }
 
 

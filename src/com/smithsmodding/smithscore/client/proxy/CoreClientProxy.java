@@ -103,6 +103,8 @@ public class CoreClientProxy extends CoreCommonProxy {
 
         SmithsCore.getRegistry().getNetworkBus().register(new BlockModelUpdateEventHandler());
 
+        SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
+
         MinecraftForge.EVENT_BUS.register(new Textures());
         MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getHolographicTextureCreator());
         MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getMouseManager());

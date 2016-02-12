@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
 import com.smithsmodding.smithscore.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.animation.*;
 import com.smithsmodding.smithscore.client.gui.components.core.*;
 import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.management.*;
@@ -16,7 +17,7 @@ import java.util.*;
 /**
  * Created by Marc on 08.02.2016.
  */
-public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost {
+public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost, IAnimatibleGuiComponent {
 
     public static int WIDTH = 7;
 
@@ -24,17 +25,24 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
 
     private IGUIBasedComponentHost parent;
-    private CoreComponentState state = new CoreComponentState(this);
+    private ScrollBarComponentState state;
 
     private Coordinate2D rootAnchorPixel;
     private int height;
 
-    public ComponentScrollBar (String uniqueID, LinkedHashMap<String, IGUIComponent> componentHashMap, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int height) {
+    Plane innerArea;
+
+    public ComponentScrollBar (String uniqueID, ScrollBarComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int height) {
         this.uniqueID = uniqueID;
-        this.componentHashMap = componentHashMap;
+
         this.parent = parent;
         this.rootAnchorPixel = rootAnchorPixel;
         this.height = height;
+
+        this.state = state;
+        this.state.setComponent(this);
+
+        innerArea = new Plane(0,10,WIDTH,height - 20);
     }
 
     /**
@@ -44,9 +52,9 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      */
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
-        registerNewComponent(new ComponentButton(getID() + ".Buttons.Up", this, getLocalCoordinate(), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.UPARROW));
-        registerNewComponent(new ComponentButton(getID() + ".Buttons.ScrollDrag", this, getLocalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, 10)), WIDTH, 10, true, Textures.Gui.Basic.Components.Button.SCROLLBAR));
-        registerNewComponent(new ComponentButton(getID() + ".Buttons.Down", this, getLocalCoordinate().getTranslatedCoordinate(new Coordinate2D(0, height - 10)), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.DOWNARROW));
+        registerNewComponent(new ComponentButton(getID() + ".Buttons.Up", this, new Coordinate2D(0,0), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.UPARROW));
+        registerNewComponent(new ComponentButton(getID() + ".Buttons.ScrollDrag", this, new Coordinate2D(0, 10), WIDTH, 10, true, Textures.Gui.Basic.Components.Button.SCROLLBAR));
+        registerNewComponent(new ComponentButton(getID() + ".Buttons.Down", this, new Coordinate2D(0, height - 10), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.DOWNARROW));
     }
 
     /**
@@ -208,7 +216,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     @Override
     public void drawBackground (int mouseX, int mouseY) {
         GlStateManager.pushMatrix();
-        GuiHelper.drawColoredRect(new Plane(0, 7, WIDTH, height - 20), 0, Colors.General.GRAY);
+        GuiHelper.drawColoredRect(innerArea, 0, new MinecraftColor(Colors.General.GRAY));
         GlStateManager.popMatrix();
     }
 
@@ -252,6 +260,13 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
 
             if (component.handleMouseClickedInside(relativeMouseX - location.getXComponent(), relativeMouseY - location.getYComponent(), mouseButton))
                 return true;
+        }
+
+        if (innerArea.ContainsCoordinate(relativeMouseX, relativeMouseY))
+        {
+            state.setTarget(state.getMaximum() * (relativeMouseY - 10) / (float) (height - 20));
+
+            return true;
         }
 
         return false;
@@ -351,5 +366,16 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
         }
 
 
+    }
+
+    /**
+     * Method called by the rendering system to perform animations. It is called before the component is rendered but
+     * after the component has been updated.
+     *
+     * @param partialTickTime The current partial tick time.
+     */
+    @Override
+    public void performAnimation (float partialTickTime) {
+        state.onAnimationClick(partialTickTime);
     }
 }

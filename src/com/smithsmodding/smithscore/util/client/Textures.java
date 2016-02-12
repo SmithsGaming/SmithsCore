@@ -63,9 +63,9 @@ public class Textures {
                 public static CustomResource FLAMEFULL = new CustomResource("Gui.Basic.components.Flame.Full", COMPONENTTEXTUREPATH + "ProgressBars.png", Colors.DEFAULT, 60, 0, 16, 16);
 
                 public static class Button {
-                    public static final CustomResource DOWNARROW = new CustomResource("Gui.Basic.components.Button.DownArrow", COMPONENTTEXTUREPATH + "Buttons.png", Colors.DEFAULT, 0, 0, 5, 7);
-                    public static final CustomResource UPARROW = new CustomResource("Gui.Basic.components.Button.UpArrow", COMPONENTTEXTUREPATH + "Buttons.png", Colors.DEFAULT, 5, 0, 5, 7);
-                    public static final CustomResource SCROLLBAR = new CustomResource("Gui.Basic.components.Button.ScrollButton", COMPONENTTEXTUREPATH + "Buttons.png", Colors.DEFAULT, 10, 0, 5, 7);
+                    public static final CustomResource DOWNARROW = new CustomResource("Gui.Basic.components.Button.DownArrow", COMPONENTTEXTUREPATH + "Components.png", Colors.DEFAULT, 39, 0, 7, 10);
+                    public static final CustomResource UPARROW = new CustomResource("Gui.Basic.components.Button.UpArrow", COMPONENTTEXTUREPATH + "Components.png", Colors.DEFAULT, 46, 0, 7, 10);
+                    public static final CustomResource SCROLLBAR = new CustomResource("Gui.Basic.components.Button.ScrollButton", COMPONENTTEXTUREPATH + "Components.png", Colors.DEFAULT, 32, 0, 7, 10);
                     protected static String WIDGETFILEPATH = BASICTEXTUREPATH + "buttons.png";
 
                     public static class Disabled {

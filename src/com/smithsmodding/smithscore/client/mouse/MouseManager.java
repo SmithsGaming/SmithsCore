@@ -1,8 +1,13 @@
 package com.smithsmodding.smithscore.client.mouse;
 
+import com.smithsmodding.smithscore.util.client.gui.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
+import net.java.games.input.*;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.gameevent.*;
+import org.lwjgl.input.*;
+import org.lwjgl.input.Mouse;
 
 
 /**
@@ -29,8 +34,11 @@ public class MouseManager
      * @param event The MouseEvent containing the data of the mouse at the current tick.
      */
     @SubscribeEvent
-    public void onMouseEvent(MouseEvent event)
+    public void onClientTickEvent(TickEvent.ClientTickEvent event)
     {
-        location = new Coordinate2D(event.x, event.y);
+        if (GuiHelper.GUISCALE == 0)
+            GuiHelper.calcScaleFactor();
+
+        location = new Coordinate2D(org.lwjgl.input.Mouse.getEventX() / GuiHelper.GUISCALE, GuiHelper.DISPLAYHEIGHT - (Mouse.getEventY() / GuiHelper.GUISCALE));
     }
 }

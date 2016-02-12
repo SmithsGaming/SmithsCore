@@ -327,8 +327,34 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         if (getID().equals(uniqueUIID))
             return this;
 
+        if (ledgers.getLeftLedgers().get(uniqueUIID) != null)
+            return ledgers.getLeftLedgers().get(uniqueUIID);
+
+        if (ledgers.getRightLedgers().get(uniqueUIID) != null)
+            return ledgers.getRightLedgers().get(uniqueUIID);
+
         if (getAllComponents().get(uniqueUIID) != null)
             return getAllComponents().get(uniqueUIID);
+
+        for (IGUIComponent ledgerLeftComponent : ledgers.getLeftLedgers().values())
+        {
+            if (ledgerLeftComponent instanceof IGUIBasedComponentHost) {
+                IGUIComponent foundComponent = ( (IGUIBasedComponentHost) ledgerLeftComponent ).getComponentByID(uniqueUIID);
+
+                if (foundComponent != null)
+                    return foundComponent;
+            }
+        }
+
+        for (IGUIComponent ledgerRightComponent : ledgers.getRightLedgers().values())
+        {
+            if (ledgerRightComponent instanceof IGUIBasedComponentHost) {
+                IGUIComponent foundComponent = ( (IGUIBasedComponentHost) ledgerRightComponent ).getComponentByID(uniqueUIID);
+
+                if (foundComponent != null)
+                    return foundComponent;
+            }
+        }
 
         for (IGUIComponent childComponent : getAllComponents().values()) {
             if (childComponent instanceof IGUIBasedComponentHost) {

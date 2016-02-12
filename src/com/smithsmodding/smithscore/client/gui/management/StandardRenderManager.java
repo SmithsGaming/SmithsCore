@@ -177,7 +177,7 @@ public class StandardRenderManager implements IRenderManager {
     public void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY) {
         Plane localPlane = new Plane(0,0, component.getSize().getWidth(), component.getSize().getHeigth());
 
-        if ((component.getToolTipContent() != null || component.getToolTipContent().size() != 0) &&(!(component instanceof IGUIBasedComponentHost)) && !localPlane.ContainsCoordinate(mouseX, mouseY))
+        if ((component.getToolTipContent() != null && component.getToolTipContent().size() != 0) && (!(component instanceof IGUIBasedComponentHost)) && !localPlane.ContainsCoordinate(mouseX, mouseY))
             return;
 
         if (component.getToolTipContent() == null || component.getToolTipContent().size() == 0) {

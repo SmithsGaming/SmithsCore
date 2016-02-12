@@ -41,7 +41,7 @@ public abstract class CoreComponent implements IGUIComponent {
 
     @Override
     public IGUIBasedComponentHost getComponentHost() {
-        return parent.getComponentHost();
+        return parent;
     }
 
     @Override

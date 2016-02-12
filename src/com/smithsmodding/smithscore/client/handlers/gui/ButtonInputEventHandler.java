@@ -24,7 +24,7 @@ public class ButtonInputEventHandler
         if (!(button.getComponentHost() instanceof ComponentScrollBar))
             return;
 
-        if (!button.getID().endsWith(".Buttons.Up") || !button.getID().endsWith(".Buttons.ScrollDrag") || !button.getID().endsWith(".Buttons.Down"))
+        if (!button.getID().endsWith(".Buttons.Up") && !button.getID().endsWith(".Buttons.ScrollDrag") && !button.getID().endsWith(".Buttons.Down"))
             return;
 
         ((ComponentScrollBar) button.getComponentHost()).onInternalButtonClick(button);

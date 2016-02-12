@@ -22,7 +22,7 @@ public class InformationLedger extends CoreLedger {
         super(uniqueID, new LedgerComponentState(), root, side, Textures.Gui.Basic.INFOICON, translatedGuiOwner, color);
 
         for (String line : translatedDisplayedStrings) {
-            Collections.addAll(this.translatedDisplayedStrings, StringUtils.SplitString(line, closedLedgerWidth + Minecraft.getMinecraft().fontRendererObj.getStringWidth(translatedGuiOwner) - 8));
+            Collections.addAll(this.translatedDisplayedStrings, StringUtils.SplitString(line, closedLedgerWidth + Minecraft.getMinecraft().fontRendererObj.getStringWidth(translatedGuiOwner) - 15));
 
             if (translatedDisplayedStrings.indexOf(line) != translatedDisplayedStrings.size() - 1)
                 this.translatedDisplayedStrings.add("");
@@ -46,7 +46,7 @@ public class InformationLedger extends CoreLedger {
      */
     @Override
     public int getMaxHeight () {
-        return closedLedgerHeight + 8 + ( translatedDisplayedStrings.size() * ( Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 3 ) );
+        return 121;
     }
 
 
@@ -59,8 +59,20 @@ public class InformationLedger extends CoreLedger {
     public void registerComponents (IGUIBasedComponentHost host) {
         super.registerComponents(host);
 
-        for (String line : translatedDisplayedStrings) {
-            registerNewComponent(new ComponentLabel(getID() + ".line." + line, this, new CoreComponentState(null), new Coordinate2D(8, closedLedgerHeight + translatedDisplayedStrings.indexOf(line) * ( Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 3 )), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, line));
+        registerNewComponent(new Contents(getID() + ".Contents", this, new CoreComponentState(), new Coordinate2D(8, closedLedgerHeight), closedLedgerWidth + Minecraft.getMinecraft().fontRendererObj.getStringWidth(this.translatedLedgerHeader) - 8, 87));
+    }
+
+    public class Contents extends ComponentScrollableArea
+    {
+        public Contents (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
+            super(uniqueID, parent, state, rootAnchorPixel, width, height);
+        }
+
+        @Override
+        public void registerContentComponents (ComponentContentArea host) {
+            for (String line : translatedDisplayedStrings) {
+                host.registerNewComponent(new ComponentLabel(getID() + ".line." + line, host, new CoreComponentState(null), new Coordinate2D(0, 0 + translatedDisplayedStrings.indexOf(line) * ( Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 3 )), new MinecraftColor(MinecraftColor.WHITE), Minecraft.getMinecraft().fontRendererObj, line));
+            }
         }
     }
 }

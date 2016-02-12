@@ -30,7 +30,7 @@ public class ComponentButton extends CoreComponent{
         this.contents = contents;
         this.continuesTriggering = continuesTriggering;
 
-        if (!(contents instanceof  String) || !(contents instanceof  CustomResource) || !(contents instanceof ItemStack))
+        if (!(contents instanceof  String) && !(contents instanceof  CustomResource) && !(contents instanceof ItemStack))
             throw new IllegalArgumentException("The given Contents are not Supported, either pass a String for text, a CustomResource for Icons, or an ItemStack for stacks.");
     }
 
@@ -111,7 +111,7 @@ public class ComponentButton extends CoreComponent{
 
     @Override
     public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
-        if (!state.isEnabled() || !state.isVisible() || mouseButton == 0)
+        if (!state.isEnabled() || !state.isVisible() || mouseButton != 0)
             return false;
 
         ((ButtonComponentState) getState()).setClicked(true);

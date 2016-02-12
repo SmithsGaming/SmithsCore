@@ -2,9 +2,12 @@ package com.smithsmodding.smithscore.client.gui.state;
 
 import com.smithsmodding.smithscore.*;
 import com.smithsmodding.smithscore.client.events.gui.*;
+import com.smithsmodding.smithscore.client.gui.components.core.*;
 import com.smithsmodding.smithscore.client.gui.components.implementations.*;
 import com.smithsmodding.smithscore.client.registry.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
+
+import java.lang.*;
 
 /**
  * Created by Marc on 10.02.2016.
@@ -12,13 +15,14 @@ import com.smithsmodding.smithscore.util.common.positioning.*;
 public class ScrollBarComponentState extends CoreComponentState
 {
 
-    int moveDelta = 4;
+    float moveDelta = 4;
     int totalStepCount;
 
     int minimum = 0;
     int maximum = 100;
 
-    int current = 0;
+    float current = 0;
+    float target = current;
 
     public ScrollBarComponentState (int moveDelta, int minimum, int maximum) {
         super();
@@ -27,7 +31,8 @@ public class ScrollBarComponentState extends CoreComponentState
         this.minimum = minimum;
         this.maximum = maximum;
 
-        current = minimum;
+        this.current = maximum;
+        this.target = maximum;
 
         recalculateMoveDelta(25);
     }
@@ -50,11 +55,17 @@ public class ScrollBarComponentState extends CoreComponentState
         recalculateMoveDelta(totalStepCount);
     }
 
-    public int getCurrent () {
+    public float getCurrent () {
         return current;
     }
 
-    public void setCurrent (int current) {
+    public void setCurrent (float current) {
+
+        if (this.current == this.target)
+        {
+            this.target = current;
+        }
+
         this.current = current;
 
         SmithsCore.getRegistry().getClientBus().post(new ScrollBarValueChangedEvent(getComponent().getID(), current, maximum, minimum));
@@ -62,14 +73,18 @@ public class ScrollBarComponentState extends CoreComponentState
         updateDragButtonPosition();
     }
 
-    public void updateCurrent(int delta)
+    public void updateCurrent(float delta)
     {
-        setCurrent(current - delta);
+        setCurrent(current + delta);
+    }
+
+    public void setTarget (float target) {
+        this.target = target;
     }
 
     public void recalculateMoveDelta(int totalStepCount)
     {
-        moveDelta = (maximum - minimum) / totalStepCount;
+        moveDelta = (maximum - minimum) / (float) totalStepCount;
 
         this.totalStepCount = totalStepCount;
 
@@ -88,7 +103,7 @@ public class ScrollBarComponentState extends CoreComponentState
             return;
         }
 
-        updateCurrent(-moveDelta);
+        updateCurrent(-1 * moveDelta);
         updateDragButtonPosition();
     }
 
@@ -108,17 +123,22 @@ public class ScrollBarComponentState extends CoreComponentState
         updateDragButtonPosition();
     }
 
+    @Override
+    public void setComponent (IGUIComponent component) {
+        super.setComponent(component);
+    }
+
     public void onDragClick()
     {
         ComponentScrollBar host = (ComponentScrollBar) this.getComponent();
         ComponentButton dragButton = (ComponentButton) host.getAllComponents().get(host.getID() + ".Buttons.ScrollDrag");
 
-        int totalScrollableHeight = host.getSize().getHeigth() - 30;
+        int totalScrollableHeight = host.getSize().getHeigth() - 20;
 
         if (totalScrollableHeight <= 0)
             throw new IllegalStateException("The ScrollDragButton should not be visible for such a small ScrollBar.");
 
-        int pixelPerMove = totalScrollableHeight / totalStepCount;
+        float pixelPerMove = totalScrollableHeight / (float) totalStepCount;
 
         if (pixelPerMove <= 0)
             throw new IllegalStateException("There are to many total steps in the ScrollBar to be able to move the drag button properly.");
@@ -126,7 +146,7 @@ public class ScrollBarComponentState extends CoreComponentState
         Coordinate2D mousePosition = (( ClientRegistry) SmithsCore.getRegistry()).getMouseManager().getLocation();
         Plane dragButtonPosition = dragButton.getAreaOccupiedByComponent();
 
-        int delta = 0;
+        float delta = 0;
 
         if (mousePosition.getYComponent() > dragButtonPosition.LowerRightCoord().getYComponent())
         {
@@ -153,12 +173,53 @@ public class ScrollBarComponentState extends CoreComponentState
         updateCurrent(delta);
     }
 
+    public void onAnimationClick(float partialTickTime)
+    {
+        if (target == current)
+            return;
+
+        ComponentScrollBar host = (ComponentScrollBar) this.getComponent();
+
+        int totalScrollableHeight = host.getSize().getHeigth() - 20;
+
+        if (totalScrollableHeight <= 0)
+            throw new IllegalStateException("The ScrollDragButton should not be visible for such a small ScrollBar.");
+
+        float pixelPerMove = totalScrollableHeight / (float) totalStepCount;
+
+        if (pixelPerMove <= 0)
+            throw new IllegalStateException("There are to many total steps in the ScrollBar to be able to move the drag button properly.");
+
+        if (target < current)
+        {
+            float delta =  - 1 * (moveDelta / pixelPerMove);
+
+            if (current + delta < target)
+                delta = (current - target) * -1;
+
+            updateCurrent(delta);
+        }
+        else
+        {
+            float delta = (moveDelta / pixelPerMove);
+
+            if (current + delta > target)
+                delta = (target - current);
+
+            updateCurrent(delta);
+        }
+    }
+
     public void updateDragButtonPosition()
     {
         ComponentScrollBar host = (ComponentScrollBar) this.getComponent();
+
+        if (host == null)
+            return;
+
         ComponentButton dragButton = (ComponentButton) host.getAllComponents().get(host.getID() + ".Buttons.ScrollDrag");
 
-        int yOffset = current * moveDelta;
+        int yOffset = 10 + (int) (current / moveDelta);
 
         dragButton.getLocalCoordinate().setYComponent(yOffset);
     }
