@@ -9,6 +9,7 @@ import com.smithsmodding.smithscore.util.client.color.*;
 import com.smithsmodding.smithscore.util.client.gui.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.util.*;
 import net.minecraftforge.fluids.*;
 
 import java.awt.*;
@@ -29,6 +30,33 @@ public class ComponentFluidTank extends CoreComponent {
 
     public ComponentFluidTank (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation) {
         this(uniqueID, parent, state, rootAnchorPixel, width, height, orientation, new MinecraftColor(Color.RED), new MinecraftColor(Color.WHITE));
+    }
+
+    @Override
+    public ArrayList<String> getToolTipContent () {
+        int fluidContent = 0;
+
+        for (FluidStack stack :
+                fluidStacks) {
+            fluidContent += stack.amount;
+        }
+
+        ArrayList<String> toolTip = new ArrayList<String>();
+
+        toolTip.add(StatCollector.translateToLocal(TranslationKeys.GUI.TANKAMOUNT) + " " + fluidContent + " mB / " + totalTankContents + " mB");
+
+        if (fluidContent == 0)
+            return toolTip;
+
+        toolTip.add("");
+        toolTip.add(StatCollector.translateToLocal(TranslationKeys.GUI.TANKCONTENTS));
+
+        for (FluidStack stack :
+                fluidStacks) {
+            toolTip.add("  * " + stack.getFluid().getLocalizedName(stack) + ": " + stack.amount + " mB");
+        }
+
+        return toolTip;
     }
 
     public ComponentFluidTank (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation, MinecraftColor foreGround, MinecraftColor backGround) {
