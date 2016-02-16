@@ -12,6 +12,34 @@ This set of MCP mappings was designed for MC 1.8.8. Use at your own peril.This s
 Found AccessTransformer: SmithsCore_at.cfg
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
+:getVersionJson
+:extractUserdev
+Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.1.1744/forge-1.8.9-11.15.1.1744.pom
+Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.1.1744/forge-1.8.9-11.15.1.1744-userdev.jar
+:extractDependencyATs SKIPPED
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:genSrgs SKIPPED
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:splitServerJar SKIPPED
+:mergeJars SKIPPED
+:deobfMcSRG
+Applying SpecialSource...
+Applying Exceptor...
+:decompileMc
+Download https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.pom
+Download https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.jar
+:fixMcSources
+:applySourcePatches
+:remapMcSources
+:recompileMc
+:extractNatives SKIPPED
+:getAssetIndex UP-TO-DATE
+:getAssets
+Current status: 726/734   98%
+:makeStart
+:setupDecompWorkspace
 :ideaModule
 :ideaProject
 :ideaWorkspace
@@ -19,4 +47,4 @@ Found AccessTransformer: SmithsCore_at.cfg
 
 BUILD SUCCESSFUL
 
-Total time: 12.197 secs
+Total time: 2 mins 58.39 secs
