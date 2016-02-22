@@ -3,7 +3,6 @@ package com.smithsmodding.smithscore.common.inventory;
 import com.smithsmodding.smithscore.*;
 import com.smithsmodding.smithscore.client.events.gui.*;
 import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.common.tileentity.Capabilities.*;
 import com.smithsmodding.smithscore.util.common.ItemStackHelper;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
@@ -26,10 +25,10 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
 
     private String containerID;
 
-    private ISmithsCoreItemHandler containerInventory;
+    private IInventory containerInventory;
     private IInventory playerInventory;
 
-    public ContainerSmithsCore(String containerID, IContainerHost host, ISmithsCoreItemHandler containerInventory, EntityPlayer playerMP) {
+    public ContainerSmithsCore(String containerID, IContainerHost host, IInventory containerInventory, EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host, this);
@@ -99,7 +98,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         manager = newManager;
     }
 
-    public ISmithsCoreItemHandler getContainerInventory() {
+    public IInventory getContainerInventory() {
         return containerInventory;
     }
 
@@ -123,11 +122,11 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         if (slot != null && slot.getHasStack()) {
             ItemStack itemStack = slot.getStack();
             newItemStack = itemStack.copy();
-            if (slotIndex < containerInventory.getSlotCount()) {
-                if (!this.mergeItemStack(itemStack, containerInventory.getSlotCount(), inventorySlots.size(), false)) {
+            if (slotIndex < containerInventory.getSizeInventory()) {
+                if (!this.mergeItemStack(itemStack, containerInventory.getSizeInventory(), inventorySlots.size(), false)) {
                     return null;
                 }
-            } else if (!this.mergeItemStack(itemStack, 0, containerInventory.getSlotCount(), false)) {
+            } else if (!this.mergeItemStack(itemStack, 0, containerInventory.getSizeInventory(), false)) {
                 return null;
             }
             if (itemStack.stackSize == 0) {

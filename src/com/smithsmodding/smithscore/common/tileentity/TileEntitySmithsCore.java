@@ -19,8 +19,12 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.*;
 
 import java.util.*;
 
@@ -40,6 +44,28 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     protected TileEntitySmithsCore (ITileEntityState initialState, IGUIManager manager) {
         setManager(manager);
         setState(initialState);
+    }
+
+    InvWrapper invWrapper;
+
+    @Override
+    public boolean hasCapability (Capability<?> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IInventory))
+            return true;
+
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability (Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IInventory)){
+            if (invWrapper == null)
+                invWrapper = new InvWrapper((IInventory) this);
+
+            return (T) invWrapper;
+        }
+
+        return super.getCapability(capability, facing);
     }
 
     @Override
@@ -175,6 +201,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      *                          inventory.
      */
     protected void readInventoryFromCompound (NBTBase inventoryCompound) {
+        if (inventoryCompound == null)
+            return;
+
         if (!( inventoryCompound instanceof NBTTagList ))
             throw new IllegalArgumentException("The given store type is not compatible with this TE!");
 
