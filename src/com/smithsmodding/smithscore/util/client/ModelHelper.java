@@ -15,7 +15,10 @@ import net.minecraft.client.resources.*;
 import net.minecraft.client.resources.model.*;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.*;
+import net.minecraftforge.client.model.obj.*;
 import net.minecraftforge.client.model.pipeline.*;
+import net.minecraftforge.fml.common.*;
+import org.apache.logging.log4j.*;
 
 import javax.vecmath.*;
 import java.io.*;
@@ -175,6 +178,70 @@ public class ModelHelper {
                 quad.getVertexData()[dataIndex] = packedData[dataIndex];
             }
         }
+    }
+
+    /**
+     * Method to Force load a OBJModel.
+     *
+     * @param modelLocation Will try to load a model in this location with the OBJLoader.
+     * @return an OBJModel from the given location.
+     * @throws IOException IOException from the OBJLoader.
+     */
+    public static IModel forceLoadOBJModel(ResourceLocation modelLocation) throws IOException {
+        IModel model;
+
+        ResourceLocation actual = ModelLoaderRegistry.getActualLocation(modelLocation);
+        ICustomModelLoader accepted = OBJLoader.instance;
+
+        try
+        {
+            try
+            {
+                ResourceLocation file = new ResourceLocation(actual.getResourceDomain(), actual.getResourcePath());
+
+                IResource resource = null;
+                try
+                {
+                    resource = Minecraft.getMinecraft().getResourceManager().getResource(file);
+                }
+                catch (FileNotFoundException e)
+                {
+                    if (modelLocation.getResourcePath().startsWith("models/block/"))
+                        resource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(file.getResourceDomain(), "models/item/" + file.getResourcePath().substring("models/block/".length())));
+                    else if (modelLocation.getResourcePath().startsWith("models/item/"))
+                        resource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(file.getResourceDomain(), "models/block/" + file.getResourcePath().substring("models/item/".length())));
+                    else throw e;
+                }
+                OBJModel.Parser parser = new OBJModel.Parser(resource, Minecraft.getMinecraft().getResourceManager());
+
+                try
+                {
+                    model = parser.parse();
+                }
+                finally
+                {
+
+                }
+            }
+            catch (IOException e)
+            {
+//                FMLLog.log(Level.ERROR, e, "Exception loading model '%s' with OBJ loader, skipping", modelLocation);
+                throw e;
+            }
+        }
+        catch (IOException e)
+        {
+            throw e;
+        }
+        catch(Exception e)
+        {
+            FMLLog.log(Level.ERROR, e, "Exception loading model %s with loader %s, skipping", modelLocation, accepted);
+            model = ModelLoaderRegistry.getMissingModel();
+        }
+
+        if (model == null) return ModelLoaderRegistry.getMissingModel();
+
+        return model;
     }
 
     /**
