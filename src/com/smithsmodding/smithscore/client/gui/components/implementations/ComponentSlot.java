@@ -1,14 +1,15 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.client.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.client.gui.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.inventory.*;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.management.StandardRenderManager;
+import com.smithsmodding.smithscore.client.gui.state.SlotComponentState;
+import com.smithsmodding.smithscore.util.client.Textures;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
+import com.smithsmodding.smithscore.util.client.gui.MultiComponentTexture;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.inventory.Slot;
 
 /**
  * Created by Marc on 22.12.2015.
@@ -17,7 +18,7 @@ public class ComponentSlot extends CoreComponent {
     private MinecraftColor color;
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Slot connectedSlot, MinecraftColor color) {
-        this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xDisplayPosition - 1, connectedSlot.yDisplayPosition - 1), color);
+        this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xDisplayPosition - 1, connectedSlot.yDisplayPosition - 1 - parent.getRootGuiObject().getTabManager().getDisplayAreaVerticalOffset()), color);
     }
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color) {

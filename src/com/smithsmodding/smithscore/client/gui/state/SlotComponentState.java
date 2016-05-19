@@ -1,8 +1,9 @@
 package com.smithsmodding.smithscore.client.gui.state;
 
-import com.smithsmodding.smithscore.client.gui.components.implementations.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.inventory.*;
+import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentSlot;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 
 /**
  * Created by Marc on 22.12.2015.
@@ -19,6 +20,10 @@ public class SlotComponentState extends CoreComponentState {
         this.slotIndex = slotIndex;
         this.relevantInventory = inventory;
         this.sprite = sprite;
+    }
+
+    public SlotComponentState(ComponentSlot component, Slot slot, IInventory inventory, TextureAtlasSprite sprite) {
+        this(component, slot.getSlotIndex(), inventory, sprite);
     }
 
     /**
