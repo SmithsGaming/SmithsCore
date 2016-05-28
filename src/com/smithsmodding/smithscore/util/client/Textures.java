@@ -1,11 +1,14 @@
 package com.smithsmodding.smithscore.util.client;
 
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.client.gui.*;
-import net.minecraft.util.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.eventhandler.*;
+import com.smithsmodding.smithscore.util.client.color.Colors;
+import com.smithsmodding.smithscore.util.client.gui.MultiComponentTexture;
+import com.smithsmodding.smithscore.util.client.gui.TextureComponent;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by Marc on 06.12.2015.
@@ -25,7 +28,7 @@ public class Textures {
             return;
         }
 
-        Gui.Basic.INFOICON.addIcon(event.map.registerSprite(new ResourceLocation(Gui.Basic.INFOICON.getPrimaryLocation())));
+        Gui.Basic.INFOICON.addIcon(event.getMap().registerSprite(new ResourceLocation(Gui.Basic.INFOICON.getPrimaryLocation())));
     }
 
     public static class Gui {

@@ -6,18 +6,23 @@
 
 package com.smithsmodding.smithscore.common.player.management;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.player.event.*;
-import net.minecraft.entity.player.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.gameevent.*;
-import net.minecraftforge.fml.common.network.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.common.player.event.PlayersConnectedUpdatedEvent;
+import com.smithsmodding.smithscore.common.player.event.PlayersOnlineUpdatedEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.UsernameCache;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class PlayerManager {
 
@@ -171,7 +176,7 @@ public class PlayerManager {
                         UUID id = UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""));
 
                         commonSidedJoinedMap.put(id, UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));
-                        serverSidedJoinedMap.put(id, FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().getPlayerByUUID(id));
+                        serverSidedJoinedMap.put(id, FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUUID(id));
                     } catch (Exception e) {
                         SmithsCore.getLogger().error(e.getStackTrace());
                     }

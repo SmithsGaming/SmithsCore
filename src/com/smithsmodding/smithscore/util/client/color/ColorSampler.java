@@ -1,12 +1,11 @@
 package com.smithsmodding.smithscore.util.client.color;
 
-import com.smithsmodding.smithscore.*;
-import net.minecraft.client.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 
-import java.util.*;
-
+import java.util.HashMap;
 
 /**
  * color Sampler to retrieve Colors from a ItemStack as well as converting a color to the Minecraft Chat
@@ -23,8 +22,8 @@ public class ColorSampler {
     //1.8!!!
     //Minecraft.getMinecraft().getItemModelMesher().getRenderItem().getItemModelMesher().getItemModel(stack).getParticleTexture()
 
-    //Cache of the Relative MinecraftColors to EnumChatFormatting.
-    private static HashMap<MinecraftColor, EnumChatFormatting> iMappedColors;
+    //Cache of the Relative MinecraftColors to TextFormatting.
+    private static HashMap<MinecraftColor, TextFormatting> iMappedColors;
 
     /**
      * Function used to initialize the color to formatting cache.
@@ -32,16 +31,16 @@ public class ColorSampler {
      * It leaves black out, cause all conversions will else return Black.
      */
     private static void initializeEnumChatFromattingMinecraftColors() {
-        iMappedColors = new HashMap<MinecraftColor, EnumChatFormatting>();
+        iMappedColors = new HashMap<MinecraftColor, TextFormatting>();
 
         for (int tIndex = 0; tIndex < 16; tIndex++) {
-            if (EnumChatFormatting.values()[tIndex].name().equals("BLACK"))
+            if (TextFormatting.values()[tIndex].name().equals("BLACK"))
                 continue;
 
             MinecraftColor tMappedMinecraftColor = new MinecraftColor(Minecraft.getMinecraft().fontRendererObj.colorCode[tIndex]);
-            SmithsCore.getLogger().info("Generated MinecraftColor Code : " + tMappedMinecraftColor.getRed() + "-" + tMappedMinecraftColor.getGreen() + "-" + tMappedMinecraftColor.getBlue() + " for the following EnumChatFormatting: " + EnumChatFormatting.values()[tIndex].name() + ".");
+            SmithsCore.getLogger().info("Generated MinecraftColor Code : " + tMappedMinecraftColor.getRed() + "-" + tMappedMinecraftColor.getGreen() + "-" + tMappedMinecraftColor.getBlue() + " for the following TextFormatting: " + TextFormatting.values()[tIndex].name() + ".");
 
-            iMappedColors.put(tMappedMinecraftColor, EnumChatFormatting.values()[tIndex]);
+            iMappedColors.put(tMappedMinecraftColor, TextFormatting.values()[tIndex]);
         }
     }
 
@@ -58,14 +57,10 @@ public class ColorSampler {
      * @return A color based on the Pixels in the IIcon of the ItemStack or White if the process fails.
      */
     public static MinecraftColor getColorSampleFromItemStack(ItemStack pStack) {
-        if (pStack.getItem().getColorFromItemStack(pStack, 0) != 16777215) {
-            return new MinecraftColor(pStack.getItem().getColorFromItemStack(pStack, 0));
-        } else {
-            try{
-                return calculateAverageMinecraftColor(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(pStack).getParticleTexture().getFrameTextureData(0));
-            } catch (Exception e) {
-                return new MinecraftColor(16777215);
-            }
+        try {
+            return calculateAverageMinecraftColor(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(pStack).getParticleTexture().getFrameTextureData(0));
+        } catch (Exception e) {
+            return new MinecraftColor(16777215);
         }
     }
 
@@ -107,19 +102,19 @@ public class ColorSampler {
     }
 
     /**
-     * Attempt to convert a given MinecraftColor to the closest EnumChatFormatting.
-     * It uses the VectorCalculation system to determine which color in the EnumChatFormatting describes the given source
+     * Attempt to convert a given MinecraftColor to the closest TextFormatting.
+     * It uses the VectorCalculation system to determine which color in the TextFormatting describes the given source
      * the best.
      *
      * @param pSource The Source color for the Conversion
-     * @return The Converted EnumChatFormatting
+     * @return The Converted TextFormatting
      */
-    public static EnumChatFormatting getChatMinecraftColorSample(MinecraftColor pSource) {
+    public static TextFormatting getChatMinecraftColorSample(MinecraftColor pSource) {
         if (iMappedColors == null)
             initializeEnumChatFromattingMinecraftColors();
 
         double tCurrentDistance = -1D;
-        EnumChatFormatting tCurrentFormatting = null;
+        TextFormatting tCurrentFormatting = null;
 
         for (MinecraftColor tMinecraftColor : iMappedColors.keySet()) {
             if (MinecraftColorDistance(pSource, tMinecraftColor) < tCurrentDistance) {
@@ -134,16 +129,16 @@ public class ColorSampler {
     }
 
     /**
-     * Attempt to convert a given MinecraftColor to the closest EnumChatFormatting.
-     * Uses Hexadecimal conversion to get a approximated EnumChatFormatting for a given SourceColor.
+     * Attempt to convert a given MinecraftColor to the closest TextFormatting.
+     * Uses Hexadecimal conversion to get a approximated TextFormatting for a given SourceColor.
      *
      * Function is not as accurate as the getChatMinecraftColorSample function, yet it covers a couple corner cases in
      * which the other one fails. So it is here for completeness sake.
      *
      * @param pSource The Source color for the Conversion
-     * @return The Converted EnumChatFormatting
+     * @return The Converted TextFormatting
      */
-    public static EnumChatFormatting getSimpleChatMinecraftColor(MinecraftColor pSource) {
+    public static TextFormatting getSimpleChatMinecraftColor(MinecraftColor pSource) {
         String tFormat = "\u00a7";
 
         if (pSource.getRGB() == -1) {
@@ -152,11 +147,11 @@ public class ColorSampler {
             tFormat = tFormat + Integer.toHexString(pSource.getRGB());
         }
 
-        for (EnumChatFormatting tFormatting : EnumChatFormatting.values())
+        for (TextFormatting tFormatting : TextFormatting.values())
             if (tFormatting.toString().toLowerCase().equals(tFormat.toLowerCase()))
                 return tFormatting;
 
-        return EnumChatFormatting.RESET;
+        return TextFormatting.RESET;
     }
 
     /**

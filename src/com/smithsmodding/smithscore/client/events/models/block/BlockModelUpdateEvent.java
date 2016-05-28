@@ -1,13 +1,13 @@
-package com.smithsmodding.smithscore.client.events.models.Block;
+package com.smithsmodding.smithscore.client.events.models.block;
 
-import com.smithsmodding.smithscore.common.events.network.*;
-import com.smithsmodding.smithscore.common.tileentity.*;
-import com.smithsmodding.smithscore.network.event.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import io.netty.buffer.*;
-import net.minecraftforge.fml.common.network.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.common.events.network.StandardNetworkableEvent;
+import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
+import com.smithsmodding.smithscore.network.event.EventNetworkManager;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
+import io.netty.buffer.ByteBuf;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by Marc on 01.01.2016.
@@ -22,7 +22,7 @@ public class BlockModelUpdateEvent extends StandardNetworkableEvent {
 
     public BlockModelUpdateEvent (TileEntitySmithsCore tileEntitySmithsCore) {
         blockPosition = tileEntitySmithsCore.getLocation();
-        dimensionID = tileEntitySmithsCore.getWorld().provider.getDimensionId();
+        dimensionID = tileEntitySmithsCore.getWorld().provider.getDimension();
     }
 
     /**

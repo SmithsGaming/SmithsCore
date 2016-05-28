@@ -1,12 +1,12 @@
 package com.smithsmodding.smithscore.util.common;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.player.management.*;
-import net.minecraft.entity.player.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.common.player.management.PlayerManager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.*;
+import java.util.UUID;
 
 /**
  * Created by Orion
@@ -32,13 +32,6 @@ public class PlayerHelper {
             SmithsCore.getLogger().info("[PlayerHelper] Falling back on ServerConfiguration Manager - No player found in PlayerManager!");
         }
 
-        for (Object tPlayerObject : FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().playerEntityList) {
-            EntityPlayer tPlayer = (EntityPlayer) tPlayerObject;
-
-            if (tPlayer.getUniqueID().equals(pID))
-                return tPlayer;
-        }
-
-        return null;
+        return FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList().getPlayerByUUID(pID);
     }
 }

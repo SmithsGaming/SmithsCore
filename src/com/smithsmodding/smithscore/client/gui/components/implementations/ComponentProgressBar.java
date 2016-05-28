@@ -1,14 +1,16 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.client.*;
-import com.smithsmodding.smithscore.util.client.gui.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.util.*;
+import com.smithsmodding.smithscore.client.gui.components.core.ComponentOrientation;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.util.client.CustomResource;
+import com.smithsmodding.smithscore.util.client.TranslationKeys;
+import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.util.text.translation.I18n;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Marc on 25.12.2015.
@@ -82,7 +84,7 @@ public class ComponentProgressBar extends CoreComponent {
         String displayString = getComponentHost().getRootManager().getCustomToolTipDisplayString(this);
         if (displayString == null || displayString == "" || displayString.length() == 0)
         {
-            displayString = StatCollector.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%";
+            displayString = I18n.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%";
         }
 
         tips.add(displayString);

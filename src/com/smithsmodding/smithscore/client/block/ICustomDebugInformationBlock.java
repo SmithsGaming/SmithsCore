@@ -1,8 +1,8 @@
 package com.smithsmodding.smithscore.client.block;
 
-import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraftforge.client.event.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 /**
  * Created by Marc on 03.01.2016.

@@ -6,30 +6,35 @@
 
 package com.smithsmodding.smithscore.common.tileentity;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.common.events.*;
-import com.smithsmodding.smithscore.common.fluid.*;
-import com.smithsmodding.smithscore.common.inventory.*;
-import com.smithsmodding.smithscore.common.structures.*;
-import com.smithsmodding.smithscore.common.tileentity.state.*;
-import com.smithsmodding.smithscore.util.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.common.util.*;
-import net.minecraftforge.fluids.*;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.TileStorageBasedGUIManager;
+import com.smithsmodding.smithscore.common.events.TileEntityDataUpdatedEvent;
+import com.smithsmodding.smithscore.common.fluid.IFluidContainingEntity;
+import com.smithsmodding.smithscore.common.inventory.IContainerHost;
+import com.smithsmodding.smithscore.common.structures.IStructureComponent;
+import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class TileEntitySmithsCore extends TileEntity implements IContainerHost {
 
+    InvWrapper invWrapper;
     private IGUIManager manager = new TileStorageBasedGUIManager();
     private ITileEntityState state;
 
@@ -45,8 +50,6 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         setManager(manager);
         setState(initialState);
     }
-
-    InvWrapper invWrapper;
 
     @Override
     public boolean hasCapability (Capability<?> capability, EnumFacing facing) {
@@ -112,7 +115,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         //Vanilla compatibility
         super.markDirty();
-        getWorld().markBlockForUpdate(getPos());
+        getWorld().markChunkDirty(getPos(), this);
 
         //Notify the events system of a update.
         SmithsCore.getRegistry().getCommonBus().post(new TileEntityDataUpdatedEvent(this));

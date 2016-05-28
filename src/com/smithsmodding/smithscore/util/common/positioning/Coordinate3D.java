@@ -6,10 +6,11 @@
 
 package com.smithsmodding.smithscore.util.common.positioning;
 
-import com.smithsmodding.smithscore.util.*;
-import io.netty.buffer.*;
-import net.minecraft.nbt.*;
-import net.minecraft.util.*;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 
 
 public class Coordinate3D {

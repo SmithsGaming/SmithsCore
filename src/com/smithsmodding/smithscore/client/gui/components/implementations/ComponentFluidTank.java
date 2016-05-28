@@ -1,19 +1,24 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
 import com.smithsmodding.smithscore.client.gui.components.core.ComponentOrientation;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.client.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.client.gui.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.util.*;
-import net.minecraftforge.fluids.*;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.management.StandardRenderManager;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.util.client.Textures;
+import com.smithsmodding.smithscore.util.client.TranslationKeys;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
+import com.smithsmodding.smithscore.util.client.gui.TextureComponent;
+import com.smithsmodding.smithscore.util.client.gui.UIRotation;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fluids.FluidStack;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Created by Marc on 18.01.2016.
@@ -32,6 +37,14 @@ public class ComponentFluidTank extends CoreComponent {
         this(uniqueID, parent, state, rootAnchorPixel, width, height, orientation, new MinecraftColor(Color.RED), new MinecraftColor(Color.WHITE));
     }
 
+    public ComponentFluidTank(String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation, MinecraftColor foreGround, MinecraftColor backGround) {
+        super(uniqueID, parent, state, rootAnchorPixel, width, height);
+
+        this.orientation = orientation;
+        this.foreGround = foreGround;
+        this.backGround = backGround;
+    }
+
     @Override
     public ArrayList<String> getToolTipContent () {
         int fluidContent = 0;
@@ -43,28 +56,17 @@ public class ComponentFluidTank extends CoreComponent {
 
         ArrayList<String> toolTip = new ArrayList<String>();
 
-        toolTip.add(StatCollector.translateToLocal(TranslationKeys.GUI.TANKAMOUNT) + " " + fluidContent + " mB / " + totalTankContents + " mB");
+        toolTip.add(I18n.translateToLocal(TranslationKeys.GUI.TANKAMOUNT) + " " + fluidContent + " mB / " + totalTankContents + " mB");
 
         if (fluidContent == 0)
             return toolTip;
 
         toolTip.add("");
-        toolTip.add(StatCollector.translateToLocal(TranslationKeys.GUI.TANKCONTENTS));
+        toolTip.add(I18n.translateToLocal(TranslationKeys.GUI.TANKCONTENTS));
 
-        for (FluidStack stack :
-                fluidStacks) {
-            toolTip.add("  * " + stack.getFluid().getLocalizedName(stack) + ": " + stack.amount + " mB");
-        }
+        toolTip.addAll(fluidStacks.stream().map(stack -> "  * " + stack.getFluid().getLocalizedName(stack) + ": " + stack.amount + " mB").collect(Collectors.toList()));
 
         return toolTip;
-    }
-
-    public ComponentFluidTank (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation, MinecraftColor foreGround, MinecraftColor backGround) {
-        super(uniqueID, parent, state, rootAnchorPixel, width, height);
-
-        this.orientation = orientation;
-        this.foreGround = foreGround;
-        this.backGround = backGround;
     }
 
     @Override

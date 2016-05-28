@@ -1,18 +1,19 @@
 package com.smithsmodding.smithscore.common.events;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.events.network.*;
-import com.smithsmodding.smithscore.common.tileentity.*;
-import com.smithsmodding.smithscore.network.event.*;
-import com.smithsmodding.smithscore.util.*;
-import io.netty.buffer.*;
-import net.minecraft.nbt.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraftforge.fml.client.*;
-import net.minecraftforge.fml.common.network.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.common.events.network.StandardNetworkableEvent;
+import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
+import com.smithsmodding.smithscore.network.event.EventNetworkManager;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by Marc on 18.12.2015.
@@ -69,6 +70,6 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
 
     @Override
     public void handleServerToClientSide () {
-        EventNetworkManager.getInstance().sendToAllAround(this.getCommunicationMessage(Side.CLIENT), new NetworkRegistry.TargetPoint(tileEntitySmithsCore.getWorld().provider.getDimensionId(), tileEntitySmithsCore.getPos().getX(), tileEntitySmithsCore.getPos().getY(), tileEntitySmithsCore.getPos().getZ(), 128));
+        EventNetworkManager.getInstance().sendToAllAround(this.getCommunicationMessage(Side.CLIENT), new NetworkRegistry.TargetPoint(tileEntitySmithsCore.getWorld().provider.getDimension(), tileEntitySmithsCore.getPos().getX(), tileEntitySmithsCore.getPos().getY(), tileEntitySmithsCore.getPos().getZ(), 128));
     }
 }

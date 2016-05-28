@@ -1,16 +1,19 @@
 package com.smithsmodding.smithscore.client.textures;
 
-import com.google.common.collect.*;
-import com.smithsmodding.smithscore.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.data.*;
-import net.minecraft.util.*;
+import com.google.common.collect.Lists;
+import com.smithsmodding.smithscore.SmithsCore;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.texture.TextureUtil;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
 
-import java.awt.image.*;
-import java.io.*;
-import java.util.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.DirectColorModel;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by Marc on 22.12.2015.
@@ -268,69 +271,6 @@ public class HolographicTexture extends TextureAtlasSprite {
             SmithsCore.getLogger().error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
         } catch (IOException ioexception1) {
             SmithsCore.getLogger().error("Unable to generate " + this.getIconName() + ": unable to load " + resourcelocation1 + "!\nBase texture: " + baseTexture.getIconName(), ioexception1);
-        }
-
-        return null;
-    }
-
-    /**
-     * Method used to emulate the loading of a Beckup texture.
-     *
-     * @param resourceLocation The location of then texture to load.
-     * @param resourceManager  The resource manager used to do the loading.
-     *
-     * @return A ready to use TextureAtlasSprite of the backup texture.
-     */
-    protected TextureAtlasSprite backupLoadTextureAtlasSprite (ResourceLocation resourceLocation, IResourceManager resourceManager) {
-        ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
-        TextureAtlasSprite textureAtlasSprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);
-
-        try {
-            IResource iresource = resourceManager.getResource(resourcelocation1);
-            BufferedImage[] abufferedimage = new BufferedImage[1 + 4]; // iirc TextureMap.mipmapLevels is always 4? :I
-            abufferedimage[0] = TextureUtil.readBufferedImage(iresource.getInputStream());
-            TextureMetadataSection texturemetadatasection = iresource.getMetadata("texture");
-
-            // metadata
-            if (texturemetadatasection != null) {
-                List list = texturemetadatasection.getListMipmaps();
-                int i1;
-
-                if (!list.isEmpty()) {
-                    int l = abufferedimage[0].getWidth();
-                    i1 = abufferedimage[0].getHeight();
-
-                    if (MathHelper.roundUpToPowerOfTwo(l) != l || MathHelper.roundUpToPowerOfTwo(i1) != i1) {
-                        throw new RuntimeException("Unable to load extra miplevels, source-texture is not power of two");
-                    }
-                }
-
-                Iterator iterator3 = list.iterator();
-
-                while (iterator3.hasNext()) {
-                    i1 = ( (Integer) iterator3.next() ).intValue();
-
-                    if (i1 > 0 && i1 < abufferedimage.length - 1 && abufferedimage[i1] == null) {
-                        ResourceLocation resourcelocation2 = this.completeResourceLocation(resourceLocation, i1);
-
-                        try {
-                            abufferedimage[i1] = TextureUtil.readBufferedImage(resourceManager.getResource(resourcelocation2).getInputStream());
-                        } catch (IOException ioexception) {
-                            SmithsCore.getLogger().error("Unable to load miplevel {} from: {}", Integer.valueOf(i1), resourcelocation2, ioexception);
-                        }
-                    }
-                }
-            }
-
-            AnimationMetadataSection animationmetadatasection = iresource.getMetadata("animation");
-            textureAtlasSprite.loadSprite(abufferedimage, animationmetadatasection);
-
-            return textureAtlasSprite;
-
-        } catch (RuntimeException runtimeexception) {
-            SmithsCore.getLogger().error("Unable to parse metadata from " + resourcelocation1, runtimeexception);
-        } catch (IOException ioexception1) {
-            SmithsCore.getLogger().error("Unable to load " + resourcelocation1, ioexception1);
         }
 
         return null;

@@ -1,16 +1,22 @@
 package com.smithsmodding.smithscore.client.textures;
 
-import com.google.common.collect.*;
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.util.client.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.resources.*;
-import net.minecraft.util.*;
-import net.minecraftforge.client.event.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.eventhandler.*;
+import com.google.common.collect.Maps;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.util.client.ResourceHelper;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.client.resources.IResourceManagerReloadListener;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Created by Marc on 06.12.2015.
@@ -65,7 +71,7 @@ public class HolographicTextureCreator implements IResourceManagerReloadListener
         }
 
         //Function is called so that all textures can be created.
-        createMaterialTextures(event.map);
+        createMaterialTextures(event.getMap());
     }
 
     /**

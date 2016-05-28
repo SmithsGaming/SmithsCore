@@ -6,7 +6,7 @@
 
 package com.smithsmodding.smithscore.util.common.positioning;
 
-import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class Cube {
 

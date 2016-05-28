@@ -1,29 +1,42 @@
 package com.smithsmodding.smithscore.util.client;
 
-import com.google.common.base.*;
-import com.google.common.collect.*;
+import com.google.common.base.Charsets;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.*;
-import com.google.gson.reflect.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import net.minecraft.block.*;
-import net.minecraft.block.state.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.*;
-import net.minecraft.client.renderer.vertex.*;
-import net.minecraft.client.resources.*;
-import net.minecraft.client.resources.model.*;
-import net.minecraft.util.*;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.client.model.obj.*;
-import net.minecraftforge.client.model.pipeline.*;
-import net.minecraftforge.fml.common.*;
-import org.apache.logging.log4j.*;
+import com.google.gson.reflect.TypeToken;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ICustomModelLoader;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.client.model.pipeline.LightUtil;
+import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.fml.common.FMLLog;
+import org.apache.logging.log4j.Level;
 
-import javax.vecmath.*;
-import java.io.*;
-import java.lang.reflect.*;
-import java.util.*;
+import javax.vecmath.Vector3f;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Type;
+import java.util.Map;
 
 /**
  * Created by Marc on 06.12.2015.
@@ -46,28 +59,28 @@ public class ModelHelper {
             // equals forge:default-item
             TRSRTransformation thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
                     new Vector3f(0, 1f / 16, -3f / 16),
-                    TRSRTransformation.quatFromYXZDegrees(new Vector3f(-90, 0, 0)),
+                    TRSRTransformation.quatFromXYZDegrees(new Vector3f(-90, 0, 0)),
                     new Vector3f(0.55f, 0.55f, 0.55f),
                     null));
             TRSRTransformation firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
                     new Vector3f(0, 4f / 16, 2f / 16),
-                    TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
+                    TRSRTransformation.quatFromXYZDegrees(new Vector3f(0, -135, 25)),
                     new Vector3f(1.7f, 1.7f, 1.7f),
                     null));
-            DEFAULT_ITEM_STATE = new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
+            DEFAULT_ITEM_STATE = new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, firstperson));
         }
         {
             TRSRTransformation thirdperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
                     new Vector3f(0, 1.25f / 16, -3.5f / 16),
-                    TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, 90, -35)),
+                    TRSRTransformation.quatFromXYZDegrees(new Vector3f(0, 90, -35)),
                     new Vector3f(0.85f, 0.85f, 0.85f),
                     null));
             TRSRTransformation firstperson = TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
                     new Vector3f(0, 4f / 16, 2f / 16),
-                    TRSRTransformation.quatFromYXZDegrees(new Vector3f(0, -135, 25)),
+                    TRSRTransformation.quatFromXYZDegrees(new Vector3f(0, -135, 25)),
                     new Vector3f(1.7f, 1.7f, 1.7f),
                     null));
-            DEFAULT_TOOL_STATE = new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON, firstperson));
+            DEFAULT_TOOL_STATE = new SimpleModelState(ImmutableMap.of(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, thirdperson, ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, firstperson));
         }
     }
 
@@ -99,7 +112,7 @@ public class ModelHelper {
             data[i * 7 + 3] = c;
         }
 
-        return new IColoredBakedQuad.ColoredBakedQuad(data, -1, quad.getFace());
+        return new BakedQuad(data, quad.getTintIndex(), quad.getFace(), quad.getSprite(), quad.shouldApplyDiffuseLighting(), quad.getFormat());
     }
 
     public static Map<String, String> loadTexturesFromJson (ResourceLocation location) throws IOException {
@@ -169,7 +182,7 @@ public class ModelHelper {
     }
 
     public static void setNormalsToIgnoreLightingOnItemModel (IBakedModel model) {
-        for (BakedQuad quad : model.getGeneralQuads()) {
+        for (BakedQuad quad : model.getQuads(null, null, 0)) {
             float[][][] unmodifiedUnpackedQuadData = ModelHelper.getUnpackedQuadData((UnpackedBakedQuad) quad, DefaultVertexFormats.ITEM);
             ModelHelper.setNormalsToIgnoreLightingOnItem(unmodifiedUnpackedQuadData);
             int[] packedData = ModelHelper.getPackedQuadData(unmodifiedUnpackedQuadData, DefaultVertexFormats.ITEM);
@@ -191,7 +204,7 @@ public class ModelHelper {
         IModel model;
 
         ResourceLocation actual = ModelLoaderRegistry.getActualLocation(modelLocation);
-        ICustomModelLoader accepted = OBJLoader.instance;
+        ICustomModelLoader accepted = OBJLoader.INSTANCE;
 
         try
         {

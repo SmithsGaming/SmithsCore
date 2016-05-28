@@ -1,7 +1,5 @@
-This set of MCP mappings was designed for MC 1.8.8. Use at your own peril.This set of MCP mappings was designed for MC 1.8.8. Use at your own peril.
-
 #################################################
-         ForgeGradle 2.1-SNAPSHOT-75bb646        
+         ForgeGradle 2.1-SNAPSHOT-da90449        
   https://github.com/MinecraftForge/ForgeGradle  
 #################################################
                Powered by MCP unknown               
@@ -10,41 +8,42 @@ This set of MCP mappings was designed for MC 1.8.8. Use at your own peril.This s
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
 Found AccessTransformer: SmithsCore_at.cfg
+:clean
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
 :getVersionJson
-:extractUserdev
-Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.1.1744/forge-1.8.9-11.15.1.1744.pom
-Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.8.9-11.15.1.1744/forge-1.8.9-11.15.1.1744-userdev.jar
+:extractUserdev UP-TO-DATE
 :extractDependencyATs SKIPPED
 :extractMcpData SKIPPED
-:extractMcpMappings SKIPPED
-:genSrgs SKIPPED
+:extractMcpMappings
+Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcp_snapshot/20160312-1.9/mcp_snapshot-20160312-1.9.zip
+:genSrgs
 :downloadClient SKIPPED
 :downloadServer SKIPPED
 :splitServerJar SKIPPED
 :mergeJars SKIPPED
-:deobfMcSRG
-Applying SpecialSource...
-Applying Exceptor...
+:deobfMcSRG SKIPPED
 :decompileMc
-Download https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.pom
-Download https://libraries.minecraft.net/com/mojang/realms/1.7.59/realms-1.7.59.jar
 :fixMcSources
 :applySourcePatches
 :remapMcSources
 :recompileMc
-:extractNatives SKIPPED
-:getAssetIndex UP-TO-DATE
+:extractNatives
+:getAssetIndex
 :getAssets
-Current status: 726/734   98%
+Current status: 210/1049   20%
+Current status: 456/1049   43%
+Current status: 657/1049   62%
+Current status: 931/1049   88%
 :makeStart
 :setupDecompWorkspace
 :ideaModule
+Download https://libraries.minecraft.net/com/mojang/netty/1.6/netty-1.6-sources.jar
+Download https://libraries.minecraft.net/com/mojang/authlib/1.5.22/authlib-1.5.22-sources.jar
 :ideaProject
 :ideaWorkspace
 :idea
 
 BUILD SUCCESSFUL
 
-Total time: 2 mins 58.39 secs
+Total time: 2 mins 8.98 secs
