@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.util;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 /**
  * Created by Orion
@@ -47,6 +48,10 @@ public class CoreReferences {
             public static final String X = "SmithsCore.Coordinates.X";
             public static final String Y = "SmithsCore.Coordinates.Y";
             public static final String Z = "SmithsCore.Coordinates.Z";
+        }
+
+        public static class Capabilities {
+            public static final String COMPONENTMODELTYPE = "ComponentModelType";
         }
     }
 
