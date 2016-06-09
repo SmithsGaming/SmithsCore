@@ -6,10 +6,10 @@
 
 package com.smithsmodding.smithscore.client.registry;
 
-import com.smithsmodding.smithscore.client.mouse.*;
-import com.smithsmodding.smithscore.client.textures.*;
-import com.smithsmodding.smithscore.common.registry.*;
-import net.minecraftforge.fml.common.eventhandler.*;
+import com.smithsmodding.smithscore.client.mouse.MouseManager;
+import com.smithsmodding.smithscore.client.textures.TextureCreator;
+import com.smithsmodding.smithscore.common.registry.CommonRegistry;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
  * Used as the Central point of Data on the client Side.
@@ -22,7 +22,7 @@ public class ClientRegistry extends CommonRegistry {
     //All other events should be fired on the CommonBus.
     //If a NetworkSyncableEvent is fired it will automatically be synced to the Server and is there fired on the NetworkRelayBus
     private final EventBus clientEventBus = new EventBus();
-    private final HolographicTextureCreator holographicTextureCreator = new HolographicTextureCreator();
+    private final TextureCreator textureCreator = new TextureCreator();
     private final MouseManager mouseManager = new MouseManager();
     private float partialTickTime;
 
@@ -46,8 +46,8 @@ public class ClientRegistry extends CommonRegistry {
         return mouseManager;
     }
 
-    public HolographicTextureCreator getHolographicTextureCreator () {
-        return holographicTextureCreator;
+    public TextureCreator getTextureCreator() {
+        return textureCreator;
     }
 
     public float getPartialTickTime() {

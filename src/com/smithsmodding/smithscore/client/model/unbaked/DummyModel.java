@@ -21,6 +21,7 @@ import java.util.Collections;
 public class DummyModel implements IModel {
 
     public static final DummyModel INSTANCE = new DummyModel();
+    public static IBakedModel BAKED_MODEL;
 
     @Override
     public Collection<ResourceLocation> getDependencies() {
@@ -35,7 +36,12 @@ public class DummyModel implements IModel {
     @Override
     public IBakedModel bake(IModelState state, VertexFormat format,
                             Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-        return ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), format, bakedTextureGetter);
+        if (BAKED_MODEL != null)
+            return BAKED_MODEL;
+
+        BAKED_MODEL = ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), format, bakedTextureGetter);
+
+        return BAKED_MODEL;
     }
 
     @Override

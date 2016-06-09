@@ -61,6 +61,29 @@ public class CapabilityComponentModel {
         }
     }
 
+    public static class DefaultComponentModelTypeProvider implements IComponentModelProvider {
+
+        private String modelType;
+
+        public DefaultComponentModelTypeProvider() {
+            modelType = MissingComponentModelTypeProvider.INSTANCE.getModelType();
+        }
+
+        public DefaultComponentModelTypeProvider(String modelType) {
+            this.modelType = modelType;
+        }
+
+        @Override
+        public String getModelType() {
+            return modelType;
+        }
+
+        @Override
+        public void setModelType(String modelType) {
+            this.modelType = modelType;
+        }
+    }
+
     public static class DefaultComponentModelProviderCapabilityProvider implements ICapabilityProvider {
 
         private final IComponentModelProvider provider;

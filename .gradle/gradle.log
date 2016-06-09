@@ -8,21 +8,23 @@
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
 Found AccessTransformer: SmithsCore_at.cfg
+:cleanCache
 :clean
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
 :getVersionJson
-:extractUserdev UP-TO-DATE
+:extractUserdev
 :extractDependencyATs SKIPPED
-:extractMcpData SKIPPED
+:extractMcpData
 :extractMcpMappings
-Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcp_snapshot/20160312-1.9/mcp_snapshot-20160312-1.9.zip
 :genSrgs
-:downloadClient SKIPPED
-:downloadServer SKIPPED
-:splitServerJar SKIPPED
-:mergeJars SKIPPED
-:deobfMcSRG SKIPPED
+:downloadClient
+:downloadServer
+:splitServerJar
+:mergeJars
+:deobfMcSRG
+Applying SpecialSource...
+Applying Exceptor...
 :decompileMc
 :fixMcSources
 :applySourcePatches
@@ -31,19 +33,16 @@ Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcp_snapshot/201
 :extractNatives
 :getAssetIndex
 :getAssets
-Current status: 210/1049   20%
-Current status: 456/1049   43%
-Current status: 657/1049   62%
-Current status: 931/1049   88%
+Current status: 128/1049   12%
+Current status: 313/1049   29%
+Current status: 493/1049   46%
+Current status: 643/1049   61%
+Current status: 660/1049   62%
+Current status: 849/1049   80%
+Current status: 997/1049   95%
 :makeStart
 :setupDecompWorkspace
-:ideaModule
-Download https://libraries.minecraft.net/com/mojang/netty/1.6/netty-1.6-sources.jar
-Download https://libraries.minecraft.net/com/mojang/authlib/1.5.22/authlib-1.5.22-sources.jar
-:ideaProject
-:ideaWorkspace
-:idea
 
 BUILD SUCCESSFUL
 
-Total time: 2 mins 8.98 secs
+Total time: 2 mins 49.417 secs

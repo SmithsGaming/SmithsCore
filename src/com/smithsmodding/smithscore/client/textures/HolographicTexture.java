@@ -2,6 +2,7 @@ package com.smithsmodding.smithscore.client.textures;
 
 import com.google.common.collect.Lists;
 import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -306,5 +307,58 @@ public class HolographicTexture extends TextureAtlasSprite {
 
     protected int coord (int x, int y) {
         return y * width + x;
+    }
+
+    public static class HolographicTextureController implements ITextureController {
+
+        @Override
+        public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+            return new HolographicTexture(baseTexture, location);
+        }
+
+        @Override
+        public boolean isStitched() {
+            return true;
+        }
+
+        @Override
+        public boolean useVertexColoring() {
+            return false;
+        }
+
+        @Override
+        public MinecraftColor getVertexColor() {
+            return new MinecraftColor(MinecraftColor.white);
+        }
+
+        /**
+         * Method used by the rendering system to get the Vertex color for liquids.
+         *
+         * @return The color for the molten metal if armories default system should be used.
+         */
+        @Override
+        public MinecraftColor getLiquidColor() {
+            return getVertexColor();
+        }
+
+        @Override
+        public String getTextureSuffix() {
+            return "holographic";
+        }
+
+        @Override
+        public ITextureController setTextureSuffix(String suffix) {
+            return this;
+        }
+
+        @Override
+        public String getCreationIdentifier() {
+            return "holographic";
+        }
+
+        @Override
+        public ITextureController setCreationIdentifier() {
+            return this;
+        }
     }
 }

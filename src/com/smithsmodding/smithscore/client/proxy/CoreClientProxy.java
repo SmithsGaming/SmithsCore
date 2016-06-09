@@ -1,18 +1,20 @@
 package com.smithsmodding.smithscore.client.proxy;
 
-import com.smithsmodding.smithscore.*;
+import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.handlers.gui.*;
-import com.smithsmodding.smithscore.client.handlers.network.*;
-import com.smithsmodding.smithscore.client.registry.*;
-import com.smithsmodding.smithscore.common.handlers.network.*;
-import com.smithsmodding.smithscore.common.player.handlers.*;
-import com.smithsmodding.smithscore.common.proxy.*;
-import com.smithsmodding.smithscore.util.client.*;
-import net.minecraftforge.common.*;
-import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.client.handlers.network.ClientNetworkableEventHandler;
+import com.smithsmodding.smithscore.client.registry.ClientRegistry;
+import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
+import com.smithsmodding.smithscore.common.player.handlers.PlayersConnectedUpdatedEventHandler;
+import com.smithsmodding.smithscore.common.player.handlers.PlayersOnlineUpdatedEventHandler;
+import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
+import com.smithsmodding.smithscore.util.client.Textures;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.io.*;
+import java.io.File;
 
 /**
  * Specific proxy class used to initialize client only sides of this Mod
@@ -106,7 +108,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
 
         MinecraftForge.EVENT_BUS.register(new Textures());
-        MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getHolographicTextureCreator());
+        MinecraftForge.EVENT_BUS.register(((ClientRegistry) SmithsCore.getRegistry()).getTextureCreator());
         MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getMouseManager());
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
