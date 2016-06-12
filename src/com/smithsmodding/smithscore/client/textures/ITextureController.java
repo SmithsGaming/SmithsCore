@@ -73,5 +73,5 @@ public interface ITextureController {
      *
      * @return A Controller with the Identifier set. Allows for chain setting for variables.
      */
-    ITextureController setCreationIdentifier();
+    ITextureController setCreationIdentifier(String identifier);
 }

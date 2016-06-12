@@ -357,7 +357,7 @@ public class HolographicTexture extends TextureAtlasSprite {
         }
 
         @Override
-        public ITextureController setCreationIdentifier() {
+        public ITextureController setCreationIdentifier(String identifier) {
             return this;
         }
     }
