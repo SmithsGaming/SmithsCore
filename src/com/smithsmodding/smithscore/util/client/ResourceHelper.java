@@ -1,12 +1,11 @@
 package com.smithsmodding.smithscore.util.client;
 
-import com.smithsmodding.smithscore.*;
-import net.minecraft.client.*;
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraftforge.fml.common.registry.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 
-import java.io.*;
+import java.io.IOException;
 
 /**
  * Created by Marc on 06.12.2015.
@@ -47,7 +46,7 @@ public class ResourceHelper {
      */
     public static ResourceLocation getItemLocation (Item item) {
         // get the registered name for the object
-        Object o = GameData.getItemRegistry().getNameForObject(item);
+        ResourceLocation o = item.getRegistryName();
 
         // are you trying to add an unregistered item...?
         if (o == null) {
@@ -56,6 +55,6 @@ public class ResourceHelper {
             return null;
         }
 
-        return (ResourceLocation) o;
+        return o;
     }
 }
