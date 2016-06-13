@@ -29,7 +29,6 @@ import net.minecraftforge.client.model.pipeline.LightUtil;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.util.JsonUtils;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
@@ -52,6 +51,8 @@ public class ModelHelper {
 
     public static final IModelState DEFAULT_ITEM_STATE;
     public static final IModelState DEFAULT_TOOL_STATE;
+    public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_ITEM_TRANSFORMS;
+    public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_TOOL_TRANSFORMS;
     static final Type maptype = new TypeToken<Map<String, String>>() {
     }.getType();
     static final Type transformtype = new TypeToken<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>>() {
@@ -61,10 +62,8 @@ public class ModelHelper {
             new GsonBuilder()
                     .registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE)
                     .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
-                    .registerTypeAdapter(ImmutableMap.class, JsonUtils.ImmutableMapTypeAdapter.INSTANCE)
-                    .registerTypeAdapter(ItemCameraTransforms.class, ItemCameraTransformsDeserializer.INSTANCE)
-                    .registerTypeAdapter(ItemTransformVec3f.class, ItemTransformVec3fDeserializer.INSTANCE)
                     .create();
+
     private static final TRSRTransformation flipX = new TRSRTransformation(null, null, new Vector3f(-1, 1, 1), null);
 
     static {
@@ -78,14 +77,18 @@ public class ModelHelper {
             builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, leftify(thirdperson));
             builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, firstperson);
             builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, leftify(firstperson));
-            DEFAULT_ITEM_STATE = new SimpleModelState(builder.build());
+            DEFAULT_ITEM_TRANSFORMS = builder.build();
+            DEFAULT_ITEM_STATE = new SimpleModelState(DEFAULT_ITEM_TRANSFORMS);
         }
         {
-            DEFAULT_TOOL_STATE = new SimpleModelState(ImmutableMap.of(
+            ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+            builder.putAll(ImmutableMap.of(
                     ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, get(0, 4, 0.5f, 0, -90, 55, 0.85f),
                     ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, get(0, 4, 0.5f, 0, 90, -55, 0.85f),
                     ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, get(1.13f, 3.2f, 1.13f, 0, -90, 25, 0.68f),
                     ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f)));
+            DEFAULT_TOOL_TRANSFORMS = builder.build();
+            DEFAULT_TOOL_STATE = new SimpleModelState(DEFAULT_TOOL_TRANSFORMS);
         }
     }
 
@@ -350,7 +353,6 @@ public class ModelHelper {
         public static String tag = "display";
         private static Gson gsonPrivate = new GsonBuilder()
                 .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
-                .registerTypeAdapter(ImmutableMap.class, JsonUtils.ImmutableMapTypeAdapter.INSTANCE)
                 .registerTypeAdapter(ItemCameraTransforms.class, ItemCameraTransformsDeserializer.INSTANCE)
                 .registerTypeAdapter(ItemTransformVec3f.class, ItemTransformVec3fDeserializer.INSTANCE)
                 .create();
@@ -365,9 +367,10 @@ public class ModelHelper {
 
             if (obj.has("parent")) {
                 ResourceLocation parentLocation = getModelLocation(new ResourceLocation(obj.get("parent").getAsString()));
-                if (!parentLocation.getResourcePath().startsWith("builtin")) {
+                if (!parentLocation.getResourcePath().contains("builtin")) {
                     try {
-                        builder.putAll(gsonPrivate.fromJson(getReaderForResource(parentLocation), transformtype));
+                        Reader reader = getReaderForResource(parentLocation);
+                        builder.putAll(gsonPrivate.fromJson(reader, transformtype));
                     } catch (IOException e) {
                         SmithsCore.getLogger().error(CoreReferences.LogMarkers.CLIENT, "Failed to load {} as parent resource. File not found!", parentLocation.toString());
                     }
@@ -379,7 +382,7 @@ public class ModelHelper {
                 return IPerspectiveAwareModel.MapWrapper.getTransforms(itemCameraTransforms);
             }
 
-            return ImmutableMap.of();
+            return builder.build();
         }
     }
 }
