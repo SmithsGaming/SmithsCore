@@ -8,11 +8,13 @@ import com.smithsmodding.smithscore.client.model.overrides.PreBakedComponentOver
 import com.smithsmodding.smithscore.client.model.overrides.PreBakedItemOverride;
 import com.smithsmodding.smithscore.util.client.ModelHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -25,9 +27,11 @@ import java.util.Map;
 public class MultiComponentModel implements IModel {
 
     final ImmutableMap<String, IModel> components;
+    final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
-    public MultiComponentModel(ImmutableMap<String, IModel> components) {
+    public MultiComponentModel(ImmutableMap<String, IModel> components, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
         this.components = components;
+        this.transforms = transforms;
     }
 
     @Override
@@ -56,7 +60,7 @@ public class MultiComponentModel implements IModel {
         if (overrides.isEmpty())
             return DummyModel.INSTANCE.bake(state, format, bakedTextureGetter);
 
-        return new BakedMultiComponentModel(overrides.get(0).getModel().getParticleTexture(), overrides.get(0).getModel().getItemCameraTransforms(), new PreBakedComponentOverrideList(overrides));
+        return new BakedMultiComponentModel(overrides.get(0).getModel().getParticleTexture(), overrides.get(0).getModel().getItemCameraTransforms(), new PreBakedComponentOverrideList(overrides), transforms);
     }
 
     @Override

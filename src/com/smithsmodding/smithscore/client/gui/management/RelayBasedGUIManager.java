@@ -1,10 +1,12 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.common.inventory.*;
-import net.minecraftforge.fluids.*;
+import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
+import net.minecraftforge.fluids.FluidStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Orion
@@ -98,6 +100,10 @@ public class RelayBasedGUIManager implements IGUIManager {
     @Override
     public void onTabChanged (String newActiveTabId) {
         containerSmithsCore.onTabChanged(newActiveTabId);
-        host.getManager().onTabChanged(newActiveTabId);
+    }
+
+    @Override
+    public void onInput(GuiInputEvent.InputTypes types, String componentId, String input) {
+        host.getManager().onInput(types, componentId, input);
     }
 }

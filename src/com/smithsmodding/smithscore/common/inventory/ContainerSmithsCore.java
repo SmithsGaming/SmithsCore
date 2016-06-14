@@ -1,11 +1,16 @@
 package com.smithsmodding.smithscore.common.inventory;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.events.gui.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.events.gui.ContainerGuiClosedEvent;
+import com.smithsmodding.smithscore.client.events.gui.ContainerGuiOpenedEvent;
+import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.RelayBasedGUIManager;
 import com.smithsmodding.smithscore.util.common.ItemStackHelper;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -107,7 +112,15 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     }
 
     public void onTabChanged(String newActiveTabID) {
-        return;
+    }
+
+    public void onInput(GuiInputEvent.InputTypes types, String componentID, String input) {
+        if (types == GuiInputEvent.InputTypes.TABCHANGED) {
+            this.onTabChanged(input);
+            return;
+        }
+
+        getManager().onInput(types, componentID, input);
     }
 
     @Override
@@ -118,7 +131,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex) {
         ItemStack newItemStack = null;
-        Slot slot = (Slot) inventorySlots.get(slotIndex);
+        Slot slot = inventorySlots.get(slotIndex);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemStack = slot.getStack();
             newItemStack = itemStack.copy();
@@ -146,7 +159,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         ItemStack stackInSlot;
         if (itemStack.isStackable()) {
             while (itemStack.stackSize > 0 && (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin)) {
-                slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+                slot = this.inventorySlots.get(currentSlotIndex);
                 stackInSlot = slot.getStack();
                 if (slot.isItemValid(itemStack) && ItemStackHelper.equalsIgnoreStackSize(itemStack, stackInSlot)) {
                     int combinedStackSize = stackInSlot.stackSize + itemStack.stackSize;
@@ -169,7 +182,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         if (itemStack.stackSize > 0) {
             currentSlotIndex = ascending ? slotMax - 1 : slotMin;
             while (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin) {
-                slot = (Slot) this.inventorySlots.get(currentSlotIndex);
+                slot = this.inventorySlots.get(currentSlotIndex);
                 stackInSlot = slot.getStack();
                 if (slot.isItemValid(itemStack) && stackInSlot == null) {
                     slot.putStack(ItemStackHelper.cloneItemStack(itemStack, Math.min(itemStack.stackSize, slot.getSlotStackLimit())));

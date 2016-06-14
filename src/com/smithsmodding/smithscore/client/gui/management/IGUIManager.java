@@ -1,9 +1,11 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import net.minecraftforge.fluids.*;
+import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import net.minecraftforge.fluids.FluidStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Orion
@@ -79,4 +81,6 @@ public interface IGUIManager
      * @param newActiveTabId The new active Tabs ID.
      */
     void onTabChanged (String newActiveTabId);
+
+    void onInput(GuiInputEvent.InputTypes types, String componentId, String input);
 }

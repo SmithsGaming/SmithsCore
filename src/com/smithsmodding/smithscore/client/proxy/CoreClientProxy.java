@@ -3,12 +3,22 @@ package com.smithsmodding.smithscore.client.proxy;
 import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.handlers.gui.*;
 import com.smithsmodding.smithscore.client.handlers.network.ClientNetworkableEventHandler;
+import com.smithsmodding.smithscore.client.model.loader.MultiComponentModelLoader;
 import com.smithsmodding.smithscore.client.registry.ClientRegistry;
 import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersConnectedUpdatedEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersOnlineUpdatedEventHandler;
 import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
+import com.smithsmodding.smithscore.util.client.ResourceHelper;
 import com.smithsmodding.smithscore.util.client.Textures;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,6 +38,52 @@ import java.io.File;
  * Copyrighted according to Project specific license
  */
 public class CoreClientProxy extends CoreCommonProxy {
+
+    MultiComponentModelLoader multiComponentModelLoader = MultiComponentModelLoader.instance;
+
+    public static ResourceLocation registerMultiComponentItemModel(Item item) {
+        ResourceLocation itemLocation = ResourceHelper.getItemLocation(item);
+        if (itemLocation == null) {
+            return null;
+        }
+
+        String path = "component/" + itemLocation.getResourcePath() + MultiComponentModelLoader.EXTENSION;
+
+        return registerMultiComponentItemModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
+    }
+
+    public static ResourceLocation registerMultiComponentItemModel(Item item, final ResourceLocation location) {
+        if (!location.getResourcePath().endsWith(MultiComponentModelLoader.EXTENSION)) {
+            SmithsCore.getLogger().error("The MultiComponent-model " + location.toString() + " does not end with '"
+                    + MultiComponentModelLoader.EXTENSION
+                    + "' and will therefore not be loaded by the custom model loader!");
+        }
+
+        return registerItemModelDefinition(item, location, MultiComponentModelLoader.EXTENSION);
+    }
+
+    public static ResourceLocation registerItemModelDefinition(Item item, final ResourceLocation location, String requiredExtension) {
+        if (!location.getResourcePath().endsWith(requiredExtension)) {
+            SmithsCore.getLogger().error("The item-model " + location.toString() + " does not end with '"
+                    + requiredExtension
+                    + "' and will therefore not be loaded by the custom model loader!");
+        }
+
+        ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+            @Override
+            public ModelResourceLocation getModelLocation(ItemStack stack) {
+                return new ModelResourceLocation(location, "inventory");
+            }
+        });
+
+        // We have to read the default variant if we have custom variants, since it wont be added otherwise and therefore not loaded
+        ModelBakery.registerItemVariants(item, location);
+
+        SmithsCore.getLogger().info("Added model definition for: " + item.getUnlocalizedName() + " add: " + location.getResourcePath() + " in the Domain: " + location.getResourceDomain());
+
+        return location;
+    }
+
     /**
      * Function used to prepare mods and plugins for the Init-Phase
      * Also initializes most of the network code for the client- and Serverside.
@@ -38,6 +94,8 @@ public class CoreClientProxy extends CoreCommonProxy {
     @Override
     public void preInit() {
         super.preInit();
+
+        ModelLoaderRegistry.registerLoader(multiComponentModelLoader);
     }
 
     /**
@@ -113,4 +171,5 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
     }
+
 }

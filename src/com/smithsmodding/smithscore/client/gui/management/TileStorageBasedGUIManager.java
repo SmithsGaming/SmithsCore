@@ -1,9 +1,12 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import net.minecraftforge.fluids.*;
+import com.google.common.collect.ImmutableList;
+import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import net.minecraftforge.fluids.FluidStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Orion
@@ -14,7 +17,7 @@ import java.util.*;
  */
 public class TileStorageBasedGUIManager implements IGUIManager{
 
-    private ArrayList<UUID> watchingPlayers = new ArrayList<UUID>();
+    protected ArrayList<UUID> watchingPlayers = new ArrayList<UUID>();
 
     /**
      * Method called when a player closed the linked UI.
@@ -42,6 +45,10 @@ public class TileStorageBasedGUIManager implements IGUIManager{
         }
 
         watchingPlayers.remove(playerID);
+    }
+
+    public ImmutableList<UUID> getWatchingPlayers() {
+        return ImmutableList.copyOf(watchingPlayers);
     }
 
     /**
@@ -97,6 +104,11 @@ public class TileStorageBasedGUIManager implements IGUIManager{
      */
     @Override
     public void onTabChanged (String newActiveTabId) {
+        return;
+    }
+
+    @Override
+    public void onInput(GuiInputEvent.InputTypes types, String componentId, String input) {
         return;
     }
 }

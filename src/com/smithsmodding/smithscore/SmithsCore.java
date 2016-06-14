@@ -1,14 +1,18 @@
 package com.smithsmodding.smithscore;
 
-import com.google.common.base.*;
-import com.smithsmodding.smithscore.common.proxy.*;
-import com.smithsmodding.smithscore.common.registry.*;
-import com.smithsmodding.smithscore.util.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.event.*;
-import org.apache.logging.log4j.*;
+import com.google.common.base.Stopwatch;
+import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
+import com.smithsmodding.smithscore.common.registry.CommonRegistry;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.concurrent.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Orion
@@ -29,7 +33,7 @@ public class SmithsCore {
     // Logger used to output log messages from smithscore
     private static Logger iLogger = LogManager.getLogger(CoreReferences.General.MOD_ID);
 
-    private static boolean isInDevEnvironment = Boolean.parseBoolean(System.getProperties().getProperty("smithscore.Dev", "false"));
+    private static boolean isInDevEnvironment = Boolean.parseBoolean(System.getProperties().getProperty("SmithsCore.Dev", "false"));
 
     // Private variable for the Sided registry
     @SidedProxy(clientSide = "com.smithsmodding.smithscore.client.registry.ClientRegistry", serverSide = "com.smithsmodding.smithscore.common.registry.CommonRegistry")
@@ -85,7 +89,7 @@ public class SmithsCore {
         watch.stop();
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
-        getLogger().info(CoreReferences.LogMarkers.INIT, "smithscore Init completed after: " + milliseconds + " ms.");
+        getLogger().info(CoreReferences.LogMarkers.INIT, "SmithsCore Init completed after: " + milliseconds + " ms.");
     }
 
     @Mod.EventHandler
@@ -95,6 +99,6 @@ public class SmithsCore {
         watch.stop();
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
-        getLogger().info(CoreReferences.LogMarkers.POSTINIT, "smithscore Post-Init completed after: " + milliseconds + " ms.");
+        getLogger().info(CoreReferences.LogMarkers.POSTINIT, "SmithsCore Post-Init completed after: " + milliseconds + " ms.");
     }
 }

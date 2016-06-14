@@ -1,16 +1,12 @@
 package com.smithsmodding.smithscore.client.model.deserializers;
 
-import com.google.common.base.Charsets;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.smithsmodding.smithscore.client.model.deserializers.definition.MultiComponentModelDefinition;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.IResource;
+import com.smithsmodding.smithscore.util.client.ModelHelper;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,10 +33,7 @@ public class MultiComponentModelDeserializer implements JsonDeserializer<Map<Str
      * @throws IOException Thrown when the given ModelLocation points to nothing or not to a ModelFile.
      */
     public MultiComponentModelDefinition deserialize(ResourceLocation modelLocation) throws IOException {
-        IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath() + ".json"));
-        Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
-
-        return new MultiComponentModelDefinition(gson.fromJson(reader, mapType));
+        return new MultiComponentModelDefinition(gson.fromJson(ModelHelper.getReaderForResource(modelLocation), mapType), ModelHelper.loadTransformFromJson(modelLocation));
     }
 
     @Override

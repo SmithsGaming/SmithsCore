@@ -1,5 +1,6 @@
 package com.smithsmodding.smithscore.util;
 
+import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
@@ -50,9 +51,13 @@ public class CoreReferences {
             public static final String Z = "SmithsCore.Coordinates.Z";
         }
 
-        public static class Capabilities {
-            public static final String COMPONENTMODELTYPE = "ComponentModelType";
+        public static final class IItemProperties {
+            public static final String TARGET = "SmithsCore.ModelTypeTargetRequest";
         }
+    }
+
+    public static final class IItemProperties {
+        public static final ResourceLocation MODELTYPE = new ResourceLocation(General.MOD_ID.toLowerCase(), "ModelType");
     }
 
     public static final class LogMarkers {
