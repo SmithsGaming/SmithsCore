@@ -17,8 +17,7 @@ buildscript{
 } 
 
 apply plugin: 'java'
-apply plugin: 'net.minecraftforge.gradle.forge' 
-apply plugin: 'curseforge'
+apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 
 sourceCompatibility = 1.8
