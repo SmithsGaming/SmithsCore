@@ -14,7 +14,7 @@ import java.util.HashMap;
  * Created by Orion
  * Created on 14.06.2015
  * 11:27
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public class ColorSampler {

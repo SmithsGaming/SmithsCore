@@ -70,6 +70,7 @@ public interface ITextureController {
 
     /**
      * Method to set the Identifier for textures created by this Controller.
+     * @param identifier The new identifier for Textures created by this Controller.
      *
      * @return A Controller with the Identifier set. Allows for chain setting for variables.
      */

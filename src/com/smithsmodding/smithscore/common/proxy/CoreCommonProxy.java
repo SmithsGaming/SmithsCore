@@ -1,14 +1,14 @@
 package com.smithsmodding.smithscore.common.proxy;
 
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.handlers.gui.*;
-import com.smithsmodding.smithscore.common.handlers.network.*;
-import com.smithsmodding.smithscore.network.event.*;
-import com.smithsmodding.smithscore.util.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.handlers.gui.GuiInputEventHandler;
+import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
+import com.smithsmodding.smithscore.network.event.EventNetworkManager;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import net.minecraftforge.fml.relauncher.Side;
 
-import java.io.*;
+import java.io.File;
 
 /**
  * Common class used to manage code that runs on both sides of Minecraft.
@@ -25,7 +25,7 @@ public class CoreCommonProxy {
 
     /**
      * Function used to prepare mods and plugins for the Init-Phase
-     * <p/>
+     *
      * The configuration handler is initialized by a different function.
      */
     public void preInit() {

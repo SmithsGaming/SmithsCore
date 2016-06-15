@@ -205,7 +205,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
     /**
      * Method used to load a backup texture
-     * <p/>
+     *
      * Loads the texture manually.
      * Same procedure as the TextureMap.
      *
