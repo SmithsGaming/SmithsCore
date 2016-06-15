@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * Dummy model to be returned on the initial load to silence the missing model messages.
  * It's never actually used and gets replaced with the real models when the resource manager reloads.
- * <p/>
+ *
  * Thanks to TinkersConstruct as a resource of how to load multilayered objects.
  */
 public class DummyModel implements IModel {

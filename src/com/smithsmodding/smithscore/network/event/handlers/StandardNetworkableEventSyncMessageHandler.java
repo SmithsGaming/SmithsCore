@@ -19,7 +19,7 @@ public class StandardNetworkableEventSyncMessageHandler implements IMessageHandl
      * is needed.
      *
      * @param pMessage The message
-     * @param pContext
+     * @param pContext The messages context.
      * @return an optional return message
      */
     @Override

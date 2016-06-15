@@ -43,7 +43,7 @@ public class StringUtils {
      * @param pToSplit  String to split.
      * @param pMaxWidth Maxwidth of each part of the string.
      * @return An Array containing the splitted string. Uses the default fontrenderer to calculate.
-     * <p/>
+     *
      * TODO: Update to use custom fontrenderer.
      */
     public static String[] SplitString(String pToSplit, int pMaxWidth) {

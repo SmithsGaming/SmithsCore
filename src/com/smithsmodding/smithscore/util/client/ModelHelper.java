@@ -43,7 +43,7 @@ import java.util.Map;
 
 /**
  * Created by Marc on 06.12.2015.
- * <p/>
+ *
  * The original ModelHelper comes from TinkersConstruct.
  * Added some special Case Objects for smithsmodding.
  */

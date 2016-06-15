@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * Created by Marc on 06.12.2015.
- * <p/>
+ *
  * TextureManager used to handle grayscale textures and color them for each material. Modelled after parts of the
  * TinkersConstruct CustomTextureCreator.
  */

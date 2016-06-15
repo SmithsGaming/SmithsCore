@@ -23,7 +23,7 @@ import javax.vecmath.Matrix4f;
 import java.util.List;
 
 /**
- * @Author Marc (Created on: 29.05.2016)
+ * Author Marc (Created on: 29.05.2016)
  */
 public class BakedMultiComponentModel implements IPerspectiveAwareModel {
     final TextureAtlasSprite particleTexture;

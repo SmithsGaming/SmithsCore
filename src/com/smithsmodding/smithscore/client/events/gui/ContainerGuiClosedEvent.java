@@ -90,12 +90,11 @@ public class ContainerGuiClosedEvent extends StandardNetworkableEvent {
      * This function is called on the reinstated event on the receiving side.
      * This allows you to act upon the arrival of the IMessage, as long as you have the IMessageHandler call this
      * function. A good idea is the Post this event to the NetworkRelayBus from here.
-     * <p/>
+     *
      * In this case, some additional values are reconstructed based of the Side this Message is received on.
      *
      * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this events.
      * @param pContext The messages Context.
-     * @return A IMessage that describes the answer if need be, else null.
      */
     @Override
     public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {

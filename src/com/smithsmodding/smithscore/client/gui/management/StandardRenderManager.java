@@ -38,8 +38,10 @@ public class StandardRenderManager implements IRenderManager {
     /**
      * Method should be used when rendering UI components. It is used to set the color to a new one and remember the old
      * one.
-     * <p/>
+     *
      * Allows for the Enabled color to be put on the known stack, or any other color set by a component.
+     *
+     * @param color The color to push on.
      */
     public static void pushColorOnRenderStack (MinecraftColor color) {
         colorStack.add(0, color);
@@ -49,7 +51,7 @@ public class StandardRenderManager implements IRenderManager {
     /**
      * Method should be used when rendering UI components. It is used to reset the color to the previous state instead
      * of to white.
-     * <p/>
+     *
      * Allows for the Enabled color to be put on the known stack, or any other color set by a component.
      */
     public static void popColorFromRenderStack () {

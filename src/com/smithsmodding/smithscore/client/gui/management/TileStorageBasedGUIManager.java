@@ -12,7 +12,7 @@ import java.util.UUID;
  * Created by Orion
  * Created on 01.12.2015
  * 18:11
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public class TileStorageBasedGUIManager implements IGUIManager{

@@ -25,7 +25,7 @@ public class PlayersOnlineUpdatedEventHandler {
     /**
      * Method for handling the network event when it arrives on the client side.
      *
-     * @param event
+     * @param event The event indicating that the amount of online Players updated.
      */
     @SubscribeEvent
     public void onPlayersOnlineUpdated(PlayersOnlineUpdatedEvent event) {

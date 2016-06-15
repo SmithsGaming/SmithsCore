@@ -30,7 +30,7 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
     /**
      * Convert from the supplied buffer into your specific message type
      *
-     * @param buf
+     * @param buf The buffer to write to.
      */
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -59,7 +59,7 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
     /**
      * Deconstruct your message into the supplied byte buffer
      *
-     * @param buf
+     * @param buf The buffer to read from.
      */
     @Override
     public void toBytes(ByteBuf buf) {

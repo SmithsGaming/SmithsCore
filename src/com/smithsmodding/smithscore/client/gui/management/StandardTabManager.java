@@ -32,7 +32,7 @@ public class StandardTabManager implements ITabManager {
 
     /**
      * Method called by the Host.
-     * <p/>
+     *
      * To notify the Manager that all tabs have been registered.
      */
     @Override
@@ -100,7 +100,7 @@ public class StandardTabManager implements ITabManager {
     /**
      * Method used to retrieve all the possible tabs for this TabManager.
      *
-     * @return A LinkedHashMap<String, IGUITab> that holds all the possible tabs sorted on registration order with their
+     * @return A LinkedHashMap that holds all the possible tabs sorted on registration order with their
      * ID as keys.
      */
     @Override
@@ -164,9 +164,9 @@ public class StandardTabManager implements ITabManager {
     }
 
     /**
-     * Method used to get the vertical offset of the Display area of a Ta
+     * Method used to get the vertical offset of the Display area of a TabManager
      *
-     * @return
+     * @return The vertical offset of the DisplayArea
      */
     @Override
     public int getDisplayAreaVerticalOffset () {

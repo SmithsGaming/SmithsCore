@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
  * Used as the Central point of Data on the client Side.
- * <p/>
+ *
  * Defines the special client EventBus.
  */
 public class ClientRegistry extends CommonRegistry {

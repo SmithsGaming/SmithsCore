@@ -61,7 +61,7 @@ public class BlockModelUpdateEvent extends StandardNetworkableEvent {
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events. This IMessage is then send
      * to the server or the client depending on the running side.
-     * <p/>
+     *
      * A warning: You will have to register the IMessage and its handler to the EventNetworkManager.getInstance()
      * yourself
      *

@@ -17,7 +17,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 /**
- * @Author Marc (Created on: 14.06.2016)
+ * Author Marc (Created on: 14.06.2016)
  */
 public class ComponentTextbox extends GuiTextField implements IGUIComponent {
     protected String uniqueID;

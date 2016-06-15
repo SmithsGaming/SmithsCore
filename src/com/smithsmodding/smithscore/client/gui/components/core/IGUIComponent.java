@@ -10,7 +10,7 @@ import java.util.*;
  * Created by Orion
  * Created on 02.12.2015
  * 10:44
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public interface IGUIComponent

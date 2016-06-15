@@ -43,8 +43,8 @@ public class HolographicTexture extends TextureAtlasSprite {
 
     /**
      * Function to get the perceptual brightness of a color in int form.
-     * <p/>
-     * Original code from: Physis, given to TiC by TTFTCUTS (Probs were probs are due!)
+     *
+     * Original code from: Physis, TTFTCUTS. (Probs were probs are due!)
      *
      * @param col The color to het the brightness for.
      *
@@ -60,8 +60,8 @@ public class HolographicTexture extends TextureAtlasSprite {
 
     /**
      * Function to get the perceptual brightness of a color in int form.
-     * <p/>
-     * Original code from: Physis, given to TiC by TTFTCUTS (Probs were probs are due!)
+     *
+     * Original code from: Physis, TTFTCUTS. (Probs were probs are due!)
      *
      * @param r The red channel of the color you want the brightness of
      * @param g The green channel of the color you want the brightness of
@@ -234,7 +234,7 @@ public class HolographicTexture extends TextureAtlasSprite {
 
     /**
      * Method used to load a backup texture
-     * <p/>
+     *
      * Loads the texture manually. Same procedure as the TextureMap.
      *
      * @param resourceLocation The resource location to load the texture from.

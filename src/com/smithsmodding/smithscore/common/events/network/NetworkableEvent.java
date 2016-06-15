@@ -16,9 +16,9 @@ import net.minecraftforge.fml.relauncher.*;
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
  * Meaning that events that happen on the client side will get synchronized to the server side.
  * And vice versa.
- * <p/>
+ *
  * A good example would be an event that triggers when the user enters something into a textbox on the client side.
- * <p/>
+ *
  * The implementing event gets catched by a events handler on the lowest priority.
  */
 public class NetworkableEvent extends SmithsCoreEvent {
@@ -26,7 +26,7 @@ public class NetworkableEvent extends SmithsCoreEvent {
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events.
      * This IMessage is then send to the server or the client depending on the running side.
-     * <p/>
+     *
      * A warning: You will have to register the IMessage and its handler to the EventNetworkManager.getInstance()
      * yourself
      *
@@ -45,7 +45,6 @@ public class NetworkableEvent extends SmithsCoreEvent {
      *
      * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this events.
      * @param pContext The messages context.
-     * @return A IMessage that describes the answer if need be, else null.
      */
     public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
     }

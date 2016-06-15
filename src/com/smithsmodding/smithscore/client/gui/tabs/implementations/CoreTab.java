@@ -80,7 +80,7 @@ public abstract class CoreTab implements IGUITab {
     /**
      * Function to get the tooltiptext of the gui System.
      *
-     * @return
+     * @return The tooltip contents.
      */
     @Override
     public ArrayList<String> getIconToolTipText() {
@@ -358,7 +358,7 @@ public abstract class CoreTab implements IGUITab {
      * Function called when the mouse was clicked outside of this component. It is only called when the function
      * requiresForcedMouseInput() return true Either it should pass this function to its SubComponents (making sure that
      * it recalculates the location and checks if it is inside before hand, handle the Click them self or both.
-     * <p/>
+     *
      * When this Component or one of its SubComponents handles the Click it should return True.
      *
      * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the
@@ -385,7 +385,7 @@ public abstract class CoreTab implements IGUITab {
      * Function called when the mouse was clicked inside of this component. Either it should pass this function to its
      * SubComponents (making sure that it recalculates the location and checks if it is inside before hand, handle the
      * Click them self or both.
-     * <p/>
+     *
      * When this Component or one of its SubComponents handles the Click it should return True.
      *
      * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the

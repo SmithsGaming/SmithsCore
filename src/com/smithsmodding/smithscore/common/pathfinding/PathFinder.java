@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * Created by Orion Created on 03.07.2015 14:42
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public class PathFinder {

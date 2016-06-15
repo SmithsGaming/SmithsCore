@@ -6,7 +6,7 @@ import com.smithsmodding.smithscore.client.gui.components.core.*;
  * Created by Orion
  * Created on 02.12.2015
  * 10:59
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public interface IGUIComponentState

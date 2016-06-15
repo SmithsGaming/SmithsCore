@@ -108,7 +108,7 @@ public final class GuiHelper {
 
     /**
      * Draws a given FluidStack on the Screen.
-     * <p/>
+     *
      * This function comes with regards to the BuildCraft Team
      *
      * @param pFluidStack The Stack to render
@@ -282,7 +282,7 @@ public final class GuiHelper {
 
     /**
      * Helper function copied from the gui class to make it possible to use it outside of a gui class.
-     * <p/>
+     *
      * TRhe function comes with regards to the Minecraft Team
      *
      * @param pXKoord The x offset
@@ -308,7 +308,7 @@ public final class GuiHelper {
 
     /**
      * Helper function copied from the gui class to make it possible to use it outside of a gui class.
-     * <p/>
+     *
      * TRhe function comes with regards to the Minecraft Team
      *
      * @param pXCoord The x offset
@@ -438,7 +438,7 @@ public final class GuiHelper {
     /**
      * Convenient helper function to bind the texture to a String adress
      *
-     * @param pTextureAddress
+     * @param pTextureAddress The address of the Texture to bind.
      */
     public static void bindTexture(String pTextureAddress) {
         bindTexture(new ResourceLocation(pTextureAddress));
@@ -447,7 +447,7 @@ public final class GuiHelper {
     /**
      * Convenient helper function to bind the texture using a ResourceLocation
      *
-     * @param pTextureLocation
+     * @param pTextureLocation The ResourceLocation of the Texture to bind.
      */
     public static void bindTexture(ResourceLocation pTextureLocation) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pTextureLocation);

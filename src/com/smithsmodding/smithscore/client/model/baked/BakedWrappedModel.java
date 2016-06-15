@@ -16,7 +16,7 @@ import javax.vecmath.Matrix4f;
 import java.util.List;
 
 /**
- * @Author Marc (Created on: 09.06.2016)
+ * Author Marc (Created on: 09.06.2016)
  */
 public class BakedWrappedModel implements IBakedModel {
     private final IBakedModel parentModel;

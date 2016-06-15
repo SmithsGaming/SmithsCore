@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
 /**
- * @Author Marc (Created on: 14.06.2016)
+ * Author Marc (Created on: 14.06.2016)
  */
 public class TextboxComponentState extends CoreComponentState {
     private final int id = 0;

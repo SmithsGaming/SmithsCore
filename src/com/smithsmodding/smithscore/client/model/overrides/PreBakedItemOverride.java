@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import java.util.HashMap;
 
 /**
- * @Author Marc (Created on: 04.06.2016)
+ * Author Marc (Created on: 04.06.2016)
  */
 public abstract class PreBakedItemOverride extends ItemOverride {
 

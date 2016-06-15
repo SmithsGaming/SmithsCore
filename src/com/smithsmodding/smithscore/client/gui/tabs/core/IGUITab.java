@@ -44,7 +44,7 @@ public interface IGUITab extends IGUIBasedComponentHost
     /**
      * Function to get the tooltiptext of the gui System.
      *
-     * @return
+     * @return The tooltip contents
      */
     ArrayList<String> getIconToolTipText();
 

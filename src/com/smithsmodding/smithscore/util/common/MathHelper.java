@@ -4,7 +4,7 @@ package com.smithsmodding.smithscore.util.common;
 import javax.vecmath.Vector3f;
 
 /**
- * @Author Marc (Created on: 11.06.2016)
+ * Author Marc (Created on: 11.06.2016)
  */
 public class MathHelper {
 

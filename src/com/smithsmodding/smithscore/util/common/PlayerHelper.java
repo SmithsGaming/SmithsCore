@@ -12,7 +12,7 @@ import java.util.UUID;
  * Created by Orion
  * Created on 22.11.2015
  * 22:56
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public class PlayerHelper {

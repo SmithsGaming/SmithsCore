@@ -19,15 +19,12 @@ import java.util.HashMap;
  */
 public class ColorSampler {
 
-    //1.8!!!
-    //Minecraft.getMinecraft().getItemModelMesher().getRenderItem().getItemModelMesher().getItemModel(stack).getParticleTexture()
-
     //Cache of the Relative MinecraftColors to TextFormatting.
     private static HashMap<MinecraftColor, TextFormatting> iMappedColors;
 
     /**
      * Function used to initialize the color to formatting cache.
-     * <p/>
+     *
      * It leaves black out, cause all conversions will else return Black.
      */
     private static void initializeEnumChatFromattingMinecraftColors() {

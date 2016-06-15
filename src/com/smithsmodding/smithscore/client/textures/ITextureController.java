@@ -4,7 +4,7 @@ import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 /**
- * @Author Marc (Created on: 09.06.2016)
+ * Author Marc (Created on: 09.06.2016)
  */
 public interface ITextureController {
 

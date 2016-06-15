@@ -15,7 +15,7 @@ public class PlayersConnectedUpdatedEventHandler {
     /**
      * Method for handling the network event when it arrives on the client side.
      *
-     * @param event
+     * @param event The Event indicating that the ConnectedPlayers updated.
      */
     @SubscribeEvent
     public void onPlayersConnectedUpdated(PlayersConnectedUpdatedEvent event) {

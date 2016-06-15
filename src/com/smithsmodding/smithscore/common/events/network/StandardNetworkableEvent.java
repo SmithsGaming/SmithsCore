@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.*;
 /**
  * Standard implementation of the Networkable events.
  * It should be used for events that only handle a limited amount of data.
- * <p/>
+ *
  * An implementing event has to have an Empty constructor as the IMessage Implementation uses Reflection to create a
  * new Instance of the implementing event and fires it on the NetworkRelayBus.
  */
@@ -57,7 +57,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events.
      * This IMessage is then send to the server or the client depending on the running side.
-     * <p/>
+     *
      * A warning: You will have to register the IMessage and its handler to the EventNetworkManager.getInstance()
      * yourself
      *
@@ -77,7 +77,6 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      *
      * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this events.
      * @param pContext The messages Context
-     * @return A IMessage that describes the answer if need be, else null.
      */
     @Override
     public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {

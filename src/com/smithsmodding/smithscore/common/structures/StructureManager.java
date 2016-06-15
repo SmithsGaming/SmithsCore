@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  * Created by Orion Created on 03.07.2015 12:49
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public final class StructureManager {

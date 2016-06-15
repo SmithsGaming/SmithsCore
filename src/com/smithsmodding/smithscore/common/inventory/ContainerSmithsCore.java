@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
  * Created by Orion
  * Created on 22.11.2015
  * 22:46
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public abstract class ContainerSmithsCore extends Container implements IContainerHost {
@@ -51,7 +51,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     /**
      * Called when the container is closed.
      *
-     * @param playerIn
+     * @param playerIn The player that closed the Container.
      */
     @Override
     public void onContainerClosed(EntityPlayer playerIn) {

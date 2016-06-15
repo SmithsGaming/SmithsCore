@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author Marc (Created on: 28.05.2016)
+ * Author Marc (Created on: 28.05.2016)
  */
 public class MultiComponentModelDeserializer implements JsonDeserializer<Map<String, ResourceLocation>> {
     public static final MultiComponentModelDeserializer instance = new MultiComponentModelDeserializer();

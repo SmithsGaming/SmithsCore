@@ -15,7 +15,7 @@ import java.awt.image.*;
  * Created by Orion
  * Created on 27.10.2015
  * 17:19
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public class MinecraftColor extends Color {

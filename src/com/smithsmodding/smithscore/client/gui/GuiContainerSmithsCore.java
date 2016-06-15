@@ -114,9 +114,9 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     /**
      * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
      *
-     * @param mouseX
-     * @param mouseY
-     * @param mouseButton
+     * @param mouseX The absolute X-Coordinate of the mouse click
+     * @param mouseY The absolute Y-Coordinate of the mouse click
+     * @param mouseButton The mouse button that was used to perform the click
      */
     @Override
     protected void mouseClicked (int mouseX, int mouseY, int mouseButton) throws IOException {
@@ -132,8 +132,8 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
      * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
      *
-     * @param typedChar
-     * @param keyCode
+     * @param typedChar The char pressed
+     * @param keyCode The corresponding keycode.
      */
     @Override
     protected void keyTyped (char typedChar, int keyCode) throws IOException {
@@ -198,7 +198,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * Function called when the mouse was clicked outside of this component. It is only called when the function
      * requiresForcedMouseInput() return true Either it should pass this function to its SubComponents (making sure that
      * it recalculates the location and checks if it is inside before hand, handle the Click them self or both.
-     * <p/>
+     *
      * When this Component or one of its SubComponents handles the Click it should return True.
      *
      * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the
@@ -239,7 +239,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * Function called when the mouse was clicked inside of this component. Either it should pass this function to its
      * SubComponents (making sure that it recalculates the location and checks if it is inside before hand, handle the
      * Click them self or both.
-     * <p/>
+     *
      * When this Component or one of its SubComponents handles the Click it should return True.
      *
      * @param relativeMouseX The relative (to the Coordinate returned by @see #getLocalCoordinate) X-Coordinate of the

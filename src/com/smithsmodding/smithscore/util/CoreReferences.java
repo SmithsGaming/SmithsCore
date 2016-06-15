@@ -8,7 +8,7 @@ import org.apache.logging.log4j.MarkerManager;
  * Created by Orion
  * Created on 26.10.2015
  * 12:32
- * <p/>
+ *
  * Copyrighted according to Project specific license
  */
 public class CoreReferences {

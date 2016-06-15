@@ -34,7 +34,7 @@ public class NetworkManagerInitializeEvent extends SmithsCoreEvent {
     /**
      * Function used by catching handlers to register additional messages to the channel that is about to be initialized
      * without having to have direct contact the the SimpleNetworkWrapper Instance that describes this Channel.
-     * <p/>
+     *
      * Use this function instead of registering the Message directly so you don't have to worry about the Channel ID
      *
      * @param pHandlerClass  The Message handlers class on the receiving end.

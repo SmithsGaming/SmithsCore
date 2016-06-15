@@ -22,7 +22,7 @@ import java.util.Map;
 
 
 /**
- * @Author Marc (Created on: 29.05.2016)
+ * Author Marc (Created on: 29.05.2016)
  */
 public class MultiComponentModel implements IModel {
 

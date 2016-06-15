@@ -102,7 +102,7 @@ public class StandardLedgerManager implements ILedgerManager {
     /**
      * Method returns the Global coorindate of the RootAnchor pixel of the given Ledger (if it exists on the given side
      * else null)
-     * <p/>
+     *
      * For a Ledger on the left side of the gui it will return the top most right pixel that is visible. For a Ledher on
      * the right side of the gui it will return the top most left pixel that is visible.
      *
