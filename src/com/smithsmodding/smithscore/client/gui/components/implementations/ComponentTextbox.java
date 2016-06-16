@@ -38,6 +38,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
         this.width = width;
         this.height = height;
 
+        getState().setComponent(this);
         setText(state.getText());
     }
 
