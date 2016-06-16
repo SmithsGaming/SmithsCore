@@ -14,10 +14,7 @@ import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Marc on 06.12.2015.
@@ -27,9 +24,9 @@ import java.util.Map;
  */
 public class TextureCreator implements IResourceManagerReloadListener {
     //Variable containing all the mappings for
-    private static ArrayList<ITextureController> controllers = new ArrayList<>();
+    private static Set<ITextureController> controllers = new HashSet<>();
     //Variable containing the location of all grayscale base textures.
-    private static ArrayList<ResourceLocation> baseTextures = new ArrayList<ResourceLocation>();
+    private static Set<ResourceLocation> baseTextures = new HashSet<>();
     //Variable that holds the colored end textures when the Creator has reloaded
     private static Map<String, HashMap<String, TextureAtlasSprite>> buildSprites = Maps.newHashMap();
 
