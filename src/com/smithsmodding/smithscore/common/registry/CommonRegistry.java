@@ -6,7 +6,7 @@
 
 package com.smithsmodding.smithscore.common.registry;
 
-import net.minecraftforge.fml.common.eventhandler.*;
+import net.minecraftforge.fml.common.eventhandler.EventBus;
 
 /**
  * Central point of Data for the smithscore mod.
@@ -16,11 +16,11 @@ public class CommonRegistry {
 
     //Eventbus used on the server side to handle events that are fired on the client side and then send through the network to be handled on the server side as well.
     //This is for example used when a User clicks a button.
-    private final EventBus iNetworkRelayBus = new EventBus();
+    private final EventBus networkRelayBus = new EventBus();
 
     //Eventbus used for events that are fired commonly on both sides of Minecraft. It is for example used the handle Container and TE Initialization or
     //to handle access right management for blocks that implement it.
-    private final EventBus iCommonEventBus = new EventBus();
+    private final EventBus commonEventBus = new EventBus();
 
     /**
      * Function used to handle specific events that happened on the client side, and were synced over because they could have an impact on the server side.
@@ -29,7 +29,7 @@ public class CommonRegistry {
      * @return The EventBus that is used for network Relaying.
      */
     public EventBus getNetworkBus() {
-        return iNetworkRelayBus;
+        return networkRelayBus;
     }
 
     /**
@@ -38,7 +38,7 @@ public class CommonRegistry {
      * @return The common EventBus.
      */
     public EventBus getCommonBus() {
-        return iCommonEventBus;
+        return commonEventBus;
     }
 
     /**
@@ -47,6 +47,6 @@ public class CommonRegistry {
      * @return The common EventBus
      */
     public EventBus getClientBus() {
-        return iCommonEventBus;
+        return commonEventBus;
     }
 }

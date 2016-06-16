@@ -311,6 +311,8 @@ public class HolographicTexture extends TextureAtlasSprite {
 
     public static class HolographicTextureController implements ITextureController {
 
+        public static final String IDENTIFIER = "holographic";
+
         @Override
         public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
             return new HolographicTexture(baseTexture, location);
@@ -343,7 +345,7 @@ public class HolographicTexture extends TextureAtlasSprite {
 
         @Override
         public String getTextureSuffix() {
-            return "holographic";
+            return IDENTIFIER;
         }
 
         @Override
@@ -353,7 +355,7 @@ public class HolographicTexture extends TextureAtlasSprite {
 
         @Override
         public String getCreationIdentifier() {
-            return "holographic";
+            return IDENTIFIER;
         }
 
         @Override
