@@ -36,7 +36,7 @@ public class Textures {
         private static String COMPONENTTEXTUREPATH = GUITEXTUREPATH + "components/";
 
         public static class Basic {
-            public static CustomResource INFOICON = new CustomResource("Gui.Basic.ledgers.InfoIon", "smithscore:gui/Icons/16x Info icon", Colors.DEFAULT, 0, 0, 16, 16);
+            public static CustomResource INFOICON = new CustomResource("Gui.Basic.ledgers.InfoIon", "smithscore:gui/icons/16x Info icon", Colors.DEFAULT, 0, 0, 16, 16);
             private static String BASICTEXTUREPATH = GUITEXTUREPATH + "basic/";
             public static CustomResource LEDGERLEFT = new CustomResource("Gui.Basic.ledgers.Left", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT);
 
