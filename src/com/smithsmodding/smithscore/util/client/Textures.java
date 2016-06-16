@@ -37,22 +37,22 @@ public class Textures {
 
         public static class Basic {
             public static CustomResource INFOICON = new CustomResource("Gui.Basic.ledgers.InfoIon", "smithscore:gui/Icons/16x Info icon", Colors.DEFAULT, 0, 0, 16, 16);
-            private static String BASICTEXTUREPATH = GUITEXTUREPATH + "Basic/";
-            public static CustomResource LEDGERLEFT = new CustomResource("Gui.Basic.ledgers.Left", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT);
+            private static String BASICTEXTUREPATH = GUITEXTUREPATH + "basic/";
+            public static CustomResource LEDGERLEFT = new CustomResource("Gui.Basic.ledgers.Left", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT);
 
             public static class Slots {
                 public static CustomResource DEFAULT = new CustomResource("Gui.Basic.Slots.Default", BASICTEXTUREPATH + "slot.png", Colors.DEFAULT, 0, 0, 18, 18);
             }
 
             public static class Border {
-                public static CustomResource CENTER = new CustomResource("Gui.Basic.Border.Center", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 4, 4, 248, 248);
-                public static CustomResource STRAIGHTBORDERLIGHT = new CustomResource("Gui.Basic.Border.Border.Light", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 3, 0, 250, 3);
-                public static CustomResource STRAIGHTBORDERDARK = new CustomResource("Gui.Basic.Border.Border.Dark", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 3, 253, 250, 3);
-                public static CustomResource INWARTSCORNERLIGHT = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 0, 0, 3, 3);
-                public static CustomResource INWARTSCORNERLIGHTINVERTED = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 0, 253, 3, 3);
-                public static CustomResource INWARTSCORNERDARK = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Dark", BASICTEXTUREPATH + "Ledger/ledger.png", Colors.DEFAULT, 252, 252, 4, 4);
+                public static CustomResource CENTER = new CustomResource("Gui.Basic.Border.Center", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 4, 4, 248, 248);
+                public static CustomResource STRAIGHTBORDERLIGHT = new CustomResource("Gui.Basic.Border.Border.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 3, 0, 250, 3);
+                public static CustomResource STRAIGHTBORDERDARK = new CustomResource("Gui.Basic.Border.Border.Dark", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 3, 253, 250, 3);
+                public static CustomResource INWARTSCORNERLIGHT = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource INWARTSCORNERLIGHTINVERTED = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 0, 253, 3, 3);
+                public static CustomResource INWARTSCORNERDARK = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Dark", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 252, 252, 4, 4);
 
-                private static String BORDERTEXTUREPATH = BASICTEXTUREPATH + "Border/";
+                private static String BORDERTEXTUREPATH = BASICTEXTUREPATH + "border/";
                 public static CustomResource OUTWARTSCORNERDARKDARK = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Dark", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 0, 0, 3, 3);
                 public static CustomResource OUTWARTSCORNERDARKLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 3, 0, 3, 3);
                 public static CustomResource OUTWARTSCORNERLIGHTDARK = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 6, 0, 3, 3);
@@ -119,12 +119,6 @@ public class Textures {
                         public static MultiComponentTexture TEXTURE = new MultiComponentTexture(new TextureComponent(CENTER), new TextureComponent[]{new TextureComponent(CORNERLEFTTOP), new TextureComponent(CORNERRIGHTTOP), new TextureComponent(CORNERRIGHTBOTTOM), new TextureComponent(CORNERLEFTBOTTOM)}, new TextureComponent[]{new TextureComponent(SIDETOP), new TextureComponent(SIDERIGHT), new TextureComponent(SIDEBOTTOM), new TextureComponent(SIDELEFT)});
                     }
                 }
-            }
-
-            public static class Images {
-                private static String IMAGETEXTUREPATH = GUITEXTUREPATH + "Images/";
-                public static CustomResource ARROWRIGHTGRAY = new CustomResource("Gui.Basic.Iamge.Arrow.Gray", IMAGETEXTUREPATH + "ArrowImage.png", Colors.DEFAULT, 0, 0, 22, 22);
-                public static CustomResource ARROWRIGHTWHITE = new CustomResource("Gui.Basic.Iamge.Arrow.White", IMAGETEXTUREPATH + "ArrowImage.png", Colors.DEFAULT, 22, 0, 22, 23);
             }
         }
     }
