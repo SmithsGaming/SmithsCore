@@ -10,7 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
 public class TextboxComponentState extends CoreComponentState {
     private final int id = 0;
     private FontRenderer fontRendererInstance = Minecraft.getMinecraft().fontRendererObj;
-    private String text;
+    private String text = "";
 
     public TextboxComponentState(IGUIComponent component) {
         super(component);
