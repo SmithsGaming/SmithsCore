@@ -11,7 +11,7 @@ import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
- * @Author Marc (Created on: 18.06.2016)
+ * Author Marc (Created on: 18.06.2016)
  */
 public class TileEntityDataUpdateEventHandler
 {
