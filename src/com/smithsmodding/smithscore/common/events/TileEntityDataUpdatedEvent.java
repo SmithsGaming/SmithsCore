@@ -19,45 +19,29 @@ import net.minecraftforge.fml.relauncher.Side;
  * Created by Marc on 18.12.2015.
  */
 public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
-    TileEntitySmithsCore tileEntitySmithsCore;
+    NBTTagCompound dataCompound;
+    NetworkRegistry.TargetPoint targetPoint;
 
     public TileEntityDataUpdatedEvent () {
     }
 
     public TileEntityDataUpdatedEvent (TileEntitySmithsCore tileEntitySmithsCore) {
-        this.tileEntitySmithsCore = tileEntitySmithsCore;
+        this.dataCompound = tileEntitySmithsCore.writeToSynchronizationCompound(new NBTTagCompound());
+        this.targetPoint = new NetworkRegistry.TargetPoint(tileEntitySmithsCore.getWorld().provider.getDimension(), tileEntitySmithsCore.getPos().getX(), tileEntitySmithsCore.getPos().getY(), tileEntitySmithsCore.getPos().getZ(), 128);
     }
 
-    public TileEntitySmithsCore getTileEntitySmithsCore () {
-        return tileEntitySmithsCore;
+    public NBTTagCompound getDataCompound() {
+        return dataCompound;
     }
 
     @Override
     public void readFromMessageBuffer (ByteBuf pMessageBuffer) {
-        NBTTagCompound messageCompound = ByteBufUtils.readTag(pMessageBuffer);
-
-        TileEntity tileEntity = FMLClientHandler.instance().getWorldClient().getTileEntity(new BlockPos(messageCompound.getInteger("x"), messageCompound.getInteger("y"), messageCompound.getInteger("z")));
-
-        if (tileEntity == null)
-            return;
-
-        if (!( tileEntity instanceof TileEntitySmithsCore )) {
-            SmithsCore.getLogger().error(CoreReferences.LogMarkers.TESYNC, "While trying to sync a TE a instance mismatch occurred. This should be impossible and is a BUG!");
-            return;
-        }
-
-        this.tileEntitySmithsCore = (TileEntitySmithsCore) tileEntity;
-
-        tileEntitySmithsCore.readFromSynchronizationCompound(messageCompound);
+        dataCompound = ByteBufUtils.readTag(pMessageBuffer);
     }
 
     @Override
     public void writeToMessageBuffer (ByteBuf pMessageBuffer) {
-        NBTTagCompound messageCompound = new NBTTagCompound();
-
-        tileEntitySmithsCore.writeToSynchronizationCompound(messageCompound);
-
-        ByteBufUtils.writeTag(pMessageBuffer, messageCompound);
+        ByteBufUtils.writeTag(pMessageBuffer, dataCompound);
     }
 
     @Override
@@ -70,6 +54,6 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
 
     @Override
     public void handleServerToClientSide () {
-        EventNetworkManager.getInstance().sendToAllAround(this.getCommunicationMessage(Side.CLIENT), new NetworkRegistry.TargetPoint(tileEntitySmithsCore.getWorld().provider.getDimension(), tileEntitySmithsCore.getPos().getX(), tileEntitySmithsCore.getPos().getY(), tileEntitySmithsCore.getPos().getZ(), 128));
+        EventNetworkManager.getInstance().sendToAllAround(this.getCommunicationMessage(Side.CLIENT), targetPoint);
     }
 }
