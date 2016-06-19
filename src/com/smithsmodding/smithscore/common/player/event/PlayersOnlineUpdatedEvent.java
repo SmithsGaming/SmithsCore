@@ -17,6 +17,7 @@ public class PlayersOnlineUpdatedEvent extends StandardNetworkableEvent {
 
     private List<UUID> commonSidedOnlineMap = new ArrayList<UUID>();
 
+    public PlayersOnlineUpdatedEvent() {}
 
     public PlayersOnlineUpdatedEvent(PlayerManager manager) {
         commonSidedOnlineMap = manager.getCommonSidedOnlineMap();

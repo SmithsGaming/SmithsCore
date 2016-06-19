@@ -9,6 +9,7 @@ import com.smithsmodding.smithscore.client.registry.ClientRegistry;
 import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersConnectedUpdatedEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersOnlineUpdatedEventHandler;
+import com.smithsmodding.smithscore.common.player.management.PlayerManager;
 import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
 import com.smithsmodding.smithscore.util.client.ResourceHelper;
 import com.smithsmodding.smithscore.util.client.Textures;
@@ -172,6 +173,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getMouseManager());
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
+        MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
     }
 
 }

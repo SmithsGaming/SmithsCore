@@ -11,6 +11,7 @@ import com.smithsmodding.smithscore.util.client.gui.MultiComponentTexture;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.Slot;
 
 /**
@@ -52,7 +53,7 @@ public class ComponentSlot extends CoreComponent {
         SlotComponentState state = (SlotComponentState) getState();
 
         if (state.requiresHoloRendering() && state.getHolographicSprite() != null) {
-            GuiHelper.drawColoredRect(new Plane(1,1,16,16), 0, Colors.General.ELECTRICBLUE);
+            GuiHelper.bindTexture(TextureMap.locationBlocksTexture);
             GuiHelper.drawTexturedModelRectFromIcon(1, 1, 0, state.getHolographicSprite(), 16, 16);
         }
 

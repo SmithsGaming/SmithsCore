@@ -30,7 +30,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
     protected CustomResource secondaryBackground;
 
     public ComponentTextbox(String uniqueID, TextboxComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height) {
-        super(state.getId(), state.getFontRendererInstance(), rootAnchorPixel.getXComponent(), rootAnchorPixel.getYComponent(), width, height);
+        super(state.getId(), state.getFontRendererInstance(), 0, 0, width, height);
         this.uniqueID = uniqueID;
         this.state = state;
         this.parent = parent;
@@ -107,19 +107,13 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
 
     @Override
     public boolean handleMouseClickedInside(int relativeMouseX, int relativeMouseY, int mouseButton) {
-        int absoluteMouseX = relativeMouseX + getGlobalCoordinate().getXComponent();
-        int absoluteMouseY = relativeMouseY + getGlobalCoordinate().getYComponent();
-
-        this.mouseClicked(absoluteMouseX, absoluteMouseY, mouseButton);
+        this.mouseClicked(relativeMouseX, relativeMouseY, mouseButton);
         return getSize().ContainsCoordinate(relativeMouseX, relativeMouseY);
     }
 
     @Override
     public boolean handleMouseClickedOutside(int relativeMouseX, int relativeMouseY, int mouseButton) {
-        int absoluteMouseX = relativeMouseX + getGlobalCoordinate().getXComponent();
-        int absoluteMouseY = relativeMouseY + getGlobalCoordinate().getYComponent();
-
-        this.mouseClicked(absoluteMouseX, absoluteMouseY, mouseButton);
+        this.mouseClicked(relativeMouseX, relativeMouseY, mouseButton);
         return !getSize().ContainsCoordinate(relativeMouseX, relativeMouseY);
     }
 

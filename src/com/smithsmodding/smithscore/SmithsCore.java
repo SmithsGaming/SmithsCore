@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore;
 
 import com.google.common.base.Stopwatch;
+import com.smithsmodding.smithscore.common.player.management.PlayerManager;
 import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
 import com.smithsmodding.smithscore.common.registry.CommonRegistry;
 import com.smithsmodding.smithscore.util.CoreReferences;
@@ -9,6 +10,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -99,5 +101,10 @@ public class SmithsCore {
 
         Long milliseconds = watch.elapsed(TimeUnit.MILLISECONDS);
         getLogger().info(CoreReferences.LogMarkers.POSTINIT, "SmithsCore Post-Init completed after: " + milliseconds + " ms.");
+    }
+
+    @Mod.EventHandler
+    public void onServerStarting(FMLServerStartingEvent event) {
+        PlayerManager.getInstance().onServerStart(event);
     }
 }

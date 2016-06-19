@@ -12,7 +12,9 @@ import com.smithsmodding.smithscore.common.player.event.PlayersOnlineUpdatedEven
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,7 +37,6 @@ public class PlayerManager {
     //Gets synchronised over to the server.
     private List<UUID> commonSidedOnlineMap = new ArrayList<UUID>();
     //Server side only lookup list for UUID -> EntityPlayer;
-    @SideOnly(Side.SERVER)
     private HashMap<UUID, EntityPlayer> serverSidedJoinedMap = new HashMap<UUID, EntityPlayer>();
 
     /**
@@ -114,21 +115,23 @@ public class PlayerManager {
      *
      * @param event The event fired when a player logs in.
      */
+    @SubscribeEvent
     public void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
         SmithsCore.getLogger().info("Updating player UUID list");
         EntityPlayer player = event.player;
 
         if (!commonSidedJoinedMap.containsKey(player.getGameProfile().getId())) {
             commonSidedJoinedMap.put(player.getGameProfile().getId(), UsernameCache.getLastKnownUsername(player.getGameProfile().getId()));
-
-            if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-                serverSidedJoinedMap.put(player.getGameProfile().getId(), player);
-            }
-
             SmithsCore.getRegistry().getCommonBus().post(new PlayersConnectedUpdatedEvent(this));
         }
 
-        commonSidedOnlineMap.add(player.getGameProfile().getId());
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+            serverSidedJoinedMap.put(player.getGameProfile().getId(), player);
+        }
+        else {
+            commonSidedOnlineMap.add(player.getGameProfile().getId());
+        }
+
         SmithsCore.getRegistry().getCommonBus().post(new PlayersOnlineUpdatedEvent(this));
     }
 
@@ -137,6 +140,7 @@ public class PlayerManager {
      *
      * @param event The event fired when a player logs of.
      */
+    @SubscribeEvent
     public void onPlayerLeaveServer(PlayerEvent.PlayerLoggedOutEvent event) {
         commonSidedOnlineMap.remove(event.player.getGameProfile().getId());
         SmithsCore.getRegistry().getCommonBus().post(new PlayersOnlineUpdatedEvent(this));
@@ -150,6 +154,7 @@ public class PlayerManager {
      * @param event The event indicating that the player Disconnected from the Server.
      */
     @SideOnly(Side.CLIENT)
+    @SubscribeEvent
     public void onClientDisconnectServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         SmithsCore.getLogger().info("Disconnect: Clearing cached connected player list.");
         commonSidedJoinedMap.clear();
@@ -160,7 +165,6 @@ public class PlayerManager {
     /**
      * Method used to create a list of all players that connected to this server before smithscore was installed.
      */
-    @SideOnly(Side.SERVER)
     private void refreshPlayerUUIDList() {
         File file = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "playerdata");
 

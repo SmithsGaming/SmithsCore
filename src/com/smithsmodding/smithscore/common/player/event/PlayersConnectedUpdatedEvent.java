@@ -18,6 +18,8 @@ public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
 
     private HashMap<UUID, String> commonSidedJoinedMap = new HashMap<UUID, String>();
 
+    public PlayersConnectedUpdatedEvent () {}
+
     public PlayersConnectedUpdatedEvent(PlayerManager manager) {
         commonSidedJoinedMap = manager.getCommonSidedJoinedMap();
     }
@@ -41,6 +43,7 @@ public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
         int pairCount = pMessageBuffer.readInt();
+
 
         for (int pairIndex = 0; pairIndex < pairCount; pairIndex++) {
             commonSidedJoinedMap.put(NetworkHelper.readUUID(pMessageBuffer), ByteBufUtils.readUTF8String(pMessageBuffer));
