@@ -170,6 +170,9 @@ public class StandardTabManager implements ITabManager {
      */
     @Override
     public int getDisplayAreaVerticalOffset () {
+        if (this.getTabs().size() < 2)
+            return 0;
+
         return getTabSelectorHeight() - 3;
     }
 

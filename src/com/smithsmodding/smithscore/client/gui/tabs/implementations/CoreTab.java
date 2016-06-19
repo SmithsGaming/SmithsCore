@@ -202,7 +202,7 @@ public abstract class CoreTab implements IGUITab {
     public Coordinate2D getLocalCoordinate() {
         ITabManager manager = root.getTabManager();
 
-        if (manager.getTabs().size() > 2)
+        if (manager.getTabs().size() < 2)
             return new Coordinate2D(0,0);
 
         else return new Coordinate2D(0, manager.getDisplayAreaVerticalOffset());
@@ -260,6 +260,9 @@ public abstract class CoreTab implements IGUITab {
     @Override
     public void drawBackground(int mouseX, int mouseY) {
         ITabManager manager = root.getTabManager();
+
+        if (manager.getTabs().size() < 2)
+            return;
 
         int tabIndex = manager.getCurrentTabIndex();
         int selectorIndex = tabIndex % manager.getTabSelectorCount();

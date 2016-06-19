@@ -1,5 +1,7 @@
 package com.smithsmodding.smithscore.util.client;
 
+import com.smithsmodding.smithscore.client.textures.HolographicTexture;
+import com.smithsmodding.smithscore.client.textures.TextureCreator;
 import com.smithsmodding.smithscore.util.client.color.Colors;
 import com.smithsmodding.smithscore.util.client.gui.MultiComponentTexture;
 import com.smithsmodding.smithscore.util.client.gui.TextureComponent;
@@ -28,7 +30,19 @@ public class Textures {
             return;
         }
 
+        TextureCreator.registerBaseTexture(new ResourceLocation(Gui.Basic.HoleTest.HOLOPICK.getPrimaryLocation()));
         Gui.Basic.INFOICON.addIcon(event.getMap().registerSprite(new ResourceLocation(Gui.Basic.INFOICON.getPrimaryLocation())));
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public void loadTexturesAfterCreation (TextureStitchEvent.Post event) {
+        if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
+            return;
+        }
+
+        //Only run the creation once, after all mods have been loaded.
+        Gui.Basic.HoleTest.HOLOPICK.addIcon(TextureCreator.getBuildSprites().get(Gui.Basic.HoleTest.HOLOPICK.getPrimaryLocation()).get(HolographicTexture.HolographicTextureController.IDENTIFIER));
+
     }
 
     public static class Gui {
@@ -119,6 +133,10 @@ public class Textures {
                         public static MultiComponentTexture TEXTURE = new MultiComponentTexture(new TextureComponent(CENTER), new TextureComponent[]{new TextureComponent(CORNERLEFTTOP), new TextureComponent(CORNERRIGHTTOP), new TextureComponent(CORNERRIGHTBOTTOM), new TextureComponent(CORNERLEFTBOTTOM)}, new TextureComponent[]{new TextureComponent(SIDETOP), new TextureComponent(SIDERIGHT), new TextureComponent(SIDEBOTTOM), new TextureComponent(SIDELEFT)});
                     }
                 }
+            }
+
+            public static class HoleTest {
+                public static CustomResource HOLOPICK = new CustomResource("Gui.HoloTest.HoloPick", "minecraft:items/iron_pickaxe", Colors.DEFAULT, 0, 0, 16, 16);
             }
         }
     }

@@ -76,4 +76,9 @@ public class Coordinate2D {
     public Coordinate2D getTranslatedCoordinate (Coordinate2D distance) {
         return new Coordinate2D(this.iXCoord + distance.iXCoord, this.iYCoord + distance.getYComponent());
     }
+
+    public Coordinate2D getInvertedCoordinate()  {
+        return new Coordinate2D(-1 * getXComponent(), -1 * getYComponent());
+    }
 }
+

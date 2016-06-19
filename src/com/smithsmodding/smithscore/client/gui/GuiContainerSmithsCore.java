@@ -17,9 +17,11 @@ import com.smithsmodding.smithscore.client.gui.tabs.implementations.*;
 import com.smithsmodding.smithscore.common.inventory.*;
 import com.smithsmodding.smithscore.util.*;
 import com.smithsmodding.smithscore.util.client.color.*;
+import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.renderer.GlStateManager;
 
 import java.awt.*;
 import java.io.*;
