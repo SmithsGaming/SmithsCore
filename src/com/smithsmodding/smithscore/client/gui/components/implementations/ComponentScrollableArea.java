@@ -1,32 +1,34 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.scissoring.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
+import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.hosts.IContentAreaHost;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.scissoring.IScissoredGuiComponent;
+import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.client.gui.state.ScrollBarComponentState;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Marc on 08.02.2016.
  */
 public abstract class ComponentScrollableArea implements IGUIComponent, IContentAreaHost, IScissoredGuiComponent {
 
+    ComponentContentArea contentArea;
+    ComponentScrollBar scrollbar;
     private String uniqueID;
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
-
     private IGUIBasedComponentHost parent;
     private IGUIComponentState state;
-
     private Coordinate2D rootAnchorPixel;
     private int height;
     private int width;
-
-    ComponentContentArea contentArea;
-    ComponentScrollBar scrollbar;
 
     public ComponentScrollableArea (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
         this.uniqueID = uniqueID;
@@ -323,10 +325,13 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @param key The key that was typed.
      */
     @Override
-    public void handleKeyTyped (char key) {
+    public boolean handleKeyTyped(char key, int keyCode) {
         for (IGUIComponent component : componentHashMap.values()) {
-            component.handleKeyTyped(key);
+            if (component.handleKeyTyped(key, keyCode))
+                return true;
         }
+
+        return false;
     }
 
     @Override

@@ -1,10 +1,11 @@
 package com.smithsmodding.smithscore.client.gui.components.core;
 
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Orion
@@ -144,8 +145,10 @@ public interface IGUIComponent
      * Function called when a Key is typed.
      *
      * @param key The key that was typed.
+     * @param keyCode The vanilla Minecraft keycode.
+     * @return True when handled, false when not.
      */
-    void handleKeyTyped(char key);
+    boolean handleKeyTyped(char key, int keyCode);
 
     ArrayList<String> getToolTipContent ();
 }

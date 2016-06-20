@@ -1,9 +1,9 @@
 package com.smithsmodding.smithscore.client.handlers.gui;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.events.gui.*;
-import com.smithsmodding.smithscore.common.inventory.*;
-import net.minecraftforge.fml.common.eventhandler.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
+import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by Marc on 26.01.2016.
@@ -19,7 +19,10 @@ public class GuiInputEventHandler {
 
         if (event.getTypes() == GuiInputEvent.InputTypes.TABCHANGED) {
             ( (ContainerSmithsCore) event.getPlayer().openContainer ).onTabChanged(event.getInput());
+            return;
         }
+
+        ((ContainerSmithsCore) event.getPlayer().openContainer).onInput(event.getTypes(), event.getComponentID(), event.getInput());
     }
 }
 

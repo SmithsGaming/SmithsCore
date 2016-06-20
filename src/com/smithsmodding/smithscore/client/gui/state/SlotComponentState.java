@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.state;
 
 import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentSlot;
+import com.smithsmodding.smithscore.common.inventory.IItemStorage;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -13,6 +14,14 @@ public class SlotComponentState extends CoreComponentState {
     private int slotIndex;
     private IInventory relevantInventory;
     private TextureAtlasSprite sprite;
+
+    public SlotComponentState(ComponentSlot component, int slotIndex, IItemStorage inventory, TextureAtlasSprite sprite) {
+        this(component, slotIndex, new IItemStorage.IInventoryWrapper(inventory), sprite);
+    }
+
+    public SlotComponentState(ComponentSlot component, Slot slot, IItemStorage inventory, TextureAtlasSprite sprite) {
+        this(component, slot.getSlotIndex(), inventory, sprite);
+    }
 
     public SlotComponentState (ComponentSlot component, int slotIndex, IInventory inventory, TextureAtlasSprite sprite) {
         super(component);

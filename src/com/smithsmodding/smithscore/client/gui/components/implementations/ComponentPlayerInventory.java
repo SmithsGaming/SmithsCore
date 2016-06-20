@@ -1,16 +1,21 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.common.inventory.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.inventory.*;
+import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
+import com.smithsmodding.smithscore.client.gui.components.core.ComponentConnectionType;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.client.gui.state.SlotComponentState;
+import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.inventory.IInventory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Marc on 22.12.2015.
@@ -237,8 +242,8 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public void handleKeyTyped (char key) {
-
+    public boolean handleKeyTyped(char key, int keyCode) {
+        return false;
     }
 
     @Override

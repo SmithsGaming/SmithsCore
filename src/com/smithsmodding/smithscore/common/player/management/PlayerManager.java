@@ -12,7 +12,6 @@ import com.smithsmodding.smithscore.common.player.event.PlayersOnlineUpdatedEven
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.UsernameCache;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -91,7 +90,6 @@ public class PlayerManager {
      *
      * @return A LookUp map that allows UUID to Entity Conversion without iteration.
      */
-    @SideOnly(Side.SERVER)
     public HashMap<UUID, EntityPlayer> getServerSidedJoinedMap() {
         return serverSidedJoinedMap;
     }

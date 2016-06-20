@@ -1,11 +1,12 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by marcf on 1/16/2016.
@@ -89,8 +90,8 @@ public abstract class CoreComponent implements IGUIComponent {
     }
 
     @Override
-    public void handleKeyTyped (char key) {
-        return;
+    public boolean handleKeyTyped(char key, int keyCode) {
+        return false;
     }
 
     @Override

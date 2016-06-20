@@ -1,20 +1,26 @@
 package com.smithsmodding.smithscore.client.gui.tabs.implementations;
 
-import com.smithsmodding.smithscore.client.gui.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.components.implementations.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.client.gui.tabs.core.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.item.*;
+import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentBorder;
+import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentItemStackDisplay;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedTabHost;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.ITabManager;
+import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.client.gui.tabs.core.IGUITab;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.item.ItemStack;
 import scala.actors.threadpool.Arrays;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by marcf on 1/17/2016.
@@ -432,10 +438,13 @@ public abstract class CoreTab implements IGUITab {
      * @param key The key that was typed.
      */
     @Override
-    public void handleKeyTyped (char key) {
+    public boolean handleKeyTyped(char key, int keyCode) {
         for (IGUIComponent component : components.values()) {
-            component.handleKeyTyped(key);
+            if (component.handleKeyTyped(key, keyCode))
+                return true;
         }
+
+        return false;
     }
 
     @Override

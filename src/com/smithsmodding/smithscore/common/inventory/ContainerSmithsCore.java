@@ -30,10 +30,10 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
 
     private String containerID;
 
-    private IInventory containerInventory;
+    private IItemStorage containerInventory;
     private IInventory playerInventory;
 
-    public ContainerSmithsCore(String containerID, IContainerHost host, IInventory containerInventory, EntityPlayer playerMP) {
+    public ContainerSmithsCore(String containerID, IContainerHost host, IItemStorage containerInventory, EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host, this);
@@ -103,7 +103,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         manager = newManager;
     }
 
-    public IInventory getContainerInventory() {
+    public IItemStorage getContainerInventory() {
         return containerInventory;
     }
 

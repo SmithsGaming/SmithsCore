@@ -13,7 +13,6 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 
-import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -123,14 +122,16 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
     }
 
     @Override
-    public void handleKeyTyped(char key) {
-        this.textboxKeyTyped(key, KeyStroke.getKeyStroke(key).getKeyCode());
+    public boolean handleKeyTyped(char key, int keyCode) {
+        boolean result = this.textboxKeyTyped(key, keyCode);
 
         if (!state.getText().equals(getText())) {
             state.setText(getText());
             GuiInputEvent event = new GuiInputEvent(GuiInputEvent.InputTypes.TEXTCHANGED, uniqueID, getText());
             event.PostClient();
         }
+
+        return result;
     }
 
     @Override

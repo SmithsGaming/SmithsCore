@@ -12,13 +12,14 @@ import com.smithsmodding.smithscore.client.gui.management.TileStorageBasedGUIMan
 import com.smithsmodding.smithscore.common.events.TileEntityDataUpdatedEvent;
 import com.smithsmodding.smithscore.common.fluid.IFluidContainingEntity;
 import com.smithsmodding.smithscore.common.inventory.IContainerHost;
+import com.smithsmodding.smithscore.common.inventory.IItemStorage;
+import com.smithsmodding.smithscore.common.inventory.ItemStorageItemHandler;
 import com.smithsmodding.smithscore.common.structures.IStructureComponent;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.smithscore.network.event.EventNetworkManager;
 import com.smithsmodding.smithscore.network.event.messages.StandardNetworkableEventSyncMessage;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,14 +31,13 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public abstract class TileEntitySmithsCore extends TileEntity implements IContainerHost {
 
-    InvWrapper invWrapper;
+    ItemStorageItemHandler invWrapper;
     private IGUIManager manager = new TileStorageBasedGUIManager();
     private ITileEntityState state;
 
@@ -56,7 +56,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
     @Override
     public boolean hasCapability (Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IInventory))
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IItemStorage))
             return true;
 
         return super.hasCapability(capability, facing);
@@ -64,9 +64,9 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
     @Override
     public <T> T getCapability (Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IInventory)){
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IItemStorage)) {
             if (invWrapper == null)
-                invWrapper = new InvWrapper((IInventory) this);
+                invWrapper = new ItemStorageItemHandler((IItemStorage) this);
 
             return (T) invWrapper;
         }
@@ -78,7 +78,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public void readFromNBT (NBTTagCompound compound) {
         super.readFromNBT(compound);
 
-        if (this instanceof IInventory)
+        if (this instanceof IItemStorage)
             this.readInventoryFromCompound(compound.getTag(CoreReferences.NBT.INVENTORY));
 
         if (this instanceof IFluidContainingEntity)
@@ -96,7 +96,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public void writeToNBT (NBTTagCompound compound) {
         super.writeToNBT(compound);
 
-        if (this instanceof IInventory)
+        if (this instanceof IItemStorage)
             compound.setTag(CoreReferences.NBT.INVENTORY, this.writeInventoryToCompound());
 
         if (this instanceof IFluidContainingEntity)
@@ -186,7 +186,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      * @return A NBTTagList with all stacks in the inventory.
      */
     protected NBTBase writeInventoryToCompound () {
-        IInventory inventory = (IInventory) this;
+        IItemStorage inventory = (IItemStorage) this;
         NBTTagList inventoryList = new NBTTagList();
 
         for (int i = 0; i < inventory.getSizeInventory(); i++) {
@@ -218,8 +218,10 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         if (!( inventoryCompound instanceof NBTTagList ))
             throw new IllegalArgumentException("The given store type is not compatible with this TE!");
 
-        IInventory inventory = (IInventory) this;
+        IItemStorage inventory = (IItemStorage) this;
         NBTTagList inventoryList = (NBTTagList) inventoryCompound;
+
+        ((IItemStorage) this).clearInventory();
 
         for (int i = 0; i < inventoryList.tagCount(); i++) {
             NBTTagCompound slotCompound = (NBTTagCompound) inventoryList.get(i);
@@ -344,7 +346,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public NBTTagCompound writeToSynchronizationCompound (NBTTagCompound synchronizationCompound) {
         super.writeToNBT(synchronizationCompound);
 
-        if (this instanceof IInventory)
+        if (this instanceof IItemStorage)
             synchronizationCompound.setTag(CoreReferences.NBT.INVENTORY, this.writeInventoryToCompound());
 
         if (this instanceof IFluidContainingEntity)
@@ -365,7 +367,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      * @param synchronizationCompound The NBTTagCompound to read your data from.
      */
     public void readFromSynchronizationCompound (NBTTagCompound synchronizationCompound) {
-        if (this instanceof IInventory)
+        if (this instanceof IItemStorage)
             this.readInventoryFromCompound(synchronizationCompound.getTag(CoreReferences.NBT.INVENTORY));
 
         if (this instanceof IFluidContainingEntity)

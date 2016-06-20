@@ -6,26 +6,31 @@
 
 package com.smithsmodding.smithscore.client.gui;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.legders.core.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedLedgerHost;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedTabHost;
+import com.smithsmodding.smithscore.client.gui.legders.core.IGUILedger;
+import com.smithsmodding.smithscore.client.gui.legders.core.LedgerConnectionSide;
 import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.client.gui.tabs.core.*;
-import com.smithsmodding.smithscore.client.gui.tabs.implementations.*;
-import com.smithsmodding.smithscore.common.inventory.*;
-import com.smithsmodding.smithscore.util.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.gui.*;
-import net.minecraft.client.gui.inventory.*;
-import net.minecraft.client.renderer.GlStateManager;
+import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.client.gui.tabs.core.IGUITab;
+import com.smithsmodding.smithscore.client.gui.tabs.implementations.DummyTab;
+import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost, IGUIBasedTabHost {
@@ -67,6 +72,15 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         super.initGui();
 
         setIsInitialized(true);
+
+        Keyboard.enableRepeatEvents(true);
+    }
+
+    @Override
+    public void onGuiClosed() {
+        super.onGuiClosed();
+
+        Keyboard.enableRepeatEvents(false);
     }
 
     public boolean isInitialized() {
@@ -139,9 +153,10 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      */
     @Override
     protected void keyTyped (char typedChar, int keyCode) throws IOException {
-        super.keyTyped(typedChar, keyCode);
+        if (this.handleKeyTyped(typedChar, keyCode))
+            return;
 
-        this.handleKeyTyped(typedChar);
+        super.keyTyped(typedChar, keyCode);
     }
 
 
@@ -156,18 +171,23 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * @param key The key that was typed.
      */
     @Override
-    public void handleKeyTyped (char key) {
+    public boolean handleKeyTyped(char key, int keyCode) {
         for (IGUIComponent component : getLedgerManager().getLeftLedgers().values()) {
-            component.handleKeyTyped(key);
+            if (component.handleKeyTyped(key, keyCode))
+                return true;
         }
 
         for (IGUIComponent component : getLedgerManager().getRightLedgers().values()) {
-            component.handleKeyTyped(key);
+            if (component.handleKeyTyped(key, keyCode))
+                return true;
         }
 
         for (IGUIComponent component : tabs.getCurrentTab().getAllComponents().values()) {
-            component.handleKeyTyped(key);
+            if (component.handleKeyTyped(key, keyCode))
+                return true;
         }
+
+        return false;
     }
 
     /**
