@@ -1,7 +1,6 @@
 package com.smithsmodding.smithscore.client.proxy;
 
 import com.smithsmodding.smithscore.SmithsCore;
-import com.smithsmodding.smithscore.client.handlers.TileEntityDataUpdateEventHandler;
 import com.smithsmodding.smithscore.client.handlers.gui.*;
 import com.smithsmodding.smithscore.client.handlers.network.ClientNetworkableEventHandler;
 import com.smithsmodding.smithscore.client.model.loader.MultiComponentModelLoader;
@@ -163,8 +162,6 @@ public class CoreClientProxy extends CoreCommonProxy {
         SmithsCore.getRegistry().getNetworkBus().register(new PlayersConnectedUpdatedEventHandler());
 
         SmithsCore.getRegistry().getNetworkBus().register(new BlockModelUpdateEventHandler());
-
-        SmithsCore.getRegistry().getNetworkBus().register(new TileEntityDataUpdateEventHandler());
 
         SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
 

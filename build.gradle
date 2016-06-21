@@ -13,8 +13,24 @@ buildscript{
  	} 
 	dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
-	} 
-} 
+	}
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        name 'ForgeFS'
+        url 'http://files.minecraftforge.net/maven'
+    }
+    maven {
+        name 'CB Maven FS'
+        url "http://chickenbones.net/maven/"
+    }
+    maven {
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+}
 
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -73,6 +89,8 @@ minecraft {
 
     mappings = "snapshot_20160518"
 
+    useDepAts = true
+
     //Replacing stuff inside the code:
     replace "@VERSION@", project.version
     replace "@MCVERSION@", config.minecraft_version
@@ -81,6 +99,7 @@ minecraft {
 
 dependencies {
 	//Mod dependencies
+    deobfCompile "mezz.jei:jei_" + config.minecraft_version + ":" + config.jei_version
 
     //Maven uploader
     deployerJars 'org.apache.maven.wagon:wagon-ftp:2.8'

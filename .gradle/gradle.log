@@ -8,13 +8,18 @@
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
 Found AccessTransformer: SmithsCore_at.cfg
+Download http://dvs1.progwml6.com/files/maven/mezz/jei/jei_1.9.4/3.4.4.208/jei_1.9.4-3.4.4.208.pom
+Download http://dvs1.progwml6.com/files/maven/mezz/jei/jei_1.9.4/3.4.4.208/jei_1.9.4-3.4.4.208.jar
+Download http://dvs1.progwml6.com/files/maven/mezz/jei/jei_1.9.4/3.4.4.208/jei_1.9.4-3.4.4.208-sources.jar
+:extractMcpMappings SKIPPED
+:deobfCompileDeobfDepTask0
+:deobfCompileRemapDepSourcesTask1
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
 :getVersionJson
 :extractUserdev UP-TO-DATE
-:extractDependencyATs SKIPPED
+:extractDependencyATs
 :extractMcpData SKIPPED
-:extractMcpMappings SKIPPED
 :genSrgs SKIPPED
 :downloadClient SKIPPED
 :downloadServer SKIPPED
@@ -31,6 +36,7 @@ Applying Exceptor...
 :extractNatives SKIPPED
 :getAssetIndex UP-TO-DATE
 :getAssets
+Current status: 925/1049   88%
 :makeStart
 :setupDecompWorkspace
 :ideaModule
@@ -40,4 +46,4 @@ Applying Exceptor...
 
 BUILD SUCCESSFUL
 
-Total time: 2 mins 19.721 secs
+Total time: 3 mins 10.714 secs

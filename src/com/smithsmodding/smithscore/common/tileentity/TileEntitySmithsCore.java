@@ -22,6 +22,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -29,6 +31,7 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -123,6 +126,33 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         SmithsCore.getRegistry().getCommonBus().post(new TileEntityDataUpdatedEvent(this));
     }
 
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        readFromSynchronizationCompound(pkt.getNbtCompound());
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound data = new NBTTagCompound();
+        writeToSynchronizationCompound(data);
+
+        return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), data);
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound data = new NBTTagCompound();
+        writeToSynchronizationCompound(data);
+
+        return data;
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound tag) {
+        readFromSynchronizationCompound(tag);
+    }
+
     /**
      * Function used to convert the BlockPos of this TE into a Coordinate3D
      *
@@ -131,7 +161,6 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public Coordinate3D getLocation() {
         return new Coordinate3D(this.pos);
     }
-
 
     /**
      * Function to get the IGUIManager.
