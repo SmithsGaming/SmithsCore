@@ -1,21 +1,21 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.client.gui.*;
-import com.smithsmodding.smithscore.client.gui.animation.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.legders.core.*;
-import com.smithsmodding.smithscore.client.gui.scissoring.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.client.registry.*;
-import com.smithsmodding.smithscore.util.client.color.*;
-import com.smithsmodding.smithscore.util.client.gui.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.*;
-import net.minecraft.client.renderer.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
+import com.smithsmodding.smithscore.client.gui.animation.IAnimatibleGuiComponent;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedLedgerHost;
+import com.smithsmodding.smithscore.client.gui.legders.core.IGUILedger;
+import com.smithsmodding.smithscore.client.gui.scissoring.IScissoredGuiComponent;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.client.registry.ClientRegistry;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by marcf on 12/3/2015.

@@ -128,7 +128,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public Plane getAreaOccupiedByComponent () {
-        return new Plane(getGlobalCoordinate(), getSize().getWidth(), getSize().getWidth());
+        return new Plane(getGlobalCoordinate(), getSize().getWidth(), getSize().getHeigth());
     }
 
     /**

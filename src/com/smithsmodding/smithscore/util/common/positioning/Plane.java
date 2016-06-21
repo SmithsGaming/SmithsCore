@@ -6,6 +6,8 @@
 
 package com.smithsmodding.smithscore.util.common.positioning;
 
+import java.awt.*;
+
 public class Plane {
 
     private int iWidth;
@@ -169,5 +171,9 @@ public class Plane {
     
     public int Contents () {
         return this.iWidth * this.iHeigth;
+    }
+
+    public Rectangle toRectangle() {
+        return new Rectangle(TopLeftCoord().getXComponent(), TopLeftCoord().getYComponent(), getWidth(), getHeigth());
     }
 }
