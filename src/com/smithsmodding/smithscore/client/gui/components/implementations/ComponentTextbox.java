@@ -93,7 +93,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
 
         GlStateManager.enableAlpha();
         GlStateManager.enableBlend();
-        GuiHelper.bindTexture(TextureMap.locationBlocksTexture);
+        GuiHelper.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GuiHelper.drawTexturedModelRectFromIcon(0, 0, 0, secondaryBackground.getIcon(), secondaryBackground.getIcon().getIconWidth(), secondaryBackground.getIcon().getIconHeight());
         GlStateManager.disableBlend();
         GlStateManager.disableAlpha();

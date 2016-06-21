@@ -1,12 +1,12 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.client.*;
-import com.smithsmodding.smithscore.util.client.gui.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.texture.*;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.util.client.CustomResource;
+import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 
 /**
  * Created by Marc on 09.01.2016.
@@ -44,7 +44,7 @@ public class ComponentImage extends CoreComponent {
     public void drawBackground (int mouseX, int mouseY) {
         GlStateManager.enableAlpha();
         GlStateManager.enableBlend();
-        GuiHelper.bindTexture(TextureMap.locationBlocksTexture);
+        GuiHelper.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GuiHelper.drawTexturedModelRectFromIcon(0, 0, 0, image.getIcon(), image.getIcon().getIconWidth(), image.getIcon().getIconHeight());
         GlStateManager.disableBlend();
         GlStateManager.disableAlpha();

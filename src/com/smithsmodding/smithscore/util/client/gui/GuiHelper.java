@@ -126,12 +126,12 @@ public final class GuiHelper {
         TextureAtlasSprite texture = Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(pFluidStack.getFluid().getStill(pFluidStack).toString());
 
         if (texture == null) {
-            texture = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
+            texture = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE)).getAtlasSprite("missingno");
         }
 
         MinecraftColor fluidColor = new MinecraftColor(pFluidStack.getFluid().getColor(pFluidStack));
 
-        bindTexture(TextureMap.locationBlocksTexture);
+        bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         fluidColor.performOpenGLColoring();
 
         int tFullX = pWidth / 16 + 1;
@@ -498,7 +498,7 @@ public final class GuiHelper {
      * Renders the debug overlay for the Scissor box
      */
     public static void renderScissorDebugOverlay() {
-        bindTexture(TextureMap.locationBlocksTexture);
+        bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         drawTexturedModalRect(-10, -10, 10, 0, 0, DISPLAYWIDTH, DISPLAYHEIGHT);
     }
 }

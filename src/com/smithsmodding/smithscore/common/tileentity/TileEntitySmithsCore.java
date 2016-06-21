@@ -16,15 +16,12 @@ import com.smithsmodding.smithscore.common.inventory.IItemStorage;
 import com.smithsmodding.smithscore.common.inventory.ItemStorageItemHandler;
 import com.smithsmodding.smithscore.common.structures.IStructureComponent;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
-import com.smithsmodding.smithscore.network.event.EventNetworkManager;
-import com.smithsmodding.smithscore.network.event.messages.StandardNetworkableEventSyncMessage;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -93,7 +90,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
         if (this instanceof IItemStorage)
@@ -107,6 +104,8 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         if (this instanceof IStructureComponent)
             compound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));
+
+        return compound;
     }
 
     /**
@@ -122,11 +121,6 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
 
         //Notify the events system of a update.
         SmithsCore.getRegistry().getCommonBus().post(new TileEntityDataUpdatedEvent(this));
-    }
-
-    @Override
-    public Packet<?> getDescriptionPacket() {
-        return EventNetworkManager.getInstance().getPacketFrom(new StandardNetworkableEventSyncMessage(new TileEntityDataUpdatedEvent(this)));
     }
 
     /**

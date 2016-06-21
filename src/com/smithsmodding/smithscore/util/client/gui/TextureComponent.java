@@ -6,9 +6,9 @@
 
 package com.smithsmodding.smithscore.util.client.gui;
 
-import com.smithsmodding.smithscore.util.client.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.client.renderer.texture.*;
+import com.smithsmodding.smithscore.util.client.CustomResource;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import net.minecraft.client.renderer.texture.TextureMap;
 
 /**
  * A Part of a Texture.
@@ -27,7 +27,7 @@ public class TextureComponent {
     public UIRotation iRotation = new UIRotation(false, false, false, 0F);
 
     //The texture address of this Component.
-    public String iAddress = TextureMap.locationBlocksTexture.getResourcePath();
+    public String iAddress = TextureMap.LOCATION_BLOCKS_TEXTURE.getResourcePath();
 
     /**
      * Standard constructor for a TextureComponent
