@@ -13,7 +13,7 @@ import com.smithsmodding.smithscore.util.client.gui.UIRotation;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.awt.*;
@@ -56,13 +56,13 @@ public class ComponentFluidTank extends CoreComponent {
 
         ArrayList<String> toolTip = new ArrayList<String>();
 
-        toolTip.add(I18n.translateToLocal(TranslationKeys.GUI.TANKAMOUNT) + " " + fluidContent + " mB / " + totalTankContents + " mB");
+        toolTip.add(I18n.format(TranslationKeys.GUI.TANKAMOUNT) + " " + fluidContent + " mB / " + totalTankContents + " mB");
 
         if (fluidContent == 0)
             return toolTip;
 
         toolTip.add("");
-        toolTip.add(I18n.translateToLocal(TranslationKeys.GUI.TANKCONTENTS));
+        toolTip.add(I18n.format(TranslationKeys.GUI.TANKCONTENTS));
 
         toolTip.addAll(fluidStacks.stream().map(stack -> "  * " + stack.getFluid().getLocalizedName(stack) + ": " + stack.amount + " mB").collect(Collectors.toList()));
 

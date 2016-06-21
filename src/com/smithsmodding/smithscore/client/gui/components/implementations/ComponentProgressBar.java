@@ -8,7 +8,7 @@ import com.smithsmodding.smithscore.util.client.TranslationKeys;
 import com.smithsmodding.smithscore.util.client.gui.GuiHelper;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
 
@@ -84,7 +84,7 @@ public class ComponentProgressBar extends CoreComponent {
         String displayString = getComponentHost().getRootManager().getCustomToolTipDisplayString(this);
         if (displayString == null || displayString == "" || displayString.length() == 0)
         {
-            displayString = I18n.translateToLocal(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%";
+            displayString = I18n.format(TranslationKeys.GUI.PROGRESS) + ": " + Math.round(getComponentHost().getRootManager().getProgressBarValue(this) * 100) + "%";
         }
 
         tips.add(displayString);
