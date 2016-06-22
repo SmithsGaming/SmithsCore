@@ -78,14 +78,14 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public void readFromNBT (NBTTagCompound compound) {
         super.readFromNBT(compound);
 
+        if (getState().requiresNBTStorage())
+            this.getState().readFromNBTTagCompound(compound.getTag(CoreReferences.NBT.STATE));
+
         if (this instanceof IItemStorage)
             this.readInventoryFromCompound(compound.getTag(CoreReferences.NBT.INVENTORY));
 
         if (this instanceof IFluidContainingEntity)
             this.readFluidsFromCompound(compound.getTag(CoreReferences.NBT.FLUIDS));
-
-        if (getState().requiresNBTStorage())
-            this.getState().readFromNBTTagCompound(compound.getTag(CoreReferences.NBT.STATE));
 
         if (this instanceof IStructureComponent)
             this.readStructureComponentFromNBT((NBTTagCompound) compound.getTag(CoreReferences.NBT.STRUCTURE));
@@ -96,14 +96,14 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
+        if (getState().requiresNBTStorage())
+            compound.setTag(CoreReferences.NBT.STATE, this.getState().writeToNBTTagCompound());
+
         if (this instanceof IItemStorage)
             compound.setTag(CoreReferences.NBT.INVENTORY, this.writeInventoryToCompound());
 
         if (this instanceof IFluidContainingEntity)
             compound.setTag(CoreReferences.NBT.FLUIDS, this.writeFluidsToCompound());
-
-        if (getState().requiresNBTStorage())
-            compound.setTag(CoreReferences.NBT.STATE, this.getState().writeToNBTTagCompound());
 
         if (this instanceof IStructureComponent)
             compound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));

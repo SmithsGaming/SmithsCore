@@ -58,6 +58,9 @@ public interface IItemStorage extends IWorldNameable {
             this.storage = storage;
         }
 
+        public IItemStorage getStorage() {
+            return storage;
+        }
 
         @Override
         public int getSizeInventory() {
