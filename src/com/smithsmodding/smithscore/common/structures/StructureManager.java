@@ -1,14 +1,15 @@
 package com.smithsmodding.smithscore.common.structures;
 
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.pathfinding.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.world.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.common.pathfinding.IPathComponent;
+import com.smithsmodding.smithscore.common.pathfinding.PathFinder;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Orion Created on 03.07.2015 12:49
@@ -17,7 +18,7 @@ import java.util.*;
  */
 public final class StructureManager {
 
-    public static void joinSructure (IStructureComponent pStructureMember, IStructureComponent pNewComponent) {
+    public static void joinSructure(IStructureComponent<?> pStructureMember, IStructureComponent<?> pNewComponent) {
         pNewComponent.initiateAsSlaveEntity(pStructureMember.getMasterLocation());
         try {
             pStructureMember.registerNewSlave(pNewComponent.getLocation());
@@ -28,7 +29,7 @@ public final class StructureManager {
         return;
     }
 
-    public static void mergeStructures (IStructureComponent newStructureMaster, IStructureComponent merginComponentMaster, IStructureComponent combiningComponent) {
+    public static void mergeStructures(IStructureComponent<?> newStructureMaster, IStructureComponent<?> merginComponentMaster, IStructureComponent<?> combiningComponent) {
         //Add the individual slaves
         for (Coordinate3D slaveCoordinate : merginComponentMaster.getSlaveCoordinates()) {
             IStructureComponent slaveComponent = (IStructureComponent) ( (TileEntity) merginComponentMaster ).getWorld().getTileEntity(slaveCoordinate.toBlockPos());
@@ -40,7 +41,7 @@ public final class StructureManager {
         joinSructure(newStructureMaster, merginComponentMaster);
     }
 
-    public static IStructureComponent splitStructure (IStructureComponent pOldMasterStructure, ArrayList<IStructureComponent> pSplittedComponents) {
+    public static IStructureComponent splitStructure(IStructureComponent<?> pOldMasterStructure, ArrayList<IStructureComponent<?>> pSplittedComponents) {
         //Create the new structures master Entity
         IStructureComponent tNewMasterComponent = pSplittedComponents.remove(0);
         tNewMasterComponent.initiateAsMasterEntity();
@@ -55,7 +56,7 @@ public final class StructureManager {
         return tNewMasterComponent;
     }
 
-    public static void createStructureComponent (IStructureComponent tNewComponent) {
+    public static void createStructureComponent(IStructureComponent<?> tNewComponent) {
         IStructureComponent tTargetStructure = null;
 
         tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.EAST, 1), tTargetStructure, tNewComponent);
@@ -68,7 +69,7 @@ public final class StructureManager {
         }
     }
 
-    private static IStructureComponent checkNewComponentSide (Coordinate3D pTargetCoordinate, IStructureComponent pTargetStructure, IStructureComponent pNewComponent) {
+    private static IStructureComponent checkNewComponentSide(Coordinate3D pTargetCoordinate, IStructureComponent<?> pTargetStructure, IStructureComponent<?> pNewComponent) {
         TileEntity tEntity = getWorld(pNewComponent).getTileEntity(pTargetCoordinate.toBlockPos());
         if (tEntity == null)
             return pTargetStructure;
@@ -96,8 +97,8 @@ public final class StructureManager {
         return pTargetStructure;
     }
 
-    public static void destroyStructureComponent (IStructureComponent tToBeDestroyedComponent) {
-        IStructureComponent tMasterComponent = null;
+    public static void destroyStructureComponent(IStructureComponent<?> tToBeDestroyedComponent) {
+        IStructureComponent<?> tMasterComponent = null;
 
         if (tToBeDestroyedComponent.isSlaved()) {
             ( (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getMasterLocation().toBlockPos()) ).removeSlave(tToBeDestroyedComponent.getLocation());
@@ -118,15 +119,15 @@ public final class StructureManager {
         }
 
         if (tMasterComponent != null) {
-            ArrayList<IStructureComponent> tNotConnectedComponents = validateStructureIntegrity(tMasterComponent, tToBeDestroyedComponent);
+            ArrayList<IStructureComponent<?>> tNotConnectedComponents = validateStructureIntegrity(tMasterComponent, tToBeDestroyedComponent);
             while (!tNotConnectedComponents.isEmpty()) {
                 tNotConnectedComponents = validateStructureIntegrity(splitStructure(tMasterComponent, tNotConnectedComponents), tToBeDestroyedComponent);
             }
         }
     }
 
-    public static ArrayList<IStructureComponent> validateStructureIntegrity (IStructureComponent pMasterComponent, IPathComponent pSeperatingComponent) {
-        ArrayList<IStructureComponent> tNotConnectedComponents = new ArrayList<IStructureComponent>();
+    public static ArrayList<IStructureComponent<?>> validateStructureIntegrity(IStructureComponent<?> pMasterComponent, IPathComponent pSeperatingComponent) {
+        ArrayList<IStructureComponent<?>> tNotConnectedComponents = new ArrayList<>();
 
         for (Coordinate3D slaveCoordinate : pMasterComponent.getSlaveCoordinates()) {
             IStructureComponent slaveComponent = (IStructureComponent) ( (TileEntity) pMasterComponent ).getWorld().getTileEntity(slaveCoordinate.toBlockPos());
@@ -143,11 +144,11 @@ public final class StructureManager {
         return tNotConnectedComponents;
     }
 
-    private static World getWorld (IStructureComponent pComponent) {
+    private static World getWorld(IStructureComponent<?> pComponent) {
         return ( (TileEntity) pComponent ).getWorld();
     }
 
-    private static boolean checkIfComponentStillConnected (IStructureComponent pMasterComponent, IStructureComponent pTargetComponent, IPathComponent pSplittingComponent) {
+    private static boolean checkIfComponentStillConnected(IStructureComponent<?> pMasterComponent, IStructureComponent<?> pTargetComponent, IPathComponent pSplittingComponent) {
         SmithsCore.getLogger().info("Starting connection search between: " + pMasterComponent.getLocation().toString() + " to " + pTargetComponent.getLocation().toString());
 
         PathFinder tConnectionChecker = new PathFinder(pMasterComponent, pTargetComponent, pSplittingComponent);
