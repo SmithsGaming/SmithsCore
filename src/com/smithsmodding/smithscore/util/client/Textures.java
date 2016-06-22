@@ -3,6 +3,7 @@ package com.smithsmodding.smithscore.util.client;
 import com.smithsmodding.smithscore.util.client.color.Colors;
 import com.smithsmodding.smithscore.util.client.gui.MultiComponentTexture;
 import com.smithsmodding.smithscore.util.client.gui.TextureComponent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
@@ -26,6 +27,8 @@ public class Textures {
         if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
             return;
         }
+
+        Gui.Basic.INFOICON.addIcon(event.getMap().registerSprite(new ResourceLocation(Gui.Basic.INFOICON.getPrimaryLocation())));
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
