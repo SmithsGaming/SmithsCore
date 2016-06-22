@@ -6,12 +6,13 @@
 
 package com.smithsmodding.smithscore.common.structures;
 
-import com.smithsmodding.smithscore.common.pathfinding.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
+import com.smithsmodding.smithscore.common.pathfinding.IPathComponent;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
+import com.smithsmodding.smithscore.util.common.positioning.Cube;
 
-import java.util.*;
+import java.util.ArrayList;
 
-public interface IStructureComponent extends IPathComponent {
+public interface IStructureComponent<D extends IStructureData> extends IPathComponent {
 
     String getStructureTypeUniqueID ();
 
@@ -19,7 +20,7 @@ public interface IStructureComponent extends IPathComponent {
 
     boolean countsAsConnectingComponent ();
 
-    IStructureData getStructureData ();
+    D getStructureData();
 
 
     void initiateAsMasterEntity ();

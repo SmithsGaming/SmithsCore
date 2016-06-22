@@ -8,7 +8,6 @@ package com.smithsmodding.smithscore.common.tileentity;
 
 import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
-import com.smithsmodding.smithscore.client.gui.management.TileStorageBasedGUIManager;
 import com.smithsmodding.smithscore.common.events.TileEntityDataUpdatedEvent;
 import com.smithsmodding.smithscore.common.fluid.IFluidContainingEntity;
 import com.smithsmodding.smithscore.common.inventory.IContainerHost;
@@ -35,11 +34,11 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public abstract class TileEntitySmithsCore extends TileEntity implements IContainerHost {
+public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G> {
 
     ItemStorageItemHandler invWrapper;
-    private IGUIManager manager = new TileStorageBasedGUIManager();
-    private ITileEntityState state;
+    private G manager;
+    private S state;
 
     /**
      * Constructor to create a new tileentity for a smithscore Mod.
@@ -49,7 +48,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      * @param initialState The TE state that gets set on default when a new Instance is created.
      * @param manager The GUIManager that handles interactins with events comming from UI's
      */
-    protected TileEntitySmithsCore (ITileEntityState initialState, IGUIManager manager) {
+    protected TileEntitySmithsCore(S initialState, G manager) {
         setManager(manager);
         setState(initialState);
     }
@@ -162,33 +161,22 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
         return new Coordinate3D(this.pos);
     }
 
-    /**
-     * Function to get the IGUIManager.
-     *
-     * @return Returns the current GUIManager.
-     */
     @Override
-    public IGUIManager getManager() {
-        return manager;
+    public G getManager() {
+        return null;
     }
 
-    /**
-     * Function to set the IGUIManager
-     *
-     * @param newManager THe new IGUIManager.
-     */
     @Override
-    public void setManager(IGUIManager newManager) {
-        manager = newManager;
+    public void setManager(G newManager) {
+        this.manager = newManager;
     }
-
 
     /**
      * Getter for the current TE state.
      *
      * @return The current ITileEntityState.
      */
-    public ITileEntityState getState () {
+    public S getState() {
         return state;
     }
 
@@ -197,7 +185,7 @@ public abstract class TileEntitySmithsCore extends TileEntity implements IContai
      *
      * @param state The new state.
      */
-    public void setState (ITileEntityState state) {
+    public void setState(S state) {
         this.state = state;
         state.onStateCreated(this);
     }

@@ -7,7 +7,7 @@ package com.smithsmodding.smithscore.client.gui.management;
  *
  * Copyrighted according to Project specific license
  */
-public interface IGUIManagerProvider
+public interface IGUIManagerProvider<G extends IGUIManager>
 {
 
     /**
@@ -15,12 +15,12 @@ public interface IGUIManagerProvider
      *
      * @return Returns the current GUIManager.
      */
-    IGUIManager getManager();
+    G getManager();
 
     /**
      * Function to set the IGUIManager
      *
      * @param newManager THe new IGUIManager.
      */
-    void setManager(IGUIManager newManager);
+    void setManager(G newManager);
 }

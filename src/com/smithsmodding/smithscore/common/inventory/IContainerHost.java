@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.common.inventory;
 
-import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManagerProvider;
 
 /**
  * Created by Orion
@@ -9,7 +10,7 @@ import com.smithsmodding.smithscore.client.gui.management.*;
  * 18:20
  * Copyrighted according to Project specific license
  */
-public interface IContainerHost extends IGUIManagerProvider
+public interface IContainerHost<G extends IGUIManager> extends IGUIManagerProvider<G>
 {
     /**
      * Getter for the Containers ID.
