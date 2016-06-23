@@ -1,8 +1,8 @@
 package com.smithsmodding.smithscore.common.fluid;
 
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Created by Marc on 20.12.2015.
@@ -20,5 +20,10 @@ public interface IFluidContainingEntity {
 
     void addFluidToTheTop (FluidStack stack);
 
+    void addFluid(FluidStack stack);
+
     int getTankSize ();
+
+    int getTankContentsVolume();
+
 }

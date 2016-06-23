@@ -27,6 +27,8 @@ public class CoreReferences {
         public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
         public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
 
+        public static final String NAME = "Name";
+
         public static final String FLUIDS = "SmithsCore.Fluids";
         public static final String INVENTORY = "SmithsCore.Inventory";
         public static final String STATE = "SmithsCore.State";

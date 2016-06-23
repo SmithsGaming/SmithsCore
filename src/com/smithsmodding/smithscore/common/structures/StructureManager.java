@@ -38,6 +38,7 @@ public final class StructureManager {
         }
 
         //Add the structures Master, destroying the old structures
+        newStructureMaster.getStructureData().onDataMergeInto(merginComponentMaster.getStructureData());
         joinSructure(newStructureMaster, merginComponentMaster);
     }
 
@@ -45,6 +46,7 @@ public final class StructureManager {
         //Create the new structures master Entity
         IStructureComponent tNewMasterComponent = pSplittedComponents.remove(0);
         tNewMasterComponent.initiateAsMasterEntity();
+        tNewMasterComponent.getStructureData().onDataMergeInto(pOldMasterStructure.getStructureData());
 
         //Let all the Slaves join the new handlers
         for (IStructureComponent tNewSlave : pSplittedComponents) {
@@ -108,9 +110,11 @@ public final class StructureManager {
             if (tToBeDestroyedComponent.getSlaveCoordinates().size() == 1) {
                 tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(0).toBlockPos());
                 tMasterComponent.initiateAsMasterEntity();
+                tMasterComponent.getStructureData().onDataMergeInto(tToBeDestroyedComponent.getStructureData());
             } else if (tToBeDestroyedComponent.getSlaveCoordinates().size() > 1) {
                 tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(0).toBlockPos());
                 tMasterComponent.initiateAsMasterEntity();
+                tMasterComponent.getStructureData().onDataMergeInto(tToBeDestroyedComponent.getStructureData());
 
                 for (int tIndex = 1; tIndex < tToBeDestroyedComponent.getSlaveCoordinates().size(); tIndex++) {
                     joinSructure(tMasterComponent, (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(tIndex).toBlockPos()));

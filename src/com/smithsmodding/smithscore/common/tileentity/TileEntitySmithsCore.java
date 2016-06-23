@@ -21,24 +21,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.IWorldNameable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G> {
+public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G>, IWorldNameable {
 
     ItemStorageItemHandler invWrapper;
     private G manager;
     private S state;
+
+    private String name = "";
 
     /**
      * Constructor to create a new tileentity for a smithscore Mod.
@@ -48,9 +50,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      * @param initialState The TE state that gets set on default when a new Instance is created.
      * @param manager The GUIManager that handles interactins with events comming from UI's
      */
-    protected TileEntitySmithsCore(S initialState, G manager) {
-        setManager(manager);
-        setState(initialState);
+    protected TileEntitySmithsCore() {
+        setManager(getInitialGuiManager());
+        setState(getInitialState());
     }
 
     @Override
@@ -89,6 +91,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         if (this instanceof IStructureComponent)
             this.readStructureComponentFromNBT((NBTTagCompound) compound.getTag(CoreReferences.NBT.STRUCTURE));
 
+        if (compound.hasKey(CoreReferences.NBT.NAME)) {
+            this.name = compound.getString(CoreReferences.NBT.NAME);
+        }
     }
 
     @Override
@@ -106,6 +111,10 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
         if (this instanceof IStructureComponent)
             compound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));
+
+        if (this.hasCustomName()) {
+            compound.setString(CoreReferences.NBT.NAME, name);
+        }
 
         return compound;
     }
@@ -126,30 +135,16 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-        readFromSynchronizationCompound(pkt.getNbtCompound());
-    }
-
-    @Nullable
-    @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound data = new NBTTagCompound();
-        writeToSynchronizationCompound(data);
-
-        return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), data);
-    }
-
-    @Override
     public NBTTagCompound getUpdateTag() {
         NBTTagCompound data = new NBTTagCompound();
-        writeToSynchronizationCompound(data);
+        writeToNBT(data);
 
         return data;
     }
 
     @Override
     public void handleUpdateTag(NBTTagCompound tag) {
-        readFromSynchronizationCompound(tag);
+        readFromNBT(tag);
     }
 
     /**
@@ -161,15 +156,19 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         return new Coordinate3D(this.pos);
     }
 
+    protected abstract G getInitialGuiManager();
+
     @Override
     public G getManager() {
-        return null;
+        return manager;
     }
 
     @Override
     public void setManager(G newManager) {
         this.manager = newManager;
     }
+
+    protected abstract S getInitialState();
 
     /**
      * Getter for the current TE state.
@@ -394,5 +393,22 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     @Override
     public boolean isRemote () {
         return getWorld().isRemote;
+    }
+
+    public boolean hasCustomName() {
+        return name != null && name.length() > 0;
+    }
+
+    @Override
+    public ITextComponent getDisplayName() {
+        return new TextComponentString(name);
+    }
+
+    public void setDisplayName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 }
