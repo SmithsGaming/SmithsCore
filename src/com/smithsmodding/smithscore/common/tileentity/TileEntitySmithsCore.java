@@ -43,12 +43,10 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     private String name = "";
 
     /**
-     * Constructor to create a new tileentity for a smithscore Mod.
+     * Constructor to create a new TileEntity for a SmithsCore Mod.
      *
      * Handles the setting of the core system values like the state, and the GUIManager.
      *
-     * @param initialState The TE state that gets set on default when a new Instance is created.
-     * @param manager The GUIManager that handles interactins with events comming from UI's
      */
     protected TileEntitySmithsCore() {
         setManager(getInitialGuiManager());

@@ -190,9 +190,9 @@ public class ItemStackHelper {
      *
      * @param a           ItemStack
      * @param b           ItemStack
-     * @param matchDamage
-     * @param matchNBT
-     * @return true if matches
+     * @param matchDamage Whether to check the damage value of the items
+     * @param matchNBT    Whether to check the NBT tags on the items
+     * @return Whether the items match
      */
     public static boolean isMatchingItem(final ItemStack a, final ItemStack b, final boolean matchDamage, final boolean matchNBT) {
         if (a == null || b == null) {
