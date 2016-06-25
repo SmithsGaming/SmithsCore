@@ -19,10 +19,10 @@ import java.util.Iterator;
  */
 public final class StructureManager {
 
-    public static void joinSructure(IStructureComponent<?> pStructureMember, IStructureComponent<?> pNewComponent) {
-        pNewComponent.initiateAsSlaveEntity(pStructureMember.getMasterLocation());
+    public static void joinSructure(IStructureComponent<?> structureMaster, IStructureComponent<?> newSlave) {
+        newSlave.initiateAsSlaveEntity(structureMaster.getMasterLocation());
         try {
-            pStructureMember.registerNewSlave(pNewComponent.getLocation());
+            structureMaster.registerNewSlave(newSlave.getLocation());
         } catch (Exception IAEx) {
             SmithsCore.getLogger().error("Failed to register a TE on a remote master", IAEx);
         }
@@ -43,123 +43,124 @@ public final class StructureManager {
         joinSructure(newStructureMaster, merginComponentMaster);
     }
 
-    public static IStructureComponent splitStructure(IStructureComponent<?> pOldMasterStructure, ArrayList<IStructureComponent<?>> pSplittedComponents) {
+    public static IStructureComponent splitStructure(IStructureComponent<?> oldMaster, ArrayList<IStructureComponent<?>> components) {
         //Create the new structures master Entity
-        IStructureComponent tNewMasterComponent = pSplittedComponents.remove(0);
-        tNewMasterComponent.initiateAsMasterEntity();
+        IStructureComponent newMaster = components.remove(0);
+        newMaster.initiateAsMasterEntity();
 
-        getWorld(tNewMasterComponent).setTileEntity(tNewMasterComponent.getLocation().toBlockPos(), (TileEntity) tNewMasterComponent);
+        //Somehow this has no Effect??
+        getWorld(newMaster).setTileEntity(newMaster.getLocation().toBlockPos(), (TileEntity) newMaster);
 
         //Let all the Slaves join the new handlers
-        for (IStructureComponent tNewSlave : pSplittedComponents) {
-            joinSructure(tNewMasterComponent, tNewSlave);
+        for (IStructureComponent newSlave : components) {
+            joinSructure(newMaster, newSlave);
 
-            pOldMasterStructure.removeSlave(tNewSlave.getLocation());
+            oldMaster.removeSlave(newSlave.getLocation());
         }
 
-        return tNewMasterComponent;
+        return newMaster;
     }
 
-    public static void createStructureComponent(IStructureComponent<?> tNewComponent) {
+    public static void createStructureComponent(IStructureComponent<?> newComponent) {
         IStructureComponent tTargetStructure = null;
 
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.EAST, 1), tTargetStructure, tNewComponent);
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.WEST, 1), tTargetStructure, tNewComponent);
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.SOUTH, 1), tTargetStructure, tNewComponent);
-        tTargetStructure = checkNewComponentSide(tNewComponent.getLocation().moveCoordinate(EnumFacing.NORTH, 1), tTargetStructure, tNewComponent);
+        tTargetStructure = checkNewComponentSide(newComponent.getLocation().moveCoordinate(EnumFacing.EAST, 1), tTargetStructure, newComponent);
+        tTargetStructure = checkNewComponentSide(newComponent.getLocation().moveCoordinate(EnumFacing.WEST, 1), tTargetStructure, newComponent);
+        tTargetStructure = checkNewComponentSide(newComponent.getLocation().moveCoordinate(EnumFacing.SOUTH, 1), tTargetStructure, newComponent);
+        tTargetStructure = checkNewComponentSide(newComponent.getLocation().moveCoordinate(EnumFacing.NORTH, 1), tTargetStructure, newComponent);
 
         if (tTargetStructure == null) {
-            tNewComponent.initiateAsMasterEntity();
+            newComponent.initiateAsMasterEntity();
         }
     }
 
-    private static IStructureComponent checkNewComponentSide(Coordinate3D pTargetCoordinate, IStructureComponent<?> pTargetStructure, IStructureComponent<?> pNewComponent) {
-        TileEntity tEntity = getWorld(pNewComponent).getTileEntity(pTargetCoordinate.toBlockPos());
+    private static IStructureComponent checkNewComponentSide(Coordinate3D target, IStructureComponent<?> structure, IStructureComponent<?> component) {
+        TileEntity tEntity = getWorld(component).getTileEntity(target.toBlockPos());
         if (tEntity == null)
-            return pTargetStructure;
+            return structure;
 
         if (!( tEntity instanceof IStructureComponent ))
-            return pTargetStructure;
+            return structure;
 
-        if (!( (IStructureComponent) tEntity ).getStructureTypeUniqueID().equals(pNewComponent.getStructureTypeUniqueID()))
-            return pTargetStructure;
+        if (!((IStructureComponent) tEntity).getStructureTypeUniqueID().equals(component.getStructureTypeUniqueID()))
+            return structure;
 
-        if (pTargetStructure == null) {
-            joinSructure((IStructureComponent) tEntity, pNewComponent);
+        if (structure == null) {
+            joinSructure((IStructureComponent) tEntity, component);
             return (IStructureComponent) tEntity;
         }
 
-        if (( (IStructureComponent) tEntity ).getMasterLocation().equals(pNewComponent.getMasterLocation()))
-            return pTargetStructure;
+        if (((IStructureComponent) tEntity).getMasterLocation().equals(component.getMasterLocation()))
+            return structure;
 
         if (( (IStructureComponent) tEntity ).isSlaved()) {
-            mergeStructures(pTargetStructure, (IStructureComponent) tEntity.getWorld().getTileEntity(( (IStructureComponent) tEntity ).getMasterLocation().toBlockPos()), pNewComponent);
+            mergeStructures(structure, (IStructureComponent) tEntity.getWorld().getTileEntity(((IStructureComponent) tEntity).getMasterLocation().toBlockPos()), component);
         } else {
-            mergeStructures(pTargetStructure, ( (IStructureComponent) tEntity ), pNewComponent);
+            mergeStructures(structure, ((IStructureComponent) tEntity), component);
         }
 
-        return pTargetStructure;
+        return structure;
     }
 
-    public static void destroyStructureComponent(IStructureComponent<?> tToBeDestroyedComponent) {
-        IStructureComponent<?> tMasterComponent = null;
+    public static void destroyStructureComponent(IStructureComponent<?> component) {
+        IStructureComponent<?> master = null;
 
-        if (tToBeDestroyedComponent.isSlaved()) {
-            ( (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getMasterLocation().toBlockPos()) ).removeSlave(tToBeDestroyedComponent.getLocation());
+        if (component.isSlaved()) {
+            ((IStructureComponent) ((TileEntity) component).getWorld().getTileEntity(component.getMasterLocation().toBlockPos())).removeSlave(component.getLocation());
 
-            tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getMasterLocation().toBlockPos());
+            master = (IStructureComponent) ((TileEntity) component).getWorld().getTileEntity(component.getMasterLocation().toBlockPos());
         } else {
-            if (tToBeDestroyedComponent.getSlaveCoordinates().size() == 1) {
-                tMasterComponent = (IStructureComponent) ((TileEntity) tToBeDestroyedComponent).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().iterator().next().toBlockPos());
-                tMasterComponent.initiateAsMasterEntity();
-                tMasterComponent.getStructureData().onDataMergeInto(tToBeDestroyedComponent.getStructureData());
-            } else if (tToBeDestroyedComponent.getSlaveCoordinates().size() > 1) {
-                Iterator<Coordinate3D> iterator = tToBeDestroyedComponent.getSlaveCoordinates().iterator();
+            if (component.getSlaveCoordinates().size() == 1) {
+                master = (IStructureComponent) ((TileEntity) component).getWorld().getTileEntity(component.getSlaveCoordinates().iterator().next().toBlockPos());
+                master.initiateAsMasterEntity();
+                master.getStructureData().onDataMergeInto(component.getStructureData());
+            } else if (component.getSlaveCoordinates().size() > 1) {
+                Iterator<Coordinate3D> iterator = component.getSlaveCoordinates().iterator();
 
-                tMasterComponent = (IStructureComponent) ((TileEntity) tToBeDestroyedComponent).getWorld().getTileEntity(iterator.next().toBlockPos());
-                tMasterComponent.initiateAsMasterEntity();
-                tMasterComponent.getStructureData().onDataMergeInto(tToBeDestroyedComponent.getStructureData());
+                master = (IStructureComponent) ((TileEntity) component).getWorld().getTileEntity(iterator.next().toBlockPos());
+                master.initiateAsMasterEntity();
+                master.getStructureData().onDataMergeInto(component.getStructureData());
 
                 while (iterator.hasNext()) {
-                    joinSructure(tMasterComponent, (IStructureComponent) ((TileEntity) tToBeDestroyedComponent).getWorld().getTileEntity(iterator.next().toBlockPos()));
+                    joinSructure(master, (IStructureComponent) ((TileEntity) component).getWorld().getTileEntity(iterator.next().toBlockPos()));
                 }
             }
         }
 
-        if (tMasterComponent != null) {
-            ArrayList<IStructureComponent<?>> tNotConnectedComponents = validateStructureIntegrity(tMasterComponent, tToBeDestroyedComponent);
-            while (!tNotConnectedComponents.isEmpty()) {
-                tNotConnectedComponents = validateStructureIntegrity(splitStructure(tMasterComponent, tNotConnectedComponents), tToBeDestroyedComponent);
+        if (master != null) {
+            ArrayList<IStructureComponent<?>> notConnectedComponents = validateStructureIntegrity(master, component);
+            while (!notConnectedComponents.isEmpty()) {
+                notConnectedComponents = validateStructureIntegrity(splitStructure(master, notConnectedComponents), component);
             }
         }
     }
 
-    public static ArrayList<IStructureComponent<?>> validateStructureIntegrity(IStructureComponent<?> pMasterComponent, IPathComponent pSeperatingComponent) {
-        ArrayList<IStructureComponent<?>> tNotConnectedComponents = new ArrayList<>();
+    public static ArrayList<IStructureComponent<?>> validateStructureIntegrity(IStructureComponent<?> master, IPathComponent splitter) {
+        ArrayList<IStructureComponent<?>> notConnectedComponents = new ArrayList<>();
 
-        for (Coordinate3D slaveCoordinate : pMasterComponent.getSlaveCoordinates()) {
-            IStructureComponent slaveComponent = (IStructureComponent) ( (TileEntity) pMasterComponent ).getWorld().getTileEntity(slaveCoordinate.toBlockPos());
+        for (Coordinate3D slaveCoordinate : master.getSlaveCoordinates()) {
+            IStructureComponent slaveComponent = (IStructureComponent) ((TileEntity) master).getWorld().getTileEntity(slaveCoordinate.toBlockPos());
 
-            if (!checkIfComponentStillConnected(pMasterComponent, slaveComponent, pSeperatingComponent))
-                tNotConnectedComponents.add(slaveComponent);
+            if (!checkIfComponentStillConnected(master, slaveComponent, splitter))
+                notConnectedComponents.add(slaveComponent);
         }
 
-        for (IStructureComponent tSlave : tNotConnectedComponents) {
+        for (IStructureComponent tSlave : notConnectedComponents) {
             SmithsCore.getLogger().info("Removing " + tSlave.getLocation().toString() + " from structure.");
-            pMasterComponent.removeSlave(tSlave.getLocation());
+            master.removeSlave(tSlave.getLocation());
         }
 
-        return tNotConnectedComponents;
+        return notConnectedComponents;
     }
 
-    private static World getWorld(IStructureComponent<?> pComponent) {
-        return ( (TileEntity) pComponent ).getWorld();
+    private static World getWorld(IStructureComponent<?> component) {
+        return ((TileEntity) component).getWorld();
     }
 
-    private static boolean checkIfComponentStillConnected(IStructureComponent<?> pMasterComponent, IStructureComponent<?> pTargetComponent, IPathComponent pSplittingComponent) {
-        SmithsCore.getLogger().info("Starting connection search between: " + pMasterComponent.getLocation().toString() + " to " + pTargetComponent.getLocation().toString());
+    private static boolean checkIfComponentStillConnected(IStructureComponent<?> master, IStructureComponent<?> target, IPathComponent splitter) {
+        SmithsCore.getLogger().info("Starting connection search between: " + master.getLocation().toString() + " to " + target.getLocation().toString());
 
-        PathFinder tConnectionChecker = new PathFinder(pMasterComponent, pTargetComponent, pSplittingComponent);
+        PathFinder tConnectionChecker = new PathFinder(master, target, splitter);
         return tConnectionChecker.isConnected();
     }
 
