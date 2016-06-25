@@ -6,6 +6,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by Marc on 18.12.2015.
@@ -34,5 +36,13 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
 
     public NBTTagCompound getDataCompound() {
         return dataCompound;
+    }
+
+    @Override
+    public IMessage getCommunicationMessage(Side side) {
+        if (side == Side.SERVER)
+            return null;
+
+        return super.getCommunicationMessage(side);
     }
 }

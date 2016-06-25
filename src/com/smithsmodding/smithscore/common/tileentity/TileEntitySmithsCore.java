@@ -33,6 +33,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G>, IWorldNameable {
 
@@ -328,11 +329,11 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
         if (isSlaved) {
             component.setMasterLocation(masterLocation);
-            component.setSlaveCoordinates(new ArrayList<Coordinate3D>());
+            component.setSlaveCoordinates(new LinkedHashSet<>());
         } else {
             component.setMasterLocation(getLocation());
 
-            ArrayList<Coordinate3D> slaveCoordinateList = new ArrayList<Coordinate3D>();
+            LinkedHashSet<Coordinate3D> slaveCoordinateList = new LinkedHashSet<>();
             for (int i = 0; i < slaveCoordinateTagList.tagCount(); i++) {
                 NBTTagCompound coordinateCompound = (NBTTagCompound) slaveCoordinateTagList.get(i);
                 slaveCoordinateList.add(Coordinate3D.fromNBT(coordinateCompound));

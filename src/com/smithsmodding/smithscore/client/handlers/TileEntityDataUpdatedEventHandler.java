@@ -1,6 +1,5 @@
 package com.smithsmodding.smithscore.client.handlers;
 
-import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.common.events.TileEntityDataUpdatedEvent;
 import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
 import net.minecraft.tileentity.TileEntity;
@@ -18,7 +17,6 @@ public class TileEntityDataUpdatedEventHandler {
         TileEntity tileEntity = FMLClientHandler.instance().getClientPlayerEntity().getEntityWorld().getTileEntity(new BlockPos(event.getDataCompound().getInteger("x"), event.getDataCompound().getInteger("y"), event.getDataCompound().getInteger("z")));
 
         if (tileEntity == null || !(tileEntity instanceof TileEntitySmithsCore)) {
-            SmithsCore.getLogger().error("Found a non syncable or non existent TileEntity while syncing.");
             return;
         }
 

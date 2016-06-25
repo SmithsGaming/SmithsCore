@@ -10,7 +10,7 @@ import com.smithsmodding.smithscore.common.pathfinding.IPathComponent;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import com.smithsmodding.smithscore.util.common.positioning.Cube;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 public interface IStructureComponent<D extends IStructureData> extends IPathComponent {
 
@@ -28,9 +28,9 @@ public interface IStructureComponent<D extends IStructureData> extends IPathComp
     void initiateAsSlaveEntity (Coordinate3D masterLocation);
 
 
-    ArrayList<Coordinate3D> getSlaveCoordinates ();
+    LinkedHashSet<Coordinate3D> getSlaveCoordinates();
 
-    void setSlaveCoordinates (ArrayList<Coordinate3D> newSlaveCoordinates);
+    void setSlaveCoordinates(LinkedHashSet<Coordinate3D> newSlaveCoordinates);
 
     void registerNewSlave (Coordinate3D newSlaveLocation);
 

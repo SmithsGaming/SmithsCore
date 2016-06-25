@@ -10,6 +10,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Orion Created on 03.07.2015 12:49
@@ -46,7 +47,8 @@ public final class StructureManager {
         //Create the new structures master Entity
         IStructureComponent tNewMasterComponent = pSplittedComponents.remove(0);
         tNewMasterComponent.initiateAsMasterEntity();
-        tNewMasterComponent.getStructureData().onDataMergeInto(pOldMasterStructure.getStructureData());
+
+        getWorld(tNewMasterComponent).setTileEntity(tNewMasterComponent.getLocation().toBlockPos(), (TileEntity) tNewMasterComponent);
 
         //Let all the Slaves join the new handlers
         for (IStructureComponent tNewSlave : pSplittedComponents) {
@@ -108,16 +110,18 @@ public final class StructureManager {
             tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getMasterLocation().toBlockPos());
         } else {
             if (tToBeDestroyedComponent.getSlaveCoordinates().size() == 1) {
-                tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(0).toBlockPos());
+                tMasterComponent = (IStructureComponent) ((TileEntity) tToBeDestroyedComponent).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().iterator().next().toBlockPos());
                 tMasterComponent.initiateAsMasterEntity();
                 tMasterComponent.getStructureData().onDataMergeInto(tToBeDestroyedComponent.getStructureData());
             } else if (tToBeDestroyedComponent.getSlaveCoordinates().size() > 1) {
-                tMasterComponent = (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(0).toBlockPos());
+                Iterator<Coordinate3D> iterator = tToBeDestroyedComponent.getSlaveCoordinates().iterator();
+
+                tMasterComponent = (IStructureComponent) ((TileEntity) tToBeDestroyedComponent).getWorld().getTileEntity(iterator.next().toBlockPos());
                 tMasterComponent.initiateAsMasterEntity();
                 tMasterComponent.getStructureData().onDataMergeInto(tToBeDestroyedComponent.getStructureData());
 
-                for (int tIndex = 1; tIndex < tToBeDestroyedComponent.getSlaveCoordinates().size(); tIndex++) {
-                    joinSructure(tMasterComponent, (IStructureComponent) ( (TileEntity) tToBeDestroyedComponent ).getWorld().getTileEntity(tToBeDestroyedComponent.getSlaveCoordinates().get(tIndex).toBlockPos()));
+                while (iterator.hasNext()) {
+                    joinSructure(tMasterComponent, (IStructureComponent) ((TileEntity) tToBeDestroyedComponent).getWorld().getTileEntity(iterator.next().toBlockPos()));
                 }
             }
         }
