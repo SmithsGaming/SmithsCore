@@ -11,6 +11,7 @@ import com.smithsmodding.smithscore.common.player.handlers.PlayersConnectedUpdat
 import com.smithsmodding.smithscore.common.player.handlers.PlayersOnlineUpdatedEventHandler;
 import com.smithsmodding.smithscore.common.player.management.PlayerManager;
 import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
+import com.smithsmodding.smithscore.common.structures.StructureRegistry;
 import com.smithsmodding.smithscore.util.client.ResourceHelper;
 import com.smithsmodding.smithscore.util.client.Textures;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -166,6 +167,9 @@ public class CoreClientProxy extends CoreCommonProxy {
 
         SmithsCore.getRegistry().getNetworkBus().register(new TileEntityDataUpdatedEventHandler());
 
+        SmithsCore.getRegistry().getNetworkBus().register(StructureRegistry.getInstance());
+        SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getInstance());
+
         SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
 
         MinecraftForge.EVENT_BUS.register(new Textures());
@@ -174,6 +178,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
+        MinecraftForge.EVENT_BUS.register(StructureRegistry.getInstance());
     }
 
 }

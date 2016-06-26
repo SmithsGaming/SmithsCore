@@ -1,17 +1,15 @@
 package com.smithsmodding.smithscore.common.structures;
 
-import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
- * Created by Orion Created on 04.07.2015 20:10
- *
- * Copyrighted according to Project specific license
+ * Author Orion (Created on: 25.06.2016)
  */
-public interface IStructureData<H extends IStructureComponent> extends ITileEntityState {
+public interface IStructureData<S extends IStructure> {
 
-    Object getData (IStructureComponent pRequestingComponent, String pPropertyType);
+    NBTTagCompound writeToNBT();
 
-    void setData (IStructureComponent pSendingComponent, String pPropertyType, Object pData);
+    void readFromNBT(NBTTagCompound compound);
 
-    void onDataMergeInto(IStructureData<H> data);
+    void onDataMergeInto(IStructureData<S> otherData);
 }

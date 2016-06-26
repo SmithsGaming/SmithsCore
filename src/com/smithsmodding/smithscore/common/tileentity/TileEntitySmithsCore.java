@@ -13,7 +13,8 @@ import com.smithsmodding.smithscore.common.fluid.IFluidContainingEntity;
 import com.smithsmodding.smithscore.common.inventory.IContainerHost;
 import com.smithsmodding.smithscore.common.inventory.IItemStorage;
 import com.smithsmodding.smithscore.common.inventory.ItemStorageItemHandler;
-import com.smithsmodding.smithscore.common.structures.IStructureComponent;
+import com.smithsmodding.smithscore.common.structures.IStructurePart;
+import com.smithsmodding.smithscore.common.structures.StructureRegistry;
 import com.smithsmodding.smithscore.common.tileentity.state.ITileEntityState;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
@@ -27,13 +28,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IWorldNameable;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 
 public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G>, IWorldNameable {
 
@@ -78,6 +76,10 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     public void readFromNBT (NBTTagCompound compound) {
         super.readFromNBT(compound);
 
+        if (this instanceof IStructurePart && compound.hasKey(CoreReferences.NBT.STRUCTURE)) {
+            ((IStructurePart) this).setStructure(StructureRegistry.getInstance().getStructure(getWorld().provider.getDimension(), Coordinate3D.fromNBT(compound.getCompoundTag(CoreReferences.NBT.STRUCTURE))));
+        }
+
         if (getState().requiresNBTStorage())
             this.getState().readFromNBTTagCompound(compound.getTag(CoreReferences.NBT.STATE));
 
@@ -86,9 +88,6 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
         if (this instanceof IFluidContainingEntity)
             this.readFluidsFromCompound(compound.getTag(CoreReferences.NBT.FLUIDS));
-
-        if (this instanceof IStructureComponent)
-            this.readStructureComponentFromNBT((NBTTagCompound) compound.getTag(CoreReferences.NBT.STRUCTURE));
 
         if (compound.hasKey(CoreReferences.NBT.NAME)) {
             this.name = compound.getString(CoreReferences.NBT.NAME);
@@ -99,6 +98,12 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
 
+        if (this instanceof IStructurePart) {
+            if (((IStructurePart) this).getStructure() != null) {
+                compound.setTag(CoreReferences.NBT.STRUCTURE, ((IStructurePart) this).getStructure().getMasterLocation().toCompound());
+            }
+        }
+
         if (getState().requiresNBTStorage())
             compound.setTag(CoreReferences.NBT.STATE, this.getState().writeToNBTTagCompound());
 
@@ -107,9 +112,6 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
         if (this instanceof IFluidContainingEntity)
             compound.setTag(CoreReferences.NBT.FLUIDS, this.writeFluidsToCompound());
-
-        if (this instanceof IStructureComponent)
-            compound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));
 
         if (this.hasCustomName()) {
             compound.setString(CoreReferences.NBT.NAME, name);
@@ -284,68 +286,6 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     /**
-     * Method used to write the structure data to NBT
-     *
-     * @param structureCompound The NBTTagCompound to write the structure data to.
-     *
-     * @return The given structureCompound with the structure data appended.
-     */
-    protected NBTTagCompound writeStructureComponentDataToNBT (NBTTagCompound structureCompound) {
-        IStructureComponent component = (IStructureComponent) this;
-
-        structureCompound.setBoolean(CoreReferences.NBT.StructureData.ISSLAVED, component.isSlaved());
-
-        if (component.isSlaved()) {
-            structureCompound.setTag(CoreReferences.NBT.StructureData.MASTERLOCATION, component.getMasterLocation().toCompound());
-            structureCompound.setTag(CoreReferences.NBT.StructureData.SLAVELOCATIONS, new NBTTagList());
-        } else {
-            structureCompound.setTag(CoreReferences.NBT.StructureData.MASTERLOCATION, getLocation().toCompound());
-
-            NBTTagList coordinateList = new NBTTagList();
-
-            Iterator<Coordinate3D> coordinate3DIterator = component.getSlaveCoordinates().iterator();
-            while (coordinate3DIterator.hasNext()) {
-                coordinateList.appendTag(coordinate3DIterator.next().toCompound());
-            }
-
-            structureCompound.setTag(CoreReferences.NBT.StructureData.SLAVELOCATIONS, coordinateList);
-        }
-
-        return structureCompound;
-    }
-
-    /**
-     * Function to read the structure data from a NBT
-     *
-     * @param structureCompound The compound with the Structure Data.
-     */
-    protected void readStructureComponentFromNBT (NBTTagCompound structureCompound) {
-        IStructureComponent component = (IStructureComponent) this;
-
-        boolean isSlaved = structureCompound.getBoolean(CoreReferences.NBT.StructureData.ISSLAVED);
-
-        Coordinate3D masterLocation = Coordinate3D.fromNBT(structureCompound.getCompoundTag(CoreReferences.NBT.StructureData.MASTERLOCATION));
-        NBTTagList slaveCoordinateTagList = structureCompound.getTagList(CoreReferences.NBT.StructureData.SLAVELOCATIONS, Constants.NBT.TAG_COMPOUND);
-
-        if (isSlaved) {
-            component.setMasterLocation(masterLocation);
-            component.setSlaveCoordinates(new LinkedHashSet<>());
-        } else {
-            component.setMasterLocation(getLocation());
-
-            LinkedHashSet<Coordinate3D> slaveCoordinateList = new LinkedHashSet<>();
-            for (int i = 0; i < slaveCoordinateTagList.tagCount(); i++) {
-                NBTTagCompound coordinateCompound = (NBTTagCompound) slaveCoordinateTagList.get(i);
-                slaveCoordinateList.add(Coordinate3D.fromNBT(coordinateCompound));
-            }
-
-            component.setSlaveCoordinates(slaveCoordinateList);
-        }
-
-    }
-
-
-    /**
      * Method called by the synchronization system to send the data to the client.
      *
      * @param synchronizationCompound The NBTTagCompound to write your data to.
@@ -353,21 +293,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      * @return A NBTTagCompound containing all the data required for the synchronization of this TE.
      */
     public NBTTagCompound writeToSynchronizationCompound (NBTTagCompound synchronizationCompound) {
-        super.writeToNBT(synchronizationCompound);
-
-        if (this instanceof IItemStorage)
-            synchronizationCompound.setTag(CoreReferences.NBT.INVENTORY, this.writeInventoryToCompound());
-
-        if (this instanceof IFluidContainingEntity)
-            synchronizationCompound.setTag(CoreReferences.NBT.FLUIDS, this.writeFluidsToCompound());
-
-        if (getState().requiresSynchronization())
-            synchronizationCompound.setTag(CoreReferences.NBT.STATE, this.getState().writeToSynchronizationCompound());
-
-        if (this instanceof IStructureComponent)
-            synchronizationCompound.setTag(CoreReferences.NBT.STRUCTURE, this.writeStructureComponentDataToNBT(new NBTTagCompound()));
-
-        return synchronizationCompound;
+        return this.writeToNBT(synchronizationCompound);
     }
 
     /**
@@ -376,17 +302,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      * @param synchronizationCompound The NBTTagCompound to read your data from.
      */
     public void readFromSynchronizationCompound (NBTTagCompound synchronizationCompound) {
-        if (this instanceof IItemStorage)
-            this.readInventoryFromCompound(synchronizationCompound.getTag(CoreReferences.NBT.INVENTORY));
-
-        if (this instanceof IFluidContainingEntity)
-            this.readFluidsFromCompound(synchronizationCompound.getTag(CoreReferences.NBT.FLUIDS));
-
-        if (getState().requiresSynchronization())
-            this.getState().readFromNBTTagCompound(synchronizationCompound.getTag(CoreReferences.NBT.STATE));
-
-        if (this instanceof IStructureComponent)
-            this.readStructureComponentFromNBT((NBTTagCompound) synchronizationCompound.getTag(CoreReferences.NBT.STRUCTURE));
+        this.readFromNBT(synchronizationCompound);
     }
 
     @Override
