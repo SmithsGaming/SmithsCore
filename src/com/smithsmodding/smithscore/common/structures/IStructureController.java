@@ -24,6 +24,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
 
         IStructure newStructure = StructureRegistry.getInstance().getFactory(oldStructure).generateNewStructure(newMaster);
         newStructure.registerPart(newMaster);
+        newMaster.setStructure(newStructure);
 
         //Let all the Slaves join the new handlers
         while (iterator.hasNext()) {
