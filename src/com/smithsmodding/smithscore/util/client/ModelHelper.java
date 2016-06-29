@@ -51,8 +51,13 @@ public class ModelHelper {
 
     public static final IModelState DEFAULT_ITEM_STATE;
     public static final IModelState DEFAULT_TOOL_STATE;
+    public static final IModelState DEFAULT_BLOCK_STATE;
+
     public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_ITEM_TRANSFORMS;
     public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_TOOL_TRANSFORMS;
+    public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_BLOCK_TRANSFORMS;
+
+
     static final Type maptype = new TypeToken<Map<String, String>>() {
     }.getType();
     static final Type transformtype = new TypeToken<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>>() {
@@ -80,6 +85,7 @@ public class ModelHelper {
             DEFAULT_ITEM_TRANSFORMS = builder.build();
             DEFAULT_ITEM_STATE = new SimpleModelState(DEFAULT_ITEM_TRANSFORMS);
         }
+
         {
             ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
             builder.putAll(ImmutableMap.of(
@@ -89,6 +95,21 @@ public class ModelHelper {
                     ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f)));
             DEFAULT_TOOL_TRANSFORMS = builder.build();
             DEFAULT_TOOL_STATE = new SimpleModelState(DEFAULT_TOOL_TRANSFORMS);
+        }
+
+        {
+            TRSRTransformation thirdperson = get(0, 2.5f, 0, 75, 45, 0, 0.375f);
+            TRSRTransformation firstperson = get(0, 0, 0, 0, 45, 0, 0.4f);
+            ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+            builder.put(ItemCameraTransforms.TransformType.GUI, get(0, 0, 0, 30, 225, 0, 0.625f));
+            builder.put(ItemCameraTransforms.TransformType.GROUND, get(0, 3, 0, 0, 0, 0, 0.25f));
+            builder.put(ItemCameraTransforms.TransformType.FIXED, get(0, 0, 0, 0, 0, 0, 0.5f));
+            builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, thirdperson);
+            builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, firstperson);
+            builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, leftify(thirdperson));
+            builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, leftify(firstperson));
+            DEFAULT_BLOCK_TRANSFORMS = builder.build();
+            DEFAULT_BLOCK_STATE = new SimpleModelState(DEFAULT_TOOL_TRANSFORMS);
         }
     }
 
