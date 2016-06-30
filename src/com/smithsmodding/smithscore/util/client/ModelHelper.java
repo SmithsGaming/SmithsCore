@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -33,6 +34,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 
+import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -340,6 +342,25 @@ public class ModelHelper {
         if (model == null) return ModelLoaderRegistry.getMissingModel();
 
         return model;
+    }
+
+    /**
+     * Merges the Quads of the given models, for the given BlockState, Side and Random.
+     *
+     * @param models The Models to merge the Quads from.
+     * @param state  The BlockState to merge the Quads from.
+     * @param side   The Side to merge the Quads from.
+     * @param rand   The Random to merge the Quads with.
+     * @return Merged ImmutableList of BakedQuads of the given Modules, BlockState, Side and Random.
+     */
+    public ImmutableList<BakedQuad> getQuadsForMergedModel(ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+        ImmutableList.Builder<BakedQuad> quadBuilder = new ImmutableList.Builder<>();
+
+        for (IBakedModel model : models) {
+            quadBuilder.addAll(model.getQuads(state, side, rand));
+        }
+
+        return quadBuilder.build();
     }
 
     /**
