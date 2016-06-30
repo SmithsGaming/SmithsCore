@@ -353,7 +353,7 @@ public class ModelHelper {
      * @param rand   The Random to merge the Quads with.
      * @return Merged ImmutableList of BakedQuads of the given Modules, BlockState, Side and Random.
      */
-    public ImmutableList<BakedQuad> getQuadsForMergedModel(ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+    public static ImmutableList<BakedQuad> getQuadsForMergedModel(ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         ImmutableList.Builder<BakedQuad> quadBuilder = new ImmutableList.Builder<>();
 
         for (IBakedModel model : models) {
