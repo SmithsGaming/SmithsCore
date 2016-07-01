@@ -57,10 +57,10 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
 
-        ComponentBorder.CornerTypes topLeft = ComponentBorder.CornerTypes.Inwarts;
-        ComponentBorder.CornerTypes topRight = ComponentBorder.CornerTypes.Inwarts;
-        ComponentBorder.CornerTypes lowerRight = ComponentBorder.CornerTypes.Inwarts;
-        ComponentBorder.CornerTypes lowerLeft = ComponentBorder.CornerTypes.Inwarts;
+        ComponentBorder.CornerTypes topLeft = ComponentBorder.CornerTypes.Inwards;
+        ComponentBorder.CornerTypes topRight = ComponentBorder.CornerTypes.Inwards;
+        ComponentBorder.CornerTypes lowerRight = ComponentBorder.CornerTypes.Inwards;
+        ComponentBorder.CornerTypes lowerLeft = ComponentBorder.CornerTypes.Inwards;
 
         switch (connectionType) {
             case BELOWDIRECTCONNECT:
@@ -68,48 +68,48 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
                 topRight = ComponentBorder.CornerTypes.StraightVertical;
                 break;
             case BELOWSMALLER:
-                topLeft = ComponentBorder.CornerTypes.Outwarts;
-                topRight = ComponentBorder.CornerTypes.Outwarts;
+                topLeft = ComponentBorder.CornerTypes.Outwards;
+                topRight = ComponentBorder.CornerTypes.Outwards;
                 break;
             case BELOWBIGGER:
-                topLeft = ComponentBorder.CornerTypes.Inwarts;
-                topRight = ComponentBorder.CornerTypes.Inwarts;
+                topLeft = ComponentBorder.CornerTypes.Inwards;
+                topRight = ComponentBorder.CornerTypes.Inwards;
                 break;
             case ABOVEDIRECTCONNECT:
                 lowerLeft = ComponentBorder.CornerTypes.StraightVertical;
                 lowerRight = ComponentBorder.CornerTypes.StraightVertical;
                 break;
             case ABOVESMALLER:
-                lowerLeft = ComponentBorder.CornerTypes.Outwarts;
-                lowerRight = ComponentBorder.CornerTypes.Outwarts;
+                lowerLeft = ComponentBorder.CornerTypes.Outwards;
+                lowerRight = ComponentBorder.CornerTypes.Outwards;
                 break;
             case ABOVEBIGGER:
-                lowerLeft = ComponentBorder.CornerTypes.Inwarts;
-                lowerRight = ComponentBorder.CornerTypes.Inwarts;
+                lowerLeft = ComponentBorder.CornerTypes.Inwards;
+                lowerRight = ComponentBorder.CornerTypes.Inwards;
                 break;
             case RIGHTDIRECTCONNECT:
                 topLeft = ComponentBorder.CornerTypes.StraightHorizontal;
                 lowerLeft = ComponentBorder.CornerTypes.StraightHorizontal;
                 break;
             case RIGHTSMALLER:
-                topLeft = ComponentBorder.CornerTypes.Outwarts;
-                lowerLeft = ComponentBorder.CornerTypes.Outwarts;
+                topLeft = ComponentBorder.CornerTypes.Outwards;
+                lowerLeft = ComponentBorder.CornerTypes.Outwards;
                 break;
             case RIGHTBIGGER:
-                topLeft = ComponentBorder.CornerTypes.Inwarts;
-                lowerLeft = ComponentBorder.CornerTypes.Inwarts;
+                topLeft = ComponentBorder.CornerTypes.Inwards;
+                lowerLeft = ComponentBorder.CornerTypes.Inwards;
                 break;
             case LEFTDIRECTCONNECT:
                 topRight = ComponentBorder.CornerTypes.StraightHorizontal;
                 lowerRight = ComponentBorder.CornerTypes.StraightHorizontal;
                 break;
             case LEFTSMALLER:
-                topRight = ComponentBorder.CornerTypes.Outwarts;
-                lowerRight = ComponentBorder.CornerTypes.Outwarts;
+                topRight = ComponentBorder.CornerTypes.Outwards;
+                lowerRight = ComponentBorder.CornerTypes.Outwards;
                 break;
             case LEFTBIGGER:
-                topRight = ComponentBorder.CornerTypes.Inwarts;
-                lowerRight = ComponentBorder.CornerTypes.Inwarts;
+                topRight = ComponentBorder.CornerTypes.Inwards;
+                lowerRight = ComponentBorder.CornerTypes.Inwards;
                 break;
         }
 

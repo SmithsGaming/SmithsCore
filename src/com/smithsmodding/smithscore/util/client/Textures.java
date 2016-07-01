@@ -55,15 +55,15 @@ public class Textures {
                 public static CustomResource CENTER = new CustomResource("Gui.Basic.Border.Center", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 4, 4, 248, 248);
                 public static CustomResource STRAIGHTBORDERLIGHT = new CustomResource("Gui.Basic.Border.Border.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 3, 0, 250, 3);
                 public static CustomResource STRAIGHTBORDERDARK = new CustomResource("Gui.Basic.Border.Border.Dark", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 3, 253, 250, 3);
-                public static CustomResource INWARTSCORNERLIGHT = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 0, 0, 3, 3);
-                public static CustomResource INWARTSCORNERLIGHTINVERTED = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 0, 253, 3, 3);
-                public static CustomResource INWARTSCORNERDARK = new CustomResource("Gui.Basic.Border.Corner.Inwarts.Dark", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 252, 252, 4, 4);
+                public static CustomResource INWARTSCORNERLIGHT = new CustomResource("Gui.Basic.Border.Corner.Inwards.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource INWARTSCORNERLIGHTINVERTED = new CustomResource("Gui.Basic.Border.Corner.Inwards.Light", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 0, 253, 3, 3);
+                public static CustomResource INWARTSCORNERDARK = new CustomResource("Gui.Basic.Border.Corner.Inwards.Dark", BASICTEXTUREPATH + "ledger/ledger.png", Colors.DEFAULT, 252, 252, 4, 4);
 
                 private static String BORDERTEXTUREPATH = BASICTEXTUREPATH + "border/";
-                public static CustomResource OUTWARTSCORNERDARKDARK = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Dark", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 0, 0, 3, 3);
-                public static CustomResource OUTWARTSCORNERDARKLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 3, 0, 3, 3);
-                public static CustomResource OUTWARTSCORNERLIGHTDARK = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 6, 0, 3, 3);
-                public static CustomResource OUTWARTSCORNERLIGHTLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwarts.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 9, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERDARKDARK = new CustomResource("Gui.Basic.Border.Corner.Outwards.Dark", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERDARKLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 3, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERLIGHTDARK = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 6, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERLIGHTLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 9, 0, 3, 3);
             }
 
             public static class Components {

@@ -278,7 +278,7 @@ public abstract class CoreTab implements IGUITab {
                 final IGUITab tab = manager.getTabFromSelectorIndex(i);
 
                 Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * i, manager.getInActiveSelectorVerticalOffset()).getTranslatedCoordinate(new Coordinate2D(0, -1 * ( manager.getTabSelectorHeight() + 1 ))).getTranslatedCoordinate(new Coordinate2D(0, manager.getInActiveSelectorVerticalOffset()));
-                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(new MinecraftColor(tab.getTabColor()).darker()), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
+                ComponentBorder inActiveBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + i + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), new MinecraftColor(new MinecraftColor(tab.getTabColor()).darker()), ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.StraightVertical, ComponentBorder.CornerTypes.StraightVertical);
 
                 int displayOffset = ( manager.getTabSelectorWidth() - 16 ) / 2;
                 ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + i + ".Display", this, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {
@@ -302,7 +302,7 @@ public abstract class CoreTab implements IGUITab {
         final IGUITab tab = manager.getTabFromSelectorIndex(selectorIndex);
 
         Coordinate2D selectorRootCoord = new Coordinate2D(manager.getSelectorsHorizontalOffset() + manager.getTabSelectorWidth() * selectorIndex, manager.getInActiveSelectorVerticalOffset()).getTranslatedCoordinate(new Coordinate2D(0, -1 * ( manager.getTabSelectorHeight() + 1 )));
-        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Outwarts, ComponentBorder.CornerTypes.Outwarts);
+        ComponentBorder activeBorder = new ComponentBorder(this.uniqueID + ".TabSelectors." + selectorIndex + ".Background", this, selectorRootCoord, manager.getTabSelectorWidth(), manager.getTabSelectorHeight(), tab.getTabColor(), ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Outwards, ComponentBorder.CornerTypes.Outwards);
 
         int displayOffset = ( activeBorder.getSize().getWidth() - 16 ) / 2;
         ComponentItemStackDisplay selectorDisplay = new ComponentItemStackDisplay(this.uniqueID + ".TabSelectors." + selectorIndex + ".Display", this, new CoreComponentState(), selectorRootCoord.getTranslatedCoordinate(new Coordinate2D(displayOffset, displayOffset)), tab.getDisplayStack()) {

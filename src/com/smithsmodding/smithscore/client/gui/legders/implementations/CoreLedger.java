@@ -340,7 +340,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      */
     @Override
     public void drawBackground (int mouseX, int mouseY) {
-        ComponentBorder componentBorder = new ComponentBorder(getID() + ".background", this, new Coordinate2D(0, 0), getSize().getWidth(), getSize().getHeigth(), color, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts, ComponentBorder.CornerTypes.Inwarts);
+        ComponentBorder componentBorder = new ComponentBorder(getID() + ".background", this, new Coordinate2D(0, 0), getSize().getWidth(), getSize().getHeigth(), color, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards, ComponentBorder.CornerTypes.Inwards);
 
         getRootGuiObject().getRenderManager().renderBackgroundComponent(componentBorder, false);
     }
