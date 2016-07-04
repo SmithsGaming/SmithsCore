@@ -77,7 +77,13 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         super.readFromNBT(compound);
 
         if (this instanceof IStructurePart && compound.hasKey(CoreReferences.NBT.STRUCTURE)) {
-            ((IStructurePart) this).setStructure(StructureRegistry.getInstance().getStructure(getWorld().provider.getDimension(), Coordinate3D.fromNBT(compound.getCompoundTag(CoreReferences.NBT.STRUCTURE))));
+            int dim;
+            if (getWorld() == null)
+                dim = compound.getInteger(CoreReferences.NBT.StructureData.DIMENSION);
+            else
+                dim = getWorld().provider.getDimension();
+
+            ((IStructurePart) this).setStructure(StructureRegistry.getInstance().getStructure(dim, Coordinate3D.fromNBT(compound.getCompoundTag(CoreReferences.NBT.STRUCTURE))));
         }
 
         if (getState().requiresNBTStorage())
@@ -100,6 +106,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
         if (this instanceof IStructurePart) {
             if (((IStructurePart) this).getStructure() != null) {
+                compound.setInteger(CoreReferences.NBT.StructureData.DIMENSION, getWorld().provider.getDimension());
                 compound.setTag(CoreReferences.NBT.STRUCTURE, ((IStructurePart) this).getStructure().getMasterLocation().toCompound());
             }
         }

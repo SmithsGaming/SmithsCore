@@ -23,8 +23,10 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         iterator.remove();
 
         IStructure newStructure = StructureRegistry.getInstance().getFactory(oldStructure).generateNewStructure(newMaster);
+        oldStructure.removePart(newMaster);
         newStructure.registerPart(newMaster);
         newMaster.setStructure(newStructure);
+
 
         //Let all the Slaves join the new handlers
         while (iterator.hasNext()) {
@@ -140,8 +142,10 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         LinkedHashSet<IStructurePart> notConnectedComponents = validateStructureIntegrity(structure, part);
         structure.removePart(part);
 
+        IStructure newStructure = structure;
         while (!notConnectedComponents.isEmpty()) {
-            notConnectedComponents = validateStructureIntegrity(splitStructure(structure, notConnectedComponents), part);
+            newStructure = splitStructure(newStructure, notConnectedComponents);
+            notConnectedComponents = validateStructureIntegrity(newStructure, part);
         }
     }
 

@@ -13,7 +13,6 @@ public interface IStructure<D extends IStructureData, C extends IStructureContro
 
     D getData();
 
-
     boolean canPartJoin(IStructurePart part);
 
     LinkedHashSet<Coordinate3D> getPartLocations();

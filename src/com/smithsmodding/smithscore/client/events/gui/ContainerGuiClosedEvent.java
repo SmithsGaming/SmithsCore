@@ -6,14 +6,16 @@
 
 package com.smithsmodding.smithscore.client.events.gui;
 
-import com.smithsmodding.smithscore.common.events.network.*;
-import com.smithsmodding.smithscore.common.inventory.*;
-import io.netty.buffer.*;
-import net.minecraft.entity.player.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.common.events.network.StandardNetworkableEvent;
+import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.*;
+import java.util.UUID;
 
 /**
  * Eevnt fired on the ClientSide to signal that a User opened a UI.
@@ -31,7 +33,6 @@ public class ContainerGuiClosedEvent extends StandardNetworkableEvent {
         this.player = pPlayer;
         this.playerID = player.getUniqueID();
         this.containerID = containerSmithsCore.getContainerID();
-
     }
 
     /**
@@ -72,6 +73,7 @@ public class ContainerGuiClosedEvent extends StandardNetworkableEvent {
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
         playerID = new UUID(pMessageBuffer.readLong(), pMessageBuffer.readLong());
+        containerID = ByteBufUtils.readUTF8String(pMessageBuffer);
     }
 
     /**
@@ -84,6 +86,7 @@ public class ContainerGuiClosedEvent extends StandardNetworkableEvent {
     public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
         pMessageBuffer.writeLong(playerID.getMostSignificantBits());
         pMessageBuffer.writeLong(playerID.getLeastSignificantBits());
+        ByteBufUtils.writeUTF8String(pMessageBuffer, containerID);
     }
 
     /**

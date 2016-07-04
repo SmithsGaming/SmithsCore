@@ -50,8 +50,6 @@ public class CoreReferences {
 
             public static final String ISSLAVED = "SmithsCore.Structure.Slaved";
 
-
-
             public static final String SLAVELOCATIONS = "SmithsCore.Structure.SlaveLocations";
         }
 
