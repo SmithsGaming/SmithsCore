@@ -132,6 +132,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      */
     @Override
     public void markDirty () {
+        if (isRemote())
+            return;
+
         getState().onStateUpdated();
 
         //Vanilla compatibility
