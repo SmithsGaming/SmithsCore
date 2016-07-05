@@ -34,10 +34,10 @@ public class PathFinder {
                 break;
             }
 
-            FScore.remove(tCurrentComponent);
-
             tOpenNodes.remove(tCurrentComponent);
             tClosedNodes.put(tCurrentComponent, FScore.get(tCurrentComponent));
+
+            FScore.remove(tCurrentComponent);
 
             for (IPathComponent tNeighborComponent : tCurrentComponent.getValidPathableNeighborComponents()) {
                 if (tClosedNodes.containsKey(tNeighborComponent))

@@ -27,6 +27,8 @@ public class CoreReferences {
         public static final String OWNER_UUID_MOST_SIG = "ownerUUIDMostSig";
         public static final String OWNER_UUID_LEAST_SIG = "ownerUUIDLeastSig";
 
+        public static final String NAME = "Name";
+
         public static final String FLUIDS = "SmithsCore.Fluids";
         public static final String INVENTORY = "SmithsCore.Inventory";
         public static final String STATE = "SmithsCore.State";
@@ -38,9 +40,15 @@ public class CoreReferences {
         }
 
         public static class StructureData {
-            public static final String ISSLAVED = "SmithsCore.Structure.Slaved";
-
+            public static final String TYPE = "SmithsCore.Structure.Type";
+            public static final String STRUCTURE = "SmithsCore.Structure.Structures";
+            public static final String STORE = "SmithsCore.Structure.Store";
+            public static final String DIMENSION = "SmithsCore.Structure.Dimension";
             public static final String MASTERLOCATION = "SmithsCore.Structure.MasterLocation";
+            public static final String OLDMASTER = "SmithsCore.Structure.OldMaster";
+
+
+            public static final String ISSLAVED = "SmithsCore.Structure.Slaved";
 
             public static final String SLAVELOCATIONS = "SmithsCore.Structure.SlaveLocations";
         }
@@ -70,6 +78,6 @@ public class CoreReferences {
 
         public static final Marker RENDER = MarkerManager.getMarker("[Render]", CLIENT);
 
-        public static final Marker TESYNC = MarkerManager.getMarker("[TE-Sync]", COMMON);
+        public static final Marker STRUCTURE = MarkerManager.getMarker("[Structure]", COMMON);
     }
 }

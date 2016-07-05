@@ -5,11 +5,10 @@ import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.handlers.gui.GuiInputEventHandler;
 import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
 import com.smithsmodding.smithscore.common.player.management.PlayerManager;
+import com.smithsmodding.smithscore.common.structures.StructureRegistry;
 import com.smithsmodding.smithscore.network.event.EventNetworkManager;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.NoteBlockEvent;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
@@ -86,7 +85,9 @@ public class CoreCommonProxy {
      */
     protected void registerEventHandlers() {
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
+        MinecraftForge.EVENT_BUS.register(StructureRegistry.getInstance());
         SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
+        SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getServerInstance());
         SmithsCore.getRegistry().getNetworkBus().register(new GuiInputEventHandler());
     }
 

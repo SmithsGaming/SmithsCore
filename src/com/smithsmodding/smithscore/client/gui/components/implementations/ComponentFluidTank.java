@@ -163,7 +163,7 @@ public class ComponentFluidTank extends CoreComponent {
         int fluidX = 1;
 
         for (FluidStack stack : fluidStacks) {
-            int fluidWidth = (int) ( ( (float) stack.amount / (float) totalTankContents ) * getSize().getWidth() );
+            int fluidWidth = (int) (((float) stack.amount / (float) totalTankContents) * (getSize().getWidth() - 2));
 
             if (fluidX + fluidWidth > ( getSize().getWidth() - 2 ))
                 fluidWidth = getSize().getWidth() - fluidX - 2;
@@ -183,7 +183,7 @@ public class ComponentFluidTank extends CoreComponent {
         int fluidX = getSize().getWidth() - 1;
 
         for (FluidStack stack : fluidStacks) {
-            int fluidWidth = (int) ( ( (float) stack.amount / (float) totalTankContents ) * getSize().getWidth() );
+            int fluidWidth = (int) (((float) stack.amount / (float) totalTankContents) * (getSize().getWidth() - 2));
 
             if (fluidX - fluidWidth < 2)
                 fluidWidth = fluidX - 1;
@@ -200,10 +200,10 @@ public class ComponentFluidTank extends CoreComponent {
     }
 
     private void renderVerticalBottomToTop () {
-        int fluidY = getSize().getHeigth() - 1;
+        int fluidY = getSize().getHeigth();
 
         for (FluidStack stack : fluidStacks) {
-            int fluidHeight = (int) ( ( (float) stack.amount / (float) totalTankContents ) * getSize().getHeigth() );
+            int fluidHeight = (int) (((float) stack.amount / (float) totalTankContents) * (getSize().getHeigth() - 2));
 
             if (fluidY - fluidHeight < 2)
                 fluidHeight = fluidY - 1;
@@ -223,7 +223,7 @@ public class ComponentFluidTank extends CoreComponent {
         int fluidY = 1;
 
         for (FluidStack stack : fluidStacks) {
-            int fluidHeight = (int) ( ( (float) stack.amount / (float) totalTankContents ) * getSize().getHeigth() );
+            int fluidHeight = (int) (((float) stack.amount / (float) totalTankContents) * (getSize().getHeigth() - 2));
 
             if (fluidY + fluidHeight > ( getSize().getHeigth() - 2 ))
                 fluidHeight = getSize().getHeigth() - fluidY - 2;

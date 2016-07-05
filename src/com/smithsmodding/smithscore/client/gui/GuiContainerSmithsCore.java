@@ -25,6 +25,7 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
@@ -94,12 +95,15 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     @Override
     public void drawBackground (int mouseX, int mouseY) {
         renderer.renderBackgroundComponent(this, false);
-        renderer.renderToolTipComponent(this, mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent());
+        //renderer.renderToolTipComponent(this, mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent());
     }
 
     @Override
     public void drawForeground (int mouseX, int mouseY) {
-        //renderer.renderForegroundComponent(this);
+        GlStateManager.translate(-guiLeft, -guiTop, 0);
+        renderer.renderForegroundComponent(this, false);
+        renderer.renderToolTipComponent(this, mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent());
+        GlStateManager.translate(guiLeft, guiTop, 0);
     }
 
     @Override

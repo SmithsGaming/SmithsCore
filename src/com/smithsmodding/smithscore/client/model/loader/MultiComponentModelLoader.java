@@ -32,7 +32,7 @@ public class MultiComponentModelLoader implements ICustomModelLoader {
     }
 
     public void registerDomain(String domain) {
-        acceptedDomains.add(domain);
+        acceptedDomains.add(domain.toLowerCase());
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MultiComponentModelLoader implements ICustomModelLoader {
         if (!modelLocation.getResourcePath().endsWith(EXTENSION)) return false;
 
         for (String domain : acceptedDomains)
-            if (modelLocation.getResourceDomain().equals(domain))
+            if (modelLocation.getResourceDomain().toLowerCase().equals(domain))
                 return true;
 
         return false;

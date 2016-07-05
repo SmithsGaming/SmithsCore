@@ -7,153 +7,41 @@
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
+Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
-Download http://dvs1.progwml6.com/files/maven/mezz/jei/jei_1.9.4/3.4.4.208/jei_1.9.4-3.4.4.208.pom
-Download http://dvs1.progwml6.com/files/maven/mezz/jei/jei_1.9.4/3.4.4.208/jei_1.9.4-3.4.4.208.jar
-Download http://dvs1.progwml6.com/files/maven/mezz/jei/jei_1.9.4/3.4.4.208/jei_1.9.4-3.4.4.208-sources.jar
-:clean
-:cleanCache
-:extractMcpMappings
-Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcp_snapshot/20160518-1.9.4/mcp_snapshot-20160518-1.9.4.zip
-:deobfCompileDeobfDepTask0
-:deobfCompileRemapDepSourcesTask1
+:extractMcpMappings SKIPPED
+:deobfCompileDeobfDepTask0 SKIPPED
+:deobfCompileRemapDepSourcesTask1 SKIPPED
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
 :getVersionJson
-:extractUserdev
-Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.9.4-12.17.0.1968/forge-1.9.4-12.17.0.1968.pom
-Download http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.9.4-12.17.0.1968/forge-1.9.4-12.17.0.1968-userdev.jar
-:extractDependencyATs
-:extractMcpData
-Download http://files.minecraftforge.net/maven/de/oceanlabs/mcp/mcp/1.9.4/mcp-1.9.4-srg.zip
-:genSrgs
-:downloadClient
-:downloadServer
-:splitServerJar
-:mergeJars
+:extractUserdev UP-TO-DATE
+:extractDependencyATs UP-TO-DATE
+:extractMcpData SKIPPED
+:genSrgs SKIPPED
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:splitServerJar SKIPPED
+:mergeJars SKIPPED
 :deobfMcSRG
 Applying SpecialSource...
 Applying Exceptor...
 :decompileMc
-Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.pom
-Download https://libraries.minecraft.net/com/mojang/realms/1.8.19/realms-1.8.19.pom
-Download https://libraries.minecraft.net/it/unimi/dsi/fastutil/7.0.12_mojang/fastutil-7.0.12_mojang.pom
-Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar
-Download https://libraries.minecraft.net/com/mojang/realms/1.8.19/realms-1.8.19.jar
-Download https://libraries.minecraft.net/it/unimi/dsi/fastutil/7.0.12_mojang/fastutil-7.0.12_mojang.jar
 :fixMcSources
 :applySourcePatches
 :remapMcSources
 :recompileMc
-:extractNatives
-:getAssetIndex
+:extractNatives SKIPPED
+:getAssetIndex UP-TO-DATE
 :getAssets
-Current status: 46/1049   4%
-Current status: 80/1049   7%
-Current status: 110/1049   10%
-Current status: 142/1049   13%
-Current status: 152/1049   14%
-Current status: 165/1049   15%
-Current status: 173/1049   16%
-Current status: 188/1049   17%
-Current status: 190/1049   18%
-Current status: 204/1049   19%
-Current status: 218/1049   20%
-Current status: 231/1049   22%
-Current status: 248/1049   23%
-Current status: 258/1049   24%
-Current status: 272/1049   25%
-Current status: 281/1049   26%
-Current status: 293/1049   27%
-Current status: 307/1049   29%
-Current status: 323/1049   30%
-Current status: 330/1049   31%
-Current status: 342/1049   32%
-Current status: 348/1049   33%
-Current status: 362/1049   34%
-Current status: 372/1049   35%
-Current status: 385/1049   36%
-Current status: 406/1049   38%
-Current status: 428/1049   40%
-Current status: 442/1049   42%
-Current status: 448/1049   42%
-Current status: 461/1049   43%
-Current status: 477/1049   45%
-Current status: 482/1049   45%
-Current status: 493/1049   46%
-Current status: 505/1049   48%
-Current status: 521/1049   49%
-Current status: 534/1049   50%
-Current status: 546/1049   52%
-Current status: 562/1049   53%
-Current status: 572/1049   54%
-Current status: 585/1049   55%
-Current status: 593/1049   56%
-Current status: 598/1049   57%
-Current status: 605/1049   57%
-Current status: 619/1049   59%
-Current status: 629/1049   59%
-Current status: 639/1049   60%
-Current status: 647/1049   61%
-Current status: 655/1049   62%
-Current status: 659/1049   62%
-Current status: 674/1049   64%
-Current status: 686/1049   65%
-Current status: 695/1049   66%
-Current status: 710/1049   67%
-Current status: 723/1049   68%
-Current status: 736/1049   70%
-Current status: 746/1049   71%
-Current status: 759/1049   72%
-Current status: 769/1049   73%
-Current status: 782/1049   74%
-Current status: 803/1049   76%
-Current status: 811/1049   77%
-Current status: 816/1049   77%
-Current status: 818/1049   77%
-Current status: 824/1049   78%
-Current status: 824/1049   78%
-Current status: 824/1049   78%
-Current status: 824/1049   78%
-Current status: 824/1049   78%
-Current status: 829/1049   79%
-Current status: 839/1049   79%
-Current status: 845/1049   80%
-Current status: 852/1049   81%
-Current status: 852/1049   81%
-Current status: 857/1049   81%
-Current status: 863/1049   82%
-Current status: 868/1049   82%
-Current status: 872/1049   83%
-Current status: 879/1049   83%
-Current status: 899/1049   85%
-Current status: 920/1049   87%
-Current status: 922/1049   87%
-Current status: 924/1049   88%
-Current status: 926/1049   88%
-Current status: 932/1049   88%
-Current status: 945/1049   90%
-Current status: 956/1049   91%
-Current status: 975/1049   92%
-Current status: 996/1049   94%
-Current status: 1010/1049   96%
-Current status: 1025/1049   97%
-Current status: 1041/1049   99%
-Current status: 1045/1049   99%
-Current status: 1045/1049   99%
-Current status: 1046/1049   99%
-Current status: 1047/1049   99%
-Current status: 1047/1049   99%
+Current status: 749/1049   71%
 :makeStart
 :setupDecompWorkspace
 :ideaModule
-Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1-sources.jar
-Download https://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1-javadoc.jar
-Download https://libraries.minecraft.net/it/unimi/dsi/fastutil/7.0.12_mojang/fastutil-7.0.12_mojang-sources.jar
 :ideaProject
 :ideaWorkspace
 :idea
 
 BUILD SUCCESSFUL
 
-Total time: 8 mins 51.348 secs
+Total time: 3 mins 18.924 secs

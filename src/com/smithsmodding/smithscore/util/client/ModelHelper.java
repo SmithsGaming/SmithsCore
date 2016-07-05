@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.*;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -33,6 +34,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 
+import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -51,8 +53,13 @@ public class ModelHelper {
 
     public static final IModelState DEFAULT_ITEM_STATE;
     public static final IModelState DEFAULT_TOOL_STATE;
+    public static final IModelState DEFAULT_BLOCK_STATE;
+
     public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_ITEM_TRANSFORMS;
     public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_TOOL_TRANSFORMS;
+    public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_BLOCK_TRANSFORMS;
+
+
     static final Type maptype = new TypeToken<Map<String, String>>() {
     }.getType();
     static final Type transformtype = new TypeToken<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>>() {
@@ -80,6 +87,7 @@ public class ModelHelper {
             DEFAULT_ITEM_TRANSFORMS = builder.build();
             DEFAULT_ITEM_STATE = new SimpleModelState(DEFAULT_ITEM_TRANSFORMS);
         }
+
         {
             ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
             builder.putAll(ImmutableMap.of(
@@ -89,6 +97,21 @@ public class ModelHelper {
                     ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f)));
             DEFAULT_TOOL_TRANSFORMS = builder.build();
             DEFAULT_TOOL_STATE = new SimpleModelState(DEFAULT_TOOL_TRANSFORMS);
+        }
+
+        {
+            TRSRTransformation thirdperson = get(0, 2.5f, 0, 75, 45, 0, 0.375f);
+            TRSRTransformation firstperson = get(0, 0, 0, 0, 45, 0, 0.4f);
+            ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+            builder.put(ItemCameraTransforms.TransformType.GUI, get(0, 0, 0, 30, 225, 0, 0.625f));
+            builder.put(ItemCameraTransforms.TransformType.GROUND, get(0, 3, 0, 0, 0, 0, 0.25f));
+            builder.put(ItemCameraTransforms.TransformType.FIXED, get(0, 0, 0, 0, 0, 0, 0.5f));
+            builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, thirdperson);
+            builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND, firstperson);
+            builder.put(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, leftify(thirdperson));
+            builder.put(ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND, leftify(firstperson));
+            DEFAULT_BLOCK_TRANSFORMS = builder.build();
+            DEFAULT_BLOCK_STATE = new SimpleModelState(DEFAULT_TOOL_TRANSFORMS);
         }
     }
 
@@ -319,6 +342,25 @@ public class ModelHelper {
         if (model == null) return ModelLoaderRegistry.getMissingModel();
 
         return model;
+    }
+
+    /**
+     * Merges the Quads of the given models, for the given BlockState, Side and Random.
+     *
+     * @param models The Models to merge the Quads from.
+     * @param state  The BlockState to merge the Quads from.
+     * @param side   The Side to merge the Quads from.
+     * @param rand   The Random to merge the Quads with.
+     * @return Merged ImmutableList of BakedQuads of the given Modules, BlockState, Side and Random.
+     */
+    public static ImmutableList<BakedQuad> getQuadsForMergedModel(ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+        ImmutableList.Builder<BakedQuad> quadBuilder = new ImmutableList.Builder<>();
+
+        for (IBakedModel model : models) {
+            quadBuilder.addAll(model.getQuads(state, side, rand));
+        }
+
+        return quadBuilder.build();
     }
 
     /**

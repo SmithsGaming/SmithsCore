@@ -6,11 +6,13 @@
 
 package com.smithsmodding.smithscore.common.events.network;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.events.*;
-import com.smithsmodding.smithscore.network.event.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.common.events.SmithsCoreEvent;
+import com.smithsmodding.smithscore.network.event.EventNetworkManager;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
@@ -55,6 +57,10 @@ public class NetworkableEvent extends SmithsCoreEvent {
      */
     public void handleServerToClientSide () {
         EventNetworkManager.getInstance().sendToAll(this.getCommunicationMessage(Side.CLIENT));
+    }
+
+    public void handleServerToClient(EntityPlayerMP playerMP) {
+        EventNetworkManager.getInstance().sendTo(this.getCommunicationMessage(Side.CLIENT), playerMP);
     }
 
     /**
