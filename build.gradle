@@ -205,8 +205,8 @@ curseforge {
                         releaseType = "Beta"
                     }
 
-                    additionalArtifact devJar
-                    additionalArtifact javadocJar
+                    addArtifact devJar
+                    addArtifact javadocJar
                 }
             }
             else
