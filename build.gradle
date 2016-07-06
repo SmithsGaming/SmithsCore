@@ -182,12 +182,9 @@ Please help the project by trying it out and <a href="https://github.com/Forestr
 """
 }
 
-afterEvaluate {
-    tasks.curseforge59751.dependsOn.add(makeChangelog)
-}
-
 curseforge {
     dependsOn 'reobf'
+    dependsOn 'makeChangelog'
 
     if (System.getenv().CURSEAPIKEY != null)
     {
