@@ -16,6 +16,11 @@ buildscript{
 	}
 }
 
+plugins {
+    id "com.matthewprenger.cursegradle" version "1.0.7"
+    id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.32"
+}
+
 repositories {
     mavenLocal()
     maven {
@@ -36,16 +41,8 @@ apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
 
-plugins {
-    id "com.matthewprenger.cursegradle" version "1.0.7"
-    id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.32"
-}
-
-
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
 
 //Buildscript: SmithsCore
 // Load the properties of this project.
