@@ -5,8 +5,8 @@ jdk:
 before_install:
 - chmod +x gradlew
 install: ./gradlew setupCIWorkspace -S
-script: ./gradlew build -i -S
+script: ./gradlew build -S
 after_success:
-  - ./gradlew uploadJars -S -i
-  - ./gradlew curse -S -i
+  - ./gradlew uploadJars -S
+  - ./gradlew curseforge -S
   - ./gradlew createGithubBranches -S
