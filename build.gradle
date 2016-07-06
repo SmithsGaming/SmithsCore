@@ -168,7 +168,7 @@ task makeChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
     untaggedName = "Current release ${project.version}"
     templateContent = """
 Alpha version, still buggy. Do not create a world you care about with this version, it can and will break things severely.<br/>
-Please help the project by trying it out and <a href="https://github.com/ForestryMC/ForestryMC/issues">reporting issues here.</a><br/>
+Please help the project by trying it out and <a href="https://github.com/SmithsModding/SmithsCore/issues">reporting issues here.</a><br/>
 {{#tags}}
   <h3>{{name}}</h3>
   <ul>
@@ -181,9 +181,6 @@ Please help the project by trying it out and <a href="https://github.com/Forestr
 }
 
 curseforge {
-    //dependsOn 'reobf'
-    //dependsOn 'makeChangelog'
-
     if (System.getenv().CURSEAPIKEY != null)
     {
         if (!build_mode.toString().trim().equals("SYNC"))

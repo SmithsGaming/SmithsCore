@@ -11,19 +11,8 @@ Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the Cur
 #################################################
 Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
+:makeChangelog
 
-FAILURE: Build failed with an exception.
+BUILD SUCCESSFUL
 
-* Where:
-Build file 'C:\Users\marcf\Documents\Development\Minecraft\SmithsCore\build.gradle' line: 228
-
-* What went wrong:
-A problem occurred configuring root project 'SmithsCore'.
-> Could not find property 'curseforge246525' on task set.
-
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
-BUILD FAILED
-
-Total time: 31.948 secs
+Total time: 7.259 secs
