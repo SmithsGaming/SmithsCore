@@ -200,9 +200,9 @@ curseforge {
                     changelogType = 'html'
 
                     if (System.getenv().TRAVIS_BRANCH.toString().contains("Development")) {
-                        releaseType = "Alpha"
+                        releaseType = "alpha"
                     } else {
-                        releaseType = "Beta"
+                        releaseType = "beta"
                     }
 
                     addArtifact devJar
