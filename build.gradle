@@ -183,8 +183,8 @@ Please help the project by trying it out and <a href="https://github.com/Forestr
 }
 
 curseforge {
-    dependsOn 'reobf'
-    dependsOn 'makeChangelog'
+    //dependsOn 'reobf'
+    //dependsOn 'makeChangelog'
 
     if (System.getenv().CURSEAPIKEY != null)
     {
@@ -192,7 +192,7 @@ curseforge {
         {
             if ((build_mode.toString().trim().equals("DEBUG") && System.getenv().TRAVIS_BRANCH.toString().contains("Development")) || ((build_mode.toString().trim().equals("RELEASE") && !System.getenv().TRAVIS_BRANCH.toString().contains("Development"))))
             {
-                projectId = System.getenv().CURSEPROJECTID
+                projectId = 246525
                 apiKey = System.getenv().CURSEAPIKEY
                 changelog = file('changelog.html')
 
@@ -222,6 +222,11 @@ curseforge {
     {
         logger.lifecycle("Cannot run the CurseUpload sequence. No API-Key was available.")
     }
+}
+
+afterEvaluate {
+    tasks.curseforge246525.dependsOn.add(makeChangelog)
+    tasks.curseforge246525.dependsOn.add(reobf)
 }
 
 //Function to upload completed project to the maven repo.
