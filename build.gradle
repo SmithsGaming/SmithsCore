@@ -192,21 +192,22 @@ curseforge {
         {
             if ((build_mode.toString().trim().equals("DEBUG") && System.getenv().TRAVIS_BRANCH.toString().contains("Development")) || ((build_mode.toString().trim().equals("RELEASE") && !System.getenv().TRAVIS_BRANCH.toString().contains("Development"))))
             {
-                projectId = 246525
                 apiKey = System.getenv().CURSEAPIKEY
-                changelog = file('changelog.html')
 
-                if (System.getenv().TRAVIS_BRANCH.toString().contains("Development"))
-                {
-                    releaseType = "Alpha"
-                }
-                else
-                {
-                    releaseType = "Beta"
-                }
+                project {
+                    id = '246525'
+                    changelog = file('changelog.html')
+                    changelogType = 'html'
 
-                additionalArtifact devJar
-                additionalArtifact javadocJar
+                    if (System.getenv().TRAVIS_BRANCH.toString().contains("Development")) {
+                        releaseType = "Alpha"
+                    } else {
+                        releaseType = "Beta"
+                    }
+
+                    additionalArtifact devJar
+                    additionalArtifact javadocJar
+                }
             }
             else
             {

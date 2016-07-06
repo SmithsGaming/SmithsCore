@@ -1,3 +1,5 @@
+Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the CurseUpload sequence. No API-Key was available.
+
 #################################################
          ForgeGradle 2.2-SNAPSHOT-59f33ec        
   https://github.com/MinecraftForge/ForgeGradle  
@@ -9,39 +11,19 @@
 #################################################
 Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
-:extractMcpMappings SKIPPED
-:deobfCompileDeobfDepTask0 SKIPPED
-:deobfCompileRemapDepSourcesTask1 SKIPPED
-:deobfCompileDummyTask
-:deobfProvidedDummyTask
-:getVersionJson
-:extractUserdev UP-TO-DATE
-:extractDependencyATs UP-TO-DATE
-:extractMcpData SKIPPED
-:genSrgs SKIPPED
-:downloadClient SKIPPED
-:downloadServer SKIPPED
-:splitServerJar SKIPPED
-:mergeJars SKIPPED
-:deobfMcSRG
-Applying SpecialSource...
-Applying Exceptor...
-:decompileMc
-:fixMcSources
-:applySourcePatches
-:remapMcSources
-:recompileMc
-:extractNatives SKIPPED
-:getAssetIndex UP-TO-DATE
-:getAssets
-Current status: 749/1049   71%
-:makeStart
-:setupDecompWorkspace
-:ideaModule
-:ideaProject
-:ideaWorkspace
-:idea
 
-BUILD SUCCESSFUL
+FAILURE: Build failed with an exception.
 
-Total time: 3 mins 18.924 secs
+* Where:
+Build file 'C:\Users\marcf\Documents\Development\Minecraft\SmithsCore\build.gradle' line: 228
+
+* What went wrong:
+A problem occurred configuring root project 'SmithsCore'.
+> Could not find property 'curseforge246525' on task set.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 31.948 secs
