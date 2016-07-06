@@ -225,11 +225,6 @@ curseforge {
     }
 }
 
-afterEvaluate {
-    tasks.curseforge246525.dependsOn.add(makeChangelog)
-    tasks.curseforge246525.dependsOn.add(reobf)
-}
-
 //Function to upload completed project to the maven repo.
 uploadArchives {
     repositories.mavenDeployer {
