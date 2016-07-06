@@ -35,7 +35,13 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'maven'
-apply plugin: 'curse'
+
+plugins {
+    id "com.matthewprenger.cursegradle" version "1.0.7"
+    id "se.bjurr.gitchangelog.git-changelog-gradle-plugin" version "1.32"
+}
+
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -160,7 +166,30 @@ artifacts {
     archives javadocJar
 }
 
-curse {
+task makeChangelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
+    filePath = "changelog.html"
+    untaggedName = "Current release ${project.version}"
+    fromCommit = "5a3850c2642e535656d090d1473054d5fa8d3331"
+    toRef =  "HEAD"
+    templateContent = """
+Alpha version, still buggy. Do not create a world you care about with this version, it can and will break things severely.<br/>
+Please help the project by trying it out and <a href="https://github.com/ForestryMC/ForestryMC/issues">reporting issues here.</a><br/>
+{{#tags}}
+  <h3>{{name}}</h3>
+  <ul>
+    {{#commits}}
+    <li>{{{message}}} - {{authorName}}</li>
+    {{/commits}}
+  </ul>
+{{/tags}}
+"""
+}
+
+afterEvaluate {
+    tasks.curseforge59751.dependsOn.add(makeChangelog)
+}
+
+curseforge {
     dependsOn 'reobf'
 
     if (System.getenv().CURSEAPIKEY != null)
@@ -171,7 +200,7 @@ curse {
             {
                 projectId = System.getenv().CURSEPROJECTID
                 apiKey = System.getenv().CURSEAPIKEY
-                changelog = "Check out: " + "https://github.com/" + System.getenv().TRAVIS_REPO_SLUG.toString() + "/commits/" + System.getenv().TRAVIS_BRANCH.toString() + " for all Changes."
+                changelog = file('changelog.html')
 
                 if (System.getenv().TRAVIS_BRANCH.toString().contains("Development"))
                 {
