@@ -50,12 +50,12 @@ public class ColorSampler {
      *
      * If the process fails for some reason it will return White
      *
-     * @param pStack The Stack to analyze.
+     * @param stack The Stack to analyze.
      * @return A color based on the Pixels in the IIcon of the ItemStack or White if the process fails.
      */
-    public static MinecraftColor getColorSampleFromItemStack(ItemStack pStack) {
+    public static MinecraftColor getColorSampleFromItemStack(ItemStack stack) {
         try {
-            return calculateAverageMinecraftColor(Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(pStack).getParticleTexture().getFrameTextureData(0));
+            return calculateAverageMinecraftColor(Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, null, null).getParticleTexture().getFrameTextureData(0));
         } catch (Exception e) {
             return new MinecraftColor(16777215);
         }
