@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.proxy;
 
 import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.client.font.MultiColoredFontRenderer;
 import com.smithsmodding.smithscore.client.handlers.TileEntityDataUpdatedEventHandler;
 import com.smithsmodding.smithscore.client.handlers.gui.*;
 import com.smithsmodding.smithscore.client.handlers.network.ClientNetworkableEventHandler;
@@ -14,9 +15,11 @@ import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
 import com.smithsmodding.smithscore.common.structures.StructureRegistry;
 import com.smithsmodding.smithscore.util.client.ResourceHelper;
 import com.smithsmodding.smithscore.util.client.Textures;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -42,6 +45,7 @@ import java.io.File;
  */
 public class CoreClientProxy extends CoreCommonProxy {
 
+    MultiColoredFontRenderer multiColoredFontRenderer;
     MultiComponentModelLoader multiComponentModelLoader = MultiComponentModelLoader.instance;
 
     public static ResourceLocation registerMultiComponentItemModel(Item item) {
@@ -107,6 +111,13 @@ public class CoreClientProxy extends CoreCommonProxy {
     @Override
     public void Init() {
         super.Init();
+
+        multiColoredFontRenderer = new MultiColoredFontRenderer(Minecraft.getMinecraft().gameSettings, new ResourceLocation("textures/font/ascii.png"), Minecraft.getMinecraft().renderEngine);
+        if (Minecraft.getMinecraft().gameSettings.language != null) {
+            multiColoredFontRenderer.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode() || Minecraft.getMinecraft().gameSettings.forceUnicodeFont);
+            multiColoredFontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+        }
+        ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(multiColoredFontRenderer);
     }
 
     /**

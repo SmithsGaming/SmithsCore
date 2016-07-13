@@ -1,11 +1,12 @@
 package com.smithsmodding.smithscore.util.client.color;
 
-import net.minecraft.client.renderer.*;
+import com.smithsmodding.smithscore.client.font.MultiColoredFontRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 
-import javax.vecmath.*;
+import javax.vecmath.Vector2d;
 import java.awt.*;
-import java.awt.color.*;
-import java.awt.image.*;
+import java.awt.color.ColorSpace;
+import java.awt.image.ColorModel;
 
 /**
  * A standard MinecraftColor class for smithsmodding.
@@ -188,6 +189,13 @@ public class MinecraftColor extends Color {
         GlStateManager.color(1F, 1F, 1F, 1F);
     }
 
+    public static String encodeColor(int r, int g, int b) {
+        return String.format("%c%c%c",
+                ((char) (MultiColoredFontRenderer.MARKER + (r & 0xFF))),
+                ((char) (MultiColoredFontRenderer.MARKER + (g & 0xFF))),
+                ((char) (MultiColoredFontRenderer.MARKER + (b & 0xFF))));
+    }
+
     /**
      * Function to get the Red value in Float.
      *
@@ -217,7 +225,7 @@ public class MinecraftColor extends Color {
     {
         return getBlue() / 255F;
     }
-    
+
     /**
      * Function to get the Alpha value in Float.
      *
