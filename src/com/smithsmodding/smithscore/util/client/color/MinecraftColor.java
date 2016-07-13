@@ -189,11 +189,11 @@ public class MinecraftColor extends Color {
         GlStateManager.color(1F, 1F, 1F, 1F);
     }
 
-    public static String encodeColor(int r, int g, int b) {
+    public String encodeColor() {
         return String.format("%c%c%c",
-                ((char) (MultiColoredFontRenderer.MARKER + (r & 0xFF))),
-                ((char) (MultiColoredFontRenderer.MARKER + (g & 0xFF))),
-                ((char) (MultiColoredFontRenderer.MARKER + (b & 0xFF))));
+                ((char) (MultiColoredFontRenderer.MARKER + (getRed() & 0xFF))),
+                ((char) (MultiColoredFontRenderer.MARKER + (getGreen() & 0xFF))),
+                ((char) (MultiColoredFontRenderer.MARKER + (getBlue() & 0xFF))));
     }
 
     /**
