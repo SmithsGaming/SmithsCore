@@ -45,7 +45,7 @@ import java.io.File;
  */
 public class CoreClientProxy extends CoreCommonProxy {
 
-    MultiColoredFontRenderer multiColoredFontRenderer;
+    static MultiColoredFontRenderer multiColoredFontRenderer;
     MultiComponentModelLoader multiComponentModelLoader = MultiComponentModelLoader.instance;
 
     public static ResourceLocation registerMultiComponentItemModel(Item item) {
@@ -89,6 +89,10 @@ public class CoreClientProxy extends CoreCommonProxy {
         SmithsCore.getLogger().info("Added model definition for: " + item.getUnlocalizedName() + " add: " + location.getResourcePath() + " in the Domain: " + location.getResourceDomain());
 
         return location;
+    }
+
+    public static MultiColoredFontRenderer getMultiColoredFontRenderer() {
+        return multiColoredFontRenderer;
     }
 
     /**
@@ -191,5 +195,4 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
         MinecraftForge.EVENT_BUS.register(StructureRegistry.getServerInstance());
     }
-
 }
