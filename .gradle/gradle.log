@@ -1,7 +1,7 @@
 Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the CurseUpload sequence. No API-Key was available.
 
 #################################################
-         ForgeGradle 2.2-SNAPSHOT-59f33ec        
+         ForgeGradle 2.2-SNAPSHOT-0447b4e        
   https://github.com/MinecraftForge/ForgeGradle  
 #################################################
                Powered by MCP unknown               
@@ -11,8 +11,15 @@ Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the Cur
 #################################################
 Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
-:makeChangelog
 
-BUILD SUCCESSFUL
+FAILURE: Build failed with an exception.
 
-Total time: 7.259 secs
+* What went wrong:
+Build cancelled.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 7.556 secs
