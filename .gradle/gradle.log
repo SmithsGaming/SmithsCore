@@ -1,25 +1,12 @@
+This mapping 'snapshot_20160518' was designed for MC 1.9.4! Use at your own peril.This mapping 'snapshot_20160518' was designed for MC 1.9.4! Use at your own peril.
+
 Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the CurseUpload sequence. No API-Key was available.
 
-#################################################
-         ForgeGradle 2.2-SNAPSHOT-0447b4e        
-  https://github.com/MinecraftForge/ForgeGradle  
-#################################################
-               Powered by MCP unknown               
-             http://modcoderpack.com             
-         by: Searge, ProfMobius, Fesh0r,         
-         R4wk, ZeuX, IngisKahn, bspkrs           
-#################################################
+The sync of the branches is not being executed, because we are not releasing a new version.The sync of the branches is not being executed, because we are not releasing a new version.
+
 Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
 
-FAILURE: Build failed with an exception.
+BUILD SUCCESSFUL
 
-* What went wrong:
-Build cancelled.
-
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
-BUILD FAILED
-
-Total time: 7.556 secs
+Total time: 4.713 secs
