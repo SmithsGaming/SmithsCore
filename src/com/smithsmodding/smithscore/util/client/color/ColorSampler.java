@@ -75,6 +75,9 @@ public class ColorSampler {
         int tCountedPixels = 0;
 
         for (int tXPos = 0; tXPos < pixelData.length; tXPos++) {
+            if (pixelData[tXPos] == null)
+                continue;
+
             for (int tYPos = 0; tYPos < pixelData[tXPos].length; tYPos++) {
                 int tRGB = pixelData[tXPos][tYPos];
 
