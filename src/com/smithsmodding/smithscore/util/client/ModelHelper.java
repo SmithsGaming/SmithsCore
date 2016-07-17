@@ -248,15 +248,13 @@ public class ModelHelper {
         return vertexData;
     }
 
-    public static void setNormalsToIgnoreLightingOnItem (float[][][] unpackedData) {
-        if (unpackedData.length != 4)
-            throw new IllegalArgumentException("The given data is not in UnpackedBakedQuad format!");
+    public static void setNormalsToIgnoreLightingOnItem(float[][][] unpackedData, VertexFormat format) {
+        int normalElementIndex = format.getElements().indexOf(DefaultVertexFormats.NORMAL_3B);
+        if (normalElementIndex < 0)
+            return;
 
         for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++) {
-            if (unpackedData[vertexIndex].length != 5)
-                throw new IllegalArgumentException("The given unpacked data contains a vertex that is not in Item format!");
-
-            float[] normalData = unpackedData[vertexIndex][3];
+            float[] normalData = unpackedData[vertexIndex][normalElementIndex];
 
             if (normalData.length != 4)
                 throw new IllegalArgumentException("The given unpacked data contains a vertex that is not in Item format!");
@@ -270,9 +268,9 @@ public class ModelHelper {
 
     public static void setNormalsToIgnoreLightingOnItemModel (IBakedModel model) {
         for (BakedQuad quad : model.getQuads(null, null, 0)) {
-            float[][][] unmodifiedUnpackedQuadData = ModelHelper.getUnpackedQuadData((UnpackedBakedQuad) quad, DefaultVertexFormats.ITEM);
-            ModelHelper.setNormalsToIgnoreLightingOnItem(unmodifiedUnpackedQuadData);
-            int[] packedData = ModelHelper.getPackedQuadData(unmodifiedUnpackedQuadData, DefaultVertexFormats.ITEM);
+            float[][][] unmodifiedUnpackedQuadData = ModelHelper.getUnpackedQuadData((UnpackedBakedQuad) quad, quad.getFormat());
+            ModelHelper.setNormalsToIgnoreLightingOnItem(unmodifiedUnpackedQuadData, quad.getFormat());
+            int[] packedData = ModelHelper.getPackedQuadData(unmodifiedUnpackedQuadData, quad.getFormat());
 
             for (int dataIndex = 0; dataIndex < quad.getVertexData().length; dataIndex++) {
                 quad.getVertexData()[dataIndex] = packedData[dataIndex];
