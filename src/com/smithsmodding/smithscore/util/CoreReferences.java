@@ -1,6 +1,9 @@
 package com.smithsmodding.smithscore.util;
 
+import com.smithsmodding.smithscore.client.model.states.SmithsCoreOBJState;
+import com.smithsmodding.smithscore.client.properties.SmithsCoreOBJProperty;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
@@ -66,6 +69,13 @@ public class CoreReferences {
 
     public static final class IItemProperties {
         public static final ResourceLocation MODELTYPE = new ResourceLocation(General.MOD_ID.toLowerCase(), "ModelType");
+    }
+
+    public static final class BlockStateProperties {
+
+        public static final class Unlisted {
+            public static final IUnlistedProperty<SmithsCoreOBJState> OBJSTATE = SmithsCoreOBJProperty.INSTANCE;
+        }
     }
 
     public static final class LogMarkers {

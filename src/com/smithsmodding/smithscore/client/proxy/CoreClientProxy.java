@@ -6,6 +6,7 @@ import com.smithsmodding.smithscore.client.handlers.TileEntityDataUpdatedEventHa
 import com.smithsmodding.smithscore.client.handlers.gui.*;
 import com.smithsmodding.smithscore.client.handlers.network.ClientNetworkableEventHandler;
 import com.smithsmodding.smithscore.client.model.loader.MultiComponentModelLoader;
+import com.smithsmodding.smithscore.client.model.loader.SmithsCoreOBJLoader;
 import com.smithsmodding.smithscore.client.registry.ClientRegistry;
 import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersConnectedUpdatedEventHandler;
@@ -106,6 +107,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         super.preInit();
 
         ModelLoaderRegistry.registerLoader(multiComponentModelLoader);
+        ModelLoaderRegistry.registerLoader(SmithsCoreOBJLoader.INSTANCE);
     }
 
     /**
