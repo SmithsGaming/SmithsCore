@@ -8,10 +8,10 @@ jdk:
 - oraclejdk8
 before_install:
 - chmod +x gradlew
-install: ./gradlew setupCIWorkspace -S
-script: ./gradlew build -S
+install: ./gradlew setupCIWorkspace -S --debug
+script: ./gradlew build -S --debug
 after_success:
-  - ./gradlew uploadJars -S
-  - ./gradlew makeChangelog curseforge -S
-  - ./gradlew createGithubBranches -S
+  - ./gradlew uploadJars -S --debug
+  - ./gradlew makeChangelog curseforge -S --debug
+  - ./gradlew createGithubBranches -S --debug
 
