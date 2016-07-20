@@ -65,7 +65,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
                     ItemStack copy = stack.copy();
                     copy.stackSize += stackInSlot.stackSize;
                     getInv().setInventorySlotContents(slot, copy);
-                    getInv().markDirty();
+                    getInv().markInventoryDirty();
                 }
 
                 return null;
@@ -76,7 +76,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
                     ItemStack copy = stack.splitStack(m);
                     copy.stackSize += stackInSlot.stackSize;
                     getInv().setInventorySlotContents(slot, copy);
-                    getInv().markDirty();
+                    getInv().markInventoryDirty();
                     return stack;
                 } else {
                     stack.stackSize -= m;
@@ -90,7 +90,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
                 stack = stack.copy();
                 if (!simulate) {
                     getInv().setInventorySlotContents(slot, stack.splitStack(m));
-                    getInv().markDirty();
+                    getInv().markInventoryDirty();
                     return stack;
                 } else {
                     stack.stackSize -= m;
@@ -99,7 +99,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
             } else {
                 if (!simulate) {
                     getInv().setInventorySlotContents(slot, stack);
-                    getInv().markDirty();
+                    getInv().markInventoryDirty();
                 }
                 return null;
             }
@@ -129,7 +129,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
             int m = Math.min(stackInSlot.stackSize, amount);
 
             ItemStack decrStackSize = getInv().decrStackSize(slot, m);
-            getInv().markDirty();
+            getInv().markInventoryDirty();
             return decrStackSize;
         }
     }

@@ -44,7 +44,7 @@ public interface IItemStorage extends IWorldNameable {
      * For tile entities, ensures the chunk containing the tile entity is saved to disk later - the game won't think it
      * hasn't changed and skip it.
      */
-    void markDirty();
+    void markInventoryDirty();
 
     /**
      * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
@@ -97,7 +97,7 @@ public interface IItemStorage extends IWorldNameable {
 
         @Override
         public void markDirty() {
-            storage.markDirty();
+            storage.markInventoryDirty();
         }
 
         @Override

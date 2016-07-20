@@ -336,4 +336,6 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     public String getName() {
         return name;
     }
+
+
 }
