@@ -76,7 +76,7 @@ public final class StructureRegistry {
         IStructureFactory factory = getFactory(part.getStructureType());
         IStructure newInitialStructure = factory.generateNewStructure(part);
 
-        new StructureEvent.Create(newInitialStructure, part.getWorld().provider.getDimension()).PostCommon();
+        new StructureEvent.Create(newInitialStructure, part.getEnvironment().provider.getDimension()).PostCommon();
 
         part.setStructure(newInitialStructure);
         part.getStructure().getController().onPartPlaced(part);

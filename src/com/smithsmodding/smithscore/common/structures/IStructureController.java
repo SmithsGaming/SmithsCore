@@ -39,8 +39,8 @@ public interface IStructureController<S extends IStructure, P extends IStructure
             slavePart.setStructure(newStructure);
         }
 
-        new StructureEvent.Create(newStructure, newMaster.getWorld().provider.getDimension()).PostCommon();
-        new StructureEvent.Updated(oldStructure, newMaster.getWorld().provider.getDimension()).PostCommon();
+        new StructureEvent.Create(newStructure, newMaster.getEnvironment().provider.getDimension()).PostCommon();
+        new StructureEvent.Updated(oldStructure, newMaster.getEnvironment().provider.getDimension()).PostCommon();
 
         return newStructure;
     }
@@ -49,7 +49,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         LinkedHashSet<IStructurePart> notConnectedComponents = new LinkedHashSet<>();
 
         for (Object obj : structure.getPartLocations()) {
-            IStructurePart part = (IStructurePart) splitter.getWorld().getTileEntity(((Coordinate3D) obj).toBlockPos());
+            IStructurePart part = (IStructurePart) splitter.getEnvironment().getTileEntity(((Coordinate3D) obj).toBlockPos());
 
             if (!checkIfComponentStillConnected(structure, part, splitter))
                 notConnectedComponents.add(part);
@@ -62,7 +62,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         if (SmithsCore.isInDevenvironment())
             SmithsCore.getLogger().info("Starting connection search between: " + structure.getMasterLocation().toString() + " to " + target.getLocation().toString());
 
-        PathFinder tConnectionChecker = new PathFinder((IPathComponent) target.getWorld().getTileEntity(structure.getMasterLocation().toBlockPos()), target, splitter);
+        PathFinder tConnectionChecker = new PathFinder((IPathComponent) target.getEnvironment().getTileEntity(structure.getMasterLocation().toBlockPos()), target, splitter);
         return tConnectionChecker.isConnected();
     }
 
@@ -73,7 +73,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
 
         for (EnumFacing facing : getPossibleConnectionSides()) {
             Coordinate3D facingLocation = part.getLocation().moveCoordinate(facing, 1);
-            TileEntity tileEntity = part.getWorld().getTileEntity(facingLocation.toBlockPos());
+            TileEntity tileEntity = part.getEnvironment().getTileEntity(facingLocation.toBlockPos());
 
             if (!(tileEntity instanceof IStructurePart))
                 continue;
@@ -84,12 +84,12 @@ public interface IStructureController<S extends IStructure, P extends IStructure
             if (joinedStructure == null) {
                 joinedStructure = ((P) tileEntity).getStructure();
 
-                new StructureEvent.Destroyed(part.getStructure(), part.getWorld().provider.getDimension()).PostCommon();
+                new StructureEvent.Destroyed(part.getStructure(), part.getEnvironment().provider.getDimension()).PostCommon();
 
                 part.setStructure(joinedStructure);
                 joinedStructure.registerPart(part);
 
-                new StructureEvent.Updated(joinedStructure, part.getWorld().provider.getDimension()).PostCommon();
+                new StructureEvent.Updated(joinedStructure, part.getEnvironment().provider.getDimension()).PostCommon();
 
                 continue;
             }
@@ -107,7 +107,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         if (joinedStructure == null) {
             part.getStructure().registerPart(part);
             part.getStructure().setMasterLocation(part.getLocation());
-            new StructureEvent.Create(part.getStructure(), part.getWorld().provider.getDimension()).PostCommon();
+            new StructureEvent.Create(part.getStructure(), part.getEnvironment().provider.getDimension()).PostCommon();
         }
     }
 
@@ -116,7 +116,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
 
         if (structure.getMasterLocation().equals(part.getLocation())) {
             if (structure.getPartLocations().size() == 1) {
-                new StructureEvent.Destroyed(structure, part.getWorld().provider.getDimension()).PostCommon();
+                new StructureEvent.Destroyed(structure, part.getEnvironment().provider.getDimension()).PostCommon();
                 return;
             } else {
                 Iterator<Coordinate3D> iterator = structure.getPartLocations().iterator();
@@ -129,14 +129,14 @@ public interface IStructureController<S extends IStructure, P extends IStructure
 
                 for (Object obj : structure.getPartLocations()) {
                     Coordinate3D coordinate3D = (Coordinate3D) obj;
-                    ((P) part.getWorld().getTileEntity(coordinate3D.toBlockPos())).setStructure(structure);
+                    ((P) part.getEnvironment().getTileEntity(coordinate3D.toBlockPos())).setStructure(structure);
                 }
 
-                new StructureEvent.MasterBlockChanged(structure, part.getLocation(), part.getWorld().provider.getDimension()).PostCommon();
+                new StructureEvent.MasterBlockChanged(structure, part.getLocation(), part.getEnvironment().provider.getDimension()).PostCommon();
             }
         } else {
             structure.removePart(part);
-            new StructureEvent.Updated(structure, part.getWorld().provider.getDimension()).PostCommon();
+            new StructureEvent.Updated(structure, part.getEnvironment().provider.getDimension()).PostCommon();
         }
 
         LinkedHashSet<IStructurePart> notConnectedComponents = validateStructureIntegrity(structure, part);
@@ -154,7 +154,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         Iterator<Coordinate3D> iterator = otherStructure.getPartLocations().iterator();
 
         while (iterator.hasNext()) {
-            P slavePart = (P) connectingPart.getWorld().getTileEntity(iterator.next().toBlockPos());
+            P slavePart = (P) connectingPart.getEnvironment().getTileEntity(iterator.next().toBlockPos());
             iterator.remove();
 
             otherStructure.removePart(slavePart);
@@ -165,6 +165,6 @@ public interface IStructureController<S extends IStructure, P extends IStructure
 
         structure.getData().onDataMergeInto(otherStructure.getData());
 
-        new StructureEvent.Updated(structure, connectingPart.getWorld().provider.getDimension()).PostCommon();
+        new StructureEvent.Updated(structure, connectingPart.getEnvironment().provider.getDimension()).PostCommon();
     }
 }

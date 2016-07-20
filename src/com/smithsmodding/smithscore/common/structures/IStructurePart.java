@@ -15,7 +15,7 @@ public interface IStructurePart<S extends IStructure> extends IPathComponent {
 
     void setStructure(S structure);
 
-    World getWorld();
+    World getEnvironment();
 
     Coordinate3D getLocation();
 }
