@@ -21,6 +21,6 @@ public class BlockModelUpdateEventHandler {
 
         IBlockState state = entity.getWorld().getBlockState(event.getBlockPosition().toBlockPos());
 
-        entity.getWorld().notifyBlockUpdate(event.getBlockPosition().toBlockPos(), state, state, 8);
+        entity.getWorld().notifyBlockUpdate(event.getBlockPosition().toBlockPos(), state, state, 3);
     }
 }
