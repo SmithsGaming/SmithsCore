@@ -39,6 +39,8 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     private G manager;
     private S state;
 
+    private boolean loadingFromNBT = false;
+
     private String name = "";
 
     /**
@@ -74,6 +76,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
     @Override
     public void readFromNBT (NBTTagCompound compound) {
+        loadingFromNBT = true;
         super.readFromNBT(compound);
 
         if (this instanceof IStructurePart && compound.hasKey(CoreReferences.NBT.STRUCTURE)) {
@@ -98,6 +101,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         if (compound.hasKey(CoreReferences.NBT.NAME)) {
             this.name = compound.getString(CoreReferences.NBT.NAME);
         }
+        loadingFromNBT = false;
     }
 
     @Override
@@ -337,5 +341,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         return name;
     }
 
-
+    public boolean isLoadingFromNBT() {
+        return loadingFromNBT;
+    }
 }
