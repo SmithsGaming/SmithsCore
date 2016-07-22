@@ -187,4 +187,8 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
             }
         }
     }
+
+    public List<FluidStack> getFluidStacks() {
+        return fluidStacks;
+    }
 }
