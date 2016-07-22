@@ -65,6 +65,10 @@ public class CoreReferences {
         public static final class IItemProperties {
             public static final String TARGET = "SmithsCore.ModelTypeTargetRequest";
         }
+
+        public static final class MultiFluidTank {
+            public static final String CONTENTS = "SmitshCore.Fluid.MultiFluidTank.Contents";
+        }
     }
 
     public static final class IItemProperties {
