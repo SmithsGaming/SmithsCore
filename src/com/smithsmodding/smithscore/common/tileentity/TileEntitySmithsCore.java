@@ -28,10 +28,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IWorldNameable;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
-
-import java.util.ArrayList;
 
 public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G>, IWorldNameable {
 
@@ -268,9 +267,33 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
         NBTTagList fluidData = new NBTTagList();
 
-        for (FluidStack stack : fluidContainingEntity.getAllFluids()) {
-            fluidData.appendTag(stack.writeToNBT(new NBTTagCompound()));
+        for (EnumFacing side : EnumFacing.values()) {
+            IFluidTank tank = ((IFluidContainingEntity) this).getTankForSide(side);
+            if (tank == null)
+                continue;
+
+            if (!(tank instanceof INBTSerializable))
+                continue;
+
+            NBTTagCompound tankCompound = new NBTTagCompound();
+            tankCompound.setInteger(CoreReferences.NBT.SIDE, side.getIndex());
+            tankCompound.setTag(CoreReferences.NBT.TANKCONTENTS, ((INBTSerializable) tank).serializeNBT());
+
+            fluidData.appendTag(tankCompound);
         }
+
+        IFluidTank tank = ((IFluidContainingEntity) this).getTankForSide(null);
+        if (tank == null)
+            return fluidData;
+
+        if (!(tank instanceof INBTSerializable))
+            return fluidData;
+
+        NBTTagCompound tankCompound = new NBTTagCompound();
+        tankCompound.setInteger(CoreReferences.NBT.SIDE, -1);
+        tankCompound.setTag(CoreReferences.NBT.TANKCONTENTS, ((INBTSerializable) tank).serializeNBT());
+
+        fluidData.appendTag(tankCompound);
 
         return fluidData;
     }
@@ -288,15 +311,24 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         IFluidContainingEntity fluidContainingEntity = (IFluidContainingEntity) this;
 
         NBTTagList inventoryList = (NBTTagList) inventoryCompound;
-        ArrayList<FluidStack> fluidStacks = new ArrayList<FluidStack>();
-
         for (int i = 0; i < inventoryList.tagCount(); i++) {
-            NBTTagCompound fluidCompound = (NBTTagCompound) inventoryList.get(i);
+            NBTTagCompound tankCompound = inventoryList.getCompoundTagAt(i);
 
-            fluidStacks.add(FluidStack.loadFluidStackFromNBT(fluidCompound));
+            if (tankCompound.getInteger(CoreReferences.NBT.SIDE) == -1) {
+                IFluidTank tank = fluidContainingEntity.getTankForSide(null);
+                if (!(tank instanceof INBTSerializable))
+                    continue;
+
+                ((INBTSerializable) tank).deserializeNBT(tankCompound.getTag(CoreReferences.NBT.TANKCONTENTS));
+            } else {
+                EnumFacing side = EnumFacing.values()[tankCompound.getInteger(CoreReferences.NBT.SIDE)];
+                IFluidTank tank = fluidContainingEntity.getTankForSide(side);
+                if (!(tank instanceof INBTSerializable))
+                    continue;
+
+                ((INBTSerializable) tank).deserializeNBT(tankCompound.getTag(CoreReferences.NBT.TANKCONTENTS));
+            }
         }
-
-        fluidContainingEntity.setAllFluids(fluidStacks);
     }
 
     /**

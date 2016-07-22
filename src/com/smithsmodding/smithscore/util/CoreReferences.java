@@ -33,6 +33,8 @@ public class CoreReferences {
         public static final String NAME = "Name";
 
         public static final String FLUIDS = "SmithsCore.Fluids";
+        public static final String SIDE = "SmithsCore.Side";
+        public static final String TANKCONTENTS = "SmitshCore.TankContents";
         public static final String INVENTORY = "SmithsCore.Inventory";
         public static final String STATE = "SmithsCore.State";
         public static final String STRUCTURE = "SmithsCore.Structure";
