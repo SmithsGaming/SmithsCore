@@ -153,6 +153,8 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         S structure = connectingPart.getStructure();
         Iterator<Coordinate3D> iterator = otherStructure.getPartLocations().iterator();
 
+        structure.getData().onDataMergeInto(otherStructure.getData());
+
         while (iterator.hasNext()) {
             P slavePart = (P) connectingPart.getEnvironment().getTileEntity(iterator.next().toBlockPos());
             iterator.remove();
@@ -162,8 +164,6 @@ public interface IStructureController<S extends IStructure, P extends IStructure
 
             slavePart.setStructure(structure);
         }
-
-        structure.getData().onDataMergeInto(otherStructure.getData());
 
         new StructureEvent.Updated(structure, connectingPart.getEnvironment().provider.getDimension()).PostCommon();
     }
