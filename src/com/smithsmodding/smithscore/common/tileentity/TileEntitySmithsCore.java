@@ -138,8 +138,6 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         if (isRemote())
             return;
 
-        getState().onStateUpdated();
-
         //Vanilla compatibility
         super.markDirty();
         getWorld().markChunkDirty(getPos(), this);
