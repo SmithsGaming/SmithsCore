@@ -13,6 +13,7 @@ import com.smithsmodding.smithscore.client.registry.ClientRegistry;
 import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ public class StandardRenderManager implements IRenderManager {
 
     private static ArrayList<MinecraftColor> colorStack = new ArrayList<MinecraftColor>();
 
-    GuiContainerSmithsCore root;
+    GuiScreen root;
     StandardScissorRegionManager scissorer = new StandardScissorRegionManager();
 
-    public StandardRenderManager (GuiContainerSmithsCore root)
+    public StandardRenderManager(GuiScreen root)
     {
         if (!(root instanceof IGUIBasedComponentHost ))
             throw new IllegalArgumentException("The given Root for this manager is not a IGUIBasedComponentHost!");
@@ -76,7 +77,7 @@ public class StandardRenderManager implements IRenderManager {
      * @return The current active gui
      */
     @Override
-    public GuiContainerSmithsCore getRootGuiObject () {
+    public GuiScreen getRootGuiObject() {
         return root;
     }
 
@@ -87,7 +88,7 @@ public class StandardRenderManager implements IRenderManager {
      */
     @Override
     public IGUIManager getRootGuiManager() {
-        return root.getRootManager();
+        return ((IGUIBasedComponentHost) root).getRootManager();
     }
 
     /**
@@ -335,6 +336,6 @@ public class StandardRenderManager implements IRenderManager {
         int globalMouseX = component.getGlobalCoordinate().getXComponent() + mouseX;
         int globalMouseY = component.getGlobalCoordinate().getYComponent() + mouseY;
 
-        getRootGuiObject().drawHoveringText(component.getToolTipContent(), globalMouseX + 4, globalMouseY + 4, Minecraft.getMinecraft().fontRendererObj);
+        ((IGUIBasedComponentHost) root).drawHoveringText(component.getToolTipContent(), globalMouseX + 4, globalMouseY + 4, Minecraft.getMinecraft().fontRendererObj);
     }
 }

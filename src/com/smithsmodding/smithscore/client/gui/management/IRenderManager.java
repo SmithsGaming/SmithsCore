@@ -1,7 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import net.minecraft.client.gui.*;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import net.minecraft.client.gui.Gui;
 
 /**
  * Created by marcf on 12/3/2015.

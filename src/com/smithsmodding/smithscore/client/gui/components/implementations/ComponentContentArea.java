@@ -1,13 +1,17 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.hosts.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
-import com.smithsmodding.smithscore.client.gui.state.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.hosts.IContentAreaHost;
+import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
+import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
+import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.gui.FontRenderer;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by Marc on 11.02.2016.
@@ -75,7 +79,7 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
      * @return The gui that this component is part of.
      */
     @Override
-    public GuiContainerSmithsCore getRootGuiObject () {
+    public IGUIBasedComponentHost getRootGuiObject() {
         return parent.getRootGuiObject();
     }
 
@@ -124,6 +128,21 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
         }
 
         return null;
+    }
+
+    @Override
+    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+        getComponentHost().drawHoveringText(textLines, x, y, font);
+    }
+
+    @Override
+    public IRenderManager getRenderManager() {
+        return getComponentHost().getRenderManager();
+    }
+
+    @Override
+    public int getDefaultDisplayVerticalOffset() {
+        return getComponentHost().getDefaultDisplayVerticalOffset();
     }
 
     /**

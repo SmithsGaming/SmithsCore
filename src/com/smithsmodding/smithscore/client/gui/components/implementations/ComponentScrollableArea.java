@@ -1,19 +1,21 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import com.smithsmodding.smithscore.client.gui.hosts.IContentAreaHost;
 import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
 import com.smithsmodding.smithscore.client.gui.scissoring.IScissoredGuiComponent;
 import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
 import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
 import com.smithsmodding.smithscore.client.gui.state.ScrollBarComponentState;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.gui.FontRenderer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by Marc on 08.02.2016.
@@ -85,7 +87,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @return The gui that this component is part of.
      */
     @Override
-    public GuiContainerSmithsCore getRootGuiObject () {
+    public IGUIBasedComponentHost getRootGuiObject() {
         return parent.getRootGuiObject();
     }
 
@@ -371,4 +373,19 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
 
     @Override
     public abstract void registerContentComponents (ComponentContentArea host);
+
+    @Override
+    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+        getComponentHost().drawHoveringText(textLines, x, y, font);
+    }
+
+    @Override
+    public IRenderManager getRenderManager() {
+        return getComponentHost().getRenderManager();
+    }
+
+    @Override
+    public int getDefaultDisplayVerticalOffset() {
+        return getComponentHost().getDefaultDisplayVerticalOffset();
+    }
 }

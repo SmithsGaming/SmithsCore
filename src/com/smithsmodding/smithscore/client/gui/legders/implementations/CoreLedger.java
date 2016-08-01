@@ -1,6 +1,5 @@
 package com.smithsmodding.smithscore.client.gui.legders.implementations;
 
-import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
 import com.smithsmodding.smithscore.client.gui.animation.IAnimatibleGuiComponent;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentBorder;
@@ -11,6 +10,7 @@ import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedLedgerHost;
 import com.smithsmodding.smithscore.client.gui.legders.core.IGUILedger;
 import com.smithsmodding.smithscore.client.gui.legders.core.LedgerConnectionSide;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
 import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
 import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
 import com.smithsmodding.smithscore.client.gui.state.LedgerComponentState;
@@ -19,9 +19,11 @@ import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -388,7 +390,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return The gui that this component is part of.
      */
     @Override
-    public GuiContainerSmithsCore getRootGuiObject () {
+    public IGUIBasedComponentHost getRootGuiObject() {
         return getComponentHost().getRootGuiObject();
     }
 
@@ -464,5 +466,20 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public void setManager (IGUIManager newManager) {
         root.setManager(newManager);
+    }
+
+    @Override
+    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+        getComponentHost().drawHoveringText(textLines, x, y, font);
+    }
+
+    @Override
+    public IRenderManager getRenderManager() {
+        return getComponentHost().getRenderManager();
+    }
+
+    @Override
+    public int getDefaultDisplayVerticalOffset() {
+        return getComponentHost().getDefaultDisplayVerticalOffset();
     }
 }

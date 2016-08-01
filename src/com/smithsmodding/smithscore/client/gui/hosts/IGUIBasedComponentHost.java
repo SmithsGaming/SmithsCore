@@ -1,10 +1,13 @@
 package com.smithsmodding.smithscore.client.gui.hosts;
 
-import com.smithsmodding.smithscore.client.gui.*;
-import com.smithsmodding.smithscore.client.gui.components.core.*;
-import com.smithsmodding.smithscore.client.gui.management.*;
+import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IGUIManagerProvider;
+import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
+import net.minecraft.client.gui.FontRenderer;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by Orion Created on 01.12.2015 18:13
@@ -32,7 +35,7 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return The gui that this component is part of.
      */
-    GuiContainerSmithsCore getRootGuiObject ();
+    IGUIBasedComponentHost getRootGuiObject();
 
     /**
      * Method to get the gui Roots Manager.
@@ -57,4 +60,27 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      */
     IGUIComponent getComponentByID (String uniqueUIID);
 
+    /**
+     * Method to draw a tooltip for a component inside this Host.
+     *
+     * @param textLines The contents of the Tooltip
+     * @param x         The X Coord of the tooltip
+     * @param y         The y Coord of the tooltip
+     * @param font      The font of the tooltip
+     */
+    void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font);
+
+    /**
+     * Get this hosts render manager;
+     *
+     * @return The render manager of this hosts.
+     */
+    IRenderManager getRenderManager();
+
+    /**
+     * Get the default offset for this GUI host.
+     *
+     * @return The default offset.
+     */
+    int getDefaultDisplayVerticalOffset();
 }

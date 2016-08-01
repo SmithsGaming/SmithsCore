@@ -1,10 +1,10 @@
 package com.smithsmodding.smithscore.client.gui.components.implementations;
 
-import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
 import com.smithsmodding.smithscore.client.gui.components.core.ComponentConnectionType;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
 import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
 import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
 import com.smithsmodding.smithscore.client.gui.state.SlotComponentState;
@@ -12,10 +12,12 @@ import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
 import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.IInventory;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by Marc on 22.12.2015.
@@ -135,7 +137,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public GuiContainerSmithsCore getRootGuiObject () {
+    public IGUIBasedComponentHost getRootGuiObject() {
         return parent.getRootGuiObject();
     }
 
@@ -166,6 +168,21 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         }
 
         return null;
+    }
+
+    @Override
+    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+        getComponentHost().drawHoveringText(textLines, x, y, font);
+    }
+
+    @Override
+    public IRenderManager getRenderManager() {
+        return getComponentHost().getRenderManager();
+    }
+
+    @Override
+    public int getDefaultDisplayVerticalOffset() {
+        return getComponentHost().getDefaultDisplayVerticalOffset();
     }
 
 

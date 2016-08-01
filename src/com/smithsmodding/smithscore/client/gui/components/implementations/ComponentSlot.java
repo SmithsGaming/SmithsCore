@@ -19,7 +19,7 @@ public class ComponentSlot extends CoreComponent {
     private MinecraftColor color;
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Slot connectedSlot, MinecraftColor color) {
-        this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xDisplayPosition - 1, connectedSlot.yDisplayPosition - 1 - parent.getRootGuiObject().getTabManager().getDisplayAreaVerticalOffset()), color);
+        this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xDisplayPosition - 1, connectedSlot.yDisplayPosition - 1 - parent.getRootGuiObject().getDefaultDisplayVerticalOffset()), color);
     }
 
     public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color) {

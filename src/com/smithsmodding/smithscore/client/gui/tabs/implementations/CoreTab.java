@@ -1,12 +1,12 @@
 package com.smithsmodding.smithscore.client.gui.tabs.implementations;
 
-import com.smithsmodding.smithscore.client.gui.GuiContainerSmithsCore;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentBorder;
 import com.smithsmodding.smithscore.client.gui.components.implementations.ComponentItemStackDisplay;
 import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
 import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedTabHost;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
+import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
 import com.smithsmodding.smithscore.client.gui.management.ITabManager;
 import com.smithsmodding.smithscore.client.gui.state.CoreComponentState;
 import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
@@ -15,12 +15,14 @@ import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Created by marcf on 1/17/2016.
@@ -112,7 +114,7 @@ public abstract class CoreTab implements IGUITab {
      * @return The gui that this component is part of.
      */
     @Override
-    public GuiContainerSmithsCore getRootGuiObject() {
+    public IGUIBasedComponentHost getRootGuiObject() {
         return root.getRootGuiObject();
     }
 
@@ -472,10 +474,18 @@ public abstract class CoreTab implements IGUITab {
         root.setManager(newManager);
     }
 
-    /*
+    @Override
+    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+        getComponentHost().drawHoveringText(textLines, x, y, font);
+    }
 
+    @Override
+    public IRenderManager getRenderManager() {
+        return getComponentHost().getRenderManager();
+    }
 
-
-
-     */
+    @Override
+    public int getDefaultDisplayVerticalOffset() {
+        return getComponentHost().getDefaultDisplayVerticalOffset();
+    }
 }

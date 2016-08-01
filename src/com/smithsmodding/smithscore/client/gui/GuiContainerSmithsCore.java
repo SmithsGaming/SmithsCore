@@ -548,4 +548,9 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     public void registerComponents (IGUIBasedComponentHost host) {
         SmithsCore.getLogger().warn(CoreReferences.LogMarkers.RENDER, "Created a UI without components.");
     }
+
+    @Override
+    public int getDefaultDisplayVerticalOffset() {
+        return getTabManager().getDisplayAreaVerticalOffset();
+    }
 }
