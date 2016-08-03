@@ -95,5 +95,6 @@ public class CoreReferences {
         public static final Marker RENDER = MarkerManager.getMarker("[Render]", CLIENT);
 
         public static final Marker STRUCTURE = MarkerManager.getMarker("[Structure]", COMMON);
+        public static final Marker SERIALIZATION = MarkerManager.getMarker("[Serialization]", COMMON);
     }
 }

@@ -4,94 +4,9 @@ Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the Cur
 
 The sync of the branches is not being executed, because we are not releasing a new version.The sync of the branches is not being executed, because we are not releasing a new version.
 
-#################################################
-         ForgeGradle 2.2-SNAPSHOT-0447b4e        
-  https://github.com/MinecraftForge/ForgeGradle  
-#################################################
-               Powered by MCP unknown               
-             http://modcoderpack.com             
-         by: Searge, ProfMobius, Fesh0r,         
-         R4wk, ZeuX, IngisKahn, bspkrs           
-#################################################
-Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
+Found AccessTransformer: jei_at.cfg_jei_1.10.2-3.7.8.235_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
-:extractMcpMappings SKIPPED
-:deobfCompileDeobfDepTask0 SKIPPED
-:deobfCompileRemapDepSourcesTask1 SKIPPED
-:deobfCompileDummyTask
-:deobfProvidedDummyTask
-:sourceApiJava UP-TO-DATE
-:compileApiJava UP-TO-DATE
-:processApiResources UP-TO-DATE
-:apiClasses UP-TO-DATE
-:sourceMainJava UP-TO-DATE
-:compileJavaNote: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-
-:processResources UP-TO-DATE
-:classes
-:devJar UP-TO-DATE
-:jar
-:javadocD:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:16: warning: no @return
-    int getSizeInventory();
-        ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:21: warning: no @param for index
-    ItemStack getStackInSlot(int index);
-              ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:21: warning: no @return
-    ItemStack getStackInSlot(int index);
-              ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:26: warning: no @param for index
-    ItemStack decrStackSize(int index, int count);
-              ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:26: warning: no @param for count
-    ItemStack decrStackSize(int index, int count);
-              ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:26: warning: no @return
-    ItemStack decrStackSize(int index, int count);
-              ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:36: warning: no @param for index
-    void setInventorySlotContents(int index, ItemStack stack);
-         ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:36: warning: no @param for stack
-    void setInventorySlotContents(int index, ItemStack stack);
-         ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:41: warning: no @return
-    int getInventoryStackLimit();
-        ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:52: warning: no @param for index
-    boolean isItemValidForSlot(int index, ItemStack stack);
-            ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:52: warning: no @param for stack
-    boolean isItemValidForSlot(int index, ItemStack stack);
-            ^
-D:\Development\Minecraft\SmithsCore\src\com\smithsmodding\smithscore\common\inventory\IItemStorage.java:52: warning: no @return
-    boolean isItemValidForSlot(int index, ItemStack stack);
-            ^
-
-12 warnings
-:javadocJar
-:sourceTestJava UP-TO-DATE
-:compileTestJava UP-TO-DATE
-:processTestResources UP-TO-DATE
-:testClasses UP-TO-DATE
-:test UP-TO-DATE
-:extractMcpData SKIPPED
-:getVersionJson
-:extractUserdev UP-TO-DATE
-:genSrgs SKIPPED
-:reobfJar
-:extractRangemapReplacedMain
-D:\Development\Minecraft\SmithsCore\build\sources\main\java
-:retromapReplacedMain
-remapping source...
-:sourceJar UP-TO-DATE
-:assemble
-:check UP-TO-DATE
-:build
 
 BUILD SUCCESSFUL
 
-Total time: 27.441 secs
+Total time: 4.205 secs
