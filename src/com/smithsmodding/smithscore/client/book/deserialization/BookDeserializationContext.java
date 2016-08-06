@@ -13,6 +13,8 @@ public final class BookDeserializationContext {
     private final HashMap<ResourceLocation, IBookPage> pages = new HashMap<>();
     private final HashMap<ResourceLocation, Object> contextData = new HashMap<>();
 
+    private int componentIndex = 0;
+
     public IBookPage getPage(ResourceLocation location) {
         return pages.get(location);
     }
@@ -27,5 +29,9 @@ public final class BookDeserializationContext {
 
     public void registerContextData(ResourceLocation key, Object obj) {
         contextData.put(key, obj);
+    }
+
+    public int getNextComponentIndex() {
+        return componentIndex++;
     }
 }

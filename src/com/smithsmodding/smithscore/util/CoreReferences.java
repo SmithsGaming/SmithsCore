@@ -23,6 +23,10 @@ public class CoreReferences {
         public static final String API_VERSION = "@APIVERSION@";
     }
 
+    public static final class BookData {
+        public static final ResourceLocation PAGEBACKGROUND = new ResourceLocation(General.MOD_ID.toLowerCase(), "Book.Background");
+    }
+
     public static final class NBT {
         public static final String OWNER = "owner";
         public static final String UUID_MOST_SIG = "UUIDMostSig";
