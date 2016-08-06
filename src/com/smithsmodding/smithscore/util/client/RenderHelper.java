@@ -71,6 +71,39 @@ public class RenderHelper {
         post();
     }
 
+    public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double w, double h, double d, EnumFacing facing) {
+        double wd = (1d - w) / 2d;
+        double hd = (1d - h) / 2d;
+        double dd = (1d - d) / 2d;
+
+        renderFluidSide(fluid, pos, x, y, z, wd, hd, dd, 1d - wd, 1d - hd, 1d - dd, facing);
+    }
+
+    public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, EnumFacing facing) {
+        int color = fluid.getFluid().getColor(fluid);
+        renderFluidSide(fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color, facing);
+    }
+
+
+    public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, EnumFacing facing) {
+        Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer renderer = tessellator.getBuffer();
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        int brightness = Minecraft.getMinecraft().theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
+
+        pre(x, y, z);
+
+        TextureAtlasSprite still = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
+        TextureAtlasSprite flowing = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
+
+        putTexturedQuad(renderer, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? still : flowing), x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, facing, color, brightness, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? false : true));
+
+        tessellator.draw();
+
+        post();
+    }
+
     public static void putTexturedQuad(VertexBuffer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
                                        int color, int brightness, boolean flowing) {
         int l1 = brightness >> 0x10 & 0xFFFF;
