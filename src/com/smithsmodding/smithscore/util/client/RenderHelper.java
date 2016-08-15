@@ -88,6 +88,10 @@ public class RenderHelper {
     public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, EnumFacing facing) {
         Tessellator tessellator = Tessellator.getInstance();
         VertexBuffer renderer = tessellator.getBuffer();
+
+        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
         renderFluidSide(renderer, fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color, facing);
         tessellator.draw();
     }
@@ -107,8 +111,6 @@ public class RenderHelper {
 
 
     public static void renderFluidSide(VertexBuffer renderer, FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, EnumFacing facing) {
-        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-        Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         int brightness = Minecraft.getMinecraft().theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
         pre(x, y, z);
