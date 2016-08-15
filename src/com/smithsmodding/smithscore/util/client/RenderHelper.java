@@ -111,6 +111,7 @@ public class RenderHelper {
 
 
     public static void renderFluidSide(VertexBuffer renderer, FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, EnumFacing facing) {
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("FluidSide rendering");
         int brightness = Minecraft.getMinecraft().theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
         pre(x, y, z);
@@ -121,6 +122,7 @@ public class RenderHelper {
         putTexturedQuad(renderer, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? still : flowing), x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, facing, color, brightness, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? false : true));
 
         post();
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
     }
 
     public static void putTexturedQuad(VertexBuffer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
@@ -143,6 +145,10 @@ public class RenderHelper {
         if (sprite == null) {
             return;
         }
+
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("Quad Putting");
+
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("Pre calculations");
         double minU;
         double maxU;
         double minV;
@@ -176,7 +182,9 @@ public class RenderHelper {
             yt1 = 1d - yt2;
             yt2 = tmp;
         }
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
 
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("UV Calculations");
         switch (face) {
             case DOWN:
             case UP:
@@ -205,7 +213,9 @@ public class RenderHelper {
                 minV = sprite.getMinV();
                 maxV = sprite.getMaxV();
         }
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
 
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("Vertex Assignment");
         switch (face) {
             case DOWN:
                 renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
@@ -244,9 +254,12 @@ public class RenderHelper {
                 renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
                 break;
         }
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
     }
 
     public static void pre(double x, double y, double z) {
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("pre");
         GlStateManager.pushMatrix();
 
         net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
@@ -260,12 +273,15 @@ public class RenderHelper {
         }
 
         GlStateManager.translate(x, y, z);
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
     }
 
     public static void post() {
+        Minecraft.getMinecraft().theWorld.theProfiler.startSection("post");
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
         net.minecraft.client.renderer.RenderHelper.enableStandardItemLighting();
+        Minecraft.getMinecraft().theWorld.theProfiler.endSection();
     }
 
     public static void setBrightness(VertexBuffer renderer, int brightness) {
