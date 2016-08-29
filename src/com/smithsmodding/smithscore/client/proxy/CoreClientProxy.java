@@ -21,13 +21,16 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -184,7 +187,7 @@ public class CoreClientProxy extends CoreCommonProxy {
 
         SmithsCore.getRegistry().getNetworkBus().register(new TileEntityDataUpdatedEventHandler());
 
-        SmithsCore.getRegistry().getNetworkBus().register(StructureRegistry.getClientInstance());
+        SmithsCore.getRegistry().getNetworkBus().register(StructureRegistry.getInstance());
         SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getServerInstance());
 
         SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
@@ -195,6 +198,10 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
-        MinecraftForge.EVENT_BUS.register(StructureRegistry.getServerInstance());
+    }
+
+    @Override
+    public EntityPlayer getPlayerForSide(MessageContext context) {
+        return FMLClientHandler.instance().getClientPlayerEntity();
     }
 }

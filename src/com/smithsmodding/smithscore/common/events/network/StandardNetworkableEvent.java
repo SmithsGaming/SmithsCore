@@ -6,12 +6,13 @@
 
 package com.smithsmodding.smithscore.common.events.network;
 
-import com.smithsmodding.smithscore.network.event.messages.*;
-import io.netty.buffer.*;
-import net.minecraft.entity.player.*;
-import net.minecraftforge.fml.client.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.network.event.messages.StandardNetworkableEventSyncMessage;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Standard implementation of the Networkable events.
@@ -80,15 +81,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      */
     @Override
     public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
-        if (pContext.side == Side.CLIENT)
-        {
-            setPlayer(FMLClientHandler.instance().getClientPlayerEntity());
-        }
-        else
-        {
-            setPlayer(pContext.getServerHandler().playerEntity);
-        }
-
+        setPlayer(SmithsCore.getProxy().getPlayerForSide(pContext));
 
         PostNetwork();
     }

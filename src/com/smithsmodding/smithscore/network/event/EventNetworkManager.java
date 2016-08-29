@@ -6,13 +6,13 @@
 
 package com.smithsmodding.smithscore.network.event;
 
-import com.smithsmodding.smithscore.common.events.network.*;
-import com.smithsmodding.smithscore.network.event.handlers.*;
-import com.smithsmodding.smithscore.network.event.messages.*;
-import com.smithsmodding.smithscore.util.*;
-import com.smithsmodding.smithscore.util.common.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.common.events.network.NetworkManagerInitializeEvent;
+import com.smithsmodding.smithscore.network.event.handlers.StandardNetworkableEventSyncMessageHandler;
+import com.smithsmodding.smithscore.network.event.messages.StandardNetworkableEventSyncMessage;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import com.smithsmodding.smithscore.util.common.Pair;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * The NetworkManager that is used to manage the Synchronising of the events in the Busses.
@@ -35,7 +35,7 @@ public class EventNetworkManager {
      * Can also be used to reset the System if Need be.
      */
     public static void Init() {
-        INSTANCE = new SimpleNetworkWrapper(CoreReferences.General.MOD_ID.toLowerCase() + "-EventSyncing");
+        INSTANCE = new SimpleNetworkWrapper(CoreReferences.General.MOD_ID.toLowerCase() + "-ES");
 
         //Register the StandardNetworkableEvent System
         INSTANCE.registerMessage(StandardNetworkableEventSyncMessageHandler.class, StandardNetworkableEventSyncMessage.class, 0, Side.CLIENT);

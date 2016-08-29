@@ -48,6 +48,10 @@ public class SmithsCore {
 
     public static final Logger getLogger() { return iLogger; }
 
+    public static final CoreCommonProxy getProxy() {
+        return proxy;
+    }
+
     public static final CommonRegistry getRegistry() {
         return iRegistry;
     }
