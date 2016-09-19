@@ -6,42 +6,14 @@
 
 package com.smithsmodding.smithscore.util.common;
 
-import com.smithsmodding.smithscore.util.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
-import net.minecraft.item.*;
-import net.minecraft.nbt.*;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 
-import java.util.*;
+import java.util.UUID;
 
 public class NBTHelper {
-
-    public static Coordinate2D readCoordinate2DFromNBT(NBTTagCompound pCoordinateData) {
-        return new Coordinate2D(pCoordinateData.getInteger("XCoord"), pCoordinateData.getInteger("YCoord"));
-    }
-
-    public static Coordinate3D readCoordinate3DFromNBT(NBTTagCompound pCoordinateData) {
-        return new Coordinate3D(pCoordinateData.getInteger("XCoord"), pCoordinateData.getInteger("YCoord"), pCoordinateData.getInteger("ZCoord"));
-    }
-
-
-    public static NBTTagCompound writeCoordinate2DToNBT(Coordinate2D pCoordinate) {
-        NBTTagCompound tCoordinateData = new NBTTagCompound();
-
-        tCoordinateData.setInteger("XCoord", pCoordinate.getXComponent());
-        tCoordinateData.setInteger("YCoord", pCoordinate.getYComponent());
-
-        return tCoordinateData;
-    }
-
-    public static NBTTagCompound writeCoordinate3DToNBT(Coordinate3D pCoordinate) {
-        NBTTagCompound tCoordinateData = new NBTTagCompound();
-
-        tCoordinateData.setInteger("XCoord", pCoordinate.getXComponent());
-        tCoordinateData.setInteger("YCoord", pCoordinate.getYComponent());
-        tCoordinateData.setInteger("ZCoord", pCoordinate.getZComponent());
-
-        return tCoordinateData;
-    }
 
     private static void initNBTTagCompound(ItemStack itemStack) {
         if (itemStack.getTagCompound() == null) {

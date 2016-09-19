@@ -10,139 +10,139 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public class Cube {
 
-    private int iWidth;
-    private int iHeigth;
-    private int iDepth;
+    private float width;
+    private float height;
+    private float depth;
 
-    private Coordinate3D iTopLeftFrontCoord;
-    private Coordinate3D iLowerRightBackCoord;
+    private Coordinate3D tlfCoord;
+    private Coordinate3D lrbCoord;
 
     public Cube () {
     }
 
-    public Cube (int pTopLeftXCoord, int pYCoord, int pTopLeftZCoord, int pWidth, int pHeigth, int pDepth) {
-        iTopLeftFrontCoord = new Coordinate3D(pTopLeftXCoord, pYCoord, pTopLeftZCoord);
-        iLowerRightBackCoord = new Coordinate3D(pTopLeftXCoord + pWidth, pYCoord + pHeigth, pTopLeftZCoord + pDepth);
+    public Cube(float tlXCoord, float tlYCoord, float tlZCoord, float width, float height, float depth) {
+        tlfCoord = new Coordinate3D(tlXCoord, tlYCoord, tlZCoord);
+        lrbCoord = new Coordinate3D(tlXCoord + width, tlYCoord + height, tlZCoord + depth);
 
-        this.iWidth = pWidth;
-        this.iHeigth = pHeigth;
-        this.iDepth = pDepth;
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
     }
 
-    public int getWidth () {
-        return iWidth;
+    public float getWidth() {
+        return width;
     }
 
-    public int getHeigth () {
-        return iHeigth;
+    public float getHeigth() {
+        return height;
     }
 
-    public int getDepth () {
-        return iDepth;
+    public float getDepth() {
+        return depth;
     }
 
-    public Coordinate3D TopLeftFrontCoord () {
-        return this.iTopLeftFrontCoord;
+    public Coordinate3D getTopLeftFrontCoord() {
+        return this.tlfCoord;
     }
 
-    public Coordinate3D LowerRightBackCoord () {
-        return this.iLowerRightBackCoord;
+    public Coordinate3D getLowerRightBackCoord() {
+        return this.lrbCoord;
     }
 
 
-    public Cube Move (int pDeltaX, int pDeltaY, int pDeltaZ) {
-        this.iTopLeftFrontCoord.xCoord += pDeltaX;
-        this.iTopLeftFrontCoord.yCoord += pDeltaY;
-        this.iTopLeftFrontCoord.zCoord += pDeltaZ;
+    public Cube Move(int deltaX, int deltaY, int deltyZ) {
+        this.tlfCoord.xCoord += deltaX;
+        this.tlfCoord.yCoord += deltaY;
+        this.tlfCoord.zCoord += deltyZ;
 
-        this.iLowerRightBackCoord.xCoord += pDeltaX;
-        this.iLowerRightBackCoord.yCoord += pDeltaY;
-        this.iLowerRightBackCoord.zCoord += pDeltaZ;
+        this.lrbCoord.xCoord += deltaX;
+        this.lrbCoord.yCoord += deltaY;
+        this.lrbCoord.zCoord += deltyZ;
 
         return this;
     }
 
-    public Cube IncludeCoordinate (Cube pCubeToInclude) {
-        this.IncludeCoordinate(pCubeToInclude.TopLeftFrontCoord());
-        return this.IncludeCoordinate(pCubeToInclude.LowerRightBackCoord());
+    public Cube IncludeCoordinate(Cube cube) {
+        this.IncludeCoordinate(cube.getTopLeftFrontCoord());
+        return this.IncludeCoordinate(cube.getLowerRightBackCoord());
     }
 
-    public Cube IncludeCoordinate (Coordinate3D pCoordinateToInclude) {
-        return this.IncludeCoordinate(pCoordinateToInclude.getXComponent(), pCoordinateToInclude.getYComponent(), pCoordinateToInclude.getZComponent());
+    public Cube IncludeCoordinate(Coordinate3D coordinate) {
+        return this.IncludeCoordinate(coordinate.getXComponent(), coordinate.getYComponent(), coordinate.getZComponent());
     }
 
-    public Cube IncludeCoordinate (int pXCoord, int pYCoord, int pZCoord) {
-        if (pXCoord < this.iTopLeftFrontCoord.getXComponent()) {
-            this.ExpandToCoordinate(-1 * Math.abs(pXCoord - iTopLeftFrontCoord.getXComponent()), 0, 0);
+    public Cube IncludeCoordinate(float x, float y, float z) {
+        if (x < this.tlfCoord.getXComponent()) {
+            this.ExpandToCoordinate(-1 * Math.abs(x - tlfCoord.getXComponent()), 0, 0);
         }
 
-        if (pXCoord > this.iLowerRightBackCoord.getXComponent()) {
-            this.ExpandToCoordinate(Math.abs(pXCoord - iLowerRightBackCoord.getXComponent()), 0, 0);
+        if (x > this.lrbCoord.getXComponent()) {
+            this.ExpandToCoordinate(Math.abs(x - lrbCoord.getXComponent()), 0, 0);
         }
 
-        if (pYCoord > this.iLowerRightBackCoord.getYComponent()) {
-            this.ExpandToCoordinate(0, Math.abs(pYCoord - iLowerRightBackCoord.getYComponent()), 0);
+        if (y > this.lrbCoord.getYComponent()) {
+            this.ExpandToCoordinate(0, Math.abs(y - lrbCoord.getYComponent()), 0);
         }
 
-        if (pYCoord < this.iTopLeftFrontCoord.getYComponent()) {
-            this.ExpandToCoordinate(0, -1 * Math.abs(pYCoord - iTopLeftFrontCoord.getYComponent()), 0);
+        if (y < this.tlfCoord.getYComponent()) {
+            this.ExpandToCoordinate(0, -1 * Math.abs(y - tlfCoord.getYComponent()), 0);
         }
 
-        if (pZCoord < this.iTopLeftFrontCoord.getZComponent()) {
-            this.ExpandToCoordinate(0, 0, -1 * Math.abs(pZCoord - iTopLeftFrontCoord.getZComponent()));
+        if (z < this.tlfCoord.getZComponent()) {
+            this.ExpandToCoordinate(0, 0, -1 * Math.abs(z - tlfCoord.getZComponent()));
         }
 
-        if (pZCoord > iLowerRightBackCoord.getZComponent()) {
-            this.ExpandToCoordinate(0, 0, Math.abs(pZCoord - iLowerRightBackCoord.getZComponent()));
+        if (z > lrbCoord.getZComponent()) {
+            this.ExpandToCoordinate(0, 0, Math.abs(z - lrbCoord.getZComponent()));
         }
 
         return this;
     }
 
-    public Cube ExpandToCoordinate (int pDeltaX, int pDeltaY, int pDeltaZ) {
-        if (pDeltaX < 0) {
-            iTopLeftFrontCoord = new Coordinate3D(iTopLeftFrontCoord.getXComponent() + pDeltaX, iTopLeftFrontCoord.getYComponent(), iTopLeftFrontCoord.getZComponent());
+    public Cube ExpandToCoordinate(float deltaX, float deltaY, float deltaZ) {
+        if (deltaX < 0) {
+            tlfCoord = new Coordinate3D(tlfCoord.getXComponent() + deltaX, tlfCoord.getYComponent(), tlfCoord.getZComponent());
         }
 
-        if (pDeltaX > 0) {
-            iLowerRightBackCoord = new Coordinate3D(iLowerRightBackCoord.getXComponent() + pDeltaX, iLowerRightBackCoord.getYComponent(), iLowerRightBackCoord.getZComponent());
+        if (deltaX > 0) {
+            lrbCoord = new Coordinate3D(lrbCoord.getXComponent() + deltaX, lrbCoord.getYComponent(), lrbCoord.getZComponent());
         }
-        iWidth = iTopLeftFrontCoord.getXComponent() - iLowerRightBackCoord.getXComponent();
+        width = tlfCoord.getXComponent() - lrbCoord.getXComponent();
 
-        if (pDeltaY < 0) {
-            iLowerRightBackCoord = new Coordinate3D(iLowerRightBackCoord.getXComponent(), iLowerRightBackCoord.getYComponent() + pDeltaY, iLowerRightBackCoord.getZComponent());
-        }
-
-        if (pDeltaY > 0) {
-            iTopLeftFrontCoord = new Coordinate3D(iTopLeftFrontCoord.getXComponent(), iTopLeftFrontCoord.getYComponent() + pDeltaY, iTopLeftFrontCoord.getZComponent());
-        }
-        iHeigth = iTopLeftFrontCoord.getYComponent() - iLowerRightBackCoord.getYComponent();
-
-        if (pDeltaZ < 0) {
-            iTopLeftFrontCoord = new Coordinate3D(iTopLeftFrontCoord.getXComponent(), iTopLeftFrontCoord.getYComponent(), iTopLeftFrontCoord.getZComponent() + pDeltaZ);
+        if (deltaY < 0) {
+            lrbCoord = new Coordinate3D(lrbCoord.getXComponent(), lrbCoord.getYComponent() + deltaY, lrbCoord.getZComponent());
         }
 
-        if (pDeltaZ > 0) {
-            iLowerRightBackCoord = new Coordinate3D(iLowerRightBackCoord.getXComponent(), iLowerRightBackCoord.getYComponent(), iLowerRightBackCoord.getZComponent() + pDeltaZ);
+        if (deltaY > 0) {
+            tlfCoord = new Coordinate3D(tlfCoord.getXComponent(), tlfCoord.getYComponent() + deltaY, tlfCoord.getZComponent());
         }
-        iDepth = iTopLeftFrontCoord.getZComponent() - iLowerRightBackCoord.getZComponent();
+        height = tlfCoord.getYComponent() - lrbCoord.getYComponent();
+
+        if (deltaZ < 0) {
+            tlfCoord = new Coordinate3D(tlfCoord.getXComponent(), tlfCoord.getYComponent(), tlfCoord.getZComponent() + deltaZ);
+        }
+
+        if (deltaZ > 0) {
+            lrbCoord = new Coordinate3D(lrbCoord.getXComponent(), lrbCoord.getYComponent(), lrbCoord.getZComponent() + deltaZ);
+        }
+        depth = tlfCoord.getZComponent() - lrbCoord.getZComponent();
 
         return this;
     }
 
-    public boolean ContainsCoordinate (Coordinate3D pCoord) {
-        if (pCoord.getYComponent() != iTopLeftFrontCoord.getYComponent())
+    public boolean ContainsCoordinate(Coordinate3D coord) {
+        if (coord.getYComponent() != tlfCoord.getYComponent())
             return false;
 
-        return this.ContainsCoordinate(pCoord.getXComponent(), pCoord.getYComponent(), pCoord.getZComponent());
+        return this.ContainsCoordinate(coord.getXComponent(), coord.getYComponent(), coord.getZComponent());
     }
 
-    public boolean ContainsCoordinate (int pXCoord, int pYCoord, int pZCoord) {
-        return this.TopLeftFrontCoord().getXComponent() <= pXCoord && pXCoord <= this.LowerRightBackCoord().getXComponent() && this.LowerRightBackCoord().getYComponent() <= pYCoord && pYCoord <= this.TopLeftFrontCoord().getYComponent() && this.TopLeftFrontCoord().getZComponent() <= pZCoord && pZCoord < this.LowerRightBackCoord().getZComponent();
+    public boolean ContainsCoordinate(float x, float y, float z) {
+        return this.getTopLeftFrontCoord().getXComponent() <= x && x <= this.getLowerRightBackCoord().getXComponent() && this.getLowerRightBackCoord().getYComponent() <= y && y <= this.getTopLeftFrontCoord().getYComponent() && this.getTopLeftFrontCoord().getZComponent() <= z && z < this.getLowerRightBackCoord().getZComponent();
     }
 
-    public boolean Intersects (Cube pCubeToCheck) {
-        return pCubeToCheck.TopLeftFrontCoord().getXComponent() + pCubeToCheck.iWidth > this.TopLeftFrontCoord().getXComponent() && pCubeToCheck.TopLeftFrontCoord().getXComponent() < this.TopLeftFrontCoord().getXComponent() + this.iWidth && pCubeToCheck.TopLeftFrontCoord().getYComponent() + pCubeToCheck.iHeigth > this.TopLeftFrontCoord().getYComponent() && pCubeToCheck.TopLeftFrontCoord().getYComponent() < this.TopLeftFrontCoord().getYComponent() + this.iHeigth && pCubeToCheck.TopLeftFrontCoord().getZComponent() + pCubeToCheck.iDepth > this.TopLeftFrontCoord().getZComponent() && pCubeToCheck.TopLeftFrontCoord().getZComponent() < this.TopLeftFrontCoord().getZComponent() + this.iDepth;
+    public boolean Intersects(Cube cube) {
+        return cube.getTopLeftFrontCoord().getXComponent() + cube.width > this.getTopLeftFrontCoord().getXComponent() && cube.getTopLeftFrontCoord().getXComponent() < this.getTopLeftFrontCoord().getXComponent() + this.width && cube.getTopLeftFrontCoord().getYComponent() + cube.height > this.getTopLeftFrontCoord().getYComponent() && cube.getTopLeftFrontCoord().getYComponent() < this.getTopLeftFrontCoord().getYComponent() + this.height && cube.getTopLeftFrontCoord().getZComponent() + cube.depth > this.getTopLeftFrontCoord().getZComponent() && cube.getTopLeftFrontCoord().getZComponent() < this.getTopLeftFrontCoord().getZComponent() + this.depth;
     }
 
     public AxisAlignedBB BoundingBox () {
@@ -150,21 +150,21 @@ public class Cube {
         int tDiffY = 1;
         int tDiffZ = 1;
 
-        if (iWidth == 0)
+        if (width == 0)
             tDiffX = 1;
 
-        if (iHeigth == 0)
+        if (height == 0)
             tDiffY = 1;
 
-        if (iDepth == 0)
+        if (depth == 0)
             tDiffZ = 1;
 
 
-        return new AxisAlignedBB(iTopLeftFrontCoord.getXComponent() - tDiffX, iTopLeftFrontCoord.getYComponent() - tDiffY, iTopLeftFrontCoord.getZComponent() - tDiffZ, iLowerRightBackCoord.getXComponent(), iLowerRightBackCoord.getYComponent(), iLowerRightBackCoord.getZComponent());
+        return new AxisAlignedBB(tlfCoord.getXComponent() - tDiffX, tlfCoord.getYComponent() - tDiffY, tlfCoord.getZComponent() - tDiffZ, lrbCoord.getXComponent(), lrbCoord.getYComponent(), lrbCoord.getZComponent());
     }
 
-    public int Contents () {
-        return this.iWidth * this.iHeigth * this.iDepth;
+    public float Contents() {
+        return this.width * this.height * this.depth;
     }
 
 }
