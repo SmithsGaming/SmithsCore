@@ -4,7 +4,7 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 
 import com.smithsmodding.smithscore.util.CoreReferences;
 import net.minecraft.item.ItemStack;

@@ -6,13 +6,14 @@
 
 package com.smithsmodding.smithscore.common.player.event;
 
-import com.smithsmodding.smithscore.common.events.network.*;
-import com.smithsmodding.smithscore.common.player.management.*;
-import com.smithsmodding.smithscore.util.common.*;
-import io.netty.buffer.*;
-import net.minecraftforge.fml.common.network.*;
+import com.smithsmodding.smithscore.common.events.network.StandardNetworkableEvent;
+import com.smithsmodding.smithscore.common.player.management.PlayerManager;
+import com.smithsmodding.smithscore.util.common.helper.NetworkHelper;
+import io.netty.buffer.ByteBuf;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
 

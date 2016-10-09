@@ -4,11 +4,11 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 
-import io.netty.buffer.*;
+import io.netty.buffer.ByteBuf;
 
-import java.util.*;
+import java.util.UUID;
 
 public class NetworkHelper {
     /**

@@ -4,19 +4,22 @@
  * Copyrighted by SmithsModding according to the project License
  */
 
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 /*
  *   ItemStackHelper
  *   Created by: Orion
  *   Created on: 16-1-2015
  */
 
-import com.smithsmodding.smithscore.util.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.item.*;
+import com.smithsmodding.smithscore.util.CoreReferences;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.UUID;
 
 public class ItemStackHelper {
     public static Comparator<ItemStack> COMPARATOR = new Comparator<ItemStack>() {

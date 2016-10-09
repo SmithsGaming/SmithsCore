@@ -6,7 +6,7 @@ import com.smithsmodding.smithscore.client.events.gui.ContainerGuiOpenedEvent;
 import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
 import com.smithsmodding.smithscore.client.gui.management.RelayBasedGUIManager;
-import com.smithsmodding.smithscore.util.common.ItemStackHelper;
+import com.smithsmodding.smithscore.util.common.helper.ItemStackHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

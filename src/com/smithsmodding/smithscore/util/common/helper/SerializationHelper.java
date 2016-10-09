@@ -1,4 +1,4 @@
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

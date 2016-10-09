@@ -1,4 +1,4 @@
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 
 
 import javax.vecmath.Vector3f;

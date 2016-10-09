@@ -1,6 +1,6 @@
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Created by Marc on 30.12.2015.
@@ -26,6 +26,6 @@ public class FluidStackHelper {
     }
 
     public static boolean areFluidStackTagsEqual (FluidStack stackA, FluidStack stackB) {
-        return stackA == null && stackB == null ? true : ( stackA != null && stackB != null ? ( stackA.tag == null && stackB.tag != null ? false : stackA.tag == null || stackA.tag.equals(stackB.tag) ) : false );
+        return stackA == null && stackB == null || ((stackA != null && stackB != null) && (!(stackA.tag == null && stackB.tag != null) && (stackA.tag == null || stackA.tag.equals(stackB.tag))));
     }
 }

@@ -1,4 +1,4 @@
-package com.smithsmodding.smithscore.util.common;
+package com.smithsmodding.smithscore.util.common.helper;
 
 import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.common.player.management.PlayerManager;
