@@ -4,9 +4,46 @@ Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the Cur
 
 The sync of the branches is not being executed, because we are not releasing a new version.The sync of the branches is not being executed, because we are not releasing a new version.
 
-Found AccessTransformer: jei_at.cfg_jei_1.10.2-3.7.8.235_at.cfg
+#################################################
+         ForgeGradle 2.2-SNAPSHOT-c438b06        
+  https://github.com/MinecraftForge/ForgeGradle  
+#################################################
+               Powered by MCP unknown               
+             http://modcoderpack.com             
+         by: Searge, ProfMobius, Fesh0r,         
+         R4wk, ZeuX, IngisKahn, bspkrs           
+#################################################
+Found AccessTransformer: jei_at.cfg_jei_1.9.4-3.4.4.208_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
+:extractMcpMappings SKIPPED
+:deobfCompileDeobfDepTask0 SKIPPED
+:deobfCompileRemapDepSourcesTask1 SKIPPED
+:deobfCompileDummyTask
+:deobfProvidedDummyTask
+:getVersionJson
+:extractUserdev UP-TO-DATE
+:extractDependencyATs UP-TO-DATE
+:extractMcpData SKIPPED
+:genSrgs SKIPPED
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:splitServerJar SKIPPED
+:mergeJars SKIPPED
+:deobfMcSRG
+Applying SpecialSource...
+1 Broken Access Transformer lines:
+ ---  net.minecraft.client.renderer.block.statemap.StateMap func_i46210_(Lnet/minecraft/block/properties/IProperty;Ljava/lang/String;Ljava/util/List;)V
+:deobfMcSRG FAILED
 
-BUILD SUCCESSFUL
+FAILURE: Build failed with an exception.
 
-Total time: 4.205 secs
+* What went wrong:
+Execution failed for task ':deobfMcSRG'.
+> Your Access Transformers be broke!
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 16.842 secs
