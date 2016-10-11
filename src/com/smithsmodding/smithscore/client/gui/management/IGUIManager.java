@@ -16,6 +16,8 @@ import java.util.UUID;
  */
 public interface IGUIManager
 {
+    //TODO: Create a OnManagerAttachedMethod to link a GuiManager to a specific ContainerClass
+
     /**
      * Method called when a player closed the linked UI.
      *
