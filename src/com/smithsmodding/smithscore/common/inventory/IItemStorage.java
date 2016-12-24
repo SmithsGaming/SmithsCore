@@ -6,10 +6,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IWorldNameable;
 
+import javax.annotation.Nonnull;
+
 /**
  * Author Orion (Created on: 20.06.2016)
  */
 public interface IItemStorage extends IWorldNameable {
+    /**
+     * Returns true if the Inventory is Empty.
+     */
+    boolean isEmpty();
+
     /**
      * Returns the number of slots in the inventory.
      */
@@ -18,12 +25,12 @@ public interface IItemStorage extends IWorldNameable {
     /**
      * Returns the stack in the given slot.
      */
-    ItemStack getStackInSlot(int index);
+    @Nonnull ItemStack getStackInSlot(int index);
 
     /**
      * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
      */
-    ItemStack decrStackSize(int index, int count);
+    @Nonnull ItemStack decrStackSize(int index, int count);
 
     /**
      * Method to clear the complete inventory.
@@ -33,7 +40,7 @@ public interface IItemStorage extends IWorldNameable {
     /**
      * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
      */
-    void setInventorySlotContents(int index, ItemStack stack);
+    void setInventorySlotContents(int index, @Nonnull ItemStack stack);
 
     /**
      * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended.
@@ -49,12 +56,12 @@ public interface IItemStorage extends IWorldNameable {
     /**
      * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
      */
-    boolean isItemValidForSlot(int index, ItemStack stack);
+    boolean isItemValidForSlot(int index, @Nonnull ItemStack stack);
 
     class IInventoryWrapper implements IInventory {
         private final IItemStorage storage;
 
-        public IInventoryWrapper(IItemStorage storage) {
+        public IInventoryWrapper(@Nonnull IItemStorage storage) {
             this.storage = storage;
         }
 
@@ -65,6 +72,11 @@ public interface IItemStorage extends IWorldNameable {
         @Override
         public int getSizeInventory() {
             return storage.getSizeInventory();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return storage.isEmpty();
         }
 
         @Override
@@ -80,13 +92,13 @@ public interface IItemStorage extends IWorldNameable {
         @Override
         public ItemStack removeStackFromSlot(int index) {
             ItemStack result = getStackInSlot(index);
-            setInventorySlotContents(index, null);
+            setInventorySlotContents(index, ItemStack.EMPTY);
 
             return result;
         }
 
         @Override
-        public void setInventorySlotContents(int index, ItemStack stack) {
+        public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
             storage.setInventorySlotContents(index, stack);
         }
 
@@ -101,7 +113,7 @@ public interface IItemStorage extends IWorldNameable {
         }
 
         @Override
-        public boolean isUseableByPlayer(EntityPlayer player) {
+        public boolean isUsableByPlayer(EntityPlayer player) {
             return true;
         }
 
@@ -116,7 +128,7 @@ public interface IItemStorage extends IWorldNameable {
         }
 
         @Override
-        public boolean isItemValidForSlot(int index, ItemStack stack) {
+        public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack) {
             return storage.isItemValidForSlot(index, stack);
         }
 

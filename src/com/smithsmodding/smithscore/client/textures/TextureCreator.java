@@ -145,7 +145,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
                     };
 
                     // save in the map so it's getting reused by the others and is available
-                    map.setTextureEntry(loc2, base2);
+                    map.setTextureEntry(base2);
                 }
                 if (base2 != null) {
                     matBase = base2;
@@ -156,7 +156,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
 
         // stitch new textures
         if (sprite != null) {
-            map.setTextureEntry(location, sprite);
+            map.setTextureEntry(sprite);
         }
 
         return sprite;

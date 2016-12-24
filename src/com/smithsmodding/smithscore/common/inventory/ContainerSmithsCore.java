@@ -130,20 +130,20 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex) {
-        ItemStack newItemStack = null;
+        ItemStack newItemStack = ItemStack.EMPTY;
         Slot slot = inventorySlots.get(slotIndex);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemStack = slot.getStack();
             newItemStack = itemStack.copy();
             if (slotIndex < containerInventory.getSizeInventory()) {
                 if (!this.mergeItemStack(itemStack, containerInventory.getSizeInventory(), inventorySlots.size(), false)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(itemStack, 0, containerInventory.getSizeInventory(), false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
-            if (itemStack.stackSize == 0) {
-                slot.putStack(null);
+            if (itemStack.getCount() == 0 || itemStack.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
@@ -158,20 +158,20 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
         Slot slot;
         ItemStack stackInSlot;
         if (itemStack.isStackable()) {
-            while (itemStack.stackSize > 0 && (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin)) {
+            while (itemStack.getCount() > 0 && (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin)) {
                 slot = this.inventorySlots.get(currentSlotIndex);
                 stackInSlot = slot.getStack();
                 if (slot.isItemValid(itemStack) && ItemStackHelper.equalsIgnoreStackSize(itemStack, stackInSlot)) {
-                    int combinedStackSize = stackInSlot.stackSize + itemStack.stackSize;
+                    int combinedStackSize = stackInSlot.getCount() + itemStack.getCount();
                     int slotStackSizeLimit = Math.min(stackInSlot.getMaxStackSize(), slot.getSlotStackLimit());
                     if (combinedStackSize <= slotStackSizeLimit) {
-                        itemStack.stackSize = 0;
-                        stackInSlot.stackSize = combinedStackSize;
+                        itemStack.setCount(0);
+                        stackInSlot.setCount(combinedStackSize);
                         slot.onSlotChanged();
                         slotFound = true;
-                    } else if (stackInSlot.stackSize < slotStackSizeLimit) {
-                        itemStack.stackSize -= slotStackSizeLimit - stackInSlot.stackSize;
-                        stackInSlot.stackSize = slotStackSizeLimit;
+                    } else if (stackInSlot.getCount() < slotStackSizeLimit) {
+                        itemStack.shrink(slotStackSizeLimit - stackInSlot.getCount());
+                        stackInSlot.setCount(slotStackSizeLimit);
                         slot.onSlotChanged();
                         slotFound = true;
                     }
@@ -179,16 +179,16 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
                 currentSlotIndex += ascending ? -1 : 1;
             }
         }
-        if (itemStack.stackSize > 0) {
+        if (itemStack.getCount() > 0) {
             currentSlotIndex = ascending ? slotMax - 1 : slotMin;
             while (!ascending && currentSlotIndex < slotMax || ascending && currentSlotIndex >= slotMin) {
                 slot = this.inventorySlots.get(currentSlotIndex);
                 stackInSlot = slot.getStack();
-                if (slot.isItemValid(itemStack) && stackInSlot == null) {
-                    slot.putStack(ItemStackHelper.cloneItemStack(itemStack, Math.min(itemStack.stackSize, slot.getSlotStackLimit())));
+                if (slot.isItemValid(itemStack) && stackInSlot.isEmpty()) {
+                    slot.putStack(ItemStackHelper.cloneItemStack(itemStack, Math.min(itemStack.getCount(), slot.getSlotStackLimit())));
                     slot.onSlotChanged();
-                    if (slot.getStack() != null) {
-                        itemStack.stackSize -= slot.getStack().stackSize;
+                    if (!slot.getStack().isEmpty()) {
+                        itemStack.shrink(slot.getStack().getCount());
                         slotFound = true;
                     }
                     break;

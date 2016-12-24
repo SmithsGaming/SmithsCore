@@ -32,7 +32,7 @@ public class StandardNetworkableEventSyncMessageHandler implements IMessageHandl
         if (pContext.side == Side.CLIENT) {
             runnable = Minecraft.getMinecraft();
         } else {
-            runnable = (IThreadListener) pContext.getServerHandler().playerEntity.worldObj;
+            runnable = (IThreadListener) pContext.getServerHandler().playerEntity.world;
         }
 
         runnable.addScheduledTask(new Runnable() {

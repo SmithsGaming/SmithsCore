@@ -248,7 +248,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         for (int i = 0; i < inventoryList.tagCount(); i++) {
             NBTTagCompound slotCompound = (NBTTagCompound) inventoryList.get(i);
 
-            ItemStack newStack = ItemStack.loadItemStackFromNBT(slotCompound.getCompoundTag(CoreReferences.NBT.InventoryData.STACKDATA));
+            ItemStack newStack = new ItemStack(slotCompound.getCompoundTag(CoreReferences.NBT.InventoryData.STACKDATA));
 
             inventory.setInventorySlotContents(slotCompound.getInteger(CoreReferences.NBT.InventoryData.SLOTINDEX), newStack);
         }

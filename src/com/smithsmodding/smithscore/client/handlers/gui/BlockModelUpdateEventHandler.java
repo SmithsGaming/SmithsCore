@@ -14,7 +14,7 @@ public class BlockModelUpdateEventHandler {
 
     @SubscribeEvent
     public void handleUpdataEvent (BlockModelUpdateEvent event) {
-        TileEntity entity = FMLClientHandler.instance().getClientPlayerEntity().worldObj.getTileEntity(event.getBlockPosition().toBlockPos());
+        TileEntity entity = FMLClientHandler.instance().getClientPlayerEntity().world.getTileEntity(event.getBlockPosition().toBlockPos());
 
         if (!( entity instanceof IBlockModelUpdatingTileEntity ))
             return;

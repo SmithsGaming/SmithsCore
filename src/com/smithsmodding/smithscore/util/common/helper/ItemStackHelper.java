@@ -35,7 +35,7 @@ public class ItemStackHelper {
                             if (pItemStack1.hasTagCompound() && pItemStack2.hasTagCompound()) {
                                 // Then sort on stack size
                                 if (ItemStack.areItemStackTagsEqual(pItemStack1, pItemStack2)) {
-                                    return (pItemStack1.stackSize - pItemStack2.stackSize);
+                                    return (pItemStack1.getCount() - pItemStack2.getCount());
                                 } else {
                                     return (pItemStack1.getTagCompound().hashCode() - pItemStack2.getTagCompound().hashCode());
                                 }
@@ -44,7 +44,7 @@ public class ItemStackHelper {
                             } else if (pItemStack1.hasTagCompound() && !(pItemStack2.hasTagCompound())) {
                                 return 1;
                             } else {
-                                return (pItemStack1.stackSize - pItemStack2.stackSize);
+                                return (pItemStack1.getCount() - pItemStack2.getCount());
                             }
                         } else {
                             return (pItemStack1.getItemDamage() - pItemStack2.getItemDamage());
@@ -67,7 +67,7 @@ public class ItemStackHelper {
 
     public static ItemStack cloneItemStack(ItemStack pItemStack, int pStackSize) {
         ItemStack tClonedItemStack = pItemStack.copy();
-        tClonedItemStack.stackSize = pStackSize;
+        tClonedItemStack.setCount(pStackSize);
         return tClonedItemStack;
     }
 
@@ -130,12 +130,12 @@ public class ItemStackHelper {
         if (!canStacksMerge(mergeSource, mergeTarget)) {
             return 0;
         }
-        int mergeCount = Math.min(mergeTarget.getMaxStackSize() - mergeTarget.stackSize, mergeSource.stackSize);
+        int mergeCount = Math.min(mergeTarget.getMaxStackSize() - mergeTarget.getCount(), mergeSource.getAnimationsToGo());
         if (mergeCount < 1) {
             return 0;
         }
         if (doMerge) {
-            mergeTarget.stackSize += mergeCount;
+            mergeTarget.grow(mergeCount);
         }
         return mergeCount;
     }
@@ -247,7 +247,7 @@ public class ItemStackHelper {
 
     public static String toString(ItemStack pItemStack) {
         if (pItemStack != null) {
-            return String.format("%sxitemStack[%s@%s]", pItemStack.stackSize, pItemStack.getUnlocalizedName(), pItemStack.getItemDamage());
+            return String.format("%sxitemStack[%s@%s]", pItemStack.getCount(), pItemStack.getUnlocalizedName(), pItemStack.getItemDamage());
         }
 
         return "null";

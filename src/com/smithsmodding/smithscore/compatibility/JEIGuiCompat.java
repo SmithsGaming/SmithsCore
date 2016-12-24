@@ -6,11 +6,9 @@ import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedComponentHost;
 import com.smithsmodding.smithscore.client.gui.hosts.IGUIBasedLedgerHost;
 import com.smithsmodding.smithscore.client.gui.legders.core.IGUILedger;
-import mezz.jei.api.IJeiRuntime;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.*;
 import mezz.jei.api.gui.IAdvancedGuiHandler;
+import mezz.jei.api.ingredients.IModIngredientRegistration;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +24,16 @@ import java.util.List;
 public class JEIGuiCompat implements IModPlugin {
 
     @Override
+    public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+        //TODO: Implemented HeatedItem SubType.
+    }
+
+    @Override
+    public void registerIngredients(IModIngredientRegistration registry) {
+
+    }
+
+    @Override
     public void register(@Nonnull IModRegistry registry) {
         registry.addAdvancedGuiHandlers(new IAdvancedGuiHandler<GuiContainerSmithsCore>() {
             @Nonnull
@@ -38,6 +46,12 @@ public class JEIGuiCompat implements IModPlugin {
             @Override
             public List<Rectangle> getGuiExtraAreas(@Nonnull GuiContainerSmithsCore guiContainer) {
                 return ImmutableList.copyOf(getComponentAreas(guiContainer).values());
+            }
+
+            @Nullable
+            @Override
+            public Object getIngredientUnderMouse(GuiContainerSmithsCore guiContainer, int mouseX, int mouseY) {
+                return null;
             }
         });
     }
