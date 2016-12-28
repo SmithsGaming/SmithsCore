@@ -15,6 +15,8 @@ import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.inventory.IInventory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,9 +30,11 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     public static int HEIGHT = ( ContainerSmithsCore.PLAYER_INVENTORY_ROWS + 1 ) * 18 + 5 + 2 * 7;
 
     private String uniqueID;
+    @Nonnull
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
 
     private IGUIBasedComponentHost parent;
+    @Nonnull
     private CoreComponentState state = new CoreComponentState(this);
 
     private Coordinate2D rootAnchorPixel;
@@ -146,11 +150,13 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return parent.getManager();
     }
 
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
     }
 
+    @Nullable
     public IGUIComponent getComponentByID (String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
@@ -191,6 +197,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return uniqueID;
     }
 
+    @Nonnull
     @Override
     public IGUIComponentState getState () {
         return state;
@@ -201,6 +208,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return parent.getComponentHost();
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate () {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
@@ -211,11 +219,13 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return rootAnchorPixel;
     }
 
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent () {
         return new Plane(getGlobalCoordinate(), width, height);
     }
 
+    @Nonnull
     @Override
     public Plane getSize () {
         return new Plane(0, 0, width, height);
@@ -263,6 +273,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return false;
     }
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent () {
         return new ArrayList<String>();

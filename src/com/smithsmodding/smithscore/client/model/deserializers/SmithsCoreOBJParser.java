@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.helpers.Strings;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector4f;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,30 +26,38 @@ import java.util.regex.Pattern;
  */
 public class SmithsCoreOBJParser {
     private static final Pattern WHITE_SPACE = Pattern.compile("\\s+");
+    @Nonnull
     private static Set<String> unknownObjectCommands = new HashSet<String>();
+    @Nonnull
     public SmithsCoreOBJMaterialLibrary materialLibrary = new SmithsCoreOBJMaterialLibrary();
     private IResourceManager manager;
     private InputStreamReader objStream;
     private BufferedReader objReader;
     private ResourceLocation objFrom;
 
+    @Nonnull
     private List<String> groupList = Lists.newArrayList();
+    @Nonnull
     private List<SmithsCoreOBJVertex> vertices = Lists.newArrayList();
+    @Nonnull
     private List<SmithsCoreOBJNormal> normals = Lists.newArrayList();
+    @Nonnull
     private List<SmithsCoreOBJTextureCoordinate> texCoords = Lists.newArrayList();
 
-    public SmithsCoreOBJParser(IResource from, IResourceManager manager) throws IOException {
+    public SmithsCoreOBJParser(@Nonnull IResource from, IResourceManager manager) throws IOException {
         this.manager = manager;
         this.objFrom = from.getResourceLocation();
         this.objStream = new InputStreamReader(from.getInputStream(), Charsets.UTF_8);
         this.objReader = new BufferedReader(objStream);
     }
 
+    @Nonnull
     public List<String> getElements() {
         return this.groupList;
     }
 
-    private float[] parseFloats(String[] data) // Helper converting strings to floats
+    @Nonnull
+    private float[] parseFloats(@Nonnull String[] data) // Helper converting strings to floats
     {
         float[] ret = new float[data.length];
         for (int i = 0; i < data.length; i++)
@@ -57,6 +66,7 @@ public class SmithsCoreOBJParser {
     }
 
     //Partial reading of the OBJ format. Documentation taken from http://paulbourke.net/dataformats/obj/
+    @Nonnull
     public SmithsCoreOBJModel parse() throws IOException {
         String currentLine = "";
         SmithsCoreOBJMaterial material = new SmithsCoreOBJMaterial();

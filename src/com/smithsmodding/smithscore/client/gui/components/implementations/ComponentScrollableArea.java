@@ -13,6 +13,8 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.gui.FontRenderer;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
     ComponentContentArea contentArea;
     ComponentScrollBar scrollbar;
     private String uniqueID;
+    @Nonnull
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
     private IGUIBasedComponentHost parent;
     private IGUIComponentState state;
@@ -74,7 +77,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @param component The new component.
      */
     @Override
-    public void registerNewComponent (IGUIComponent component) {
+    public void registerNewComponent (@Nonnull IGUIComponent component) {
         componentHashMap.put(component.getID(), component);
 
         if (component instanceof IGUIBasedComponentHost)
@@ -106,6 +109,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
@@ -118,6 +122,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return A IGUIComponent with then given ID or null if no child components exists with that ID.
      */
+    @Nullable
     @Override
     public IGUIComponent getComponentByID (String uniqueUIID) {
         if (getID().equals(uniqueUIID))
@@ -175,6 +180,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return The location of the top left pixel of this component
      */
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate () {
         return getComponentHost().getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
@@ -195,6 +201,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return A Plane detailing the the position and size of this Component.
      */
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent () {
         return new Plane(getGlobalCoordinate(), width, height);
@@ -205,6 +212,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return The size of this component.
      */
+    @Nonnull
     @Override
     public Plane getSize () {
         return new Plane(0,0,width, height);
@@ -336,6 +344,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
         return false;
     }
 
+    @Nullable
     @Override
     public ArrayList<String> getToolTipContent () {
         return null;
@@ -366,6 +375,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
         return true;
     }
 
+    @Nonnull
     @Override
     public Plane getGlobalScissorLocation () {
         return getAreaOccupiedByComponent();

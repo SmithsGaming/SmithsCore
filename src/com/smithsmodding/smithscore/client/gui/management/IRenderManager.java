@@ -3,6 +3,8 @@ package com.smithsmodding.smithscore.client.gui.management;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import net.minecraft.client.gui.Gui;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by marcf on 12/3/2015.
  */
@@ -28,6 +30,7 @@ public interface IRenderManager
      *
      * @return This RenderManagers ScissorRegionManager.
      */
+    @Nonnull
     IScissorRegionManager getScissorRegionManager();
 
     /**

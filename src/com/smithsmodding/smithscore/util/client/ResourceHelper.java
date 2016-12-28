@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 
 /**
@@ -18,7 +19,7 @@ public class ResourceHelper {
      * @param resource The ResourceLocation to check.
      * @return True when the file exists, false when not
      */
-    public static boolean exists (ResourceLocation resource) {
+    public static boolean exists (@Nonnull ResourceLocation resource) {
         try {
             ResourceLocation loc = new ResourceLocation(resource.getResourceDomain(), "textures/" + resource.getResourcePath() + ".png");
             Minecraft.getMinecraft().getResourceManager().getAllResources(loc);
@@ -34,7 +35,7 @@ public class ResourceHelper {
      * @param location The location to check.
      * @return True when the file exists, false when not.
      */
-    public static boolean exists (String location) {
+    public static boolean exists (@Nonnull String location) {
         return exists(new ResourceLocation(location));
     }
 
@@ -44,7 +45,7 @@ public class ResourceHelper {
      * @param item The item to convert.
      * @return The uniform ResourceLocation for the given Item.
      */
-    public static ResourceLocation getItemLocation (Item item) {
+    public static ResourceLocation getItemLocation (@Nonnull Item item) {
         // get the registered name for the object
         ResourceLocation o = item.getRegistryName();
 

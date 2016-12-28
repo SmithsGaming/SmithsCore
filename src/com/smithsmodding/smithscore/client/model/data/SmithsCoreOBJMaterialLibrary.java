@@ -8,6 +8,7 @@ import com.smithsmodding.smithscore.SmithsCore;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector4f;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +23,7 @@ import java.util.regex.Pattern;
 public class SmithsCoreOBJMaterialLibrary {
     private static final Pattern WHITE_SPACE = Pattern.compile("\\s+");
     private Set<String> unknownMaterialCommands = new HashSet<String>();
+    @Nonnull
     private Map<String, SmithsCoreOBJMaterial> materials = new HashMap<String, SmithsCoreOBJMaterial>();
     private Map<String, SmithsCoreOBJGroup> groups = new HashMap<String, SmithsCoreOBJGroup>();
     private InputStreamReader mtlStream;
@@ -37,7 +39,8 @@ public class SmithsCoreOBJMaterialLibrary {
         this.materials.put(SmithsCoreOBJMaterial.DEFAULT_NAME, def);
     }
 
-    public SmithsCoreOBJMaterialLibrary makeLibWithReplacements(ImmutableMap<String, String> replacements) {
+    @Nonnull
+    public SmithsCoreOBJMaterialLibrary makeLibWithReplacements(@Nonnull ImmutableMap<String, String> replacements) {
         Map<String, SmithsCoreOBJMaterial> mats = new HashMap<String, SmithsCoreOBJMaterial>();
         for (Map.Entry<String, SmithsCoreOBJMaterial> e : this.materials.entrySet()) {
             // key for the material name, with # added if missing
@@ -98,6 +101,7 @@ public class SmithsCoreOBJMaterialLibrary {
         return unknownMaterialCommands;
     }
 
+    @Nonnull
     public Map<String, SmithsCoreOBJMaterial> getMaterials() {
         return materials;
     }
@@ -110,6 +114,7 @@ public class SmithsCoreOBJMaterialLibrary {
         return mtlReader;
     }
 
+    @Nonnull
     public List<SmithsCoreOBJGroup> getGroupsContainingFace(SmithsCoreOBJFace f) {
         List<SmithsCoreOBJGroup> groupList = Lists.newArrayList();
         for (SmithsCoreOBJGroup g : this.groups.values()) {
@@ -135,7 +140,7 @@ public class SmithsCoreOBJMaterialLibrary {
         return ImmutableList.copyOf(this.materials.keySet());
     }
 
-    public void parseMaterials(IResourceManager manager, String path, ResourceLocation from) throws IOException {
+    public void parseMaterials(@Nonnull IResourceManager manager, @Nonnull String path, @Nonnull ResourceLocation from) throws IOException {
         this.materials.clear();
         boolean hasSetTexture = false;
         boolean hasSetColor = false;

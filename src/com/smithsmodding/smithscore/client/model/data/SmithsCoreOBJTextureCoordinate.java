@@ -1,5 +1,6 @@
 package com.smithsmodding.smithscore.client.model.data;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector3f;
 
 /**
@@ -17,7 +18,7 @@ public class SmithsCoreOBJTextureCoordinate {
         this(data[0], data[1], data[2]);
     }
 
-    public SmithsCoreOBJTextureCoordinate(Vector3f data) {
+    public SmithsCoreOBJTextureCoordinate(@Nonnull Vector3f data) {
         this(data.x, data.y, data.z);
     }
 
@@ -27,6 +28,7 @@ public class SmithsCoreOBJTextureCoordinate {
         this.w = w;
     }
 
+    @Nonnull
     public static SmithsCoreOBJTextureCoordinate[] getDefaultUVs() {
         SmithsCoreOBJTextureCoordinate[] texCoords = new SmithsCoreOBJTextureCoordinate[4];
         texCoords[0] = new SmithsCoreOBJTextureCoordinate(0.0f, 0.0f, 1.0f);
@@ -36,6 +38,7 @@ public class SmithsCoreOBJTextureCoordinate {
         return texCoords;
     }
 
+    @Nonnull
     public Vector3f getData() {
         return new Vector3f(this.u, this.v, this.w);
     }

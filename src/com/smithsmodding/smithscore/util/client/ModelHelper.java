@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.FMLLog;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import java.io.FileNotFoundException;
@@ -51,8 +52,11 @@ import java.util.Map;
  */
 public class ModelHelper {
 
+    @Nonnull
     public static final IModelState DEFAULT_ITEM_STATE;
+    @Nonnull
     public static final IModelState DEFAULT_TOOL_STATE;
+    @Nonnull
     public static final IModelState DEFAULT_BLOCK_STATE;
 
     public static final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> DEFAULT_ITEM_TRANSFORMS;
@@ -71,6 +75,7 @@ public class ModelHelper {
                     .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
                     .create();
 
+    @Nullable
     private static final TRSRTransformation flipX = new TRSRTransformation(null, null, new Vector3f(-1, 1, 1), null);
 
     static {
@@ -124,20 +129,21 @@ public class ModelHelper {
                 null));
     }
 
-    public static TRSRTransformation leftify(TRSRTransformation transform) {
+    public static TRSRTransformation leftify(@Nonnull TRSRTransformation transform) {
         return TRSRTransformation.blockCenterToCorner(flipX.compose(TRSRTransformation.blockCornerToCenter(transform)).compose(flipX));
     }
 
-    public static TextureAtlasSprite getTextureFromBlock (Block block, int meta) {
+    public static TextureAtlasSprite getTextureFromBlock (@Nonnull Block block, int meta) {
         IBlockState state = block.getStateFromMeta(meta);
         return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
     }
 
-    public static TextureAtlasSprite getTextureFromBlockstate (IBlockState state) {
+    public static TextureAtlasSprite getTextureFromBlockstate (@Nonnull IBlockState state) {
         return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
     }
 
-    public static Reader getReaderForResource(ResourceLocation location) throws IOException {
+    @Nonnull
+    public static Reader getReaderForResource(@Nonnull ResourceLocation location) throws IOException {
         String path = location.getResourcePath();
         if (!path.endsWith(".json"))
             path = path + ".json";
@@ -147,7 +153,8 @@ public class ModelHelper {
         return new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
     }
 
-    public static BakedQuad colorQuad (MinecraftColor color, BakedQuad quad) {
+    @Nonnull
+    public static BakedQuad colorQuad (@Nonnull MinecraftColor color, @Nonnull BakedQuad quad) {
         int[] data = quad.getVertexData();
 
         int a = (color.getRGB() >> 24);
@@ -156,7 +163,7 @@ public class ModelHelper {
         }
         int r = (color.getRGB() >> 16) & 0xFF;
         int g = (color.getRGB() >> 8) & 0xFF;
-        int b = (color.getRGB() >> 0) & 0xFF;
+        int b = (color.getRGB()) & 0xFF;
 
         int c = r | g << 8 | b << 16 | a << 24;
 
@@ -168,7 +175,7 @@ public class ModelHelper {
         return new BakedQuad(data, quad.getTintIndex(), quad.getFace(), quad.getSprite(), quad.shouldApplyDiffuseLighting(), quad.getFormat());
     }
 
-    public static Map<String, String> loadTexturesFromJson (ResourceLocation location) throws IOException {
+    public static Map<String, String> loadTexturesFromJson (@Nonnull ResourceLocation location) throws IOException {
         // get the json
         IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
         Reader reader = new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8);
@@ -176,12 +183,12 @@ public class ModelHelper {
         return GSON.fromJson(reader, maptype);
     }
 
-    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location)
+    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(@Nonnull ResourceLocation location)
             throws IOException {
         return loadTransformFromJson(location, "display");
     }
 
-    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location, String tag)
+    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(@Nonnull ResourceLocation location, String tag)
             throws IOException {
         Reader reader = getReaderForResource(location);
         try {
@@ -203,7 +210,7 @@ public class ModelHelper {
     }
 
 
-    public static ImmutableList<ResourceLocation> loadTextureListFromJson (ResourceLocation location) throws IOException {
+    public static ImmutableList<ResourceLocation> loadTextureListFromJson (@Nonnull ResourceLocation location) throws IOException {
         ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
         for (String s : loadTexturesFromJson(location).values()) {
             builder.add(new ResourceLocation(s));
@@ -212,7 +219,8 @@ public class ModelHelper {
         return builder.build();
     }
 
-    public static ResourceLocation getModelLocation (ResourceLocation location) {
+    @Nonnull
+    public static ResourceLocation getModelLocation (@Nonnull ResourceLocation location) {
         String path = location.getResourcePath();
         if (!path.startsWith("models/"))
             path = "models/" + path;
@@ -223,7 +231,8 @@ public class ModelHelper {
         return new ResourceLocation(location.getResourceDomain(), path);
     }
 
-    public static float[][][] getUnpackedQuadData (UnpackedBakedQuad quad, VertexFormat format) {
+    @Nonnull
+    public static float[][][] getUnpackedQuadData (@Nonnull UnpackedBakedQuad quad, @Nonnull VertexFormat format) {
         int[] vertexData = quad.getVertexData();
         float[][][] unpackedData = new float[4][format.getElementCount()][4];
 
@@ -236,7 +245,8 @@ public class ModelHelper {
         return unpackedData;
     }
 
-    public static int[] getPackedQuadData (float[][][] unpackedData, VertexFormat format) {
+    @Nonnull
+    public static int[] getPackedQuadData (float[][][] unpackedData, @Nonnull VertexFormat format) {
         int[] vertexData = new int[format.getNextOffset()];
 
         for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++) {
@@ -248,7 +258,7 @@ public class ModelHelper {
         return vertexData;
     }
 
-    public static void setNormalsToIgnoreLightingOnItem(float[][][] unpackedData, VertexFormat format) {
+    public static void setNormalsToIgnoreLightingOnItem(float[][][] unpackedData, @Nonnull VertexFormat format) {
         int normalElementIndex = format.getElements().indexOf(DefaultVertexFormats.NORMAL_3B);
         if (normalElementIndex < 0)
             return;
@@ -266,7 +276,7 @@ public class ModelHelper {
         }
     }
 
-    public static void setNormalsToIgnoreLightingOnItemModel (IBakedModel model) {
+    public static void setNormalsToIgnoreLightingOnItemModel (@Nonnull IBakedModel model) {
         for (BakedQuad quad : model.getQuads(null, null, 0)) {
             float[][][] unmodifiedUnpackedQuadData = ModelHelper.getUnpackedQuadData((UnpackedBakedQuad) quad, quad.getFormat());
             ModelHelper.setNormalsToIgnoreLightingOnItem(unmodifiedUnpackedQuadData, quad.getFormat());
@@ -285,7 +295,7 @@ public class ModelHelper {
      * @return an OBJModel from the given location.
      * @throws IOException IOException from the OBJLoader.
      */
-    public static IModel forceLoadOBJModel(ResourceLocation modelLocation) throws IOException {
+    public static IModel forceLoadOBJModel(@Nonnull ResourceLocation modelLocation) throws IOException {
         IModel model;
 
         ResourceLocation actual = ModelLoaderRegistry.getActualLocation(modelLocation);
@@ -351,7 +361,7 @@ public class ModelHelper {
      * @param rand   The Random to merge the Quads with.
      * @return Merged ImmutableList of BakedQuads of the given Modules, BlockState, Side and Random.
      */
-    public static ImmutableList<BakedQuad> getQuadsForMergedModel(ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
+    public static ImmutableList<BakedQuad> getQuadsForMergedModel(@Nonnull ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         ImmutableList.Builder<BakedQuad> quadBuilder = new ImmutableList.Builder<>();
 
         for (IBakedModel model : models) {
@@ -372,7 +382,7 @@ public class ModelHelper {
         private static final Gson GSON = new Gson();
 
         @Override
-        public Map<String, String> deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        public Map<String, String> deserialize (@Nonnull JsonElement json, Type typeOfT, JsonDeserializationContext context)
                 throws JsonParseException {
 
             JsonObject obj = json.getAsJsonObject();
@@ -391,6 +401,7 @@ public class ModelHelper {
 
         public static final TransformDeserializer INSTANCE = new TransformDeserializer();
         public static String tag = "display";
+        @Nonnull
         private static Gson gsonPrivate = new GsonBuilder()
                 .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
                 .registerTypeAdapter(ItemCameraTransforms.class, ItemCameraTransformsDeserializer.INSTANCE)
@@ -398,7 +409,7 @@ public class ModelHelper {
                 .create();
 
         @Override
-        public ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        public ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> deserialize(@Nonnull JsonElement json, Type typeOfT, @Nonnull JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject obj = json.getAsJsonObject();
             JsonElement texElem = obj.get(tag);

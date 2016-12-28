@@ -19,6 +19,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /*
@@ -49,11 +50,13 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
         return customData;
     }
 
+    @Nonnull
     @Override
     public Collection<ResourceLocation> getDependencies() {
         return Collections.emptyList();
     }
 
+    @Nonnull
     @Override
     public Collection<ResourceLocation> getTextures() {
         Iterator<SmithsCoreOBJMaterial> materialIterator = this.matLib.getMaterials().values().iterator();
@@ -67,8 +70,9 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
         return textures;
     }
 
+    @Nonnull
     @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    public IBakedModel bake(IModelState state, VertexFormat format, @Nonnull Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         ImmutableMap.Builder<String, TextureAtlasSprite> builder = ImmutableMap.builder();
         builder.put(ModelLoader.White.LOCATION.toString(), ModelLoader.White.INSTANCE);
         TextureAtlasSprite missing = bakedTextureGetter.apply(new ResourceLocation("missingno"));
@@ -88,14 +92,16 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
         return this.matLib;
     }
 
+    @Nonnull
     @Override
-    public IModel process(ImmutableMap<String, String> customData) {
+    public IModel process(@Nonnull ImmutableMap<String, String> customData) {
         SmithsCoreOBJModel ret = new SmithsCoreOBJModel(this.matLib, this.modelLocation, new SmithsCoreOBJCustomData(this.customData, customData));
         return ret;
     }
 
+    @Nonnull
     @Override
-    public IModel retexture(ImmutableMap<String, String> textures) {
+    public IModel retexture(@Nonnull ImmutableMap<String, String> textures) {
         SmithsCoreOBJModel ret = new SmithsCoreOBJModel(this.matLib.makeLibWithReplacements(textures), this.modelLocation, this.customData);
         return ret;
     }

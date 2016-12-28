@@ -2,6 +2,7 @@ package com.smithsmodding.smithscore.common.structures;
 
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedHashSet;
 
 /**
@@ -9,12 +10,15 @@ import java.util.LinkedHashSet;
  */
 public interface IStructure<D extends IStructureData, C extends IStructureController, P extends IStructurePart> {
 
+    @Nonnull
     C getController();
 
+    @Nonnull
     D getData();
 
     boolean canPartJoin(IStructurePart part);
 
+    @Nonnull
     LinkedHashSet<Coordinate3D> getPartLocations();
 
     void registerPart(P part);
@@ -22,6 +26,7 @@ public interface IStructure<D extends IStructureData, C extends IStructureContro
     void removePart(P part);
 
 
+    @Nonnull
     Coordinate3D getMasterLocation();
 
     void setMasterLocation(Coordinate3D masterLocation);

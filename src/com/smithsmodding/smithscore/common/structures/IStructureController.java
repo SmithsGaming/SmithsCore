@@ -8,6 +8,7 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
+import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
@@ -16,7 +17,8 @@ import java.util.LinkedHashSet;
  */
 public interface IStructureController<S extends IStructure, P extends IStructurePart<S>> {
 
-    static IStructure splitStructure(IStructure oldStructure, LinkedHashSet<IStructurePart> parts) {
+    @Nonnull
+    static IStructure splitStructure(@Nonnull IStructure oldStructure, @Nonnull LinkedHashSet<IStructurePart> parts) {
         //Create the new structures master Entity
         Iterator<IStructurePart> iterator = parts.iterator();
         IStructurePart newMaster = iterator.next();
@@ -45,7 +47,8 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         return newStructure;
     }
 
-    static LinkedHashSet<IStructurePart> validateStructureIntegrity(IStructure structure, IStructurePart splitter) {
+    @Nonnull
+    static LinkedHashSet<IStructurePart> validateStructureIntegrity(@Nonnull IStructure structure, @Nonnull IStructurePart splitter) {
         LinkedHashSet<IStructurePart> notConnectedComponents = new LinkedHashSet<>();
 
         for (Object obj : structure.getPartLocations()) {
@@ -58,7 +61,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         return notConnectedComponents;
     }
 
-    static boolean checkIfComponentStillConnected(IStructure structure, IStructurePart target, IStructurePart splitter) {
+    static boolean checkIfComponentStillConnected(@Nonnull IStructure structure, @Nonnull IStructurePart target, @Nonnull IStructurePart splitter) {
         if (SmithsCore.isInDevenvironment())
             SmithsCore.getLogger().info("Starting connection search between: " + structure.getMasterLocation().toString() + " to " + target.getLocation().toString());
 
@@ -66,9 +69,10 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         return tConnectionChecker.isConnected();
     }
 
+    @Nonnull
     EnumFacing[] getPossibleConnectionSides();
 
-    default void onPartPlaced(P part) {
+    default void onPartPlaced(@Nonnull P part) {
         S joinedStructure = null;
 
         for (EnumFacing facing : getPossibleConnectionSides()) {
@@ -111,7 +115,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         }
     }
 
-    default void onPartDestroyed(P part) {
+    default void onPartDestroyed(@Nonnull P part) {
         S structure = part.getStructure();
 
         if (structure.getMasterLocation().equals(part.getLocation())) {
@@ -149,7 +153,7 @@ public interface IStructureController<S extends IStructure, P extends IStructure
         }
     }
 
-    default void onStructureMerge(P connectingPart, S otherStructure) {
+    default void onStructureMerge(@Nonnull P connectingPart, @Nonnull S otherStructure) {
         S structure = connectingPart.getStructure();
         Iterator<Coordinate3D> iterator = otherStructure.getPartLocations().iterator();
 

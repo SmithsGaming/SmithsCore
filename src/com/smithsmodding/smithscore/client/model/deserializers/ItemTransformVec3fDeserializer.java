@@ -8,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector3f;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Type;
 
 /**
@@ -23,8 +24,9 @@ public class ItemTransformVec3fDeserializer implements JsonDeserializer<ItemTran
     private static final Vector3f TRANSLATION_DEFAULT = new Vector3f(0.0F, 0.0F, 0.0F);
     private static final Vector3f SCALE_DEFAULT = new Vector3f(1.0F, 1.0F, 1.0F);
 
+    @Nonnull
     @Override
-    public ItemTransformVec3f deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_)
+    public ItemTransformVec3f deserialize(@Nonnull JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_)
             throws
             JsonParseException {
         JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
@@ -41,7 +43,7 @@ public class ItemTransformVec3fDeserializer implements JsonDeserializer<ItemTran
         return new ItemTransformVec3f(vector3f, vector3f1, vector3f2);
     }
 
-    private Vector3f parseVector3f(JsonObject jsonObject, String key, Vector3f defaultValue) {
+    private Vector3f parseVector3f(@Nonnull JsonObject jsonObject, String key, Vector3f defaultValue) {
         if (!jsonObject.has(key)) {
             return defaultValue;
         } else {

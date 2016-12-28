@@ -1,5 +1,7 @@
 package com.smithsmodding.smithscore.common.pathfinding;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -8,10 +10,11 @@ import java.util.*;
  * Copyrighted according to Project specific license
  */
 public class PathFinder {
+    @Nullable
     Path iResultedPath = null;
 
     //Pathfinds using A* Algorithm
-    public PathFinder (IPathComponent pStartNode, IPathComponent pEndNode, IPathComponent pSkippableComponents) {
+    public PathFinder (@Nonnull IPathComponent pStartNode, @Nonnull IPathComponent pEndNode, @Nonnull IPathComponent pSkippableComponents) {
         HashMap<IPathComponent, Float> tClosedNodes = new HashMap<IPathComponent, Float>();
         ArrayList<IPathComponent> tOpenNodes = new ArrayList<IPathComponent>();
         HashMap<IPathComponent, IPathComponent> tPreviousNodes = new HashMap<IPathComponent, IPathComponent>();
@@ -60,7 +63,7 @@ public class PathFinder {
         }
     }
 
-    private void reconstructPath (HashMap<IPathComponent, IPathComponent> pPreviousNodes, IPathComponent pStartNode, IPathComponent pEndNode) {
+    private void reconstructPath (@Nonnull HashMap<IPathComponent, IPathComponent> pPreviousNodes, IPathComponent pStartNode, IPathComponent pEndNode) {
         iResultedPath = new Path(pStartNode, pEndNode);
         IPathComponent tCurrent = pEndNode;
 
@@ -78,6 +81,7 @@ public class PathFinder {
         return iResultedPath != null;
     }
 
+    @Nullable
     public Path getPath () {
         return iResultedPath;
     }

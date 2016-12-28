@@ -11,6 +11,7 @@ import com.smithsmodding.smithscore.common.player.management.PlayerManager;
 import com.smithsmodding.smithscore.util.common.helper.NetworkHelper;
 import io.netty.buffer.ByteBuf;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class PlayersOnlineUpdatedEvent extends StandardNetworkableEvent {
 
     public PlayersOnlineUpdatedEvent() {}
 
-    public PlayersOnlineUpdatedEvent(PlayerManager manager) {
+    public PlayersOnlineUpdatedEvent(@Nonnull PlayerManager manager) {
         commonSidedOnlineMap = manager.getCommonSidedOnlineMap();
     }
 
@@ -41,7 +42,7 @@ public class PlayersOnlineUpdatedEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
-    public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
+    public void readFromMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         int pairCount = pMessageBuffer.readInt();
 
         for (int pairIndex = 0; pairIndex < pairCount; pairIndex++) {
@@ -56,7 +57,7 @@ public class PlayersOnlineUpdatedEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The buffer from the IMessage
      */
     @Override
-    public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
+    public void writeToMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         pMessageBuffer.writeInt(commonSidedOnlineMap.size());
 
         for (UUID id : commonSidedOnlineMap) {

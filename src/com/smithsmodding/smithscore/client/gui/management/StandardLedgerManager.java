@@ -8,6 +8,7 @@ import com.smithsmodding.smithscore.util.*;
 import com.smithsmodding.smithscore.util.common.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -16,7 +17,9 @@ import java.util.*;
 public class StandardLedgerManager implements ILedgerManager {
 
     private IGUIBasedLedgerHost host;
+    @Nonnull
     private LinkedHashMap<String, IGUILedger> ledgersLeft = new LinkedHashMap<String, IGUILedger>();
+    @Nonnull
     private LinkedHashMap<String, IGUILedger> ledgersRight = new LinkedHashMap<String, IGUILedger>();
 
 
@@ -30,7 +33,7 @@ public class StandardLedgerManager implements ILedgerManager {
     }
 
     @Override
-    public void registerLedgerRightSide (IGUILedger ledger) {
+    public void registerLedgerRightSide (@Nonnull IGUILedger ledger) {
         ledger.getAllComponents().clear();
         ledger.registerComponents(ledger);
 
@@ -38,7 +41,7 @@ public class StandardLedgerManager implements ILedgerManager {
     }
 
     @Override
-    public void registerLedgerLeftSide (IGUILedger ledger) {
+    public void registerLedgerLeftSide (@Nonnull IGUILedger ledger) {
         ledger.getAllComponents().clear();
         ledger.registerComponents(ledger);
 
@@ -54,16 +57,19 @@ public class StandardLedgerManager implements ILedgerManager {
         }
     }
 
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUILedger> getRightLedgers () {
         return ledgersRight;
     }
 
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUILedger> getLeftLedgers () {
         return ledgersLeft;
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getLedgerLocalCoordinate (LedgerConnectionSide side, String uniqueID) {
         LinkedHashMap<String, IGUILedger> ledgers;
@@ -133,7 +139,7 @@ public class StandardLedgerManager implements ILedgerManager {
      *               closed) or this one should be closed.
      */
     @Override
-    public void onLedgerClickedInside (IGUILedger ledger) {
+    public void onLedgerClickedInside (@Nonnull IGUILedger ledger) {
         String openLedgerID = (String) InstanceVariableManager.getVariable(this.getHost().getID() + ".LastOpenLedger");
 
         if (openLedgerID == null)

@@ -12,6 +12,7 @@ import io.netty.buffer.*;
 import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.*;
 
 public class StandardNetworkableEventSyncMessage implements IMessage {
@@ -33,7 +34,7 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
      * @param buf The buffer to write to.
      */
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(@Nonnull ByteBuf buf) {
         String tEventClassName = ByteBufUtils.readUTF8String(buf);
 
         try {
@@ -62,7 +63,7 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
      * @param buf The buffer to read from.
      */
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void toBytes(@Nonnull ByteBuf buf) {
         ByteBufUtils.writeUTF8String(buf, EVENT.getClass().getName());
 
         EVENT.writeToMessageBuffer(buf);

@@ -20,6 +20,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import scala.actors.threadpool.Arrays;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -33,6 +35,7 @@ public abstract class CoreTab implements IGUITab {
     IGUIBasedTabHost root;
     IGUIComponentState state;
 
+    @Nonnull
     LinkedHashMap<String, IGUIComponent> components = new LinkedHashMap<String, IGUIComponent>();
 
     ItemStack displayStack;
@@ -90,6 +93,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return The tooltip contents.
      */
+    @Nonnull
     @Override
     public ArrayList<String> getIconToolTipText() {
         return (ArrayList<String>) Arrays.asList(new String[] {toolTipString});
@@ -133,11 +137,13 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents() {
         return components;
     }
 
+    @Nullable
     public IGUIComponent getComponentByID (String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
@@ -196,6 +202,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return The location of the top left pixel of this component
      */
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate() {
         return root.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
@@ -206,6 +213,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
      */
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate() {
         ITabManager manager = root.getTabManager();
@@ -221,6 +229,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return A Plane detailing the the position and size of this Component.
      */
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent() {
         Plane size = getSize();
@@ -233,6 +242,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return The size of this component.
      */
+    @Nonnull
     @Override
     public Plane getSize() {
         Plane area = new Plane(0, 0, 0, 0);
@@ -449,6 +459,7 @@ public abstract class CoreTab implements IGUITab {
         return false;
     }
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent() {
         return new ArrayList<String>();

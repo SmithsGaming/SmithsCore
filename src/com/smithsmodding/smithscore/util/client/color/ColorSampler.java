@@ -5,6 +5,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 
 /**
@@ -53,7 +55,8 @@ public class ColorSampler {
      * @param stack The Stack to analyze.
      * @return A color based on the Pixels in the IIcon of the ItemStack or White if the process fails.
      */
-    public static MinecraftColor getColorSampleFromItemStack(ItemStack stack) {
+    @Nonnull
+    public static MinecraftColor getColorSampleFromItemStack(@Nonnull ItemStack stack) {
         try {
             return calculateAverageMinecraftColor(Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, null, null).getParticleTexture().getFrameTextureData(0));
         } catch (Exception e) {
@@ -69,7 +72,8 @@ public class ColorSampler {
      * @param pixelData The Image to analyze
      * @return A Minecraft color that is the average RGB value of the Pixels in the Image with its Alpha value being 255
      */
-    public static MinecraftColor calculateAverageMinecraftColor(int[][] pixelData) {
+    @Nonnull
+    public static MinecraftColor calculateAverageMinecraftColor(@Nonnull int[][] pixelData) {
         long tSumR = 0, tSumG = 0, tSumB = 0;
 
         int tCountedPixels = 0;
@@ -109,7 +113,8 @@ public class ColorSampler {
      * @param pSource The Source color for the Conversion
      * @return The Converted TextFormatting
      */
-    public static TextFormatting getChatMinecraftColorSample(MinecraftColor pSource) {
+    @Nullable
+    public static TextFormatting getChatMinecraftColorSample(@Nonnull MinecraftColor pSource) {
         if (iMappedColors == null)
             initializeEnumChatFromattingMinecraftColors();
 
@@ -138,7 +143,8 @@ public class ColorSampler {
      * @param pSource The Source color for the Conversion
      * @return The Converted TextFormatting
      */
-    public static TextFormatting getSimpleChatMinecraftColor(MinecraftColor pSource) {
+    @Nonnull
+    public static TextFormatting getSimpleChatMinecraftColor(@Nonnull MinecraftColor pSource) {
         String tFormat = "\u00a7";
 
         if (pSource.getRGB() == -1) {
@@ -167,7 +173,7 @@ public class ColorSampler {
      * @param pMinecraftColor2 color 2
      * @return The Distance in Double that describes the distance between two colors.
      */
-    private static double MinecraftColorDistance(MinecraftColor pMinecraftColor1, MinecraftColor pMinecraftColor2) {
+    private static double MinecraftColorDistance(@Nonnull MinecraftColor pMinecraftColor1, @Nonnull MinecraftColor pMinecraftColor2) {
         if ((pMinecraftColor1.getRed() > pMinecraftColor1.getBlue() * 2) && (pMinecraftColor1.getRed() > pMinecraftColor1.getGreen() * 2)) {
             if ((pMinecraftColor1.getRed() > pMinecraftColor2.getRed()))
                 return pMinecraftColor1.getRed() - pMinecraftColor2.getRed();

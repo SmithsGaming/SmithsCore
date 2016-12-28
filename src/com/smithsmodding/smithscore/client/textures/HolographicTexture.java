@@ -11,6 +11,8 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
 import java.io.IOException;
@@ -23,18 +25,19 @@ public class HolographicTexture extends TextureAtlasSprite {
 
     boolean[] trans;
     boolean[] edge;
+    @Nullable
     private TextureAtlasSprite baseTexture;
     private String backupTextureLocation;
     private String extra;
 
-    public HolographicTexture (String baseTextureLocation, String spriteName) {
+    public HolographicTexture (String baseTextureLocation, @Nonnull String spriteName) {
         super(spriteName);
 
         this.baseTexture = null;
         this.backupTextureLocation = baseTextureLocation;
     }
 
-    public HolographicTexture (TextureAtlasSprite baseTexture, String spriteName) {
+    public HolographicTexture (@Nonnull TextureAtlasSprite baseTexture, @Nonnull String spriteName) {
         super(spriteName);
 
         this.baseTexture = baseTexture;
@@ -126,6 +129,7 @@ public class HolographicTexture extends TextureAtlasSprite {
         return pixel;
     }
 
+    @Nonnull
     public TextureAtlasSprite setSuffix (String suffix) {
         this.extra = suffix;
         this.baseTexture = null;
@@ -138,7 +142,7 @@ public class HolographicTexture extends TextureAtlasSprite {
     }
 
     @Override
-    public boolean load (IResourceManager manager, ResourceLocation location) {
+    public boolean load (@Nonnull IResourceManager manager, ResourceLocation location) {
         this.framesTextureData = Lists.newArrayList();
         this.frameCounter = 0;
         this.tickCounter = 0;
@@ -181,7 +185,7 @@ public class HolographicTexture extends TextureAtlasSprite {
         return false;
     }
 
-    protected void processData (int[][] data) {
+    protected void processData (@Nonnull int[][] data) {
         // preprocess
         DirectColorModel color = new DirectColorModel(32, 16711680, '\uff00', 255, -16777216);
 
@@ -242,7 +246,8 @@ public class HolographicTexture extends TextureAtlasSprite {
      *
      * @return The Sprite used as backup for the original.
      */
-    protected int[][] backupLoadTexture (ResourceLocation resourceLocation, IResourceManager resourceManager) {
+    @Nullable
+    protected int[][] backupLoadTexture (@Nonnull ResourceLocation resourceLocation, @Nonnull IResourceManager resourceManager) {
         if (resourceLocation.equals(TextureMap.LOCATION_MISSING_TEXTURE)) {
             return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite().getFrameTextureData(0);
         }
@@ -286,7 +291,8 @@ public class HolographicTexture extends TextureAtlasSprite {
      * @return A location in the root textures directory if 0 is passed in as location or: a location in the mipmaps sub
      * directory with the {mipmaplevel}.png as ending
      */
-    protected ResourceLocation completeResourceLocation (ResourceLocation location, int mipmapLevel) {
+    @Nonnull
+    protected ResourceLocation completeResourceLocation (@Nonnull ResourceLocation location, int mipmapLevel) {
         if (mipmapLevel == 0) {
             return new ResourceLocation(location.getResourceDomain(),
                     String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
@@ -313,8 +319,9 @@ public class HolographicTexture extends TextureAtlasSprite {
 
         public static final String IDENTIFIER = "holographic";
 
+        @Nonnull
         @Override
-        public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+        public TextureAtlasSprite getTexture(@Nonnull TextureAtlasSprite baseTexture, @Nonnull String location) {
             return new HolographicTexture(baseTexture, location);
         }
 
@@ -328,6 +335,7 @@ public class HolographicTexture extends TextureAtlasSprite {
             return false;
         }
 
+        @Nonnull
         @Override
         public MinecraftColor getVertexColor() {
             return new MinecraftColor(MinecraftColor.white);
@@ -338,26 +346,31 @@ public class HolographicTexture extends TextureAtlasSprite {
          *
          * @return The color for the molten metal if armories default system should be used.
          */
+        @Nonnull
         @Override
         public MinecraftColor getLiquidColor() {
             return getVertexColor();
         }
 
+        @Nonnull
         @Override
         public String getTextureSuffix() {
             return IDENTIFIER;
         }
 
+        @Nonnull
         @Override
         public ITextureController setTextureSuffix(String suffix) {
             return this;
         }
 
+        @Nonnull
         @Override
         public String getCreationIdentifier() {
             return IDENTIFIER;
         }
 
+        @Nonnull
         @Override
         public ITextureController setCreationIdentifier(String identifier) {
             return this;

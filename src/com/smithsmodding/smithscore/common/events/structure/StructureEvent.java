@@ -9,6 +9,8 @@ import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import net.minecraft.nbt.NBTTagCompound;
 
+import javax.annotation.Nonnull;
+
 /**
  * Author Orion (Created on: 25.06.2016)
  */
@@ -46,7 +48,7 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
     }
 
     @Override
-    protected void readSyncCompound(NBTTagCompound compound) {
+    protected void readSyncCompound(@Nonnull NBTTagCompound compound) {
         dimension = compound.getInteger(CoreReferences.NBT.StructureData.DIMENSION);
 
         try {
@@ -113,7 +115,7 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
         }
 
         @Override
-        protected void readSyncCompound(NBTTagCompound compound) {
+        protected void readSyncCompound(@Nonnull NBTTagCompound compound) {
             super.readSyncCompound(compound);
 
             oldMaster = Coordinate3D.fromNBT(compound.getCompoundTag(CoreReferences.NBT.StructureData.OLDMASTER));

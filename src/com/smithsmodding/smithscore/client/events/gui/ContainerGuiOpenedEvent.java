@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -28,7 +29,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
     public ContainerGuiOpenedEvent() {
     }
 
-    public ContainerGuiOpenedEvent(EntityPlayer pPlayer, ContainerSmithsCore containerSmithsCore) {
+    public ContainerGuiOpenedEvent(EntityPlayer pPlayer, @Nonnull ContainerSmithsCore containerSmithsCore) {
         this.player = pPlayer;
         this.playerID = player.getUniqueID();
         this.containerID = containerSmithsCore.getContainerID();
@@ -70,7 +71,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
-    public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
+    public void readFromMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         playerID = new UUID(pMessageBuffer.readLong(), pMessageBuffer.readLong());
         containerID = ByteBufUtils.readUTF8String(pMessageBuffer);
     }
@@ -82,7 +83,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The buffer from the IMessage
      */
     @Override
-    public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
+    public void writeToMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         pMessageBuffer.writeLong(playerID.getMostSignificantBits());
         pMessageBuffer.writeLong(playerID.getLeastSignificantBits());
         ByteBufUtils.writeUTF8String(pMessageBuffer, containerID);
@@ -100,7 +101,7 @@ public class ContainerGuiOpenedEvent extends StandardNetworkableEvent {
      *
      */
     @Override
-    public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
+    public void handleCommunicationMessage (IMessage pMessage, @Nonnull MessageContext pContext) {
         //Retrieve the player from the Context.
         if (pContext.side == Side.SERVER) {
             player = pContext.getServerHandler().playerEntity;

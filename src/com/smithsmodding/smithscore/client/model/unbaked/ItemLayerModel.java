@@ -18,6 +18,8 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector4f;
 import java.util.Arrays;
@@ -44,11 +46,11 @@ public class ItemLayerModel implements IRetexturableModel {
         this.overrides = overrides;
     }
 
-    public ItemLayerModel(ModelBlock model) {
+    public ItemLayerModel(@Nonnull ModelBlock model) {
         this(getTextures(model), model.createOverrides());
     }
 
-    private static ImmutableList<ResourceLocation> getTextures(ModelBlock model) {
+    private static ImmutableList<ResourceLocation> getTextures(@Nonnull ModelBlock model) {
         ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
         for (int i = 0; model.isTexturePresent("layer" + i); i++) {
             builder.add(new ResourceLocation(model.resolveTextureName("layer" + i)));
@@ -56,7 +58,7 @@ public class ItemLayerModel implements IRetexturableModel {
         return builder.build();
     }
 
-    public static ImmutableList<BakedQuad> getQuadsForSprite(int tint, TextureAtlasSprite sprite, VertexFormat format, Optional<TRSRTransformation> transform) {
+    public static ImmutableList<BakedQuad> getQuadsForSprite(int tint, @Nonnull TextureAtlasSprite sprite, @Nonnull VertexFormat format, @Nonnull Optional<TRSRTransformation> transform) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
         int uMax = sprite.getIconWidth();
@@ -124,7 +126,7 @@ public class ItemLayerModel implements IRetexturableModel {
         return (pixels[u + (vMax - 1 - v) * uMax] >> 24 & 0xFF) == 0;
     }
 
-    private static void addSideQuad(ImmutableList.Builder<BakedQuad> builder, BitSet faces, VertexFormat format, Optional<TRSRTransformation> transform, EnumFacing side, int tint, TextureAtlasSprite sprite, int uMax, int vMax, int u, int v) {
+    private static void addSideQuad(@Nonnull ImmutableList.Builder<BakedQuad> builder, @Nonnull BitSet faces, @Nonnull VertexFormat format, @Nonnull Optional<TRSRTransformation> transform, @Nonnull EnumFacing side, int tint, @Nonnull TextureAtlasSprite sprite, int uMax, int vMax, int u, int v) {
         int si = side.ordinal();
         if (si > 4) si -= 2;
         int index = (vMax + 1) * ((uMax + 1) * si + u) + v;
@@ -134,7 +136,7 @@ public class ItemLayerModel implements IRetexturableModel {
         }
     }
 
-    private static BakedQuad buildSideQuad(VertexFormat format, Optional<TRSRTransformation> transform, EnumFacing side, int tint, TextureAtlasSprite sprite, int u, int v) {
+    private static BakedQuad buildSideQuad(@Nonnull VertexFormat format, @Nonnull Optional<TRSRTransformation> transform, @Nonnull EnumFacing side, int tint, @Nonnull TextureAtlasSprite sprite, int u, int v) {
         final float eps0 = 30e-5f;
         final float eps1 = 45e-5f;
         final float eps2 = .5f;
@@ -211,7 +213,7 @@ public class ItemLayerModel implements IRetexturableModel {
     }
 
     private static final BakedQuad buildQuad(
-            VertexFormat format, Optional<TRSRTransformation> transform, EnumFacing side, TextureAtlasSprite sprite, int tint,
+            @Nonnull VertexFormat format, @Nonnull Optional<TRSRTransformation> transform, @Nonnull EnumFacing side, TextureAtlasSprite sprite, int tint,
             float x0, float y0, float z0, float u0, float v0,
             float x1, float y1, float z1, float u1, float v1,
             float x2, float y2, float z2, float u2, float v2,
@@ -227,7 +229,7 @@ public class ItemLayerModel implements IRetexturableModel {
         return builder.build();
     }
 
-    private static void putVertex(UnpackedBakedQuad.Builder builder, VertexFormat format, Optional<TRSRTransformation> transform, EnumFacing side, float x, float y, float z, float u, float v) {
+    private static void putVertex(@Nonnull UnpackedBakedQuad.Builder builder, @Nonnull VertexFormat format, @Nonnull Optional<TRSRTransformation> transform, @Nonnull EnumFacing side, float x, float y, float z, float u, float v) {
         Vector4f vec = new Vector4f();
         for (int e = 0; e < format.getElementCount(); e++) {
             switch (format.getElement(e).getUsage()) {
@@ -273,7 +275,8 @@ public class ItemLayerModel implements IRetexturableModel {
         return TRSRTransformation.identity();
     }
 
-    public ItemLayerModel retexture(ImmutableMap<String, String> textures) {
+    @Nonnull
+    public ItemLayerModel retexture(@Nonnull ImmutableMap<String, String> textures) {
         ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
         for (int i = 0; i < textures.size() + this.textures.size(); i++) {
             if (textures.containsKey("layer" + i)) {
@@ -285,7 +288,8 @@ public class ItemLayerModel implements IRetexturableModel {
         return new ItemLayerModel(builder.build(), overrides);
     }
 
-    public IBakedModel bake(IModelState state, final VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    @Nullable
+    public IBakedModel bake(@Nonnull IModelState state, @Nonnull final VertexFormat format, @Nonnull Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
         Optional<TRSRTransformation> transform = state.apply(Optional.absent());
         for (int i = 0; i < textures.size(); i++) {
@@ -298,14 +302,16 @@ public class ItemLayerModel implements IRetexturableModel {
     }
 
     public static class BakedItemModel implements IPerspectiveAwareModel {
+        @Nonnull
         private final ImmutableList<BakedQuad> quads;
         private final TextureAtlasSprite particle;
         private final ImmutableMap<TransformType, TRSRTransformation> transforms;
+        @Nullable
         private final IBakedModel otherModel;
         private final boolean isCulled;
         private final ItemOverrideList overrides;
 
-        public BakedItemModel(ImmutableList<BakedQuad> quads, TextureAtlasSprite particle, ImmutableMap<TransformType, TRSRTransformation> transforms, ItemOverrideList overrides, IBakedModel otherModel) {
+        public BakedItemModel(@Nonnull ImmutableList<BakedQuad> quads, TextureAtlasSprite particle, ImmutableMap<TransformType, TRSRTransformation> transforms, ItemOverrideList overrides, @Nullable IBakedModel otherModel) {
             this.quads = quads;
             this.particle = particle;
             this.transforms = transforms;
@@ -349,11 +355,12 @@ public class ItemLayerModel implements IRetexturableModel {
             return overrides;
         }
 
-        public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+        public List<BakedQuad> getQuads(IBlockState state, @Nullable EnumFacing side, long rand) {
             if (side == null) return quads;
             return ImmutableList.of();
         }
 
+        @Nonnull
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType type) {
             Pair<? extends IBakedModel, Matrix4f> pair = IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, type);
             if (type == TransformType.GUI && !isCulled && pair.getRight() == null) {

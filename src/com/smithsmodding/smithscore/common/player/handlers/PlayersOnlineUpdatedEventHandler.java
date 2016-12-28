@@ -13,6 +13,8 @@ import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
+
 public class PlayersOnlineUpdatedEventHandler {
 
     //Automatically Registers this to the NetworkEventBus when the system is running on the client Side
@@ -28,7 +30,7 @@ public class PlayersOnlineUpdatedEventHandler {
      * @param event The event indicating that the amount of online Players updated.
      */
     @SubscribeEvent
-    public void onPlayersOnlineUpdated(PlayersOnlineUpdatedEvent event) {
+    public void onPlayersOnlineUpdated(@Nonnull PlayersOnlineUpdatedEvent event) {
         PlayerManager.getInstance().setCommonSidedOnlineMap(event.getCommonSidedOnlineMap());
     }
 

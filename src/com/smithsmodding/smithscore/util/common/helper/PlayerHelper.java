@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 /**
@@ -23,7 +24,7 @@ public class PlayerHelper {
      * @param pID The ID to search for.
      * @return A Instance of EntityPlayer with that UniqueID or null if none matches.
      */
-    public EntityPlayer getPlayerFromID(UUID pID) {
+    public EntityPlayer getPlayerFromID(@Nonnull UUID pID) {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
             if (PlayerManager.getInstance().getServerSidedJoinedMap().containsKey(pID)) {
                 return PlayerManager.getInstance().getServerSidedJoinedMap().get(pID);

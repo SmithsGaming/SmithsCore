@@ -10,6 +10,8 @@ import com.smithsmodding.smithscore.common.player.event.*;
 import com.smithsmodding.smithscore.common.player.management.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
+import javax.annotation.Nonnull;
+
 public class PlayersConnectedUpdatedEventHandler {
 
     /**
@@ -18,7 +20,7 @@ public class PlayersConnectedUpdatedEventHandler {
      * @param event The Event indicating that the ConnectedPlayers updated.
      */
     @SubscribeEvent
-    public void onPlayersConnectedUpdated(PlayersConnectedUpdatedEvent event) {
+    public void onPlayersConnectedUpdated(@Nonnull PlayersConnectedUpdatedEvent event) {
         PlayerManager.getInstance().setCommonSidedJoinedMap(event.getCommonSidedJoinedMap());
     }
 }

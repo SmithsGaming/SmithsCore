@@ -5,6 +5,7 @@ import com.smithsmodding.smithscore.client.gui.management.*;
 import com.smithsmodding.smithscore.util.client.color.*;
 import net.minecraft.item.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -46,6 +47,7 @@ public interface IGUITab extends IGUIBasedComponentHost
      *
      * @return The tooltip contents
      */
+    @Nonnull
     ArrayList<String> getIconToolTipText();
 
 }

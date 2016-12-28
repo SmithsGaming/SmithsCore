@@ -4,6 +4,8 @@ import com.smithsmodding.smithscore.client.gui.*;
 import com.smithsmodding.smithscore.client.gui.legders.core.*;
 import com.smithsmodding.smithscore.client.gui.management.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by marcf on 12/28/2015.
  */
@@ -27,6 +29,7 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost {
      *
      * @return The LedgerManager of this host.
      */
+    @Nonnull
     ILedgerManager getLedgerManager ();
 
     /**
@@ -34,6 +37,7 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost {
      *
      * @return The gui that this component is part of.
      */
+    @Nonnull
     GuiContainerSmithsCore getRootGuiObject ();
 
     /**

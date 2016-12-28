@@ -14,6 +14,8 @@ package com.smithsmodding.smithscore.util.client;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.*;
 
+import javax.annotation.Nonnull;
+
 public class StringUtils {
 
     /**
@@ -23,7 +25,7 @@ public class StringUtils {
      * @param pCurrentFont The fontrenderer used to calculate the width of each string.
      * @return A int telling you the minimal width in pixels needed to render all the strings properly
      */
-    public static int GetMininumWidth(String[] pStrings, FontRenderer pCurrentFont) {
+    public static int GetMininumWidth(@Nonnull String[] pStrings, @Nonnull FontRenderer pCurrentFont) {
         int tCurrentMaximum = 0;
 
         for (int tRule = 0; tRule < pStrings.length; tRule++) {
@@ -46,7 +48,8 @@ public class StringUtils {
      *
      * TODO: Update to use custom fontrenderer.
      */
-    public static String[] SplitString(String pToSplit, int pMaxWidth) {
+    @Nonnull
+    public static String[] SplitString(@Nonnull String pToSplit, int pMaxWidth) {
         return (String[]) Minecraft.getMinecraft().fontRendererObj.listFormattedStringToWidth(pToSplit, pMaxWidth).toArray();
     }
 }

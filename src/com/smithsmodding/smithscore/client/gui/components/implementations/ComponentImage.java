@@ -8,6 +8,8 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 09.01.2016.
  */
@@ -15,7 +17,7 @@ public class ComponentImage extends CoreComponent {
 
     private CustomResource image;
 
-    public ComponentImage (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost root, Coordinate2D rootAnchorPixel, CustomResource image) {
+    public ComponentImage (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost root, Coordinate2D rootAnchorPixel, @Nonnull CustomResource image) {
         super(uniqueID, root, state, rootAnchorPixel, image.getWidth(), image.getHeight());
 
         this.image = image;

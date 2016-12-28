@@ -1,5 +1,6 @@
 package com.smithsmodding.smithscore.common.tileentity;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -8,6 +9,7 @@ import java.util.UUID;
  */
 public interface IWatchableTileEntity {
     //TODO: FIX ME!
+    @Nonnull
     Collection<UUID> getWatchingPlayers();
 
     //TODO: FIX ME!

@@ -6,11 +6,13 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Author Orion (Created on: 20.06.2016)
  */
 public class ItemStorageItemHandler implements IItemHandlerModifiable {
+    @Nonnull
     private final IItemStorage inv;
 
     public ItemStorageItemHandler(@Nonnull IItemStorage inv) {
@@ -18,7 +20,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
@@ -40,6 +42,7 @@ public class ItemStorageItemHandler implements IItemHandlerModifiable {
         return getInv().getSizeInventory();
     }
 
+    @Nonnull
     @Override
     public ItemStack getStackInSlot(int slot) {
         return getInv().getStackInSlot(slot);

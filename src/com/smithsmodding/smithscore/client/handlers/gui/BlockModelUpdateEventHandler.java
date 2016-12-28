@@ -7,13 +7,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 30.12.2015.
  */
 public class BlockModelUpdateEventHandler {
 
     @SubscribeEvent
-    public void handleUpdataEvent (BlockModelUpdateEvent event) {
+    public void handleUpdataEvent (@Nonnull BlockModelUpdateEvent event) {
         TileEntity entity = FMLClientHandler.instance().getClientPlayerEntity().world.getTileEntity(event.getBlockPosition().toBlockPos());
 
         if (!( entity instanceof IBlockModelUpdatingTileEntity ))

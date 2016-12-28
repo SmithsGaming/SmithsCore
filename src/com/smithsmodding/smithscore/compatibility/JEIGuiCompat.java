@@ -56,6 +56,7 @@ public class JEIGuiCompat implements IModPlugin {
         });
     }
 
+    @Nonnull
     public HashMap<String, Rectangle> getComponentAreas(IGUIBasedComponentHost host) {
         LinkedHashMap<String, Rectangle> components = new LinkedHashMap<>();
 

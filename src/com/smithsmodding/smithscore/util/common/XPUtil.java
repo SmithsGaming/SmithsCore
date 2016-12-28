@@ -8,6 +8,8 @@ package com.smithsmodding.smithscore.util.common;
 
 import net.minecraft.entity.player.*;
 
+import javax.annotation.Nonnull;
+
 public class XPUtil {
 
     //CREDITS: crazypants and the EnderIO Team: https://raw.githubusercontent.com/SleepyTrousers/EnderIO/master/src/main/java/crazypants/enderio/xp/XpUtil.java
@@ -55,11 +57,11 @@ public class XPUtil {
         return i - 1;
     }
 
-    public static int getPlayerXP(EntityPlayer pPlayer) {
+    public static int getPlayerXP(@Nonnull EntityPlayer pPlayer) {
         return (int) (getExperienceForLevel(pPlayer.experienceLevel) + (pPlayer.experience * pPlayer.xpBarCap()));
     }
 
-    public static void addPlayerXP(EntityPlayer pPlayer, int pDelta) {
+    public static void addPlayerXP(@Nonnull EntityPlayer pPlayer, int pDelta) {
         int experience = getPlayerXP(pPlayer) + pDelta;
         pPlayer.experienceTotal = experience;
         pPlayer.experienceLevel = getLevelForExperience(experience);

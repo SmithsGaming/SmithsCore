@@ -14,6 +14,7 @@ package com.smithsmodding.smithscore.util.client;
 import com.smithsmodding.smithscore.util.client.color.*;
 import net.minecraft.client.renderer.texture.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -24,6 +25,7 @@ import java.util.*;
 public class CustomResource {
     private String iInternalName;
 
+    @Nonnull
     private ArrayList<String> iRescourceLocations = new ArrayList<String>();
     private TextureAtlasSprite iIcon;
     private MinecraftColor iColor;

@@ -11,6 +11,8 @@ import com.smithsmodding.smithscore.client.textures.TextureCreator;
 import com.smithsmodding.smithscore.common.registry.CommonRegistry;
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 
+import javax.annotation.Nonnull;
+
 /**
  * Used as the Central point of Data on the client Side.
  *
@@ -36,16 +38,19 @@ public class ClientRegistry extends CommonRegistry {
      *
      * @return An EventBus that is used to handle client specific events.
      */
+    @Nonnull
     @Override
     public EventBus getClientBus() {
         return clientEventBus;
     }
 
+    @Nonnull
     public MouseManager getMouseManager()
     {
         return mouseManager;
     }
 
+    @Nonnull
     public TextureCreator getTextureCreator() {
         return textureCreator;
     }

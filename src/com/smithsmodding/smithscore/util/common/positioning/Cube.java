@@ -8,6 +8,8 @@ package com.smithsmodding.smithscore.util.common.positioning;
 
 import net.minecraft.util.math.AxisAlignedBB;
 
+import javax.annotation.Nonnull;
+
 public class Cube {
 
     private float width;
@@ -50,6 +52,7 @@ public class Cube {
     }
 
 
+    @Nonnull
     public Cube Move(int deltaX, int deltaY, int deltyZ) {
         this.tlfCoord.xCoord += deltaX;
         this.tlfCoord.yCoord += deltaY;
@@ -62,15 +65,18 @@ public class Cube {
         return this;
     }
 
-    public Cube IncludeCoordinate(Cube cube) {
+    @Nonnull
+    public Cube IncludeCoordinate(@Nonnull Cube cube) {
         this.IncludeCoordinate(cube.getTopLeftFrontCoord());
         return this.IncludeCoordinate(cube.getLowerRightBackCoord());
     }
 
-    public Cube IncludeCoordinate(Coordinate3D coordinate) {
+    @Nonnull
+    public Cube IncludeCoordinate(@Nonnull Coordinate3D coordinate) {
         return this.IncludeCoordinate(coordinate.getXComponent(), coordinate.getYComponent(), coordinate.getZComponent());
     }
 
+    @Nonnull
     public Cube IncludeCoordinate(float x, float y, float z) {
         if (x < this.tlfCoord.getXComponent()) {
             this.ExpandToCoordinate(-1 * Math.abs(x - tlfCoord.getXComponent()), 0, 0);
@@ -99,6 +105,7 @@ public class Cube {
         return this;
     }
 
+    @Nonnull
     public Cube ExpandToCoordinate(float deltaX, float deltaY, float deltaZ) {
         if (deltaX < 0) {
             tlfCoord = new Coordinate3D(tlfCoord.getXComponent() + deltaX, tlfCoord.getYComponent(), tlfCoord.getZComponent());
@@ -130,7 +137,7 @@ public class Cube {
         return this;
     }
 
-    public boolean ContainsCoordinate(Coordinate3D coord) {
+    public boolean ContainsCoordinate(@Nonnull Coordinate3D coord) {
         if (coord.getYComponent() != tlfCoord.getYComponent())
             return false;
 
@@ -141,10 +148,11 @@ public class Cube {
         return this.getTopLeftFrontCoord().getXComponent() <= x && x <= this.getLowerRightBackCoord().getXComponent() && this.getLowerRightBackCoord().getYComponent() <= y && y <= this.getTopLeftFrontCoord().getYComponent() && this.getTopLeftFrontCoord().getZComponent() <= z && z < this.getLowerRightBackCoord().getZComponent();
     }
 
-    public boolean Intersects(Cube cube) {
+    public boolean Intersects(@Nonnull Cube cube) {
         return cube.getTopLeftFrontCoord().getXComponent() + cube.width > this.getTopLeftFrontCoord().getXComponent() && cube.getTopLeftFrontCoord().getXComponent() < this.getTopLeftFrontCoord().getXComponent() + this.width && cube.getTopLeftFrontCoord().getYComponent() + cube.height > this.getTopLeftFrontCoord().getYComponent() && cube.getTopLeftFrontCoord().getYComponent() < this.getTopLeftFrontCoord().getYComponent() + this.height && cube.getTopLeftFrontCoord().getZComponent() + cube.depth > this.getTopLeftFrontCoord().getZComponent() && cube.getTopLeftFrontCoord().getZComponent() < this.getTopLeftFrontCoord().getZComponent() + this.depth;
     }
 
+    @Nonnull
     public AxisAlignedBB BoundingBox () {
         int tDiffX = 1;
         int tDiffY = 1;

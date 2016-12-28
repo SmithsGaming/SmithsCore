@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,6 +37,7 @@ public final class StructureRegistry {
     private StructureRegistry() {
     }
 
+    @Nonnull
     public static StructureRegistry getInstance() {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
             return clientInstance;
@@ -43,15 +45,17 @@ public final class StructureRegistry {
         return serverInstance;
     }
 
+    @Nonnull
     public static StructureRegistry getClientInstance() {
         return clientInstance;
     }
 
+    @Nonnull
     public static StructureRegistry getServerInstance() {
         return serverInstance;
     }
 
-    public void registerStructureFactory(IStructureFactory factory) {
+    public void registerStructureFactory(@Nonnull IStructureFactory factory) {
         factories.put(factory.getStructureType(), factory);
     }
 
@@ -59,7 +63,7 @@ public final class StructureRegistry {
         return factories.get(clazz);
     }
 
-    public IStructureFactory getFactory(IStructure structure) {
+    public IStructureFactory getFactory(@Nonnull IStructure structure) {
         return getFactory(structure.getClass());
     }
 
@@ -72,7 +76,7 @@ public final class StructureRegistry {
         }
     }
 
-    public void onStructurePartPlaced(IStructurePart part) {
+    public void onStructurePartPlaced(@Nonnull IStructurePart part) {
         IStructureFactory factory = getFactory(part.getStructureType());
         IStructure newInitialStructure = factory.generateNewStructure(part);
 
@@ -83,7 +87,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onWorldLoad(WorldEvent.Load event) {
+    public void onWorldLoad(@Nonnull WorldEvent.Load event) {
         int dimensionId = event.getWorld().provider.getDimension();
         File dimensionFile = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "armory/structures/dim_" + dimensionId + ".dat");
 
@@ -125,7 +129,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onWorldSave(WorldEvent.Save event) {
+    public void onWorldSave(@Nonnull WorldEvent.Save event) {
         int dimensionId = event.getWorld().provider.getDimension();
         File dimensionFile = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "armory/structures/dim_" + dimensionId + ".dat");
 
@@ -167,7 +171,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerJoinServer(@Nonnull PlayerEvent.PlayerLoggedInEvent event) {
         for (Map.Entry<Integer, LinkedHashMap<Coordinate3D, IStructure>> dimensionEntry : structures.entrySet()) {
             for (IStructure structure : dimensionEntry.getValue().values()) {
                 new StructureEvent.Create(structure, dimensionEntry.getKey()).handleServerToClient((EntityPlayerMP) event.player);
@@ -176,7 +180,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onStructureCreation(StructureEvent.Create event) {
+    public void onStructureCreation(@Nonnull StructureEvent.Create event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 structures.put(event.getDimension(), new LinkedHashMap<>());
@@ -186,7 +190,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onStructureDestruction(StructureEvent.Destroyed event) {
+    public void onStructureDestruction(@Nonnull StructureEvent.Destroyed event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 return;
@@ -202,7 +206,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onStructureMasterUpdated(StructureEvent.MasterBlockChanged event) {
+    public void onStructureMasterUpdated(@Nonnull StructureEvent.MasterBlockChanged event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 return;
@@ -217,7 +221,7 @@ public final class StructureRegistry {
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void onStructureUpdated(StructureEvent.Updated event) {
+    public void onStructureUpdated(@Nonnull StructureEvent.Updated event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 return;

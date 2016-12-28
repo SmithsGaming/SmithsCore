@@ -32,6 +32,9 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G>, IWorldNameable {
 
     ItemStorageItemHandler invWrapper;
@@ -103,6 +106,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         loadingFromNBT = false;
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
@@ -146,6 +150,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         SmithsCore.getRegistry().getCommonBus().post(new TileEntityDataUpdatedEvent(this));
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound getUpdateTag() {
         NBTTagCompound data = new NBTTagCompound();
@@ -164,10 +169,12 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @return A Coordinate3D equivalent of the BlockPos of this TE.
      */
+    @Nonnull
     public Coordinate3D getLocation() {
         return new Coordinate3D(this.pos);
     }
 
+    @Nonnull
     protected abstract G getInitialGuiManager();
 
     @Override
@@ -180,6 +187,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         this.manager = newManager;
     }
 
+    @Nonnull
     protected abstract S getInitialState();
 
     /**
@@ -196,7 +204,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @param state The new state.
      */
-    public void setState(S state) {
+    public void setState(@Nonnull S state) {
         this.state = state;
         state.onStateCreated(this);
     }
@@ -207,6 +215,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @return A NBTTagList with all stacks in the inventory.
      */
+    @Nonnull
     protected NBTBase writeInventoryToCompound () {
         IItemStorage inventory = (IItemStorage) this;
         NBTTagList inventoryList = new NBTTagList();
@@ -233,7 +242,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the Slots in this
      *                          inventory.
      */
-    protected void readInventoryFromCompound (NBTBase inventoryCompound) {
+    protected void readInventoryFromCompound (@Nullable NBTBase inventoryCompound) {
         if (inventoryCompound == null)
             return;
 
@@ -260,6 +269,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @return A NBTTagList with all fluids in the Tile.
      */
+    @Nonnull
     protected NBTBase writeFluidsToCompound () {
         IFluidContainingEntity fluidContainingEntity = (IFluidContainingEntity) this;
 
@@ -336,7 +346,8 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @return A NBTTagCompound containing all the data required for the synchronization of this TE.
      */
-    public NBTTagCompound writeToSynchronizationCompound (NBTTagCompound synchronizationCompound) {
+    @Nonnull
+    public NBTTagCompound writeToSynchronizationCompound (@Nonnull NBTTagCompound synchronizationCompound) {
         return this.writeToNBT(synchronizationCompound);
     }
 
@@ -345,7 +356,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @param synchronizationCompound The NBTTagCompound to read your data from.
      */
-    public void readFromSynchronizationCompound (NBTTagCompound synchronizationCompound) {
+    public void readFromSynchronizationCompound (@Nonnull NBTTagCompound synchronizationCompound) {
         this.readFromNBT(synchronizationCompound);
     }
 

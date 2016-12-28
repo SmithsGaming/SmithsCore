@@ -2,6 +2,7 @@ package com.smithsmodding.smithscore.client.model.data;
 
 import com.google.common.collect.ImmutableMap;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -15,7 +16,7 @@ public class SmithsCoreOBJCustomData {
     //public boolean modifyUVs = false;
     public boolean flipV = false;
 
-    public SmithsCoreOBJCustomData(SmithsCoreOBJCustomData parent, ImmutableMap<String, String> customData) {
+    public SmithsCoreOBJCustomData(@Nonnull SmithsCoreOBJCustomData parent, @Nonnull ImmutableMap<String, String> customData) {
         this.ambientOcclusion = parent.ambientOcclusion;
         this.gui3d = parent.gui3d;
         this.flipV = parent.flipV;
@@ -25,7 +26,7 @@ public class SmithsCoreOBJCustomData {
     public SmithsCoreOBJCustomData() {
     }
 
-    public void process(ImmutableMap<String, String> customData) {
+    public void process(@Nonnull ImmutableMap<String, String> customData) {
         for (Map.Entry<String, String> e : customData.entrySet()) {
             if (e.getKey().equals("ambient"))
                 this.ambientOcclusion = Boolean.valueOf(e.getValue());

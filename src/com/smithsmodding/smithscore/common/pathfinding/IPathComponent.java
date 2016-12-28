@@ -8,10 +8,13 @@ package com.smithsmodding.smithscore.common.pathfinding;
 
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 public interface IPathComponent {
+    @Nonnull
     Coordinate3D getLocation ();
 
+    @Nonnull
     ArrayList<IPathComponent> getValidPathableNeighborComponents ();
 }

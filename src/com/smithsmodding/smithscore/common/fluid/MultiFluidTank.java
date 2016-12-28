@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,18 +79,20 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
         return capacity;
     }
 
+    @Nullable
     @Override
     public FluidTankInfo getInfo() {
         return null;
     }
 
+    @Nonnull
     @Override
     public IFluidTankProperties[] getTankProperties() {
         return new IFluidTankProperties[0];
     }
 
     @Override
-    public int fill(FluidStack resource, boolean doFill) {
+    public int fill(@Nonnull FluidStack resource, boolean doFill) {
         int usage = Math.min(getCapacity() - getFluidAmount(), resource.amount);
 
         if (!doFill)
@@ -110,7 +113,7 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
 
     @Nullable
     @Override
-    public FluidStack drain(FluidStack resource, boolean doDrain) {
+    public FluidStack drain(@Nonnull FluidStack resource, boolean doDrain) {
         Iterator<FluidStack> iterator = fluidStacks.iterator();
         while (iterator.hasNext()) {
             FluidStack stack = iterator.next();
@@ -150,6 +153,7 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
         return usedStack;
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound serializeNBT() {
         NBTTagCompound compound = new NBTTagCompound();
@@ -164,7 +168,7 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
+    public void deserializeNBT(@Nonnull NBTTagCompound nbt) {
         fluidStacks = new ArrayList<>();
 
         NBTTagList contents = nbt.getTagList(CoreReferences.NBT.MultiFluidTank.CONTENTS, Constants.NBT.TAG_COMPOUND);

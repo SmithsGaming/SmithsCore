@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Type;
 
 /**
@@ -17,8 +18,9 @@ public class ItemCameraTransformsDeserializer implements JsonDeserializer<ItemCa
 
     public static final ItemCameraTransformsDeserializer INSTANCE = new ItemCameraTransformsDeserializer();
 
+    @Nonnull
     @Override
-    public ItemCameraTransforms deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_)
+    public ItemCameraTransforms deserialize(@Nonnull JsonElement p_deserialize_1_, Type p_deserialize_2_, @Nonnull JsonDeserializationContext p_deserialize_3_)
             throws
             JsonParseException {
         JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();
@@ -43,7 +45,8 @@ public class ItemCameraTransformsDeserializer implements JsonDeserializer<ItemCa
         return new ItemCameraTransforms(itemtransformvec3f1, itemtransformvec3f, itemtransformvec3f3, itemtransformvec3f2, itemtransformvec3f4, itemtransformvec3f5, itemtransformvec3f6, itemtransformvec3f7);
     }
 
-    private ItemTransformVec3f func_181683_a(JsonDeserializationContext p_181683_1_, JsonObject p_181683_2_, String p_181683_3_) {
+    @Nonnull
+    private ItemTransformVec3f func_181683_a(@Nonnull JsonDeserializationContext p_181683_1_, @Nonnull JsonObject p_181683_2_, String p_181683_3_) {
         return p_181683_2_.has(p_181683_3_) ? (ItemTransformVec3f) p_181683_1_.deserialize(p_181683_2_.get(p_181683_3_), ItemTransformVec3f.class) : ItemTransformVec3f.DEFAULT;
     }
 }

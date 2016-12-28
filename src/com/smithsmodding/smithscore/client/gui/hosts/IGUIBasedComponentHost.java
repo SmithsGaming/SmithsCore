@@ -6,6 +6,8 @@ import com.smithsmodding.smithscore.client.gui.management.IGUIManagerProvider;
 import com.smithsmodding.smithscore.client.gui.management.IRenderManager;
 import net.minecraft.client.gui.FontRenderer;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -49,6 +51,7 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
+    @Nonnull
     LinkedHashMap<String, IGUIComponent> getAllComponents ();
 
     /**
@@ -58,6 +61,7 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return A IGUIComponent with then given ID or null if no child components exists with that ID.
      */
+    @Nullable
     IGUIComponent getComponentByID (String uniqueUIID);
 
     /**

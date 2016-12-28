@@ -10,6 +10,8 @@ import com.smithsmodding.smithscore.common.events.network.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Eventhandler used to catch Networkable events on the Server Side.
  */
@@ -21,7 +23,7 @@ public class CommonNetworkableEventHandler {
      * @param pEvent The event that should be Synchronized
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onEvent(NetworkableEvent pEvent) {
+    public void onEvent(@Nonnull NetworkableEvent pEvent) {
         if (pEvent.getCommunicationMessage(Side.CLIENT) == null)
             return;
 

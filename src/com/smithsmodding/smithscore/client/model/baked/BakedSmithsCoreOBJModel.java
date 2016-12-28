@@ -29,6 +29,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -45,6 +47,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
     private ImmutableList<BakedQuad> quads;
     private ImmutableMap<String, TextureAtlasSprite> textures;
     private final LoadingCache<IModelState, BakedSmithsCoreOBJModel> cache = CacheBuilder.newBuilder().maximumSize(20).build(new CacheLoader<IModelState, BakedSmithsCoreOBJModel>() {
+        @Nonnull
         public BakedSmithsCoreOBJModel load(IModelState state) throws Exception {
             return new BakedSmithsCoreOBJModel(model, state, format, textures);
         }
@@ -63,7 +66,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
     }
 
     @Override
-    public List<BakedQuad> getQuads(IBlockState blockState, EnumFacing side, long rand) {
+    public List<BakedQuad> getQuads(IBlockState blockState, @Nullable EnumFacing side, long rand) {
         if (side != null) return ImmutableList.of();
         if (quads == null) {
             quads = buildQuads(this.state);
@@ -81,7 +84,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         return quads;
     }
 
-    private ImmutableList<BakedQuad> buildQuads(IModelState modelState) {
+    private ImmutableList<BakedQuad> buildQuads(@Nonnull IModelState modelState) {
         List<BakedQuad> quads = Lists.newArrayList();
         Collections.synchronizedSet(new LinkedHashSet<BakedQuad>());
         Set<SmithsCoreOBJFace> faces = Collections.synchronizedSet(new LinkedHashSet<SmithsCoreOBJFace>());
@@ -97,7 +100,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
             if (modelState instanceof SmithsCoreOBJState) {
                 SmithsCoreOBJState state = (SmithsCoreOBJState) modelState;
                 if (state.getParent() != null) {
-                    transform = state.getParent().apply(Optional.<IModelPart>absent());
+                    transform = state.getParent().apply(Optional.absent());
                 }
                 //TODO: can this be replaced by updateStateVisibilityMap(OBJState)?
                 if (state.getGroupNamesFromMap().contains(SmithsCoreOBJGroup.ALL)) {
@@ -120,7 +123,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
                     faces.addAll(g.applyTransform(transform));
                 }
             } else {
-                transform = modelState.apply(Optional.<IModelPart>absent());
+                transform = modelState.apply(Optional.absent());
                 faces.addAll(g.applyTransform(transform));
             }
         }
@@ -147,7 +150,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         return ImmutableList.copyOf(quads);
     }
 
-    private final void putVertexData(UnpackedBakedQuad.Builder builder, SmithsCoreOBJVertex v, SmithsCoreOBJNormal faceNormal, SmithsCoreOBJTextureCoordinate defUV, TextureAtlasSprite sprite) {
+    private final void putVertexData(@Nonnull UnpackedBakedQuad.Builder builder, @Nonnull SmithsCoreOBJVertex v, @Nonnull SmithsCoreOBJNormal faceNormal, @Nonnull SmithsCoreOBJTextureCoordinate defUV, @Nonnull TextureAtlasSprite sprite) {
         for (int e = 0; e < format.getElementCount(); e++) {
             switch (format.getElement(e).getUsage()) {
                 case POSITION:
@@ -189,12 +192,12 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
 
     @Override
     public boolean isAmbientOcclusion() {
-        return model != null ? model.getCustomData().ambientOcclusion : true;
+        return model == null || model.getCustomData().ambientOcclusion;
     }
 
     @Override
     public boolean isGui3d() {
-        return model != null ? model.getCustomData().gui3d : true;
+        return model == null || model.getCustomData().gui3d;
     }
 
     @Override
@@ -235,7 +238,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         return ItemCameraTransforms.DEFAULT;
     }
 
-    private void updateStateVisibilityMap(SmithsCoreOBJState state) {
+    private void updateStateVisibilityMap(@Nonnull SmithsCoreOBJState state) {
         if (state.getVisibilityMap().containsKey(SmithsCoreOBJGroup.ALL)) {
             boolean operation = state.getVisibilityMap().get(SmithsCoreOBJGroup.ALL);
             state.getVisibilityMap().clear();
@@ -255,7 +258,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         }
     }
 
-    public BakedSmithsCoreOBJModel getCachedModel(IModelState state) {
+    public BakedSmithsCoreOBJModel getCachedModel(@Nonnull IModelState state) {
         return cache.getUnchecked(state);
     }
 
@@ -267,15 +270,18 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         return this.state;
     }
 
+    @Nonnull
     public BakedSmithsCoreOBJModel getBakedModel() {
         return new BakedSmithsCoreOBJModel(this.model, this.state, this.format, this.textures);
     }
 
+    @Nonnull
     @Override
-    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
         return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, state, cameraTransformType);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return this.model.getModelLocation().toString();

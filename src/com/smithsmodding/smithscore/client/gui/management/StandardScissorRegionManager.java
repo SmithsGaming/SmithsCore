@@ -4,6 +4,7 @@ import com.smithsmodding.smithscore.*;
 import com.smithsmodding.smithscore.util.client.gui.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -11,10 +12,11 @@ import java.util.*;
  */
 public class StandardScissorRegionManager implements IScissorRegionManager {
 
+    @Nonnull
     private ArrayList<Plane> scissorRegionStack = new ArrayList<Plane>();
 
     @Override
-    public boolean setScissorRegionTo (Plane scissorRegion) {
+    public boolean setScissorRegionTo (@Nonnull Plane scissorRegion) {
         if (scissorRegionStack.size() == 0)
         {
             GuiHelper.enableScissor(scissorRegion);

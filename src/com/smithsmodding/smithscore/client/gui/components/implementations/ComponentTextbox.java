@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
 
     protected CustomResource secondaryBackground;
 
-    public ComponentTextbox(String uniqueID, TextboxComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height) {
+    public ComponentTextbox(String uniqueID, @Nonnull TextboxComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height) {
         super(state.getId(), state.getFontRendererInstance(), 0, 0, width, height);
         this.uniqueID = uniqueID;
         this.state = state;
@@ -56,6 +57,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
         return parent;
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate() {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
@@ -66,11 +68,13 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
         return rootAnchorPixel;
     }
 
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent() {
         return new Plane(getGlobalCoordinate(), width, height);
     }
 
+    @Nonnull
     @Override
     public Plane getSize() {
         return new Plane(0, 0, width, height);
@@ -134,6 +138,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
         return result;
     }
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent() {
         return new ArrayList<>();

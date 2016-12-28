@@ -9,6 +9,9 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Created by Marc on 18.12.2015.
  */
@@ -19,7 +22,7 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
     public TileEntityDataUpdatedEvent () {
     }
 
-    public TileEntityDataUpdatedEvent (TileEntitySmithsCore tileEntitySmithsCore) {
+    public TileEntityDataUpdatedEvent (@Nonnull TileEntitySmithsCore tileEntitySmithsCore) {
         this.dataCompound = tileEntitySmithsCore.writeToSynchronizationCompound(new NBTTagCompound());
         this.targetPoint = new NetworkRegistry.TargetPoint(tileEntitySmithsCore.getWorld().provider.getDimension(), tileEntitySmithsCore.getPos().getX(), tileEntitySmithsCore.getPos().getY(), tileEntitySmithsCore.getPos().getZ(), 128);
     }
@@ -38,6 +41,7 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
         return dataCompound;
     }
 
+    @Nullable
     @Override
     public IMessage getCommunicationMessage(Side side) {
         if (side == Side.SERVER)

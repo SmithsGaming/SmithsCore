@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 /**
@@ -12,10 +13,11 @@ import java.util.Map;
  */
 public class MultiComponentModelDefinition {
 
+    @Nonnull
     final Map<String, ResourceLocation> textureLocations;
     final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
-    public MultiComponentModelDefinition(Map<String, ResourceLocation> textureLocations, Map<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+    public MultiComponentModelDefinition(@Nonnull Map<String, ResourceLocation> textureLocations, @Nonnull Map<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
         this.textureLocations = textureLocations;
         this.transforms = ImmutableMap.copyOf(transforms);
 

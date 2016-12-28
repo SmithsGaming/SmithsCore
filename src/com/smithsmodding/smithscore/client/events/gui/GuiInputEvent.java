@@ -5,6 +5,8 @@ import io.netty.buffer.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.network.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 26.01.2016.
  */
@@ -43,7 +45,7 @@ public class GuiInputEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
-    public void readFromMessageBuffer (ByteBuf pMessageBuffer) {
+    public void readFromMessageBuffer (@Nonnull ByteBuf pMessageBuffer) {
         type = InputTypes.values()[pMessageBuffer.readInt()];
         componentID = ByteBufUtils.readUTF8String(pMessageBuffer);
         input = ByteBufUtils.readUTF8String(pMessageBuffer);
@@ -56,7 +58,7 @@ public class GuiInputEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The buffer from the IMessage
      */
     @Override
-    public void writeToMessageBuffer (ByteBuf pMessageBuffer) {
+    public void writeToMessageBuffer (@Nonnull ByteBuf pMessageBuffer) {
         pMessageBuffer.writeInt(type.ordinal());
         ByteBufUtils.writeUTF8String(pMessageBuffer, componentID);
         ByteBufUtils.writeUTF8String(pMessageBuffer, input);

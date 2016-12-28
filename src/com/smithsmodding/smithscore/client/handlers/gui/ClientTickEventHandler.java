@@ -5,6 +5,8 @@ import com.smithsmodding.smithscore.client.registry.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.gameevent.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by marcf on 12/28/2015.
  */
@@ -18,7 +20,7 @@ public class ClientTickEventHandler
      * @param event The RenderTickEvent fired by MinecraftForge.
      */
     @SubscribeEvent
-    public void handleEvent(TickEvent.RenderTickEvent event)
+    public void handleEvent(@Nonnull TickEvent.RenderTickEvent event)
     {
         ((ClientRegistry) SmithsCore.getRegistry()).setPartialTickTime(event.renderTickTime);
     }

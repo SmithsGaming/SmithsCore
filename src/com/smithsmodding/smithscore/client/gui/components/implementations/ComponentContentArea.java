@@ -10,6 +10,8 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.gui.FontRenderer;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
 public class ComponentContentArea extends CoreComponent implements IGUIBasedComponentHost {
 
     private IContentAreaHost contentHost;
+    @Nonnull
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
 
     public ComponentContentArea (String uniqueID, IContentAreaHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
@@ -27,6 +30,7 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
         this.contentHost = (IContentAreaHost) this.parent;
     }
 
+    @Nonnull
     @Override
     public Plane getSize () {
         Plane area = new Plane(0, 0, 0, 0);
@@ -69,7 +73,7 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
      * @param component The new component.
      */
     @Override
-    public void registerNewComponent (IGUIComponent component) {
+    public void registerNewComponent (@Nonnull IGUIComponent component) {
         componentHashMap.put(component.getID(), component);
     }
 
@@ -98,6 +102,7 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
      *
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
@@ -110,6 +115,7 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
      *
      * @return A IGUIComponent with then given ID or null if no child components exists with that ID.
      */
+    @Nullable
     @Override
     public IGUIComponent getComponentByID (String uniqueUIID) {
         if (getID().equals(uniqueUIID))

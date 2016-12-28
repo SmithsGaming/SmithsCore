@@ -12,6 +12,7 @@ import com.smithsmodding.smithscore.util.common.helper.NetworkHelper;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -21,7 +22,7 @@ public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
 
     public PlayersConnectedUpdatedEvent () {}
 
-    public PlayersConnectedUpdatedEvent(PlayerManager manager) {
+    public PlayersConnectedUpdatedEvent(@Nonnull PlayerManager manager) {
         commonSidedJoinedMap = manager.getCommonSidedJoinedMap();
     }
 
@@ -42,7 +43,7 @@ public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
-    public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
+    public void readFromMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         int pairCount = pMessageBuffer.readInt();
 
 
@@ -58,7 +59,7 @@ public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
      * @param pMessageBuffer The buffer from the IMessage
      */
     @Override
-    public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
+    public void writeToMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         pMessageBuffer.writeInt(commonSidedJoinedMap.size());
 
         for (UUID id : commonSidedJoinedMap.keySet()) {

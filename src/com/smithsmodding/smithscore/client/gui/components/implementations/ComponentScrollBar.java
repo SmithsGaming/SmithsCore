@@ -16,6 +16,8 @@ import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,13 +30,14 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     public static int WIDTH = 7;
     Plane innerArea;
     private String uniqueID;
+    @Nonnull
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
     private IGUIBasedComponentHost parent;
     private ScrollBarComponentState state;
     private Coordinate2D rootAnchorPixel;
     private int height;
 
-    public ComponentScrollBar (String uniqueID, ScrollBarComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int height) {
+    public ComponentScrollBar (String uniqueID, @Nonnull ScrollBarComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int height) {
         this.uniqueID = uniqueID;
 
         this.parent = parent;
@@ -67,7 +70,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      * @param component The new component.
      */
     @Override
-    public void registerNewComponent (IGUIComponent component) {
+    public void registerNewComponent (@Nonnull IGUIComponent component) {
         componentHashMap.put(component.getID(), component);
 
         if (component instanceof IGUIBasedComponentHost)
@@ -99,11 +102,13 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return componentHashMap;
     }
 
+    @Nullable
     public IGUIComponent getComponentByID(String uniqueUIID)
     {
         if (getID().equals(uniqueUIID))
@@ -178,6 +183,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return The location of the top left pixel of this component
      */
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate () {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(rootAnchorPixel);
@@ -198,6 +204,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return A Plane detailing the the position and size of this Component.
      */
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent () {
         return new Plane(getGlobalCoordinate(), WIDTH, height);
@@ -208,6 +215,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return The size of this component.
      */
+    @Nonnull
     @Override
     public Plane getSize () {
         return new Plane(0,0,WIDTH, height);
@@ -339,6 +347,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
         return false;
     }
 
+    @Nullable
     @Override
     public ArrayList<String> getToolTipContent () {
         return null;

@@ -16,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 /**
@@ -23,9 +24,11 @@ import java.util.ArrayList;
  */
 public class StandardRenderManager implements IRenderManager {
 
+    @Nonnull
     private static ArrayList<MinecraftColor> colorStack = new ArrayList<MinecraftColor>();
 
     GuiScreen root;
+    @Nonnull
     StandardScissorRegionManager scissorer = new StandardScissorRegionManager();
 
     public StandardRenderManager(GuiScreen root)
@@ -44,7 +47,7 @@ public class StandardRenderManager implements IRenderManager {
      *
      * @param color The color to push on.
      */
-    public static void pushColorOnRenderStack (MinecraftColor color) {
+    public static void pushColorOnRenderStack (@Nonnull MinecraftColor color) {
         colorStack.add(0, color);
         color.performOpenGLColoring();
     }
@@ -96,6 +99,7 @@ public class StandardRenderManager implements IRenderManager {
      *
      * @return This RenderManagers ScissorRegionManager.
      */
+    @Nonnull
     @Override
     public IScissorRegionManager getScissorRegionManager () {
         return scissorer;
@@ -107,7 +111,7 @@ public class StandardRenderManager implements IRenderManager {
      * @param component The Component to render.
      */
     @Override
-    public void renderBackgroundComponent (IGUIComponent component, boolean parentEnabled) {
+    public void renderBackgroundComponent (@Nonnull IGUIComponent component, boolean parentEnabled) {
         ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
 
         IGUIComponentState state = component.getState();
@@ -242,7 +246,7 @@ public class StandardRenderManager implements IRenderManager {
      * @param component The Component to render
      */
     @Override
-    public void renderForegroundComponent (IGUIComponent component, boolean parentEnabled) {
+    public void renderForegroundComponent (@Nonnull IGUIComponent component, boolean parentEnabled) {
         ClientRegistry registry = (ClientRegistry) SmithsCore.getRegistry();
 
         IGUIComponentState state = component.getState();
@@ -307,7 +311,7 @@ public class StandardRenderManager implements IRenderManager {
      * @param component The Component to render the tooltip from.
      */
     @Override
-    public void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY) {
+    public void renderToolTipComponent (@Nonnull IGUIComponent component, int mouseX, int mouseY) {
         Plane localPlane = new Plane(0,0, component.getSize().getWidth(), component.getSize().getHeigth());
 
         if ((component.getToolTipContent() != null && component.getToolTipContent().size() != 0) && (!(component instanceof IGUIBasedComponentHost)) && !localPlane.ContainsCoordinate(mouseX, mouseY))

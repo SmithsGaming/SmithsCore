@@ -11,11 +11,13 @@ import com.smithsmodding.smithscore.common.handlers.network.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
+
 public class ClientNetworkableEventHandler extends CommonNetworkableEventHandler {
 
     @Override
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onEvent(NetworkableEvent pEvent) {
+    public void onEvent(@Nonnull NetworkableEvent pEvent) {
         if (pEvent.getCommunicationMessage(Side.SERVER) == null)
             return;
 

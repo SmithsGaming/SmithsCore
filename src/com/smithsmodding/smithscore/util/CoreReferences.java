@@ -17,14 +17,27 @@ import org.apache.logging.log4j.MarkerManager;
 public class CoreReferences {
 
     public static final class General {
-        public static final String MOD_ID = "SmithsCore";
+        public static final String MOD_ID = "smithscore";
         public static final String VERSION = "@VERSION@";
         public static final String MC_VERSION = "@MCVERSION@";
         public static final String API_VERSION = "@APIVERSION@";
     }
 
     public static final class BookData {
-        public static final ResourceLocation PAGEBACKGROUND = new ResourceLocation(General.MOD_ID.toLowerCase(), "Book.Background");
+        public static final class General {
+            public static final ResourceLocation BACKGROUND = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "General.Background");
+            public static final ResourceLocation LOCATION = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "General.Location");
+            public static final ResourceLocation WIDTH = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "General.Width");
+            public static final ResourceLocation HEIGHT = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "General.Height");
+        }
+
+        public static final class Border {
+            public static final ResourceLocation CORNERTOPLEFT = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "Border.CornerTopLeft");
+            public static final ResourceLocation CORNERTOPRIGHT = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "Border.CornerTopRight");
+            public static final ResourceLocation CORNERBOTTOMLEFT = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "Border.CornerBottomLeft");
+            public static final ResourceLocation CORNERBOTTOMRIGHT = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "Border.CornerBottomRight");
+            public static final ResourceLocation CORNERS = new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), "Border.Corners");
+        }
     }
 
     public static final class NBT {

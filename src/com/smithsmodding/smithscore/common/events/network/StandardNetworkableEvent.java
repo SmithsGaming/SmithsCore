@@ -14,6 +14,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Standard implementation of the Networkable events.
  * It should be used for events that only handle a limited amount of data.
@@ -66,6 +69,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      *
      * @return An Instance of an IMessage class that describes this events.
      */
+    @Nullable
     @Override
     public IMessage getCommunicationMessage (Side side) {
         return new StandardNetworkableEventSyncMessage(this);
@@ -80,7 +84,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      * @param pContext The messages Context
      */
     @Override
-    public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
+    public void handleCommunicationMessage (IMessage pMessage, @Nonnull MessageContext pContext) {
         setPlayer(SmithsCore.getProxy().getPlayerForSide(pContext));
 
         PostNetwork();

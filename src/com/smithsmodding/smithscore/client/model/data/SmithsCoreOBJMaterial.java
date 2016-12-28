@@ -1,5 +1,7 @@
 package com.smithsmodding.smithscore.client.model.data;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Vector4f;
 
 /**
@@ -11,6 +13,7 @@ public class SmithsCoreOBJMaterial {
     public static final String DEFAULT_NAME = "OBJModel.Default.Texture.Name";
     private Vector4f color;
     private SmithsCoreOBJTexture texture = SmithsCoreOBJTexture.WHITE;
+    @Nonnull
     private String name = DEFAULT_NAME;
 
     public SmithsCoreOBJMaterial() {
@@ -25,17 +28,18 @@ public class SmithsCoreOBJMaterial {
         this(new Vector4f(1f, 1f, 1f, 1f), texture, DEFAULT_NAME);
     }
 
-    public SmithsCoreOBJMaterial(Vector4f color, SmithsCoreOBJTexture texture, String name) {
+    public SmithsCoreOBJMaterial(Vector4f color, SmithsCoreOBJTexture texture, @Nullable String name) {
         this.color = color;
         this.texture = texture;
         this.name = name != null ? name : DEFAULT_NAME;
     }
 
+    @Nonnull
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(@Nullable String name) {
         this.name = name != null ? name : DEFAULT_NAME;
     }
 
@@ -59,6 +63,7 @@ public class SmithsCoreOBJMaterial {
         return this.texture.equals(SmithsCoreOBJTexture.WHITE);
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(String.format("%nMaterial:%n"));

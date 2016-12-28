@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 
 /**
@@ -50,9 +51,10 @@ import java.io.File;
 public class CoreClientProxy extends CoreCommonProxy {
 
     static MultiColoredFontRenderer multiColoredFontRenderer;
+    @Nonnull
     MultiComponentModelLoader multiComponentModelLoader = MultiComponentModelLoader.instance;
 
-    public static ResourceLocation registerMultiComponentItemModel(Item item) {
+    public static ResourceLocation registerMultiComponentItemModel(@Nonnull Item item) {
         ResourceLocation itemLocation = ResourceHelper.getItemLocation(item);
         if (itemLocation == null) {
             return null;
@@ -63,7 +65,8 @@ public class CoreClientProxy extends CoreCommonProxy {
         return registerMultiComponentItemModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
     }
 
-    public static ResourceLocation registerMultiComponentItemModel(Item item, final ResourceLocation location) {
+    @Nonnull
+    public static ResourceLocation registerMultiComponentItemModel(@Nonnull Item item, @Nonnull final ResourceLocation location) {
         if (!location.getResourcePath().endsWith(MultiComponentModelLoader.EXTENSION)) {
             SmithsCore.getLogger().error("The MultiComponent-model " + location.toString() + " does not end with '"
                     + MultiComponentModelLoader.EXTENSION
@@ -73,7 +76,8 @@ public class CoreClientProxy extends CoreCommonProxy {
         return registerItemModelDefinition(item, location, MultiComponentModelLoader.EXTENSION);
     }
 
-    public static ResourceLocation registerItemModelDefinition(Item item, final ResourceLocation location, String requiredExtension) {
+    @Nonnull
+    public static ResourceLocation registerItemModelDefinition(@Nonnull Item item, @Nonnull final ResourceLocation location, @Nonnull String requiredExtension) {
         if (!location.getResourcePath().endsWith(requiredExtension)) {
             SmithsCore.getLogger().error("The item-model " + location.toString() + " does not end with '"
                     + requiredExtension
@@ -81,6 +85,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         }
 
         ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+            @Nonnull
             @Override
             public ModelResourceLocation getModelLocation(ItemStack stack) {
                 return new ModelResourceLocation(location, "inventory");
@@ -161,6 +166,7 @@ public class CoreClientProxy extends CoreCommonProxy {
      * @see SideOnly
      * @see CoreCommonProxy
      */
+    @Nonnull
     @Override
     public Side getEffectiveSide() {
         return Side.CLIENT;

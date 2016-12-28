@@ -3,6 +3,8 @@ package com.smithsmodding.smithscore.client.gui.hosts;
 import com.smithsmodding.smithscore.client.gui.management.*;
 import com.smithsmodding.smithscore.client.gui.tabs.core.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by marcf on 1/15/2016.
  */
@@ -29,6 +31,7 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
      *
      * @return The current TabManager for this host.
      */
+    @Nonnull
     ITabManager getTabManager();
 
     /**

@@ -3,6 +3,8 @@ package com.smithsmodding.smithscore.client.textures;
 import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
+import javax.annotation.Nonnull;
+
 /**
  * Author Marc (Created on: 09.06.2016)
  */
@@ -16,6 +18,7 @@ public interface ITextureController {
      * @param location    The location of the new texture.
      * @return A modified verion of the base texture.
      */
+    @Nonnull
     TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
 
     /**
@@ -37,6 +40,7 @@ public interface ITextureController {
      *
      * @return A MinecraftColor instance that shows which color the material has.
      */
+    @Nonnull
     MinecraftColor getVertexColor();
 
     /**
@@ -44,6 +48,7 @@ public interface ITextureController {
      *
      * @return The color for the molten metal if armories default system should be used.
      */
+    @Nonnull
     MinecraftColor getLiquidColor();
 
     /**
@@ -51,6 +56,7 @@ public interface ITextureController {
      *
      * @return "" When no suffix exists or a suffix.
      */
+    @Nonnull
     String getTextureSuffix();
 
     /**
@@ -59,6 +65,7 @@ public interface ITextureController {
      * @param suffix The new Suffix.
      * @return The instance this method was called on, used for method chaining.
      */
+    @Nonnull
     ITextureController setTextureSuffix(String suffix);
 
     /**
@@ -66,6 +73,7 @@ public interface ITextureController {
      *
      * @return A string to identify the textures created by this Controller.
      */
+    @Nonnull
     String getCreationIdentifier();
 
     /**
@@ -74,5 +82,6 @@ public interface ITextureController {
      *
      * @return A Controller with the Identifier set. Allows for chain setting for variables.
      */
+    @Nonnull
     ITextureController setCreationIdentifier(String identifier);
 }

@@ -14,6 +14,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -26,9 +28,12 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
 
     boolean isInitialized = false;
 
+    @Nonnull
     IRenderManager renderer = new StandardRenderManager(this);
     IGUIManager guiManager;
+    @Nonnull
     IGUIComponentState state = new CoreComponentState(this);
+    @Nonnull
     LinkedHashMap<String, IGUIComponent> components = new LinkedHashMap<>();
 
     IBook book;
@@ -94,16 +99,19 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
         this.guiManager = newManager;
     }
 
+    @Nonnull
     @Override
     public String getID() {
         return book.getBookLocation().toString();
     }
 
+    @Nonnull
     @Override
     public IGUIComponentState getState() {
         return state;
     }
 
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost() {
         return this;
@@ -142,6 +150,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent() {
         return new ArrayList<String>();
@@ -250,6 +259,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
         return contents;
     }
 
+    @Nonnull
     @Override
     public Plane getSize() {
         Plane area = new Plane(0, 0, 0, 0);
@@ -273,11 +283,13 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
         //NOOP
     }
 
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents() {
         return components;
     }
 
+    @Nullable
     public IGUIComponent getComponentByID(String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
@@ -303,7 +315,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
-    public void registerNewComponent(IGUIComponent component) {
+    public void registerNewComponent(@Nonnull IGUIComponent component) {
         this.components.put(component.getID(), component);
     }
 
@@ -312,6 +324,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
         return getManager();
     }
 
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getRootGuiObject() {
         return this;
@@ -327,6 +340,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      *
      * @return The currently used StandardRenderManager.
      */
+    @Nonnull
     public IRenderManager getRenderManager() {
         return renderer;
     }

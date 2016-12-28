@@ -8,6 +8,8 @@ package com.smithsmodding.smithscore.common.registry;
 
 import net.minecraftforge.fml.common.eventhandler.EventBus;
 
+import javax.annotation.Nonnull;
+
 /**
  * Central point of Data for the smithscore mod.
  * Also manages the Eventbusses for the different purposes.
@@ -28,6 +30,7 @@ public class CommonRegistry {
      *
      * @return The EventBus that is used for network Relaying.
      */
+    @Nonnull
     public EventBus getNetworkBus() {
         return networkRelayBus;
     }
@@ -37,6 +40,7 @@ public class CommonRegistry {
      *
      * @return The common EventBus.
      */
+    @Nonnull
     public EventBus getCommonBus() {
         return commonEventBus;
     }
@@ -46,6 +50,7 @@ public class CommonRegistry {
      *
      * @return The common EventBus
      */
+    @Nonnull
     public EventBus getClientBus() {
         return commonEventBus;
     }

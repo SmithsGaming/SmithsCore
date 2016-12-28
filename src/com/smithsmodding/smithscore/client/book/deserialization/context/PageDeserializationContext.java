@@ -1,5 +1,6 @@
-package com.smithsmodding.smithscore.client.book.deserialization;
+package com.smithsmodding.smithscore.client.book.deserialization.context;
 
+import com.smithsmodding.smithscore.client.book.GuiBookSmithsCore;
 import com.smithsmodding.smithscore.client.book.data.IBookPage;
 import net.minecraft.util.ResourceLocation;
 
@@ -8,19 +9,25 @@ import java.util.HashMap;
 /**
  * Created by marcf on 7/31/2016.
  */
-public final class BookDeserializationContext {
+public final class PageDeserializationContext {
 
-    private final HashMap<ResourceLocation, IBookPage> pages = new HashMap<>();
+    private final GuiBookSmithsCore gui;
+    private final IBookPage page;
     private final HashMap<ResourceLocation, Object> contextData = new HashMap<>();
 
     private int componentIndex = 0;
 
-    public IBookPage getPage(ResourceLocation location) {
-        return pages.get(location);
+    public PageDeserializationContext(GuiBookSmithsCore gui, IBookPage page) {
+        this.gui = gui;
+        this.page = page;
     }
 
-    public void registerPage(IBookPage page) {
-        pages.put(page.getPageLocation(), page);
+    public GuiBookSmithsCore getGui() {
+        return gui;
+    }
+
+    public IBookPage getPage() {
+        return page;
     }
 
     public Object getContextData(ResourceLocation key) {

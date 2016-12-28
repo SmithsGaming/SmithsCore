@@ -3,6 +3,7 @@ package com.smithsmodding.smithscore.client.gui.management;
 import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.tabs.core.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -59,6 +60,7 @@ public interface ITabManager
      *
      * @return A LinkedHashMap that holds all the possible tabs sorted on registration order with their ID as keys.
      */
+    @Nonnull
     LinkedHashMap<String, IGUITab> getTabs();
 
     /**

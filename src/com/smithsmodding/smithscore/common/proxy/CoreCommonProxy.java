@@ -13,6 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 
 /**
@@ -78,6 +79,7 @@ public class CoreCommonProxy {
      * @see net.minecraftforge.fml.relauncher.SideOnly
      * @see com.smithsmodding.smithscore.client.proxy.CoreClientProxy
      */
+    @Nonnull
     public Side getEffectiveSide() {
         return Side.SERVER;
     }
@@ -99,7 +101,7 @@ public class CoreCommonProxy {
         EventNetworkManager.Init();
     }
 
-    public EntityPlayer getPlayerForSide(MessageContext context) {
+    public EntityPlayer getPlayerForSide(@Nonnull MessageContext context) {
         return context.getServerHandler().playerEntity;
     }
 }

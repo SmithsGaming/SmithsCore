@@ -3,6 +3,8 @@ package com.smithsmodding.smithscore.common.tileentity.state;
 import com.smithsmodding.smithscore.common.tileentity.*;
 import net.minecraft.nbt.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 18.12.2015.
  */
@@ -47,6 +49,7 @@ public interface ITileEntityState {
      *
      * @return A NBTBase that describes this state.
      */
+    @Nonnull
     NBTBase writeToNBTTagCompound ();
 
     /**
@@ -69,6 +72,7 @@ public interface ITileEntityState {
      *
      * @return A NBTBase that describes this state.
      */
+    @Nonnull
     NBTBase writeToSynchronizationCompound ();
 
 }

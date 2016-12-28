@@ -28,6 +28,8 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,15 +39,19 @@ import java.util.List;
 public abstract class GuiContainerSmithsCore extends GuiContainer implements IGUIBasedComponentHost, IGUIBasedLedgerHost, IGUIBasedTabHost {
 
     private boolean isInitialized = false;
+    @Nonnull
     private StandardRenderManager renderer = new StandardRenderManager(this);
+    @Nonnull
     private StandardLedgerManager ledgers = new StandardLedgerManager(this);
+    @Nonnull
     private CoreComponentState state = new CoreComponentState(this);
 
     private String uniqueUIID;
 
+    @Nonnull
     private ITabManager tabs = new StandardTabManager(this);
 
-    public GuiContainerSmithsCore(ContainerSmithsCore container) {
+    public GuiContainerSmithsCore(@Nonnull ContainerSmithsCore container) {
         super(container);
 
         uniqueUIID = container.getContainerID() + "-gui";
@@ -121,11 +127,13 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         return uniqueUIID;
     }
 
+    @Nonnull
     @Override
     public IGUIComponentState getState () {
         return state;
     }
 
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost() {
         return this;
@@ -164,6 +172,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent () {
         return new ArrayList<String>();
@@ -307,17 +316,20 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         return true;
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate () {
         return new Coordinate2D(guiLeft, guiTop);
     }
 
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent () {
         Plane size = getSize();
         return new Plane(getGlobalCoordinate(), size.getWidth(), size.getHeigth());
     }
 
+    @Nonnull
     @Override
     public Plane getSize () {
         Plane area = new Plane(0, 0, 0, 0);
@@ -341,6 +353,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         //NOOP
     }
 
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         LinkedHashMap<String, IGUIComponent> activeTabs = new LinkedHashMap<String, IGUIComponent>();
@@ -349,6 +362,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         return activeTabs;
     }
 
+    @Nullable
     public IGUIComponent getComponentByID (String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
@@ -394,6 +408,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         return null;
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate () {
         return getLocalCoordinate();
@@ -440,6 +455,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
         return tabs.getTabs().size() > 1 ? tabs.getDisplayAreaVerticalOffset() + 4 : 4;
     }
 
+    @Nonnull
     @Override
     public GuiContainerSmithsCore getRootGuiObject () {
         return this;
@@ -465,6 +481,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      *
      * @return The currently used StandardRenderManager.
      */
+    @Nonnull
     public IRenderManager getRenderManager () {
         return renderer;
     }
@@ -475,7 +492,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * @param ledger The new component.
      */
     @Override
-    public void registerNewLedger (IGUILedger ledger) {
+    public void registerNewLedger (@Nonnull IGUILedger ledger) {
         if (ledger.getPrimarySide() == LedgerConnectionSide.LEFT) {
             getLedgerManager().registerLedgerLeftSide(ledger);
             return;
@@ -489,6 +506,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      *
      * @return The LedgerManager of this host.
      */
+    @Nonnull
     @Override
     public ILedgerManager getLedgerManager () {
         return ledgers;
@@ -520,6 +538,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      *
      * @return The current TabManager for this host.
      */
+    @Nonnull
     @Override
     public ITabManager getTabManager () {
         return tabs;

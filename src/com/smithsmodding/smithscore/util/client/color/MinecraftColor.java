@@ -3,6 +3,7 @@ package com.smithsmodding.smithscore.util.client.color;
 import com.smithsmodding.smithscore.client.font.MultiColoredFontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector2d;
 import java.awt.*;
 import java.awt.color.ColorSpace;
@@ -169,7 +170,7 @@ public class MinecraftColor extends Color {
      * @see #getComponents
      * @see #getColorComponents
      */
-    public MinecraftColor(ColorSpace cspace, float[] components, float alpha) {
+    public MinecraftColor(@Nonnull ColorSpace cspace, float[] components, float alpha) {
         super(cspace, components, alpha);
     }
 
@@ -178,7 +179,7 @@ public class MinecraftColor extends Color {
      *
      * @param original The standard color.
      */
-    public MinecraftColor (Color original) {
+    public MinecraftColor (@Nonnull Color original) {
         super(original.getRed(), original.getGreen(), original.getBlue(), original.getAlpha());
     }
 

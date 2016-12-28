@@ -6,6 +6,8 @@ import com.smithsmodding.smithscore.util.client.color.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.gui.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by marcf on 12/28/2015.
  */
@@ -14,7 +16,7 @@ public class ComponentLabel extends CoreComponent {
     protected MinecraftColor color;
     private FontRenderer renderer;
 
-    public ComponentLabel(String uniqueID, IGUIBasedComponentHost root, IGUIComponentState state, Coordinate2D localCoordinate, MinecraftColor color, FontRenderer renderer, String displayedText) {
+    public ComponentLabel(String uniqueID, IGUIBasedComponentHost root, IGUIComponentState state, Coordinate2D localCoordinate, MinecraftColor color, @Nonnull FontRenderer renderer, String displayedText) {
         super(uniqueID, root, state, localCoordinate, renderer.getStringWidth(displayedText), renderer.FONT_HEIGHT);
 
         this.displayedText = displayedText;

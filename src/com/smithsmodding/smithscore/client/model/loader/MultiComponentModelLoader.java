@@ -15,6 +15,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -26,17 +27,18 @@ public class MultiComponentModelLoader implements ICustomModelLoader {
     public static final MultiComponentModelLoader instance = new MultiComponentModelLoader();
     public static final String EXTENSION = "MCM-smithscore";
 
+    @Nonnull
     private ArrayList<String> acceptedDomains = new ArrayList<>();
 
     private MultiComponentModelLoader() {
     }
 
-    public void registerDomain(String domain) {
+    public void registerDomain(@Nonnull String domain) {
         acceptedDomains.add(domain.toLowerCase());
     }
 
     @Override
-    public boolean accepts(ResourceLocation modelLocation) {
+    public boolean accepts(@Nonnull ResourceLocation modelLocation) {
         if (!modelLocation.getResourcePath().endsWith(EXTENSION)) return false;
 
         for (String domain : acceptedDomains)

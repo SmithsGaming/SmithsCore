@@ -9,6 +9,7 @@ import com.smithsmodding.smithscore.util.client.color.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 import net.minecraft.client.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -16,9 +17,10 @@ import java.util.*;
  */
 public class InformationLedger extends CoreLedger {
 
+    @Nonnull
     ArrayList<String> translatedDisplayedStrings = new ArrayList<String>();
 
-    public InformationLedger (String uniqueID, IGUIBasedLedgerHost root, LedgerConnectionSide side, String translatedGuiOwner, MinecraftColor color, ArrayList<String> translatedDisplayedStrings) {
+    public InformationLedger (String uniqueID, IGUIBasedLedgerHost root, LedgerConnectionSide side, String translatedGuiOwner, MinecraftColor color, @Nonnull ArrayList<String> translatedDisplayedStrings) {
         super(uniqueID, new LedgerComponentState(), root, side, Textures.Gui.Basic.INFOICON, translatedGuiOwner, color);
 
         for (String line : translatedDisplayedStrings) {
@@ -69,7 +71,7 @@ public class InformationLedger extends CoreLedger {
         }
 
         @Override
-        public void registerContentComponents (ComponentContentArea host) {
+        public void registerContentComponents (@Nonnull ComponentContentArea host) {
             for (int i = 0; i < translatedDisplayedStrings.size(); i++) {
                 String line = translatedDisplayedStrings.get(i);
 

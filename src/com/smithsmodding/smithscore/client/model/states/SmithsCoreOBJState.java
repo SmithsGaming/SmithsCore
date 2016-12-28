@@ -9,6 +9,8 @@ import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 
@@ -17,15 +19,16 @@ import java.util.Map;
  * Replacement property for the old OBJProperty in MC Forge used until the ModelGroup hiding works.
  */
 public class SmithsCoreOBJState implements IModelState {
+    @Nonnull
     private Map<String, Boolean> visibilityMap = Maps.newHashMap();
     private IModelState parent;
     private Operation operation = Operation.SET_TRUE;
 
-    public SmithsCoreOBJState(List<String> visibleGroups, boolean visibility) {
+    public SmithsCoreOBJState(@Nonnull List<String> visibleGroups, boolean visibility) {
         this(visibleGroups, visibility, TRSRTransformation.identity());
     }
 
-    public SmithsCoreOBJState(List<String> visibleGroups, boolean visibility, IModelState parent) {
+    public SmithsCoreOBJState(@Nonnull List<String> visibleGroups, boolean visibility, IModelState parent) {
         this.parent = parent;
         for (String s : visibleGroups) this.visibilityMap.put(s, visibility);
     }
@@ -38,11 +41,13 @@ public class SmithsCoreOBJState implements IModelState {
         return operation;
     }
 
+    @Nonnull
     public Map<String, Boolean> getVisibilityMap() {
         return this.visibilityMap;
     }
 
-    public IModelState getParent(IModelState parent) {
+    @Nullable
+    public IModelState getParent(@Nullable IModelState parent) {
         if (parent == null) return null;
         else if (parent instanceof SmithsCoreOBJState) return ((SmithsCoreOBJState) parent).parent;
         return parent;
@@ -53,6 +58,7 @@ public class SmithsCoreOBJState implements IModelState {
         return Optional.absent();
     }
 
+    @Nonnull
     public List<String> getGroupsWithVisibility(boolean visibility) {
         List<String> ret = Lists.newArrayList();
         for (Map.Entry<String, Boolean> e : this.visibilityMap.entrySet()) {
@@ -63,11 +69,12 @@ public class SmithsCoreOBJState implements IModelState {
         return ret;
     }
 
+    @Nonnull
     public List<String> getGroupNamesFromMap() {
         return Lists.newArrayList(this.visibilityMap.keySet());
     }
 
-    public void changeGroupVisibilities(List<String> names, Operation operation) {
+    public void changeGroupVisibilities(@Nullable List<String> names, Operation operation) {
         if (names == null || names.isEmpty()) return;
         this.operation = operation;
         if (names.get(0).equals(SmithsCoreOBJGroup.ALL)) {
@@ -87,6 +94,7 @@ public class SmithsCoreOBJState implements IModelState {
         }
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("OBJState: ");
@@ -104,7 +112,7 @@ public class SmithsCoreOBJState implements IModelState {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)

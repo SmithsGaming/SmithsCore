@@ -4,6 +4,7 @@ import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.legders.core.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -20,10 +21,13 @@ public interface ILedgerManager
 
     int getLedgerIndex(LedgerConnectionSide side, String uniqueID);
 
+    @Nonnull
     LinkedHashMap<String, IGUILedger> getRightLedgers();
 
+    @Nonnull
     LinkedHashMap<String, IGUILedger> getLeftLedgers();
 
+    @Nonnull
     Coordinate2D getLedgerLocalCoordinate(LedgerConnectionSide side, String uniqueID);
 
     /**

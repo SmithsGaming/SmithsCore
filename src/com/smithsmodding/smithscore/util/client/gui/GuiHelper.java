@@ -23,6 +23,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Helper class to perform several functions while rendering
  */
@@ -30,6 +33,7 @@ public final class GuiHelper {
     public static int DISPLAYHEIGHT;
     public static int DISPLAYWIDTH;
     public static int GUISCALE;
+    @Nonnull
     protected static RenderItem ITEMRENDERER = Minecraft.getMinecraft().getRenderItem();
 
     /**
@@ -39,7 +43,7 @@ public final class GuiHelper {
      * @param pX        The X Offset from the current Origin
      * @param pY        The Y Offset from the current Origin
      */
-    public static void drawResource(CustomResource pResource, int pX, int pY) {
+    public static void drawResource(@Nonnull CustomResource pResource, int pX, int pY) {
         GL11.glPushMatrix();
         pResource.getColor().performOpenGLColoring();
         GuiHelper.bindTexture(pResource.getPrimaryLocation());
@@ -56,7 +60,7 @@ public final class GuiHelper {
      * @param pHeight            The Total Height
      * @param pElementCoordinate The Offset.
      */
-    public static void drawRectangleStretched(TextureComponent pCenterComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
+    public static void drawRectangleStretched(@Nonnull TextureComponent pCenterComponent, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
         renderCenter(pCenterComponent, pWidth, pHeight, pElementCoordinate);
     }
 
@@ -68,7 +72,7 @@ public final class GuiHelper {
      * @param pHeight            The Total Height
      * @param pElementCoordinate The Offset
      */
-    public static void drawRectangleStretched(MultiComponentTexture pComponents, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
+    public static void drawRectangleStretched(@Nonnull MultiComponentTexture pComponents, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
         renderCenter(pComponents.iCenterComponent, pWidth - pComponents.iCornerComponents[0].iWidth - pComponents.iCornerComponents[1].iWidth, pHeight - pComponents.iCornerComponents[0].iHeight - pComponents.iCornerComponents[3].iHeight, new Coordinate2D(pElementCoordinate.getXComponent() + pComponents.iCornerComponents[0].iWidth, pElementCoordinate.getYComponent() + pComponents.iCornerComponents[0].iHeight));
 
         renderCorner(pComponents.iCornerComponents[0], pElementCoordinate);
@@ -92,7 +96,7 @@ public final class GuiHelper {
      * @param pHeight            The total Height
      * @param pElementCoordinate The Offset
      */
-    public static void drawRectangleStretched(TextureComponent pCenterComponent, TextureComponent[] pSideComponents, TextureComponent[] pCornerComponents, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
+    public static void drawRectangleStretched(@Nonnull TextureComponent pCenterComponent, TextureComponent[] pSideComponents, TextureComponent[] pCornerComponents, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
         renderCenter(pCenterComponent, pWidth - pCornerComponents[0].iWidth - pCornerComponents[1].iWidth, pHeight - pCornerComponents[0].iHeight - pCornerComponents[3].iHeight, new Coordinate2D(pElementCoordinate.getXComponent() + pCornerComponents[0].iWidth, pElementCoordinate.getYComponent() + pCornerComponents[0].iHeight));
 
         renderCorner(pCornerComponents[0], pElementCoordinate);
@@ -118,7 +122,7 @@ public final class GuiHelper {
      * @param pWidth      The total Width
      * @param pHeight     The total Height
      */
-    public static void drawFluid(FluidStack pFluidStack, int pX, int pY, int pZ, int pWidth, int pHeight) {
+    public static void drawFluid(@Nullable FluidStack pFluidStack, int pX, int pY, int pZ, int pWidth, int pHeight) {
         if (pFluidStack == null || pFluidStack.getFluid() == null) {
             return;
         }
@@ -156,7 +160,7 @@ public final class GuiHelper {
      * @param pHeight         The total Height
      * @param pCutOffVertical The vertical distance to cut of.
      */
-    private static void drawCutIcon(TextureAtlasSprite pIcon, int pX, int pY, int pZ, int pWidth, int pHeight, int pCutOffVertical) {
+    private static void drawCutIcon(@Nonnull TextureAtlasSprite pIcon, int pX, int pY, int pZ, int pWidth, int pHeight, int pCutOffVertical) {
         Tessellator tessellator = Tessellator.getInstance();
         VertexBuffer worldrenderer = tessellator.getBuffer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -177,7 +181,7 @@ public final class GuiHelper {
      * @param pHeight            The total height of the Component in the End
      * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
      */
-    private static void renderCenter(TextureComponent pComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
+    private static void renderCenter(@Nonnull TextureComponent pComponent, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
         GL11.glPushMatrix();
         GL11.glTranslatef(pElementCoordinate.getXComponent() + pComponent.iRelativeTranslation.getXComponent(), pElementCoordinate.getYComponent() + pComponent.iRelativeTranslation.getYComponent(), 0F);
         pComponent.iRotation.performGLRotation();
@@ -225,7 +229,7 @@ public final class GuiHelper {
      * @param pComponent         The Component to Render
      * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
      */
-    private static void renderCorner(TextureComponent pComponent, Coordinate2D pElementCoordinate) {
+    private static void renderCorner(@Nonnull TextureComponent pComponent, @Nonnull Coordinate2D pElementCoordinate) {
         GL11.glPushMatrix();
         GL11.glTranslatef(pElementCoordinate.getXComponent() + pComponent.iRelativeTranslation.getXComponent(), pElementCoordinate.getYComponent() + pComponent.iRelativeTranslation.getYComponent(), 0F);
         pComponent.iRotation.performGLRotation();
@@ -244,7 +248,7 @@ public final class GuiHelper {
      * @param pHeight            The total height of the Component in the End
      * @param pElementCoordinate The offset of the Component from the current GL Buffer Matric Origin.
      */
-    private static void renderBorder(TextureComponent pComponent, int pWidth, int pHeight, Coordinate2D pElementCoordinate) {
+    private static void renderBorder(@Nonnull TextureComponent pComponent, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
         GL11.glPushMatrix();
         GL11.glTranslatef(pElementCoordinate.getXComponent() + pComponent.iRelativeTranslation.getXComponent(), pElementCoordinate.getYComponent() + pComponent.iRelativeTranslation.getYComponent(), 0F);
         pComponent.iRotation.performGLRotation();
@@ -318,7 +322,7 @@ public final class GuiHelper {
      * @param pHeight The total Height
      * @param pIIcon  The IIcon describing the Texture
      */
-    public static void drawTexturedModelRectFromIcon(int pXCoord, int pYCoord, int pZCoord, TextureAtlasSprite pIIcon, int pWidth, int pHeight) {
+    public static void drawTexturedModelRectFromIcon(int pXCoord, int pYCoord, int pZCoord, @Nonnull TextureAtlasSprite pIIcon, int pWidth, int pHeight) {
         Tessellator tessellator = Tessellator.getInstance();
         VertexBuffer worldrenderer = tessellator.getBuffer();
         worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -336,7 +340,7 @@ public final class GuiHelper {
      * @param pZKoord The Z-Level to render on.
      * @param pColor  The color to render.
      */
-    public static void drawColoredRect(Plane pPlane, int pZKoord, MinecraftColor pColor) {
+    public static void drawColoredRect(@Nonnull Plane pPlane, int pZKoord, @Nonnull MinecraftColor pColor) {
         drawGradiendColoredRect(pPlane, pZKoord, pColor, pColor);
     }
 
@@ -348,7 +352,7 @@ public final class GuiHelper {
      * @param pColorStart The left color
      * @param pColorEnd   The right color.
      */
-    public static void drawGradiendColoredRect(Plane pPlane, int pZKoord, MinecraftColor pColorStart, MinecraftColor pColorEnd) {
+    public static void drawGradiendColoredRect(@Nonnull Plane pPlane, int pZKoord, @Nonnull MinecraftColor pColorStart, @Nonnull MinecraftColor pColorEnd) {
         float f = pColorStart.getAlphaFloat();
         float f1 = pColorStart.getBlueFloat();
         float f2 = pColorStart.getGreenFloat();
@@ -383,7 +387,7 @@ public final class GuiHelper {
      * @param x     The X Coordinate to render on
      * @param y     The Y Coordinate to render on
      */
-    public static void drawItemStack(ItemStack stack, int x, int y) {
+    public static void drawItemStack(@Nullable ItemStack stack, int x, int y) {
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
         RenderHelper.enableGUIStandardItemLighting();
@@ -413,7 +417,7 @@ public final class GuiHelper {
      * @param y       The Y Coordinate to render on
      * @param altText The overlay text to render.
      */
-    private static void drawItemStack(ItemStack stack, int x, int y, String altText) {
+    private static void drawItemStack(@Nullable ItemStack stack, int x, int y, String altText) {
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
         RenderHelper.enableGUIStandardItemLighting();
@@ -440,7 +444,7 @@ public final class GuiHelper {
      *
      * @param pTextureAddress The address of the Texture to bind.
      */
-    public static void bindTexture(String pTextureAddress) {
+    public static void bindTexture(@Nonnull String pTextureAddress) {
         bindTexture(new ResourceLocation(pTextureAddress));
     }
 
@@ -449,7 +453,7 @@ public final class GuiHelper {
      *
      * @param pTextureLocation The ResourceLocation of the Texture to bind.
      */
-    public static void bindTexture(ResourceLocation pTextureLocation) {
+    public static void bindTexture(@Nonnull ResourceLocation pTextureLocation) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(pTextureLocation);
     }
 
@@ -474,7 +478,7 @@ public final class GuiHelper {
      *
      * @param pTargetPlane The plane that should be scissored.
      */
-    public static void enableScissor(Plane pTargetPlane) {
+    public static void enableScissor(@Nonnull Plane pTargetPlane) {
 
         calcScaleFactor();
 

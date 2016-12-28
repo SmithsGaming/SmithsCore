@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -45,6 +46,7 @@ public class ComponentFluidTank extends CoreComponent {
         this.backGround = backGround;
     }
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent () {
         int fluidContent = 0;

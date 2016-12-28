@@ -3,6 +3,8 @@ package com.smithsmodding.smithscore.client.events.gui;
 import com.smithsmodding.smithscore.common.events.network.*;
 import io.netty.buffer.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 10.02.2016.
  */
@@ -30,7 +32,7 @@ public class ScrollBarValueChangedEvent extends GuiInputEvent {
      * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
     @Override
-    public void readFromMessageBuffer (ByteBuf pMessageBuffer) {
+    public void readFromMessageBuffer (@Nonnull ByteBuf pMessageBuffer) {
         super.readFromMessageBuffer(pMessageBuffer);
 
         this.maximum = pMessageBuffer.readInt();
@@ -44,7 +46,7 @@ public class ScrollBarValueChangedEvent extends GuiInputEvent {
      * @param pMessageBuffer The buffer from the IMessage
      */
     @Override
-    public void writeToMessageBuffer (ByteBuf pMessageBuffer) {
+    public void writeToMessageBuffer (@Nonnull ByteBuf pMessageBuffer) {
         super.writeToMessageBuffer(pMessageBuffer);
 
         pMessageBuffer.writeInt(maximum);

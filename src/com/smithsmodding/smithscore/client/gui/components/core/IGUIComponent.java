@@ -5,6 +5,7 @@ import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
@@ -150,5 +151,6 @@ public interface IGUIComponent
      */
     boolean handleKeyTyped(char key, int keyCode);
 
+    @Nullable
     ArrayList<String> getToolTipContent ();
 }

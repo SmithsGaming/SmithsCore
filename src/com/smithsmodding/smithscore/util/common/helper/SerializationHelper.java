@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Type;
 
 /**
@@ -36,8 +37,9 @@ public class SerializationHelper {
 
     private static class ItemStackDeserializer implements JsonDeserializer<ItemStack> {
 
+        @Nonnull
         @Override
-        public ItemStack deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public ItemStack deserialize(@Nonnull JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             JsonObject stackData = json.getAsJsonObject();
 
             Item item = Item.REGISTRY.getObject(new ResourceLocation(stackData.get("item").getAsString()));
@@ -58,8 +60,9 @@ public class SerializationHelper {
 
     private static class ItemStackArrayDeserializer implements JsonDeserializer<ItemStack[]> {
 
+        @Nonnull
         @Override
-        public ItemStack[] deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        public ItemStack[] deserialize(@Nonnull JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             JsonArray stackArray = json.getAsJsonArray();
             ItemStack[] deserializedArray = new ItemStack[stackArray.size()];
 

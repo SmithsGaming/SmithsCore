@@ -6,6 +6,7 @@ import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 /**
@@ -45,6 +46,7 @@ public abstract class CoreComponent implements IGUIComponent {
         return parent;
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate () {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
@@ -55,11 +57,13 @@ public abstract class CoreComponent implements IGUIComponent {
         return rootAnchorPixel;
     }
 
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent () {
         return new Plane(getGlobalCoordinate(), width, height);
     }
 
+    @Nonnull
     @Override
     public Plane getSize () {
         return new Plane(0, 0, width, height);

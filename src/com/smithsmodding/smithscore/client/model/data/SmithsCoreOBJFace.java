@@ -2,6 +2,8 @@ package com.smithsmodding.smithscore.client.model.data;
 
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
@@ -12,9 +14,11 @@ import javax.vecmath.Vector4f;
  * Replacement version of the old OBJ System in MC Forge used until the ModelGroup hiding works.
  */
 public class SmithsCoreOBJFace {
+    @Nullable
     private SmithsCoreOBJVertex[] verts = new SmithsCoreOBJVertex[4];
     //        private Normal[] norms = new Normal[4];
 //        private TextureCoordinate[] texCoords = new TextureCoordinate[4];
+    @Nullable
     private String materialName = SmithsCoreOBJMaterial.DEFAULT_NAME;
     private boolean isTri = false;
 
@@ -22,7 +26,7 @@ public class SmithsCoreOBJFace {
         this(verts, SmithsCoreOBJMaterial.DEFAULT_NAME);
     }
 
-    public SmithsCoreOBJFace(SmithsCoreOBJVertex[] verts, String materialName) {
+    public SmithsCoreOBJFace(@Nullable SmithsCoreOBJVertex[] verts, String materialName) {
         this.verts = verts != null && verts.length > 2 ? verts : null;
         setMaterialName(materialName);
         checkData();
@@ -59,11 +63,12 @@ public class SmithsCoreOBJFace {
         }
     }
 
+    @Nullable
     public String getMaterialName() {
         return this.materialName;
     }
 
-    public void setMaterialName(String materialName) {
+    public void setMaterialName(@Nullable String materialName) {
         this.materialName = materialName != null && !materialName.isEmpty() ? materialName : this.materialName;
     }
 
@@ -71,13 +76,14 @@ public class SmithsCoreOBJFace {
         return isTri;
     }
 
-    public boolean setVertices(SmithsCoreOBJVertex[] verts) {
+    public boolean setVertices(@Nullable SmithsCoreOBJVertex[] verts) {
         if (verts == null) return false;
         else this.verts = verts;
         checkData();
         return true;
     }
 
+    @Nullable
     public SmithsCoreOBJVertex[] getVertices() {
         return this.verts;
     }
@@ -109,7 +115,8 @@ public class SmithsCoreOBJFace {
 //            }
 //        }
 
-    public SmithsCoreOBJFace bake(TRSRTransformation transform) {
+    @Nonnull
+    public SmithsCoreOBJFace bake(@Nonnull TRSRTransformation transform) {
         Matrix4f m = transform.getMatrix();
         Matrix3f mn = null;
         SmithsCoreOBJVertex[] vertices = new SmithsCoreOBJVertex[verts.length];
@@ -148,6 +155,7 @@ public class SmithsCoreOBJFace {
         return new SmithsCoreOBJFace(vertices, this.materialName);
     }
 
+    @Nonnull
     public SmithsCoreOBJNormal getNormal() {
         Vector3f a = this.verts[2].getPos3();
         a.sub(this.verts[0].getPos3());

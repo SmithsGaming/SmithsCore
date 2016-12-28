@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.text.WordUtils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
@@ -39,7 +41,7 @@ public class ExtendedStateMap implements IStateMapper {
         return cache;
     }
 
-    private Map<IBlockState, ModelResourceLocation> buildCache(Block block) {
+    private Map<IBlockState, ModelResourceLocation> buildCache(@Nonnull Block block) {
         Map<IBlockState, ModelResourceLocation> originalMap = map.putStateModelLocations(block);
 
         for (Map.Entry<IBlockState, ModelResourceLocation> entry : originalMap.entrySet()) {
@@ -64,8 +66,10 @@ public class ExtendedStateMap implements IStateMapper {
 
     public static class Builder {
 
+        @Nonnull
         private final StateMap.Builder stateBuilder;
 
+        @Nullable
         private char[] camelCase;
         private String preFix;
 
@@ -75,31 +79,37 @@ public class ExtendedStateMap implements IStateMapper {
             preFix = "";
         }
 
-        public ExtendedStateMap.Builder withName(IProperty<?> builderProperty) {
+        @Nonnull
+        public ExtendedStateMap.Builder withName(@Nonnull IProperty<?> builderProperty) {
             stateBuilder.withName(builderProperty);
             return this;
         }
 
-        public ExtendedStateMap.Builder withSuffix(String builderSuffix) {
+        @Nonnull
+        public ExtendedStateMap.Builder withSuffix(@Nonnull String builderSuffix) {
             stateBuilder.withSuffix(builderSuffix);
             return this;
         }
 
+        @Nonnull
         public ExtendedStateMap.Builder withPrefix(String builderPrefix) {
             this.preFix = builderPrefix;
             return this;
         }
 
+        @Nonnull
         public ExtendedStateMap.Builder withCamelCase(char[] delimeters) {
             this.camelCase = delimeters;
             return this;
         }
 
+        @Nonnull
         public ExtendedStateMap.Builder ignore(IProperty<?>... ignorable) {
             stateBuilder.ignore(ignorable);
             return this;
         }
 
+        @Nullable
         public ExtendedStateMap build() {
             return new ExtendedStateMap(stateBuilder.build(), preFix, camelCase);
         }

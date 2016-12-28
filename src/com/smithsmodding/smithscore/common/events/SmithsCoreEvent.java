@@ -12,6 +12,8 @@ import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Root class for all smithscore events.
  */
@@ -36,7 +38,7 @@ public class SmithsCoreEvent extends Event {
      * @param pContext The Context of the Message for which the handlers has to be retrieved.
      * @return The ClientNetHandler on the ClientSide and the ServerNetHandler on the server side.
      */
-    public INetHandler getSidedPlayerHandlerFromContext(MessageContext pContext) {
+    public INetHandler getSidedPlayerHandlerFromContext(@Nonnull MessageContext pContext) {
         if (pContext.side == Side.SERVER) {
             return pContext.getServerHandler();
         }

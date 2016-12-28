@@ -9,6 +9,8 @@ package com.smithsmodding.smithscore.util.client.gui;
 import com.smithsmodding.smithscore.util.client.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * A Texture that is made up out of several (9) components.
  * By repeating the individual components you can create a Texture as big as you want.
@@ -40,7 +42,7 @@ public class MultiComponentTexture {
      * @param pCornerWidth The Corner Width of the MultiTexture Corners
      * @param pCornerHeight The Corner Height of the MultiTexture Corners
      */
-    public MultiComponentTexture(CustomResource pSource, int pTotalWidth, int pTotalHeight, int pCornerWidth, int pCornerHeight) {
+    public MultiComponentTexture(@Nonnull CustomResource pSource, int pTotalWidth, int pTotalHeight, int pCornerWidth, int pCornerHeight) {
         iCenterComponent = new TextureComponent(pSource.getPrimaryLocation(), pSource.getU() + pCornerWidth, pSource.getV() + pCornerHeight, pTotalWidth - (pCornerWidth * 2), pTotalHeight - (pCornerHeight * 2), new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
 
         iCornerComponents[0] = new TextureComponent(pSource.getPrimaryLocation(), pSource.getU(), pSource.getV(), pCornerWidth, pCornerHeight, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));

@@ -5,6 +5,7 @@ import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
  */
 public class TileStorageBasedGUIManager implements IGUIManager{
 
+    @Nonnull
     protected ArrayList<UUID> watchingPlayers = new ArrayList<UUID>();
 
     /**
@@ -58,6 +60,7 @@ public class TileStorageBasedGUIManager implements IGUIManager{
      *
      * @return A string displayed as tooltip for the IGUIComponent during rendering.
      */
+    @Nonnull
     @Override
     public String getCustomToolTipDisplayString (IGUIComponent component) {
         return "";
@@ -82,11 +85,13 @@ public class TileStorageBasedGUIManager implements IGUIManager{
      *
      * @return THe string that should be displayed.
      */
+    @Nonnull
     @Override
     public String getLabelContents (IGUIComponent component) {
         return "";
     }
 
+    @Nonnull
     @Override
     public ArrayList<FluidStack> getTankContents (IGUIComponent component) {
         return new ArrayList<FluidStack>();

@@ -19,6 +19,7 @@ import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class BakedMultiComponentModel implements IPerspectiveAwareModel {
         this.trsrTransforms = trsrTransforms;
     }
 
+    @Nonnull
     @Override
     public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
         return DummyModel.BAKED_MODEL.getQuads(state, side, rand);
@@ -73,6 +75,7 @@ public class BakedMultiComponentModel implements IPerspectiveAwareModel {
         return overrides;
     }
 
+    @Nonnull
     @Override
     public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
         return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, trsrTransforms, cameraTransformType);
@@ -87,7 +90,7 @@ public class BakedMultiComponentModel implements IPerspectiveAwareModel {
         }
 
         @Override
-        public boolean matchedItemStack(ItemStack stack, World world, EntityLivingBase entity) {
+        public boolean matchedItemStack(@Nonnull ItemStack stack, World world, EntityLivingBase entity) {
             if (!stack.hasTagCompound())
                 stack.setTagCompound(new NBTTagCompound());
 

@@ -2,6 +2,7 @@ package com.smithsmodding.smithscore.client.model.data;
 
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector2f;
 
 /**
@@ -9,6 +10,7 @@ import javax.vecmath.Vector2f;
  * Replacement version of the old OBJ System in MC Forge used until the ModelGroup hiding works.
  */
 public class SmithsCoreOBJTexture {
+    @Nonnull
     public static SmithsCoreOBJTexture WHITE = new SmithsCoreOBJTexture("builtin/white", new Vector2f(0, 0), new Vector2f(1, 1), 0);
     private String path;
     private Vector2f position;
@@ -26,6 +28,7 @@ public class SmithsCoreOBJTexture {
         this.rotation = rotation;
     }
 
+    @Nonnull
     public ResourceLocation getTextureLocation() {
         ResourceLocation loc = new ResourceLocation(this.path);
         return loc;

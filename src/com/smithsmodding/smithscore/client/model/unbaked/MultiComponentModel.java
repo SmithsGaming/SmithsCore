@@ -16,6 +16,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -63,6 +64,7 @@ public class MultiComponentModel implements IModel {
         return new BakedMultiComponentModel(overrides.get(0).getModel().getParticleTexture(), overrides.get(0).getModel().getItemCameraTransforms(), new PreBakedComponentOverrideList(overrides), transforms);
     }
 
+    @Nonnull
     @Override
     public IModelState getDefaultState() {
         return ModelHelper.DEFAULT_ITEM_STATE;

@@ -12,6 +12,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Author Orion (Created on: 22.07.2016)
  * <p>
@@ -30,7 +33,7 @@ public class RenderHelper {
      * @param h     Height. 1 = full Y-Height
      * @param d     Depth. 1 = full Z-Depth
      */
-    public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double w, double h, double d) {
+    public static void renderFluidCuboid(@Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double w, double h, double d) {
         double wd = (1d - w) / 2d;
         double hd = (1d - h) / 2d;
         double dd = (1d - d) / 2d;
@@ -38,7 +41,7 @@ public class RenderHelper {
         renderFluidCuboid(fluid, pos, x, y, z, wd, hd, dd, 1d - wd, 1d - hd, 1d - dd);
     }
 
-    public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
+    public static void renderFluidCuboid(@Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
         int color = fluid.getFluid().getColor(fluid);
         renderFluidCuboid(fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color);
     }
@@ -46,7 +49,7 @@ public class RenderHelper {
     /**
      * Renders block with offset x/y/z from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1
      */
-    public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color) {
+    public static void renderFluidCuboid(@Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color) {
         Tessellator tessellator = Tessellator.getInstance();
         VertexBuffer renderer = tessellator.getBuffer();
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
@@ -71,7 +74,7 @@ public class RenderHelper {
         post();
     }
 
-    public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double w, double h, double d, EnumFacing facing) {
+    public static void renderFluidSide(@Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double w, double h, double d, @Nonnull EnumFacing facing) {
         double wd = (1d - w) / 2d;
         double hd = (1d - h) / 2d;
         double dd = (1d - d) / 2d;
@@ -79,13 +82,13 @@ public class RenderHelper {
         renderFluidSide(fluid, pos, x, y, z, wd, hd, dd, 1d - wd, 1d - hd, 1d - dd, facing);
     }
 
-    public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, EnumFacing facing) {
+    public static void renderFluidSide(@Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, @Nonnull EnumFacing facing) {
         int color = fluid.getFluid().getColor(fluid);
         renderFluidSide(fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color, facing);
     }
 
 
-    public static void renderFluidSide(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, EnumFacing facing) {
+    public static void renderFluidSide(@Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, @Nonnull EnumFacing facing) {
         Tessellator tessellator = Tessellator.getInstance();
         VertexBuffer renderer = tessellator.getBuffer();
 
@@ -96,7 +99,7 @@ public class RenderHelper {
         tessellator.draw();
     }
 
-    public static void renderFluidSide(VertexBuffer renderer, FluidStack fluid, BlockPos pos, double x, double y, double z, double w, double h, double d, EnumFacing facing) {
+    public static void renderFluidSide(@Nonnull VertexBuffer renderer, @Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double w, double h, double d, @Nonnull EnumFacing facing) {
         double wd = (1d - w) / 2d;
         double hd = (1d - h) / 2d;
         double dd = (1d - d) / 2d;
@@ -104,13 +107,13 @@ public class RenderHelper {
         renderFluidSide(renderer, fluid, pos, x, y, z, wd, hd, dd, 1d - wd, 1d - hd, 1d - dd, facing);
     }
 
-    public static void renderFluidSide(VertexBuffer renderer, FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, EnumFacing facing) {
+    public static void renderFluidSide(@Nonnull VertexBuffer renderer, @Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, @Nonnull EnumFacing facing) {
         int color = fluid.getFluid().getColor(fluid);
         renderFluidSide(renderer, fluid, pos, x, y, z, x1, y1, z1, x2, y2, z2, color, facing);
     }
 
 
-    public static void renderFluidSide(VertexBuffer renderer, FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, EnumFacing facing) {
+    public static void renderFluidSide(@Nonnull VertexBuffer renderer, @Nonnull FluidStack fluid, @Nonnull BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2, int color, @Nonnull EnumFacing facing) {
         Minecraft.getMinecraft().world.theProfiler.startSection("FluidSide rendering");
         int brightness = Minecraft.getMinecraft().world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
@@ -119,13 +122,13 @@ public class RenderHelper {
         TextureAtlasSprite still = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(fluid.getFluid().getStill(fluid).toString());
         TextureAtlasSprite flowing = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
-        putTexturedQuad(renderer, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? still : flowing), x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, facing, color, brightness, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? false : true));
+        putTexturedQuad(renderer, (facing == EnumFacing.DOWN || facing == EnumFacing.UP ? still : flowing), x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, facing, color, brightness, (!(facing == EnumFacing.DOWN || facing == EnumFacing.UP)));
 
         post();
         Minecraft.getMinecraft().world.theProfiler.endSection();
     }
 
-    public static void putTexturedQuad(VertexBuffer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+    public static void putTexturedQuad(@Nonnull VertexBuffer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, @Nonnull EnumFacing face,
                                        int color, int brightness, boolean flowing) {
         int l1 = brightness >> 0x10 & 0xFFFF;
         int l2 = brightness & 0xFFFF;
@@ -139,7 +142,7 @@ public class RenderHelper {
     }
 
     // x and x+w has to be within [0,1], same for y/h and z/d
-    public static void putTexturedQuad(VertexBuffer renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+    public static void putTexturedQuad(@Nonnull VertexBuffer renderer, @Nullable TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, @Nonnull EnumFacing face,
                                        int r, int g, int b, int a, int light1, int light2, boolean flowing) {
         // safety
         if (sprite == null) {
@@ -284,7 +287,7 @@ public class RenderHelper {
         Minecraft.getMinecraft().world.theProfiler.endSection();
     }
 
-    public static void setBrightness(VertexBuffer renderer, int brightness) {
+    public static void setBrightness(@Nonnull VertexBuffer renderer, int brightness) {
         renderer.putBrightness4(brightness, brightness, brightness, brightness);
     }
 }

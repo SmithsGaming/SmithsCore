@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class BakedWrappedModel implements IBakedModel {
         this.parentModel = parentModel;
     }
 
+    @Nonnull
     @Override
     public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
         return parentModel.getQuads(state, side, rand);
@@ -45,16 +47,19 @@ public class BakedWrappedModel implements IBakedModel {
         return parentModel.isBuiltInRenderer();
     }
 
+    @Nonnull
     @Override
     public TextureAtlasSprite getParticleTexture() {
         return parentModel.getParticleTexture();
     }
 
+    @Nonnull
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
         return parentModel.getItemCameraTransforms();
     }
 
+    @Nonnull
     @Override
     public ItemOverrideList getOverrides() {
         return parentModel.getOverrides();
@@ -73,6 +78,7 @@ public class BakedWrappedModel implements IBakedModel {
             this.transformations = transformations;
         }
 
+        @Nonnull
         @Override
         public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
             return IPerspectiveAwareModel.MapWrapper.handlePerspective(getParentModel(), transformations, cameraTransformType);

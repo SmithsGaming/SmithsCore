@@ -10,6 +10,7 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.resources.I18n;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 /**
@@ -30,11 +31,13 @@ public class ComponentProgressBar extends CoreComponent {
         this.fullResource = fullResource;
     }
 
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent() {
         return new Plane(getGlobalCoordinate(), getWidth(), getHeight());
     }
 
+    @Nonnull
     @Override
     public Plane getSize() {
         return new Plane(0,0, getWidth(), getHeight());
@@ -77,6 +80,7 @@ public class ComponentProgressBar extends CoreComponent {
         //NOOP
     }
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent () {
         ArrayList<String> tips = new ArrayList<String>();

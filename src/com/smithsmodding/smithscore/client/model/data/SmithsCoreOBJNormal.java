@@ -1,5 +1,6 @@
 package com.smithsmodding.smithscore.client.model.data;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector3f;
 
 /**
@@ -17,7 +18,7 @@ public class SmithsCoreOBJNormal {
         this(data[0], data[1], data[2]);
     }
 
-    public SmithsCoreOBJNormal(Vector3f vector3f) {
+    public SmithsCoreOBJNormal(@Nonnull Vector3f vector3f) {
         this(vector3f.x, vector3f.y, vector3f.z);
     }
 
@@ -27,6 +28,7 @@ public class SmithsCoreOBJNormal {
         this.z = z;
     }
 
+    @Nonnull
     public Vector3f getData() {
         return new Vector3f(this.x, this.y, this.z);
     }

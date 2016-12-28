@@ -13,6 +13,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Orion
  * Created on 22.11.2015
@@ -33,7 +35,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     private IItemStorage containerInventory;
     private IInventory playerInventory;
 
-    public ContainerSmithsCore(String containerID, IContainerHost host, IItemStorage containerInventory, EntityPlayer playerMP) {
+    public ContainerSmithsCore(String containerID, IContainerHost host, IItemStorage containerInventory, @Nonnull EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host, this);
@@ -152,7 +154,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     }
 
     @Override
-    protected boolean mergeItemStack(ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
+    protected boolean mergeItemStack(@Nonnull ItemStack itemStack, int slotMin, int slotMax, boolean ascending) {
         boolean slotFound = false;
         int currentSlotIndex = ascending ? slotMax - 1 : slotMin;
         Slot slot;

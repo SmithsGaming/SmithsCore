@@ -6,6 +6,7 @@ import com.smithsmodding.smithscore.client.model.deserializers.definition.MultiC
 import com.smithsmodding.smithscore.util.client.ModelHelper;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -32,12 +33,14 @@ public class MultiComponentModelDeserializer implements JsonDeserializer<Map<Str
      * @return A ModelDefinition for a MultiComponentModel.
      * @throws IOException Thrown when the given ModelLocation points to nothing or not to a ModelFile.
      */
-    public MultiComponentModelDefinition deserialize(ResourceLocation modelLocation) throws IOException {
+    @Nonnull
+    public MultiComponentModelDefinition deserialize(@Nonnull ResourceLocation modelLocation) throws IOException {
         return new MultiComponentModelDefinition(gson.fromJson(ModelHelper.getReaderForResource(modelLocation), mapType), ModelHelper.loadTransformFromJson(modelLocation));
     }
 
+    @Nonnull
     @Override
-    public Map<String, ResourceLocation> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Map<String, ResourceLocation> deserialize(@Nonnull JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonObject textureObject = jsonObject.get("components").getAsJsonObject();
 

@@ -19,6 +19,8 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,19 +31,21 @@ import java.util.Map;
  */
 public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
+    @Nonnull
     protected static Map<String, TextureAtlasSprite> cache = Maps.newHashMap();
 
+    @Nullable
     private TextureAtlasSprite baseTexture;
     private String backupTextureLocation;
     private String extra;
 
-    protected AbstractColoredTexture(TextureAtlasSprite baseTexture, String spriteName) {
+    protected AbstractColoredTexture(@Nonnull TextureAtlasSprite baseTexture, @Nonnull String spriteName) {
         super(spriteName);
         this.baseTexture = baseTexture;
         this.backupTextureLocation = baseTexture.getIconName();
     }
 
-    protected AbstractColoredTexture(String baseTextureLocation, String spriteName) {
+    protected AbstractColoredTexture(String baseTextureLocation, @Nonnull String spriteName) {
         super(spriteName);
 
         this.baseTexture = null;
@@ -118,6 +122,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         return (int) ((float) c1 * (c2 / 255f));
     }
 
+    @Nonnull
     public TextureAtlasSprite setSuffix(String suffix) {
         this.extra = suffix;
         this.baseTexture = null;
@@ -130,7 +135,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     }
 
     @Override
-    public boolean load(IResourceManager manager, ResourceLocation location) {
+    public boolean load(@Nonnull IResourceManager manager, ResourceLocation location) {
         this.framesTextureData = Lists.newArrayList();
         this.frameCounter = 0;
         this.tickCounter = 0;
@@ -178,7 +183,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
      *
      * @param data The texture data to color.
      */
-    protected void processData(int[][] data) {
+    protected void processData(@Nonnull int[][] data) {
         //Use the mipmap levels to color the pixels.
         for (int mipmap = 0; mipmap < data.length; mipmap++) {
             //If no data exists for that MipMap level skip it.
@@ -213,7 +218,8 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
      * @param resourceManager  The resource manager to load the texture.
      * @return The Sprite used as backup for the original.
      */
-    protected int[][] backupLoadTexture(ResourceLocation resourceLocation, IResourceManager resourceManager) {
+    @Nullable
+    protected int[][] backupLoadTexture(@Nonnull ResourceLocation resourceLocation, @Nonnull IResourceManager resourceManager) {
         if (resourceLocation.equals(TextureMap.LOCATION_MISSING_TEXTURE)) {
             return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite().getFrameTextureData(0);
         }
@@ -255,7 +261,8 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
      * @param resourceManager  The resource manager used to do the loading.
      * @return A ready to use TextureAtlasSprite of the backup texture.
      */
-    protected TextureAtlasSprite backupLoadTextureAtlasSprite(ResourceLocation resourceLocation, IResourceManager resourceManager) {
+    @Nullable
+    protected TextureAtlasSprite backupLoadTextureAtlasSprite(@Nonnull ResourceLocation resourceLocation, @Nonnull IResourceManager resourceManager) {
         ResourceLocation resourcelocation1 = this.completeResourceLocation(resourceLocation, 0);
         TextureAtlasSprite textureAtlasSprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);
 
@@ -287,7 +294,8 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
      * @param mipmapLevel The mipmap level to get the modified version for.
      * @return A location in the root textures directory if 0 is passed in as location or: a location in the mipmaps sub directory with the {mipmaplevel}.png as ending
      */
-    protected ResourceLocation completeResourceLocation(ResourceLocation location, int mipmapLevel) {
+    @Nonnull
+    protected ResourceLocation completeResourceLocation(@Nonnull ResourceLocation location, int mipmapLevel) {
         if (mipmapLevel == 0) {
             return new ResourceLocation(location.getResourceDomain(),
                     String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));

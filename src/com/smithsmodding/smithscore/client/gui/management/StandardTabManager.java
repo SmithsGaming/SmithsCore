@@ -5,6 +5,7 @@ import com.smithsmodding.smithscore.client.events.gui.*;
 import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.tabs.core.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -14,6 +15,7 @@ public class StandardTabManager implements ITabManager {
 
     IGUIBasedTabHost host;
     String activeTabId;
+    @Nonnull
     LinkedHashMap<String, IGUITab> tabs = new LinkedHashMap<String, IGUITab>();
 
     public StandardTabManager (IGUIBasedTabHost host) {
@@ -90,7 +92,7 @@ public class StandardTabManager implements ITabManager {
      * @param newTab The new tab.
      */
     @Override
-    public void registerNewTab (IGUITab newTab) {
+    public void registerNewTab (@Nonnull IGUITab newTab) {
         if (tabs.size() == 0)
             activeTabId = newTab.getID();
 
@@ -103,6 +105,7 @@ public class StandardTabManager implements ITabManager {
      * @return A LinkedHashMap that holds all the possible tabs sorted on registration order with their
      * ID as keys.
      */
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUITab> getTabs () {
         return tabs;
@@ -182,7 +185,7 @@ public class StandardTabManager implements ITabManager {
      * @param tab The tab to be displayed.
      */
     @Override
-    public void setActiveTab (IGUITab tab) {
+    public void setActiveTab (@Nonnull IGUITab tab) {
         activeTabId = tab.getID();
 
         host.onTabChanged(tab.getID());

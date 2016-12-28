@@ -21,6 +21,8 @@ import com.smithsmodding.smithscore.util.common.positioning.Plane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,10 +40,11 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     private LedgerComponentState state;
     private IGUIBasedLedgerHost root;
     private LedgerConnectionSide side;
+    @Nonnull
     private LinkedHashMap<String, IGUIComponent> components = new LinkedHashMap<String, IGUIComponent>();
     private MinecraftColor color;
 
-    public CoreLedger (String uniqueID, LedgerComponentState state, IGUIBasedLedgerHost root, LedgerConnectionSide side, CustomResource ledgerIcon, String translatedLedgerHeader, MinecraftColor color) {
+    public CoreLedger (String uniqueID, LedgerComponentState state, IGUIBasedLedgerHost root, LedgerConnectionSide side, @Nonnull CustomResource ledgerIcon, String translatedLedgerHeader, MinecraftColor color) {
         this.uniqueID = uniqueID;
         this.state = state;
         this.state.setComponent(this);
@@ -102,6 +105,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The location of the top left pixel of this component
      */
+    @Nonnull
     @Override
     public Coordinate2D getGlobalCoordinate () {
         return root.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
@@ -112,6 +116,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
      */
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate () {
         Coordinate2D primaryCorner = getLedgerHost().getLedgerManager().getLedgerLocalCoordinate(getPrimarySide(), getID());
@@ -128,6 +133,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return A Plane detailing the the position and size of this Component.
      */
+    @Nonnull
     @Override
     public Plane getAreaOccupiedByComponent () {
         return new Plane(getGlobalCoordinate(), getSize().getWidth(), getSize().getHeigth());
@@ -138,6 +144,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The size of this component.
      */
+    @Nonnull
     @Override
     public Plane getSize () {
         return new Plane(0, 0, (int) Math.ceil(closedLedgerWidth + ( getMaxWidth() - closedLedgerWidth ) * state.getOpenProgress()), (int) Math.ceil(closedLedgerHeight + ( getMaxHeight() - closedLedgerHeight ) * state.getOpenProgress()));
@@ -177,6 +184,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     @Override
     public void registerComponents (IGUIBasedComponentHost host) {
         ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon) {
+            @Nonnull
             @Override
             public ArrayList<String> getToolTipContent () {
                 return getIconToolTipText();
@@ -232,6 +240,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
         return true;
     }
 
+    @Nonnull
     @Override
     public Plane getGlobalScissorLocation () {
         return new Plane(getGlobalCoordinate().getTranslatedCoordinate(new Coordinate2D(4, 4)), getSize().getWidth() - 8, getSize().getHeigth() - 8);
@@ -252,6 +261,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
         return false;
     }
 
+    @Nonnull
     @Override
     public ArrayList<String> getToolTipContent () {
         return new ArrayList<String>();
@@ -375,6 +385,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The Icons ToolTip.
      */
+    @Nonnull
     @Override
     public ArrayList<String> getIconToolTipText () {
         ArrayList<String> result = new ArrayList<String>();
@@ -409,11 +420,13 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return A ID to Component map that holds all the components (but not their SubComponents) of this host.
      */
+    @Nonnull
     @Override
     public LinkedHashMap<String, IGUIComponent> getAllComponents () {
         return components;
     }
 
+    @Nullable
     public IGUIComponent getComponentByID (String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
@@ -440,7 +453,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @param component The new component.
      */
     @Override
-    public void registerNewComponent (IGUIComponent component) {
+    public void registerNewComponent (@Nonnull IGUIComponent component) {
         components.put(component.getID(), component);
 
         if (component instanceof IGUIBasedComponentHost)

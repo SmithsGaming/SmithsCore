@@ -12,11 +12,13 @@ import net.minecraftforge.fml.client.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
+
 public class ContainerGUIOpenedEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onPlayerOpenenedContainerGUIClientSide (ContainerGuiOpenedEvent event) {
+    public void onPlayerOpenenedContainerGUIClientSide (@Nonnull ContainerGuiOpenedEvent event) {
         if (!( FMLClientHandler.instance().getClientPlayerEntity().openContainer instanceof ContainerSmithsCore ))
             return;
 

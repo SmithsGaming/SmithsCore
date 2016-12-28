@@ -10,6 +10,8 @@ import com.smithsmodding.smithscore.util.client.CustomResource;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import net.minecraft.client.renderer.texture.TextureMap;
 
+import javax.annotation.Nonnull;
+
 /**
  * A Part of a Texture.
  */
@@ -57,7 +59,7 @@ public class TextureComponent {
      * @param pRotation The UIRotation that has to be done to this Component fit.
      * @param pRelativeTranslation The Translation that has to be done before the Render but after the rotation to make this Component fit.
      */
-    public TextureComponent(CustomResource pResource, UIRotation pRotation, Coordinate2D pRelativeTranslation) {
+    public TextureComponent(@Nonnull CustomResource pResource, UIRotation pRotation, Coordinate2D pRelativeTranslation) {
         iAddress = pResource.getPrimaryLocation();
         iU = pResource.getU();
         iV = pResource.getV();
@@ -72,7 +74,7 @@ public class TextureComponent {
      *
      * @param pResource The CustomResource describing this Component.
      */
-    public TextureComponent(CustomResource pResource) {
+    public TextureComponent(@Nonnull CustomResource pResource) {
         this(pResource, new UIRotation(false, false, false, 0F), new Coordinate2D(0, 0));
     }
 }

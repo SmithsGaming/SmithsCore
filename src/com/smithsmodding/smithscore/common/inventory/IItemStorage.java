@@ -59,12 +59,14 @@ public interface IItemStorage extends IWorldNameable {
     boolean isItemValidForSlot(int index, @Nonnull ItemStack stack);
 
     class IInventoryWrapper implements IInventory {
+        @Nonnull
         private final IItemStorage storage;
 
         public IInventoryWrapper(@Nonnull IItemStorage storage) {
             this.storage = storage;
         }
 
+        @Nonnull
         public IItemStorage getStorage() {
             return storage;
         }
@@ -79,16 +81,19 @@ public interface IItemStorage extends IWorldNameable {
             return storage.isEmpty();
         }
 
+        @Nonnull
         @Override
         public ItemStack getStackInSlot(int index) {
             return storage.getStackInSlot(index);
         }
 
+        @Nonnull
         @Override
         public ItemStack decrStackSize(int index, int count) {
             return storage.decrStackSize(index, count);
         }
 
+        @Nonnull
         @Override
         public ItemStack removeStackFromSlot(int index) {
             ItemStack result = getStackInSlot(index);
@@ -152,6 +157,7 @@ public interface IItemStorage extends IWorldNameable {
             storage.clearInventory();
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return storage.getName();
@@ -162,6 +168,7 @@ public interface IItemStorage extends IWorldNameable {
             return storage.hasCustomName();
         }
 
+        @Nonnull
         @Override
         public ITextComponent getDisplayName() {
             return storage.getDisplayName();

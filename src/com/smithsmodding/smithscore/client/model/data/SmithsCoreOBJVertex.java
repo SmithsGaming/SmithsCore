@@ -1,5 +1,6 @@
 package com.smithsmodding.smithscore.client.model.data;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
@@ -26,6 +27,7 @@ public class SmithsCoreOBJVertex {
         this.position = position;
     }
 
+    @Nonnull
     public Vector3f getPos3() {
         return new Vector3f(this.position.x, this.position.y, this.position.z);
     }
@@ -67,6 +69,7 @@ public class SmithsCoreOBJVertex {
         this.material = material;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

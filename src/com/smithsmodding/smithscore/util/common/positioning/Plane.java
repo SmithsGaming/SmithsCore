@@ -6,6 +6,8 @@
 
 package com.smithsmodding.smithscore.util.common.positioning;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
 
 public class Plane {
@@ -19,7 +21,7 @@ public class Plane {
     public Plane () {
     }
 
-    public Plane (Coordinate2D coordinate2D, int width, int heigth) {
+    public Plane (@Nonnull Coordinate2D coordinate2D, int width, int heigth) {
         this(coordinate2D.iXCoord, coordinate2D.iYCoord, width, heigth);
     }
 
@@ -63,6 +65,7 @@ public class Plane {
         return iHeigth;
     }
 
+    @Nonnull
     public Plane Move (int pDeltaX, int pDeltaY) {
         this.iTopLeftFrontCoord.iXCoord += pDeltaX;
         this.iTopLeftFrontCoord.iYCoord += pDeltaY;
@@ -73,15 +76,18 @@ public class Plane {
         return this;
     }
 
-    public Plane IncludeCoordinate (Plane planeToInclude) {
+    @Nonnull
+    public Plane IncludeCoordinate (@Nonnull Plane planeToInclude) {
         this.IncludeCoordinate(planeToInclude.TopLeftCoord());
         return this.IncludeCoordinate(planeToInclude.LowerRightCoord());
     }
 
-    public Plane IncludeCoordinate (Coordinate2D pCoordinateToInclude) {
+    @Nonnull
+    public Plane IncludeCoordinate (@Nonnull Coordinate2D pCoordinateToInclude) {
         return this.IncludeCoordinate(pCoordinateToInclude.getXComponent(), pCoordinateToInclude.getYComponent());
     }
 
+    @Nonnull
     public Plane IncludeCoordinate (int pXCoord, int pYCoord) {
         if (pXCoord < this.iTopLeftFrontCoord.getXComponent()) {
             this.ExpandToCoordinate(-1 * Math.abs(pXCoord - iTopLeftFrontCoord.getXComponent()), 0);
@@ -101,6 +107,7 @@ public class Plane {
         return this;
     }
 
+    @Nonnull
     public Plane ExpandToCoordinate (int pDeltaX, int pDeltaY) {
         if (pDeltaX < 0) {
             iTopLeftFrontCoord = new Coordinate2D(iTopLeftFrontCoord.getXComponent() + pDeltaX, iTopLeftFrontCoord.getYComponent());
@@ -123,7 +130,7 @@ public class Plane {
         return this;
     }
 
-    public boolean ContainsCoordinate (Coordinate2D pCoord) {
+    public boolean ContainsCoordinate (@Nonnull Coordinate2D pCoord) {
         if (pCoord.getYComponent() != iTopLeftFrontCoord.getYComponent())
             return false;
 
@@ -134,11 +141,12 @@ public class Plane {
         return this.TopLeftCoord().getXComponent() <= pXCoord && pXCoord <= this.LowerRightCoord().getXComponent() && this.TopLeftCoord().getYComponent() <= pYCoord && pYCoord <= this.LowerRightCoord().getYComponent();
     }
 
-    public boolean Intersects (Plane pPlaneToCheck) {
+    public boolean Intersects (@Nonnull Plane pPlaneToCheck) {
         return pPlaneToCheck.TopLeftCoord().getXComponent() + pPlaneToCheck.iWidth > this.TopLeftCoord().getXComponent() && pPlaneToCheck.TopLeftCoord().getXComponent() < this.TopLeftCoord().getXComponent() + this.iWidth && pPlaneToCheck.TopLeftCoord().getYComponent() + pPlaneToCheck.iHeigth > this.TopLeftCoord().getYComponent() && pPlaneToCheck.TopLeftCoord().getYComponent() < this.TopLeftCoord().getYComponent() + this.iHeigth;
     }
 
-    public Plane getInstersection (Plane toIntersect)
+    @Nullable
+    public Plane getInstersection (@Nonnull Plane toIntersect)
     {
         if (!Intersects(toIntersect))
             return null;
@@ -173,6 +181,7 @@ public class Plane {
         return this.iWidth * this.iHeigth;
     }
 
+    @Nonnull
     public Rectangle toRectangle() {
         return new Rectangle(TopLeftCoord().getXComponent(), TopLeftCoord().getYComponent(), getWidth(), getHeigth());
     }

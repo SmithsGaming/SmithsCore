@@ -8,6 +8,8 @@ import com.smithsmodding.smithscore.util.client.color.*;
 import com.smithsmodding.smithscore.util.client.gui.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 21.12.2015.
  */
@@ -86,6 +88,7 @@ public class ComponentBorder extends CoreComponent {
         GuiHelper.drawRectangleStretched(tCenterComponent, tSideComponents, tCornerComponents, width, height, new Coordinate2D(0, 0));
     }
 
+    @Nonnull
     private TextureComponent getTopLeftComponent () {
         if (topLeftCorner == CornerTypes.Inwards)
             return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
@@ -110,6 +113,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Light.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERLIGHT.getPrimaryLocation(), Colors.DEFAULT, 3, 0, 3, 3), new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
     }
 
+    @Nonnull
     private TextureComponent getTopRightComponent () {
         if (topRightCorner == CornerTypes.Inwards)
             return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHT, new UIRotation(false, false, true, 90), new Coordinate2D(0, 0));
@@ -134,6 +138,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Light.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERLIGHT.getPrimaryLocation(), Colors.DEFAULT, 3, 0, 3, 3), new UIRotation(false, false, true, 0), new Coordinate2D(-3, 0));
     }
 
+    @Nonnull
     private TextureComponent getLowerRightCorner () {
         if (lowerRightCorner == CornerTypes.Inwards)
             return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERDARK, new UIRotation(false, false, true, 0), new Coordinate2D(-4, -4));
@@ -158,6 +163,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Dark.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERDARK.getPrimaryLocation(), Colors.DEFAULT, 3, 253, 3, 3), new UIRotation(false, false, false, 0), new Coordinate2D(-3, -3));
     }
 
+    @Nonnull
     private TextureComponent getLowerLeftCorner () {
         if (lowerLeftCorner == CornerTypes.Inwards)
             return new TextureComponent(Textures.Gui.Basic.Border.INWARTSCORNERLIGHTINVERTED, new UIRotation(false, false, true, 0), new Coordinate2D(0, -3));
@@ -182,6 +188,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(new CustomResource("Gui.Basic.Border.Border.Dark.Small", Textures.Gui.Basic.Border.STRAIGHTBORDERDARK.getPrimaryLocation(), Colors.DEFAULT, 3, 253, 3, 3), new UIRotation(false, false, true, 0), new Coordinate2D(0, -3));
     }
 
+    @Nonnull
     public TextureComponent getTopBorder () {
         if (( topLeftCorner == CornerTypes.Outwards && topRightCorner == CornerTypes.Outwards) || ( topLeftCorner == CornerTypes.StraightVertical && topRightCorner == CornerTypes.StraightVertical )) {
             return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 4, 248, 4), new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
@@ -190,6 +197,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERLIGHT, new UIRotation(false, false, false, 0), new Coordinate2D(0, 0));
     }
 
+    @Nonnull
     public TextureComponent getRightBorder () {
         if (( topRightCorner == CornerTypes.Outwards && lowerRightCorner == CornerTypes.Outwards && topLeftCorner != CornerTypes.Outwards && lowerLeftCorner != CornerTypes.Outwards) || ( topRightCorner == CornerTypes.StraightHorizontal && lowerRightCorner == CornerTypes.StraightHorizontal )) {
             return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 248, 4, 4), new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
@@ -198,6 +206,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERDARK, new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));
     }
 
+    @Nonnull
     public TextureComponent getLowerBorder () {
         if (( lowerRightCorner == CornerTypes.Outwards && lowerLeftCorner == CornerTypes.Outwards) || ( lowerLeftCorner == CornerTypes.StraightVertical && lowerRightCorner == CornerTypes.StraightVertical )) {
             return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 4, 248, 4), new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
@@ -206,6 +215,7 @@ public class ComponentBorder extends CoreComponent {
         return new TextureComponent(Textures.Gui.Basic.Border.STRAIGHTBORDERDARK, new UIRotation(false, false, true, 0), new Coordinate2D(0, 0));
     }
 
+    @Nonnull
     public TextureComponent getLeftBorder () {
         if (( topLeftCorner == CornerTypes.Outwards && lowerLeftCorner == CornerTypes.Outwards && topRightCorner != CornerTypes.Outwards && lowerRightCorner != CornerTypes.Outwards) || ( topLeftCorner == CornerTypes.StraightHorizontal && lowerLeftCorner == CornerTypes.StraightHorizontal )) {
             return new TextureComponent(new CustomResource("Gui.Basic.Border.Center", Textures.Gui.Basic.Border.CENTER.getPrimaryLocation(), Colors.DEFAULT, 4, 248, 4, 4), new UIRotation(false, false, true, -90), new Coordinate2D(0, 0));

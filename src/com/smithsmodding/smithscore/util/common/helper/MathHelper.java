@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.util.common.helper;
 
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector3f;
 
 /**
@@ -12,7 +13,8 @@ public class MathHelper {
         return (float) (degree / 180 * Math.PI);
     }
 
-    public static Vector3f fromDegreeToRadian(Vector3f degree) {
+    @Nonnull
+    public static Vector3f fromDegreeToRadian(@Nonnull Vector3f degree) {
         return new Vector3f(fromDegreeToRadian(degree.getX()), fromDegreeToRadian(degree.getY()), fromDegreeToRadian(degree.getZ()));
     }
 }

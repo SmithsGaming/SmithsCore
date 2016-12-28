@@ -12,6 +12,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 
 public class Coordinate3D {
     float xCoord;
@@ -24,28 +27,32 @@ public class Coordinate3D {
         this.zCoord = zCoord;
     }
 
-    public Coordinate3D(BlockPos pos) {
+    public Coordinate3D(@Nonnull BlockPos pos) {
         this(pos.getX(), pos.getY(), pos.getZ());
     }
 
-    public static Coordinate3D fromNBT (NBTTagCompound compound) {
+    @Nonnull
+    public static Coordinate3D fromNBT (@Nonnull NBTTagCompound compound) {
         return new Coordinate3D(compound.getFloat(CoreReferences.NBT.Coordinates.X), compound.getFloat(CoreReferences.NBT.Coordinates.Y), compound.getFloat(CoreReferences.NBT.Coordinates.Z));
     }
 
-    public static Coordinate3D fromBytes (ByteBuf pData) {
+    @Nonnull
+    public static Coordinate3D fromBytes (@Nonnull ByteBuf pData) {
         return new Coordinate3D(pData.readFloat(), pData.readFloat(), pData.readFloat());
     }
 
-    public void toBytes (ByteBuf pDataOut) {
+    public void toBytes (@Nonnull ByteBuf pDataOut) {
         pDataOut.writeFloat(getXComponent());
         pDataOut.writeFloat(getYComponent());
         pDataOut.writeFloat(getZComponent());
     }
 
+    @Nonnull
     public BlockPos toBlockPos () {
         return new BlockPos(getXComponent(), getYComponent(), getZComponent());
     }
 
+    @Nonnull
     public NBTTagCompound toCompound () {
         NBTTagCompound compound = new NBTTagCompound();
 
@@ -56,6 +63,7 @@ public class Coordinate3D {
         return compound;
     }
 
+    @Nonnull
     @Override
     public String toString () {
         return "Coordinate{" +
@@ -66,7 +74,7 @@ public class Coordinate3D {
     }
 
     @Override
-    public boolean equals (Object o) {
+    public boolean equals (@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -95,11 +103,12 @@ public class Coordinate3D {
         return zCoord;
     }
 
-    public Coordinate3D moveCoordinate(EnumFacing direction, int distance) {
+    @Nonnull
+    public Coordinate3D moveCoordinate(@Nonnull EnumFacing direction, int distance) {
         return new Coordinate3D(toBlockPos().offset(direction, distance));
     }
 
-    public float getDistanceTo (Coordinate3D pCoordinate) {
+    public float getDistanceTo (@Nonnull Coordinate3D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2) + Math.pow(getZComponent() - pCoordinate.getZComponent(), 2));
     }
 }

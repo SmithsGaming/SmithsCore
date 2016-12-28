@@ -9,6 +9,9 @@ package com.smithsmodding.smithscore.util.common.positioning;
 import io.netty.buffer.*;
 import net.minecraft.util.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class Coordinate2D {
 
     int iXCoord;
@@ -19,10 +22,12 @@ public class Coordinate2D {
         iYCoord = pYCoord;
     }
 
-    public static Coordinate2D fromBytes (ByteBuf pData) {
+    @Nonnull
+    public static Coordinate2D fromBytes (@Nonnull ByteBuf pData) {
         return new Coordinate2D(pData.readInt(), pData.readInt());
     }
 
+    @Nonnull
     @Override
     public String toString () {
         return "Coordinate{" +
@@ -32,7 +37,7 @@ public class Coordinate2D {
     }
 
     @Override
-    public boolean equals (Object o) {
+    public boolean equals (@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -60,23 +65,26 @@ public class Coordinate2D {
 
     public void setYComponent (int newY) { iYCoord = newY; }
 
-    public Coordinate2D moveCoordiante (EnumFacing pDirection, int pDistance) {
+    @Nonnull
+    public Coordinate2D moveCoordiante (@Nonnull EnumFacing pDirection, int pDistance) {
         return new Coordinate2D(getXComponent() + ( pDistance * pDirection.getFrontOffsetX() ), getYComponent() + ( pDistance * pDirection.getFrontOffsetY() ));
     }
 
-    public float getDistanceTo (Coordinate2D pCoordinate) {
+    public float getDistanceTo (@Nonnull Coordinate2D pCoordinate) {
         return (float) Math.sqrt(Math.pow(getXComponent() - pCoordinate.getXComponent(), 2) + Math.pow(getYComponent() - pCoordinate.getYComponent(), 2));
     }
 
-    public void toBytes (ByteBuf pDataOut) {
+    public void toBytes (@Nonnull ByteBuf pDataOut) {
         pDataOut.writeInt(getXComponent());
         pDataOut.writeInt(getYComponent());
     }
 
-    public Coordinate2D getTranslatedCoordinate (Coordinate2D distance) {
+    @Nonnull
+    public Coordinate2D getTranslatedCoordinate (@Nonnull Coordinate2D distance) {
         return new Coordinate2D(this.iXCoord + distance.iXCoord, this.iYCoord + distance.getYComponent());
     }
 
+    @Nonnull
     public Coordinate2D getInvertedCoordinate()  {
         return new Coordinate2D(-1 * getXComponent(), -1 * getYComponent());
     }

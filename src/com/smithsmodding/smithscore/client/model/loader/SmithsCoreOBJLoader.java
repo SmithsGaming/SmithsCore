@@ -12,6 +12,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import org.apache.logging.log4j.Level;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +29,7 @@ public enum SmithsCoreOBJLoader implements ICustomModelLoader {
     private final Map<ResourceLocation, Exception> errors = new HashMap<>();
     private IResourceManager manager;
 
-    public void addDomain(String domain) {
+    public void addDomain(@Nonnull String domain) {
         enabledDomains.add(domain.toLowerCase());
         SmithsCore.getLogger().log(Level.INFO, CoreReferences.LogMarkers.CLIENT, "Added: " + domain.toLowerCase() + " to the SmitshCore OBJ Loader.");
     }
@@ -39,11 +40,11 @@ public enum SmithsCoreOBJLoader implements ICustomModelLoader {
         errors.clear();
     }
 
-    public boolean accepts(ResourceLocation modelLocation) {
+    public boolean accepts(@Nonnull ResourceLocation modelLocation) {
         return enabledDomains.contains(modelLocation.getResourceDomain()) && modelLocation.getResourcePath().endsWith(".obj");
     }
 
-    public IModel loadModel(ResourceLocation modelLocation) throws Exception {
+    public IModel loadModel(@Nonnull ResourceLocation modelLocation) throws Exception {
         ResourceLocation file = new ResourceLocation(modelLocation.getResourceDomain(), modelLocation.getResourcePath());
         if (!cache.containsKey(file)) {
             IResource resource = null;

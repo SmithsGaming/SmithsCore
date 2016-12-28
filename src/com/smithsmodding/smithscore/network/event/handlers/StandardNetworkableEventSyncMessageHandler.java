@@ -12,6 +12,9 @@ import net.minecraft.util.*;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
 import net.minecraftforge.fml.relauncher.*;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class StandardNetworkableEventSyncMessageHandler implements IMessageHandler<StandardNetworkableEventSyncMessage, IMessage> {
 
     /**
@@ -22,8 +25,9 @@ public class StandardNetworkableEventSyncMessageHandler implements IMessageHandl
      * @param pContext The messages context.
      * @return an optional return message
      */
+    @Nullable
     @Override
-    public IMessage onMessage (final StandardNetworkableEventSyncMessage pMessage, final MessageContext pContext) {
+    public IMessage onMessage (@Nonnull final StandardNetworkableEventSyncMessage pMessage, @Nonnull final MessageContext pContext) {
         if (pMessage.EVENT == null)
             return null;
 

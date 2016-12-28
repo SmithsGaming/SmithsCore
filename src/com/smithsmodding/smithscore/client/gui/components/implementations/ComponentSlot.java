@@ -12,13 +12,15 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.inventory.Slot;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 22.12.2015.
  */
 public class ComponentSlot extends CoreComponent {
     private MinecraftColor color;
 
-    public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Slot connectedSlot, MinecraftColor color) {
+    public ComponentSlot (String uniqueID, SlotComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Slot connectedSlot, MinecraftColor color) {
         this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xPos - 1, connectedSlot.yPos - 1 - parent.getRootGuiObject().getDefaultDisplayVerticalOffset()), color);
     }
 

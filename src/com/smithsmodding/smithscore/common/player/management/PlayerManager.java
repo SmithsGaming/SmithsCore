@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public class PlayerManager {
     //Gets synchronised over to the server.
     private List<UUID> commonSidedOnlineMap = new ArrayList<UUID>();
     //Server side only lookup list for UUID -> EntityPlayer;
+    @Nonnull
     private HashMap<UUID, EntityPlayer> serverSidedJoinedMap = new HashMap<UUID, EntityPlayer>();
 
     /**
@@ -43,6 +45,7 @@ public class PlayerManager {
      *
      * @return The current Instance of the Manager.
      */
+    @Nonnull
     public static PlayerManager getInstance() {
         return INSTANCE;
     }
@@ -90,6 +93,7 @@ public class PlayerManager {
      *
      * @return A LookUp map that allows UUID to Entity Conversion without iteration.
      */
+    @Nonnull
     public HashMap<UUID, EntityPlayer> getServerSidedJoinedMap() {
         return serverSidedJoinedMap;
     }
@@ -114,7 +118,7 @@ public class PlayerManager {
      * @param event The event fired when a player logs in.
      */
     @SubscribeEvent
-    public void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerJoinServer(@Nonnull PlayerEvent.PlayerLoggedInEvent event) {
         SmithsCore.getLogger().info("Updating player UUID list");
         EntityPlayer player = event.player;
 
@@ -139,7 +143,7 @@ public class PlayerManager {
      * @param event The event fired when a player logs of.
      */
     @SubscribeEvent
-    public void onPlayerLeaveServer(PlayerEvent.PlayerLoggedOutEvent event) {
+    public void onPlayerLeaveServer(@Nonnull PlayerEvent.PlayerLoggedOutEvent event) {
         commonSidedOnlineMap.remove(event.player.getGameProfile().getId());
         SmithsCore.getRegistry().getCommonBus().post(new PlayersOnlineUpdatedEvent(this));
     }

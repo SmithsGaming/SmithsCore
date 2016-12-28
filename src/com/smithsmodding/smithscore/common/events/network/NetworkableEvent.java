@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
+import javax.annotation.Nullable;
+
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
  * Meaning that events that happen on the client side will get synchronized to the server side.
@@ -36,6 +38,7 @@ public class NetworkableEvent extends SmithsCoreEvent {
      *
      * @return An Instance of an IMessage class that describes this events.
      */
+    @Nullable
     public IMessage getCommunicationMessage (Side side) {
         return null;
     }

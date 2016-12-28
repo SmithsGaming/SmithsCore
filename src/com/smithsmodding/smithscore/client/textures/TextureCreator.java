@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -24,10 +26,13 @@ import java.util.*;
  */
 public class TextureCreator implements IResourceManagerReloadListener {
     //Variable containing all the mappings for
+    @Nonnull
     private static Set<ITextureController> controllers = new HashSet<>();
     //Variable containing the location of all grayscale base textures.
+    @Nonnull
     private static Set<ResourceLocation> baseTextures = new HashSet<>();
     //Variable that holds the colored end textures when the Creator has reloaded
+    @Nonnull
     private static Map<String, HashMap<String, TextureAtlasSprite>> buildSprites = Maps.newHashMap();
 
     static {
@@ -48,7 +53,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      *
      * @param locations The location of the textures to register.
      */
-    public static void registerBaseTexture (Collection<ResourceLocation> locations) {
+    public static void registerBaseTexture (@Nonnull Collection<ResourceLocation> locations) {
         baseTextures.addAll(locations);
     }
 
@@ -74,6 +79,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      *
      * @return A map containing all the colored textures using the base texture and the materialname as keys.
      */
+    @Nonnull
     public static Map<String, HashMap<String, TextureAtlasSprite>> getBuildSprites() {
         return buildSprites;
     }
@@ -85,7 +91,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      * @param event The events fired before the TextureSheet is stitched. TextureStitchEvent.Pre instance.
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void createCustomTextures (TextureStitchEvent.Pre event) {
+    public void createCustomTextures (@Nonnull TextureStitchEvent.Pre event) {
         //Only run the creation once, after all mods have been loaded.
         if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
             return;
@@ -100,7 +106,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      *
      * @param map The map to register the textures to.
      */
-    public void createMaterialTextures (TextureMap map) {
+    public void createMaterialTextures (@Nonnull TextureMap map) {
         for (ResourceLocation baseTexture : baseTextures) {
             buildSprites.put(baseTexture.toString(), new HashMap<>());
             for (ITextureController controller : controllers) {
@@ -122,7 +128,8 @@ public class TextureCreator implements IResourceManagerReloadListener {
         }
     }
 
-    private TextureAtlasSprite createTexture(ITextureController controller, ResourceLocation baseTexture, TextureAtlasSprite base, TextureMap map) {
+    @Nullable
+    private TextureAtlasSprite createTexture(@Nonnull ITextureController controller, @Nonnull ResourceLocation baseTexture, TextureAtlasSprite base, @Nonnull TextureMap map) {
         String location = baseTexture.toString() + "_" + controller.getCreationIdentifier();
         TextureAtlasSprite sprite = null;
 

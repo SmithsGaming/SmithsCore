@@ -6,6 +6,8 @@ import com.smithsmodding.smithscore.client.gui.components.implementations.*;
 import net.minecraft.client.*;
 import net.minecraftforge.fml.common.eventhandler.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 10.02.2016.
  */
@@ -13,7 +15,7 @@ public class ButtonInputEventHandler
 {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onGuiInputEvent(GuiInputEvent event)
+    public void onGuiInputEvent(@Nonnull GuiInputEvent event)
     {
         if (!(event.getTypes() == GuiInputEvent.InputTypes.BUTTONCLICKED))
             return;

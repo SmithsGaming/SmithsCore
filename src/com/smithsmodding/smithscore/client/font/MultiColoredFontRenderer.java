@@ -30,11 +30,11 @@ public class MultiColoredFontRenderer extends FontRenderer {
     private int green;
     private int blue;
 
-    public MultiColoredFontRenderer(GameSettings gameSettingsIn, ResourceLocation location, TextureManager textureManagerIn) {
+    public MultiColoredFontRenderer(@Nonnull GameSettings gameSettingsIn, @Nonnull ResourceLocation location, @Nonnull TextureManager textureManagerIn) {
         super(gameSettingsIn, location, textureManagerIn, true);
     }
 
-    public static String getCustomFormatFromString(String text) {
+    public static String getCustomFormatFromString(@Nonnull String text) {
         String s = "";
         int i = 0;
         int j = text.length();
@@ -71,7 +71,8 @@ public class MultiColoredFontRenderer extends FontRenderer {
         return Arrays.asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
     }
 
-    protected String wrapFormattedStringToWidth(String str, int wrapWidth) {
+    @Nonnull
+    protected String wrapFormattedStringToWidth(@Nonnull String str, int wrapWidth) {
         int i = this.sizeStringToWidth(str, wrapWidth);
 
         if (str.length() <= i) {
@@ -125,7 +126,7 @@ public class MultiColoredFontRenderer extends FontRenderer {
 
             this.setColor(((color >> 16) & 255) / 255f,
                     ((color >> 8) & 255) / 255f,
-                    ((color >> 0) & 255) / 255f,
+                    ((color) & 255) / 255f,
                     ((color >> 24) & 255) / 255f);
             return 0;
         }

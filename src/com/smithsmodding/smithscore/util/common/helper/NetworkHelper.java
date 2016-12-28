@@ -8,6 +8,7 @@ package com.smithsmodding.smithscore.util.common.helper;
 
 import io.netty.buffer.ByteBuf;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class NetworkHelper {
@@ -17,7 +18,7 @@ public class NetworkHelper {
      * @param buffer The buffer to write to.
      * @param id     The UUID to write.
      */
-    public static void writeUUID(ByteBuf buffer, UUID id) {
+    public static void writeUUID(@Nonnull ByteBuf buffer, @Nonnull UUID id) {
         buffer.writeLong(id.getMostSignificantBits());
         buffer.writeLong(id.getLeastSignificantBits());
     }
@@ -28,7 +29,8 @@ public class NetworkHelper {
      * @param buffer The buffer to read the UUID from.
      * @return The next UUID stored in the buffer.
      */
-    public static UUID readUUID(ByteBuf buffer) {
+    @Nonnull
+    public static UUID readUUID(@Nonnull ByteBuf buffer) {
         return new UUID(buffer.readLong(), buffer.readLong());
     }
 

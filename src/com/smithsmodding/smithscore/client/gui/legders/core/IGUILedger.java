@@ -3,6 +3,7 @@ package com.smithsmodding.smithscore.client.gui.legders.core;
 import com.smithsmodding.smithscore.client.gui.hosts.*;
 import com.smithsmodding.smithscore.client.gui.scissoring.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -29,5 +30,6 @@ public interface IGUILedger extends IGUIBasedComponentHost, IScissoredGuiCompone
      *
      * @return The Icons ToolTip.
      */
+    @Nonnull
     ArrayList<String> getIconToolTipText();
 }
