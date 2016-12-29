@@ -5,6 +5,7 @@ import com.smithsmodding.smithscore.client.gui.state.IGUIComponentState;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ public interface IGUIComponent
      *
      * @return The ID of this Component.
      */
+    @Nonnull
     String getID();
 
     /**
@@ -33,6 +35,7 @@ public interface IGUIComponent
      *
      * @return This components state Object.
      */
+    @Nonnull
     IGUIComponentState getState();
 
     /**
@@ -40,6 +43,7 @@ public interface IGUIComponent
      *
      * @return This components host.
      */
+    @Nonnull
     IGUIBasedComponentHost getComponentHost();
 
     /**
@@ -47,6 +51,7 @@ public interface IGUIComponent
      *
      * @return The location of the top left pixel of this component
      */
+    @Nonnull
     Coordinate2D getGlobalCoordinate ();
 
     /**
@@ -54,6 +59,7 @@ public interface IGUIComponent
      *
      * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
      */
+    @Nonnull
     Coordinate2D getLocalCoordinate ();
 
     /**
@@ -61,6 +67,7 @@ public interface IGUIComponent
      *
      * @return A Plane detailing the the position and size of this Component.
      */
+    @Nonnull
     Plane getAreaOccupiedByComponent();
 
     /**
@@ -68,6 +75,7 @@ public interface IGUIComponent
      *
      * @return The size of this component.
      */
+    @Nonnull
     Plane getSize ();
 
     /**
@@ -77,7 +85,8 @@ public interface IGUIComponent
      * @param mouseY The Y-Coordinate of the mouse.
      * @param partialTickTime The partial tick time, used to calculate fluent animations.
      */
-    void update(int mouseX, int mouseY, float partialTickTime);
+    @Nonnull
+    void update(@Nonnull int mouseX, @Nonnull int mouseY, @Nonnull float partialTickTime);
 
     /**
      * Function used to draw this components background.
@@ -88,7 +97,7 @@ public interface IGUIComponent
      * @param mouseX The current X-Coordinate of the mouse
      * @param mouseY The current Y-Coordinate of the mouse
      */
-    void drawBackground(int mouseX, int mouseY);
+    void drawBackground(@Nonnull int mouseX, @Nonnull int mouseY);
 
     /**
      * Function used to draw this components foreground.
@@ -99,7 +108,7 @@ public interface IGUIComponent
      * @param mouseX The current X-Coordinate of the mouse
      * @param mouseY The current Y-Coordinate of the mouse
      */
-    void drawForeground(int mouseX, int mouseY);
+    void drawForeground(@Nonnull int mouseX, @Nonnull int mouseY);
 
     /**
      * Function called when the mouse was clicked inside of this component.
@@ -115,7 +124,8 @@ public interface IGUIComponent
      *
      * @return True when the click has been handled, false when it did not.
      */
-    boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton);
+    @Nonnull
+    boolean handleMouseClickedInside (@Nonnull int relativeMouseX, @Nonnull int relativeMouseY, @Nonnull int mouseButton);
 
     /**
      * Function called when the mouse was clicked outside of this component.
@@ -132,7 +142,8 @@ public interface IGUIComponent
      *
      * @return True when the click has been handled, false when it did not.
      */
-    boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton);
+    @Nonnull
+    boolean handleMouseClickedOutside (@Nonnull int relativeMouseX, @Nonnull int relativeMouseY, @Nonnull int mouseButton);
 
     /**
      * Method to check if this function should capture all of the buttons pressed on the mouse
@@ -140,6 +151,7 @@ public interface IGUIComponent
      *
      * @return True when all the mouse clicks should be captured by this component.
      */
+    @Nonnull
     boolean requiresForcedMouseInput();
 
     /**
@@ -149,7 +161,8 @@ public interface IGUIComponent
      * @param keyCode The vanilla Minecraft keycode.
      * @return True when handled, false when not.
      */
-    boolean handleKeyTyped(char key, int keyCode);
+    @Nonnull
+    boolean handleKeyTyped(@Nonnull char key, @Nonnull int keyCode);
 
     @Nullable
     ArrayList<String> getToolTipContent ();

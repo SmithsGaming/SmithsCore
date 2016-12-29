@@ -2,6 +2,8 @@ package com.smithsmodding.smithscore.client.gui.animation;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 09.01.2016.
  */
@@ -13,5 +15,5 @@ public interface IAnimatibleGuiComponent extends IGUIComponent {
      *
      * @param partialTickTime The current partial tick time.
      */
-    void performAnimation (float partialTickTime);
+    void performAnimation (@Nonnull float partialTickTime);
 }

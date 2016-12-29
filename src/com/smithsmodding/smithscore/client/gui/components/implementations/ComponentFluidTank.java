@@ -34,11 +34,11 @@ public class ComponentFluidTank extends CoreComponent {
     MinecraftColor foreGround;
     MinecraftColor backGround;
 
-    public ComponentFluidTank (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation) {
+    public ComponentFluidTank (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation) {
         this(uniqueID, parent, state, rootAnchorPixel, width, height, orientation, new MinecraftColor(Color.RED), new MinecraftColor(Color.WHITE));
     }
 
-    public ComponentFluidTank(String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation, MinecraftColor foreGround, MinecraftColor backGround) {
+    public ComponentFluidTank(@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D rootAnchorPixel, int width, int height, ComponentOrientation orientation, @Nonnull MinecraftColor foreGround, @Nonnull MinecraftColor backGround) {
         super(uniqueID, parent, state, rootAnchorPixel, width, height);
 
         this.orientation = orientation;

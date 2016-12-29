@@ -7,6 +7,7 @@ import com.smithsmodding.smithscore.client.gui.components.implementations.*;
 import com.smithsmodding.smithscore.client.registry.*;
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
 import java.lang.*;
 
 /**
@@ -124,7 +125,7 @@ public class ScrollBarComponentState extends CoreComponentState
     }
 
     @Override
-    public void setComponent (IGUIComponent component) {
+    public void setComponent (@Nonnull IGUIComponent component) {
         super.setComponent(component);
     }
 

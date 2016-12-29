@@ -12,5 +12,5 @@ import javax.annotation.Nonnull;
  */
 public interface IPageComponentDeserializer<C extends IGUIComponent> {
     @Nonnull
-    C deserialize(JsonElement element, PageDeserializationContext context);
+    C deserialize(@Nonnull JsonElement element, @Nonnull PageDeserializationContext context);
 }

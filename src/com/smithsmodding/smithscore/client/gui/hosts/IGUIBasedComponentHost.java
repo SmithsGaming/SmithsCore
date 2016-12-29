@@ -23,20 +23,21 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
-    void registerComponents (IGUIBasedComponentHost host);
+    void registerComponents (@Nonnull IGUIBasedComponentHost host);
 
     /**
      * Method used to register a new Component to this host.
      *
      * @param component The new component.
      */
-    void registerNewComponent (IGUIComponent component);
+    void registerNewComponent (@Nonnull IGUIComponent component);
 
     /**
      * Method to get the Root gui Object that this Component is part of.
      *
      * @return The gui that this component is part of.
      */
+    @Nonnull
     IGUIBasedComponentHost getRootGuiObject();
 
     /**
@@ -44,6 +45,7 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      *
      * @return The Manager that is at the root for the gui Tree.
      */
+    @Nonnull
     IGUIManager getRootManager ();
 
     /**
@@ -62,7 +64,7 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      * @return A IGUIComponent with then given ID or null if no child components exists with that ID.
      */
     @Nullable
-    IGUIComponent getComponentByID (String uniqueUIID);
+    IGUIComponent getComponentByID (@Nonnull String uniqueUIID);
 
     /**
      * Method to draw a tooltip for a component inside this Host.
@@ -72,13 +74,14 @@ public interface IGUIBasedComponentHost extends IGUIManagerProvider, IGUICompone
      * @param y         The y Coord of the tooltip
      * @param font      The font of the tooltip
      */
-    void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font);
+    void drawHoveringText(@Nullable List<String> textLines, int x, int y, FontRenderer font);
 
     /**
      * Get this hosts render manager;
      *
      * @return The render manager of this hosts.
      */
+    @Nonnull
     IRenderManager getRenderManager();
 
     /**

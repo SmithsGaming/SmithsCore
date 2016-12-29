@@ -2,6 +2,8 @@ package com.smithsmodding.smithscore.client.gui.state;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Orion
  * Created on 02.12.2015
@@ -12,9 +14,10 @@ import com.smithsmodding.smithscore.client.gui.components.core.*;
 public interface IGUIComponentState
 {
 
+    @Nonnull
     IGUIComponent getComponent();
 
-    void setComponent (IGUIComponent component);
+    void setComponent (@Nonnull IGUIComponent component);
 
     /**
      * Method to retrieve the enabled state of the component, when the component is disabked it will be rendered darker

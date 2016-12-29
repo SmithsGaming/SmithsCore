@@ -2,6 +2,8 @@ package com.smithsmodding.smithscore.client.gui.state;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by marcf on 12/28/2015.
  */
@@ -20,13 +22,14 @@ public class LedgerComponentState implements IGUIComponentState {
 
     }
 
+    @Nonnull
     @Override
     public IGUIComponent getComponent() {
         return component;
     }
 
     @Override
-    public void setComponent(IGUIComponent component) {
+    public void setComponent(@Nonnull IGUIComponent component) {
         this.component = component;
     }
 

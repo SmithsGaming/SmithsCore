@@ -2,6 +2,8 @@ package com.smithsmodding.smithscore.client.gui.state;
 
 import com.smithsmodding.smithscore.client.gui.components.core.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 21.12.2015.
  */
@@ -12,19 +14,20 @@ public class CoreComponentState implements IGUIComponentState {
     private boolean enabled = true;
     private boolean visible = true;
 
-    public CoreComponentState (IGUIComponent component) {
+    public CoreComponentState (@Nonnull IGUIComponent component) {
         this.component = component;
     }
 
     public CoreComponentState(){}
 
     @Override
+    @Nonnull
     public IGUIComponent getComponent () {
         return component;
     }
 
     @Override
-    public void setComponent (IGUIComponent component) {
+    public void setComponent (@Nonnull IGUIComponent component) {
         this.component = component;
     }
 

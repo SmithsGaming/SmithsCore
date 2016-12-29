@@ -17,15 +17,15 @@ public class SlotComponentState extends CoreComponentState {
     private IInventory relevantInventory;
     private TextureAtlasSprite sprite;
 
-    public SlotComponentState(ComponentSlot component, int slotIndex, @Nonnull IItemStorage inventory, TextureAtlasSprite sprite) {
+    public SlotComponentState(@Nonnull ComponentSlot component, int slotIndex, @Nonnull IItemStorage inventory, TextureAtlasSprite sprite) {
         this(component, slotIndex, new IItemStorage.IInventoryWrapper(inventory), sprite);
     }
 
-    public SlotComponentState(ComponentSlot component, @Nonnull Slot slot, @Nonnull IItemStorage inventory, TextureAtlasSprite sprite) {
+    public SlotComponentState(@Nonnull ComponentSlot component, @Nonnull Slot slot, @Nonnull IItemStorage inventory, TextureAtlasSprite sprite) {
         this(component, slot.getSlotIndex(), inventory, sprite);
     }
 
-    public SlotComponentState (ComponentSlot component, int slotIndex, IInventory inventory, TextureAtlasSprite sprite) {
+    public SlotComponentState (@Nonnull ComponentSlot component, int slotIndex, IInventory inventory, TextureAtlasSprite sprite) {
         super(component);
 
         this.slotIndex = slotIndex;
@@ -33,7 +33,7 @@ public class SlotComponentState extends CoreComponentState {
         this.sprite = sprite;
     }
 
-    public SlotComponentState(ComponentSlot component, @Nonnull Slot slot, IInventory inventory, TextureAtlasSprite sprite) {
+    public SlotComponentState(@Nonnull ComponentSlot component, @Nonnull Slot slot, IInventory inventory, TextureAtlasSprite sprite) {
         this(component, slot.getSlotIndex(), inventory, sprite);
     }
 

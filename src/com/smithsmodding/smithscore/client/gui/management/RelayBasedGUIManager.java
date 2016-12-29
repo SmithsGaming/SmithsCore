@@ -5,6 +5,8 @@ import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import com.smithsmodding.smithscore.common.inventory.ContainerSmithsCore;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -20,7 +22,7 @@ public class RelayBasedGUIManager implements IGUIManager {
     IGUIManagerProvider host;
     ContainerSmithsCore containerSmithsCore;
 
-    public RelayBasedGUIManager(IGUIManagerProvider host, ContainerSmithsCore containerSmithsCore)
+    public RelayBasedGUIManager(@Nonnull IGUIManagerProvider host, @Nonnull ContainerSmithsCore containerSmithsCore)
     {
         this.host = host;
         this.containerSmithsCore = containerSmithsCore;
@@ -32,7 +34,7 @@ public class RelayBasedGUIManager implements IGUIManager {
      * @param playerId The unique ID of the player that opens the UI.
      */
     @Override
-    public void onGuiOpened(UUID playerId) {
+    public void onGuiOpened(@Nonnull UUID playerId) {
         host.getManager().onGuiOpened(playerId);
     }
 
@@ -42,7 +44,7 @@ public class RelayBasedGUIManager implements IGUIManager {
      * @param playerID The unique ID of the player that closed the UI.
      */
     @Override
-    public void onGUIClosed(UUID playerID) {
+    public void onGUIClosed(@Nonnull UUID playerID) {
         host.getManager().onGUIClosed(playerID);
     }
 
@@ -54,7 +56,8 @@ public class RelayBasedGUIManager implements IGUIManager {
      * @return A string displayed as tooltip for the IGUIComponent during rendering.
      */
     @Override
-    public String getCustomToolTipDisplayString (IGUIComponent component) {
+    @Nonnull
+    public String getCustomToolTipDisplayString (@Nonnull IGUIComponent component) {
         return host.getManager().getCustomToolTipDisplayString(component);
     }
 
@@ -66,7 +69,7 @@ public class RelayBasedGUIManager implements IGUIManager {
      * @return A float between 0 and 1 with 0 meaning no progress on the specific bar and 1 meaning full.
      */
     @Override
-    public float getProgressBarValue (IGUIComponent component) {
+    public float getProgressBarValue (@Nonnull IGUIComponent component) {
         return host.getManager().getProgressBarValue(component);
     }
 
@@ -78,17 +81,19 @@ public class RelayBasedGUIManager implements IGUIManager {
      * @return THe string that should be displayed.
      */
     @Override
-    public String getLabelContents (IGUIComponent component) {
+    @Nullable
+    public String getLabelContents (@Nonnull IGUIComponent component) {
         return host.getManager().getLabelContents(component);
     }
 
     @Override
-    public ArrayList<FluidStack> getTankContents (IGUIComponent component) {
+    @Nullable
+    public ArrayList<FluidStack> getTankContents (@Nonnull IGUIComponent component) {
         return host.getManager().getTankContents(component);
     }
 
     @Override
-    public int getTotalTankContents (IGUIComponent component) {
+    public int getTotalTankContents (@Nonnull IGUIComponent component) {
         return host.getManager().getTotalTankContents(component);
     }
 
@@ -98,12 +103,12 @@ public class RelayBasedGUIManager implements IGUIManager {
      * @param newActiveTabId The new active Tabs ID.
      */
     @Override
-    public void onTabChanged (String newActiveTabId) {
+    public void onTabChanged (@Nonnull String newActiveTabId) {
         containerSmithsCore.onTabChanged(newActiveTabId);
     }
 
     @Override
-    public void onInput(GuiInputEvent.InputTypes types, String componentId, String input) {
+    public void onInput(GuiInputEvent.InputTypes types, @Nonnull String componentId, @Nonnull String input) {
         host.getManager().onInput(types, componentId, input);
     }
 }

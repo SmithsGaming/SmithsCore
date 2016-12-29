@@ -15,6 +15,8 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 /**
+ * En StateMapper for States that can be extended to multiple files.
+ *
  * Author Orion (Created on: 11.10.2016)
  */
 public class ExtendedStateMap implements IStateMapper {
@@ -31,8 +33,9 @@ public class ExtendedStateMap implements IStateMapper {
         this.prefix = prefix;
     }
 
+    @Nonnull
     @Override
-    public Map<IBlockState, ModelResourceLocation> putStateModelLocations(Block blockIn) {
+    public Map<IBlockState, ModelResourceLocation> putStateModelLocations(@Nonnull Block blockIn) {
         if (cache == null) {
             cache = Maps.newLinkedHashMap();
             cache = buildCache(blockIn);
@@ -41,6 +44,7 @@ public class ExtendedStateMap implements IStateMapper {
         return cache;
     }
 
+    @Nonnull
     private Map<IBlockState, ModelResourceLocation> buildCache(@Nonnull Block block) {
         Map<IBlockState, ModelResourceLocation> originalMap = map.putStateModelLocations(block);
 
@@ -92,24 +96,24 @@ public class ExtendedStateMap implements IStateMapper {
         }
 
         @Nonnull
-        public ExtendedStateMap.Builder withPrefix(String builderPrefix) {
+        public ExtendedStateMap.Builder withPrefix(@Nonnull String builderPrefix) {
             this.preFix = builderPrefix;
             return this;
         }
 
         @Nonnull
-        public ExtendedStateMap.Builder withCamelCase(char[] delimeters) {
+        public ExtendedStateMap.Builder withCamelCase(@Nonnull char[] delimeters) {
             this.camelCase = delimeters;
             return this;
         }
 
         @Nonnull
-        public ExtendedStateMap.Builder ignore(IProperty<?>... ignorable) {
+        public ExtendedStateMap.Builder ignore(@Nonnull IProperty<?>... ignorable) {
             stateBuilder.ignore(ignorable);
             return this;
         }
 
-        @Nullable
+        @Nonnull
         public ExtendedStateMap build() {
             return new ExtendedStateMap(stateBuilder.build(), preFix, camelCase);
         }

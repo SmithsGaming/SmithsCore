@@ -44,7 +44,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
     private LinkedHashMap<String, IGUIComponent> components = new LinkedHashMap<String, IGUIComponent>();
     private MinecraftColor color;
 
-    public CoreLedger (String uniqueID, LedgerComponentState state, IGUIBasedLedgerHost root, LedgerConnectionSide side, @Nonnull CustomResource ledgerIcon, String translatedLedgerHeader, MinecraftColor color) {
+    public CoreLedger (@Nonnull String uniqueID, @Nonnull  LedgerComponentState state, @Nonnull  IGUIBasedLedgerHost root, LedgerConnectionSide side, @Nonnull CustomResource ledgerIcon, @Nonnull  String translatedLedgerHeader, @Nonnull  MinecraftColor color) {
         this.uniqueID = uniqueID;
         this.state = state;
         this.state.setComponent(this);
@@ -63,6 +63,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The ID of this Component.
      */
+    @Nonnull
     @Override
     public String getID () {
         return uniqueID;
@@ -75,6 +76,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return This components state Object.
      */
+    @Nonnull
     @Override
     public IGUIComponentState getState () {
         return state;
@@ -85,6 +87,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return This components host.
      */
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost () {
         return root;
@@ -95,6 +98,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return This components host.
      */
+    @Nonnull
     @Override
     public IGUIBasedLedgerHost getLedgerHost () {
         return root;
@@ -182,7 +186,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents (IGUIBasedComponentHost host) {
+    public void registerComponents (@Nonnull IGUIBasedComponentHost host) {
         ComponentImage componentImage = new ComponentImage(getID() + ".header.icon", new CoreComponentState(null), this, new Coordinate2D(5, 5), ledgerIcon) {
             @Nonnull
             @Override
@@ -375,6 +379,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return Left when the Ledger is rendered on the left side, right when rendered on the right side.
      */
+    @Nonnull
     @Override
     public LedgerConnectionSide getPrimarySide () {
         return side;
@@ -400,6 +405,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The gui that this component is part of.
      */
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getRootGuiObject() {
         return getComponentHost().getRootGuiObject();
@@ -410,6 +416,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      *
      * @return The Manager that is at the root for the gui Tree.
      */
+    @Nonnull
     @Override
     public IGUIManager getRootManager () {
         return root.getRootManager();
@@ -467,6 +474,7 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @return Returns the current GUIManager.
      */
     @Override
+    @Nonnull
     public IGUIManager getManager () {
         return root.getManager();
     }
@@ -477,15 +485,16 @@ public abstract class CoreLedger implements IGUILedger, IAnimatibleGuiComponent 
      * @param newManager THe new IGUIManager.
      */
     @Override
-    public void setManager (IGUIManager newManager) {
+    public void setManager (@Nonnull IGUIManager newManager) {
         root.setManager(newManager);
     }
 
     @Override
-    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+    public void drawHoveringText(@Nullable List<String> textLines, int x, int y, FontRenderer font) {
         getComponentHost().drawHoveringText(textLines, x, y, font);
     }
 
+    @Nonnull
     @Override
     public IRenderManager getRenderManager() {
         return getComponentHost().getRenderManager();

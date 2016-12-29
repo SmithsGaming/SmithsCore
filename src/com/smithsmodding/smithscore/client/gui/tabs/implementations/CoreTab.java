@@ -42,7 +42,7 @@ public abstract class CoreTab implements IGUITab {
     MinecraftColor tabColor;
     String toolTipString;
 
-    public CoreTab (String uniqueID, IGUIBasedTabHost root, IGUIComponentState state, ItemStack displayStack, MinecraftColor tabColor, String toolTipString) {
+    public CoreTab (@Nonnull String uniqueID, @Nonnull IGUIBasedTabHost root, @Nonnull IGUIComponentState state, @Nonnull ItemStack displayStack, @Nonnull MinecraftColor tabColor, @Nonnull String toolTipString) {
         this.uniqueID = uniqueID;
         this.root = root;
         this.state = state;
@@ -59,6 +59,7 @@ public abstract class CoreTab implements IGUITab {
      * @return The current tabs host.
      */
     @Override
+    @Nonnull
     public IGUIBasedTabHost getTabHost() {
         return root;
     }
@@ -69,11 +70,13 @@ public abstract class CoreTab implements IGUITab {
      * @return The TabManager of this Tab.
      */
     @Override
+    @Nonnull
     public ITabManager getTabManager () {
         return getTabHost().getTabManager();
     }
 
     @Override
+    @Nonnull
     public ItemStack getDisplayStack() {
         return displayStack;
     }
@@ -84,6 +87,7 @@ public abstract class CoreTab implements IGUITab {
      * @return The tabs color.
      */
     @Override
+    @Nonnull
     public MinecraftColor getTabColor () {
         return tabColor;
     }
@@ -93,7 +97,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return The tooltip contents.
      */
-    @Nonnull
+    @Nullable
     @Override
     public ArrayList<String> getIconToolTipText() {
         return (ArrayList<String>) Arrays.asList(new String[] {toolTipString});
@@ -105,7 +109,7 @@ public abstract class CoreTab implements IGUITab {
      * @param component The new component.
      */
     @Override
-    public void registerNewComponent(IGUIComponent component) {
+    public void registerNewComponent(@Nonnull IGUIComponent component) {
         if (component instanceof IGUIBasedComponentHost)
             ((IGUIBasedComponentHost) component).registerComponents((IGUIBasedComponentHost) component);
 
@@ -118,6 +122,7 @@ public abstract class CoreTab implements IGUITab {
      * @return The gui that this component is part of.
      */
     @Override
+    @Nonnull
     public IGUIBasedComponentHost getRootGuiObject() {
         return root.getRootGuiObject();
     }
@@ -128,6 +133,7 @@ public abstract class CoreTab implements IGUITab {
      * @return The Manager that is at the root for the gui Tree.
      */
     @Override
+    @Nonnull
     public IGUIManager getRootManager() {
         return root.getRootManager();
     }
@@ -144,7 +150,7 @@ public abstract class CoreTab implements IGUITab {
     }
 
     @Nullable
-    public IGUIComponent getComponentByID (String uniqueUIID) {
+    public IGUIComponent getComponentByID (@Nonnull String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
 
@@ -170,6 +176,7 @@ public abstract class CoreTab implements IGUITab {
      * @return The ID of this Component.
      */
     @Override
+    @Nonnull
     public String getID() {
         return uniqueID;
     }
@@ -183,6 +190,7 @@ public abstract class CoreTab implements IGUITab {
      * @return This components state Object.
      */
     @Override
+    @Nonnull
     public IGUIComponentState getState() {
         return state;
     }
@@ -192,6 +200,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return This components host.
      */
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost() {
         return root;
@@ -470,6 +479,7 @@ public abstract class CoreTab implements IGUITab {
      *
      * @return Returns the current GUIManager.
      */
+    @Nonnull
     @Override
     public IGUIManager getManager() {
         return root.getManager();
@@ -481,15 +491,16 @@ public abstract class CoreTab implements IGUITab {
      * @param newManager THe new IGUIManager.
      */
     @Override
-    public void setManager(IGUIManager newManager) {
+    public void setManager(@Nonnull IGUIManager newManager) {
         root.setManager(newManager);
     }
 
     @Override
-    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+    public void drawHoveringText(@Nullable List<String> textLines, int x, int y, @Nonnull FontRenderer font) {
         getComponentHost().drawHoveringText(textLines, x, y, font);
     }
 
+    @Nonnull
     @Override
     public IRenderManager getRenderManager() {
         return getComponentHost().getRenderManager();

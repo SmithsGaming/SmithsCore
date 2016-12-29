@@ -6,6 +6,7 @@ import com.smithsmodding.smithscore.util.client.color.*;
 import net.minecraft.item.*;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -19,6 +20,7 @@ public interface IGUITab extends IGUIBasedComponentHost
      *
      * @return The current tabs host.
      */
+    @Nonnull
     IGUIBasedTabHost getTabHost();
 
     /**
@@ -26,6 +28,7 @@ public interface IGUITab extends IGUIBasedComponentHost
      *
      * @return The TabManager of this Tab.
      */
+    @Nonnull
     ITabManager getTabManager ();
 
     /**
@@ -33,6 +36,7 @@ public interface IGUITab extends IGUIBasedComponentHost
      *
      * @return THe displayed stack.
      */
+    @Nonnull
     ItemStack getDisplayStack();
 
     /**
@@ -40,6 +44,7 @@ public interface IGUITab extends IGUIBasedComponentHost
      *
      * @return The tabs color.
      */
+    @Nonnull
     MinecraftColor getTabColor ();
 
     /**
@@ -47,7 +52,7 @@ public interface IGUITab extends IGUIBasedComponentHost
      *
      * @return The tooltip contents
      */
-    @Nonnull
+    @Nullable
     ArrayList<String> getIconToolTipText();
 
 }

@@ -13,7 +13,7 @@ public class ScrollBarValueChangedEvent extends GuiInputEvent {
     int maximum;
     int minimum;
 
-    public ScrollBarValueChangedEvent (String componentID, float value, int maximum, int minimum) {
+    public ScrollBarValueChangedEvent (@Nonnull String componentID, @Nonnull float value, @Nonnull int maximum, @Nonnull int minimum) {
         super(InputTypes.SCROLLED, componentID, String.valueOf(value));
 
         this.maximum = maximum;

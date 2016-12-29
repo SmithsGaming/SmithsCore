@@ -16,6 +16,7 @@ public interface IGUILedger extends IGUIBasedComponentHost, IScissoredGuiCompone
      *
      * @return This components host.
      */
+    @Nonnull
     IGUIBasedLedgerHost getLedgerHost ();
 
     /**
@@ -23,6 +24,7 @@ public interface IGUILedger extends IGUIBasedComponentHost, IScissoredGuiCompone
      *
      * @return Left when the Ledger is rendered on the left side, right when rendered on the right side.
      */
+    @Nonnull
     LedgerConnectionSide getPrimarySide ();
 
     /**

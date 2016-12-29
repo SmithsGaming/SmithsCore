@@ -16,6 +16,7 @@ public interface ITabManager
      *
      * @return The host of this TabManager.
      */
+    @Nonnull
     IGUIBasedTabHost getHost();
 
     /**
@@ -30,6 +31,7 @@ public interface ITabManager
      *
      * @return The currently displayed Tab.
      */
+    @Nonnull
     IGUITab getCurrentTab();
 
     /**
@@ -45,15 +47,17 @@ public interface ITabManager
      * @param selectorIndex The index you want the tab for.
      *
      * @return The tab for the requested selector index.
+     * @throws IllegalArgumentException is the given selectorIndex is not Valid.
      */
-    IGUITab getTabFromSelectorIndex (int selectorIndex);
+    @Nonnull
+    IGUITab getTabFromSelectorIndex (@Nonnull int selectorIndex) throws IllegalArgumentException;
 
     /**
      * Method used to register a new Tab
      *
      * @param newTab The new tab.
      */
-    void registerNewTab (IGUITab newTab);
+    void registerNewTab (@Nonnull IGUITab newTab);
 
     /**
      * Method used to retrieve all the possible tabs for this TabManager.
@@ -109,5 +113,5 @@ public interface ITabManager
      *
      * @param tab The tab to be displayed.
      */
-    void setActiveTab (IGUITab tab);
+    void setActiveTab (@Nonnull IGUITab tab);
 }

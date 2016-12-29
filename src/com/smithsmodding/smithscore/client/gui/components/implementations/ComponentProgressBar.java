@@ -23,7 +23,7 @@ public class ComponentProgressBar extends CoreComponent {
     private CustomResource emptyResource;
     private CustomResource fullResource;
 
-    public ComponentProgressBar (String uniqueID, IGUIBasedComponentHost root, IGUIComponentState state, Coordinate2D localCoordinate, ComponentOrientation componentDirection, CustomResource emptyResource, CustomResource fullResource) {
+    public ComponentProgressBar (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost root, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D localCoordinate, ComponentOrientation componentDirection, CustomResource emptyResource, CustomResource fullResource) {
         super(uniqueID, root, state, localCoordinate, 0,0);
 
         this.renderDirection = componentDirection;

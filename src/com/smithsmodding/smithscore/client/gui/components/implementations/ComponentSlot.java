@@ -20,11 +20,11 @@ import javax.annotation.Nonnull;
 public class ComponentSlot extends CoreComponent {
     private MinecraftColor color;
 
-    public ComponentSlot (String uniqueID, SlotComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Slot connectedSlot, MinecraftColor color) {
+    public ComponentSlot (@Nonnull String uniqueID, @Nonnull SlotComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Slot connectedSlot, @Nonnull MinecraftColor color) {
         this(uniqueID, state, parent, new Coordinate2D(connectedSlot.xPos - 1, connectedSlot.yPos - 1 - parent.getRootGuiObject().getDefaultDisplayVerticalOffset()), color);
     }
 
-    public ComponentSlot (String uniqueID, SlotComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color) {
+    public ComponentSlot (@Nonnull String uniqueID, @Nonnull SlotComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, @Nonnull MinecraftColor color) {
         super(uniqueID, parent, state, rootAnchorPixel, 18, 18);
 
         this.color = color;

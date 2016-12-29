@@ -79,6 +79,7 @@ public class StandardRenderManager implements IRenderManager {
      *
      * @return The current active gui
      */
+    @Nonnull
     @Override
     public GuiScreen getRootGuiObject() {
         return root;
@@ -89,6 +90,7 @@ public class StandardRenderManager implements IRenderManager {
      *
      * @return The GuiManager of the Root gui object.
      */
+    @Nonnull
     @Override
     public IGUIManager getRootGuiManager() {
         return ((IGUIBasedComponentHost) root).getRootManager();

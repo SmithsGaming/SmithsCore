@@ -4,6 +4,7 @@ import com.smithsmodding.smithscore.client.book.GuiBookSmithsCore;
 import com.smithsmodding.smithscore.client.book.data.IBookPage;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 /**
@@ -17,20 +18,23 @@ public final class PageDeserializationContext {
 
     private int componentIndex = 0;
 
-    public PageDeserializationContext(GuiBookSmithsCore gui, IBookPage page) {
+    public PageDeserializationContext(@Nonnull GuiBookSmithsCore gui,@Nonnull IBookPage page) {
         this.gui = gui;
         this.page = page;
     }
 
+    @Nonnull
     public GuiBookSmithsCore getGui() {
         return gui;
     }
 
+    @Nonnull
     public IBookPage getPage() {
         return page;
     }
 
-    public Object getContextData(ResourceLocation key) {
+    @Nonnull
+    public Object getContextData(@Nonnull ResourceLocation key) {
         return contextData.get(key);
     }
 
@@ -38,6 +42,7 @@ public final class PageDeserializationContext {
         contextData.put(key, obj);
     }
 
+    @Nonnull
     public int getNextComponentIndex() {
         return componentIndex++;
     }

@@ -13,13 +13,15 @@ import java.util.*;
 public interface ILedgerManager
 {
 
+    @Nonnull
     IGUIBasedLedgerHost getHost();
 
-    void registerLedgerRightSide(IGUILedger ledger);
 
-    void registerLedgerLeftSide(IGUILedger ledger);
+    void registerLedgerRightSide(@Nonnull IGUILedger ledger);
 
-    int getLedgerIndex(LedgerConnectionSide side, String uniqueID);
+    void registerLedgerLeftSide(@Nonnull IGUILedger ledger);
+
+    int getLedgerIndex(LedgerConnectionSide side, @Nonnull String uniqueID);
 
     @Nonnull
     LinkedHashMap<String, IGUILedger> getRightLedgers();
@@ -28,7 +30,7 @@ public interface ILedgerManager
     LinkedHashMap<String, IGUILedger> getLeftLedgers();
 
     @Nonnull
-    Coordinate2D getLedgerLocalCoordinate(LedgerConnectionSide side, String uniqueID);
+    Coordinate2D getLedgerLocalCoordinate(LedgerConnectionSide side, @Nonnull String uniqueID);
 
     /**
      * Method returns the Global coorindate of the RootAnchor pixel of the given Ledger (if it exists on the given side
@@ -42,7 +44,8 @@ public interface ILedgerManager
      *
      * @return See method description.
      */
-    Coordinate2D getLedgerGlobalCoordinate(LedgerConnectionSide side, String uniqueID);
+    @Nonnull
+    Coordinate2D getLedgerGlobalCoordinate(LedgerConnectionSide side, @Nonnull String uniqueID);
 
     /**
      * Method called by a ledger to indicate that the opened ledger should be changed.
@@ -50,5 +53,5 @@ public interface ILedgerManager
      * @param ledger The ledger in which was clicked, either to indicate that this one should be opened (and a other one
      *               closed) or this one should be closed.
      */
-    void onLedgerClickedInside (IGUILedger ledger);
+    void onLedgerClickedInside (@Nonnull IGUILedger ledger);
 }

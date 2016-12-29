@@ -27,6 +27,7 @@ public class StandardTabManager implements ITabManager {
      *
      * @return The host of this TabManager.
      */
+    @Nonnull
     @Override
     public IGUIBasedTabHost getHost () {
         return host;
@@ -54,6 +55,7 @@ public class StandardTabManager implements ITabManager {
      *
      * @return The currently displayed Tab.
      */
+    @Nonnull
     @Override
     public IGUITab getCurrentTab () {
         return tabs.get(activeTabId);
@@ -75,15 +77,25 @@ public class StandardTabManager implements ITabManager {
      * @param selectorIndex The index you want the tab for.
      *
      * @return The tab for the requested selector index.
+     * @throws IllegalArgumentException is the given selectorIndex is not Valid.
      */
+    @Nonnull
     @Override
-    public IGUITab getTabFromSelectorIndex (int selectorIndex) {
+    public IGUITab getTabFromSelectorIndex (int selectorIndex) throws IllegalArgumentException {
+        if (selectorIndex < 0 || selectorIndex > getTabSelectorCount())
+            throw new IllegalArgumentException("The given selectorCount is not within a valid range.");
+
         int tabIndex = getCurrentTabIndex();
         int selectedSelectorIndex = tabIndex % getTabSelectorCount();
 
         tabIndex -= selectedSelectorIndex;
 
-        return ( new ArrayList<IGUITab>(tabs.values()) ).get(tabIndex + selectorIndex);
+        ArrayList<IGUITab> tabList = new ArrayList<>(tabs.values());
+
+        if (tabList.size() < tabIndex + selectorIndex || tabIndex + selectorIndex < 0)
+            throw new IllegalArgumentException("The given selectorIndex is not available");
+
+        return tabList.get(tabIndex + selectorIndex);
     }
 
     /**

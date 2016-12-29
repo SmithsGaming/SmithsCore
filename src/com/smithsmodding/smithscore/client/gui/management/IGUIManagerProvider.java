@@ -1,5 +1,7 @@
 package com.smithsmodding.smithscore.client.gui.management;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Orion
  * Created on 01.12.2015
@@ -15,6 +17,7 @@ public interface IGUIManagerProvider<G extends IGUIManager>
      *
      * @return Returns the current GUIManager.
      */
+    @Nonnull
     G getManager();
 
     /**
@@ -22,5 +25,5 @@ public interface IGUIManagerProvider<G extends IGUIManager>
      *
      * @param newManager THe new IGUIManager.
      */
-    void setManager(G newManager);
+    void setManager(@Nonnull G newManager);
 }

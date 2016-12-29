@@ -16,7 +16,7 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
      *
      * @param host The host for the tabs.
      */
-    void registerTabs(IGUIBasedTabHost host);
+    void registerTabs(@Nonnull IGUIBasedTabHost host);
 
     /**
      * Method used to register a new Tab to this host.
@@ -24,7 +24,7 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
      *
      * @param tab The new Tab to register.
      */
-    void registerNewTab(IGUITab tab);
+    void registerNewTab(@Nonnull IGUITab tab);
 
     /**
      * Method to get the TabManager to handle Tab Interactions.
@@ -39,5 +39,5 @@ public interface IGUIBasedTabHost extends IGUIBasedComponentHost
      *
      * @param newActiveTabID The ID of the new active tab.
      */
-    void onTabChanged (String newActiveTabID);
+    void onTabChanged (@Nonnull String newActiveTabID);
 }

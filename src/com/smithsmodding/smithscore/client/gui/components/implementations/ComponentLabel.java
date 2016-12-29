@@ -16,7 +16,7 @@ public class ComponentLabel extends CoreComponent {
     protected MinecraftColor color;
     private FontRenderer renderer;
 
-    public ComponentLabel(String uniqueID, IGUIBasedComponentHost root, IGUIComponentState state, Coordinate2D localCoordinate, MinecraftColor color, @Nonnull FontRenderer renderer, String displayedText) {
+    public ComponentLabel(@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost root, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D localCoordinate, @Nonnull MinecraftColor color, @Nonnull FontRenderer renderer, @Nonnull String displayedText) {
         super(uniqueID, root, state, localCoordinate, renderer.getStringWidth(displayedText), renderer.FONT_HEIGHT);
 
         this.displayedText = displayedText;

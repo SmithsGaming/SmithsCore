@@ -24,7 +24,7 @@ public class ComponentContentArea extends CoreComponent implements IGUIBasedComp
     @Nonnull
     private LinkedHashMap<String, IGUIComponent> componentHashMap = new LinkedHashMap<String, IGUIComponent>();
 
-    public ComponentContentArea (String uniqueID, IContentAreaHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
+    public ComponentContentArea (@Nonnull String uniqueID, @Nonnull IContentAreaHost parent, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D rootAnchorPixel, int width, int height) {
         super(uniqueID, parent, state, rootAnchorPixel, width, height);
 
         this.contentHost = (IContentAreaHost) this.parent;

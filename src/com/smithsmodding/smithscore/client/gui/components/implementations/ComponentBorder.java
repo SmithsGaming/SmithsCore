@@ -22,11 +22,11 @@ public class ComponentBorder extends CoreComponent {
     private CornerTypes lowerRightCorner;
     private CornerTypes lowerLeftCorner;
 
-    public ComponentBorder (String uniqueID, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightCorner, CornerTypes lowerLeftCorner) {
+    public ComponentBorder (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, int width, int height, @Nonnull MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightCorner, CornerTypes lowerLeftCorner) {
         this(uniqueID, new CoreComponentState(null), parent, rootAnchorPixel, width, height, color, topLeftType, topRightType, lowerRightCorner, lowerLeftCorner);
     }
 
-    public ComponentBorder (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightType, CornerTypes lowerLeftType) {
+    public ComponentBorder (@Nonnull String uniqueID, @Nonnull IGUIComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, int width, int height, @Nonnull MinecraftColor color, CornerTypes topLeftType, CornerTypes topRightType, CornerTypes lowerRightType, CornerTypes lowerLeftType) {
         super(uniqueID, parent, state, rootAnchorPixel, width, height);
 
         this.state.setComponent(this);

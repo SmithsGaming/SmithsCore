@@ -2,6 +2,7 @@ package com.smithsmodding.smithscore.client.gui.management;
 
 import com.smithsmodding.smithscore.util.common.positioning.*;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -18,7 +19,7 @@ public interface IScissorRegionManager
      *
      * @return True when either completely or partially applied, false when not.
      */
-    boolean setScissorRegionTo(Plane scissorRegion);
+    boolean setScissorRegionTo(@Nonnull Plane scissorRegion);
 
     /**
      * Method called to indicate that the currently used scissor region should be reset.

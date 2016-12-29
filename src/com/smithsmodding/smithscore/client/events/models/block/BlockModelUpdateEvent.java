@@ -74,7 +74,7 @@ public class BlockModelUpdateEvent extends StandardNetworkableEvent {
      */
     @Nullable
     @Override
-    public IMessage getCommunicationMessage (Side side) {
+    public IMessage getCommunicationMessage (@Nonnull Side side) {
         if (side == Side.SERVER)
             return null;
 

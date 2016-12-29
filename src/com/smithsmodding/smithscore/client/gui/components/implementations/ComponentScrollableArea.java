@@ -35,7 +35,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
     private int height;
     private int width;
 
-    public ComponentScrollableArea (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
+    public ComponentScrollableArea (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D rootAnchorPixel, int width, int height) {
         this.uniqueID = uniqueID;
         this.parent = parent;
 
@@ -56,7 +56,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents (IGUIBasedComponentHost host) {
+    public void registerComponents (@Nonnull IGUIBasedComponentHost host) {
         registerNewComponent(contentArea);
 
         if (height < contentArea.getSize().getHeigth())
@@ -90,6 +90,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @return The gui that this component is part of.
      */
     @Override
+    @Nonnull
     public IGUIBasedComponentHost getRootGuiObject() {
         return parent.getRootGuiObject();
     }
@@ -100,6 +101,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @return The Manager that is at the root for the gui Tree.
      */
     @Override
+    @Nonnull
     public IGUIManager getRootManager () {
         return parent.getRootManager();
     }
@@ -124,7 +126,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      */
     @Nullable
     @Override
-    public IGUIComponent getComponentByID (String uniqueUIID) {
+    public IGUIComponent getComponentByID (@Nonnull String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
 
@@ -148,6 +150,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return The ID of this Component.
      */
+    @Nonnull
     @Override
     public String getID () {
         return uniqueID;
@@ -160,6 +163,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return This components state Object.
      */
+    @Nonnull
     @Override
     public IGUIComponentState getState () {
         return state;
@@ -170,6 +174,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return This components host.
      */
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost () {
         return parent;
@@ -191,6 +196,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      *
      * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
      */
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate () {
         return rootAnchorPixel;
@@ -356,6 +362,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @return Returns the current GUIManager.
      */
     @Override
+    @Nonnull
     public IGUIManager getManager () {
         return parent.getManager();
     }
@@ -366,7 +373,7 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
      * @param newManager THe new IGUIManager.
      */
     @Override
-    public void setManager (IGUIManager newManager) {
+    public void setManager (@Nonnull IGUIManager newManager) {
         parent.setManager(newManager);
     }
 
@@ -382,14 +389,15 @@ public abstract class ComponentScrollableArea implements IGUIComponent, IContent
     }
 
     @Override
-    public abstract void registerContentComponents (ComponentContentArea host);
+    public abstract void registerContentComponents (@Nonnull ComponentContentArea host);
 
     @Override
-    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+    public void drawHoveringText(@Nullable List<String> textLines, int x, int y, @Nonnull  FontRenderer font) {
         getComponentHost().drawHoveringText(textLines, x, y, font);
     }
 
     @Override
+    @Nonnull
     public IRenderManager getRenderManager() {
         return getComponentHost().getRenderManager();
     }

@@ -14,6 +14,8 @@ import net.minecraft.client.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.item.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Marc on 08.02.2016.
  */
@@ -24,7 +26,7 @@ public class ComponentButton extends CoreComponent{
     boolean triggeredLastUpdate;
     boolean continuesTriggering;
 
-    public ComponentButton (String uniqueID, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height, boolean continuesTriggering, Object contents) {
+    public ComponentButton (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, int width, int height, boolean continuesTriggering, @Nonnull Object contents) {
         super(uniqueID, parent, new ButtonComponentState(), rootAnchorPixel, width, height);
 
         this.contents = contents;

@@ -27,6 +27,7 @@ public class StandardLedgerManager implements ILedgerManager {
         this.host = host;
     }
 
+    @Nonnull
     @Override
     public IGUIBasedLedgerHost getHost () {
         return host;
@@ -117,6 +118,7 @@ public class StandardLedgerManager implements ILedgerManager {
      *
      * @return See method description.
      */
+    @Nonnull
     @Override
     public Coordinate2D getLedgerGlobalCoordinate (LedgerConnectionSide side, String uniqueID) {
         IGUILedger ledger;

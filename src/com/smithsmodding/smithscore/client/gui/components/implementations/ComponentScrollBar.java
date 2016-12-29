@@ -37,7 +37,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     private Coordinate2D rootAnchorPixel;
     private int height;
 
-    public ComponentScrollBar (String uniqueID, @Nonnull ScrollBarComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int height) {
+    public ComponentScrollBar (@Nonnull String uniqueID, @Nonnull ScrollBarComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, int height) {
         this.uniqueID = uniqueID;
 
         this.parent = parent;
@@ -58,7 +58,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents (IGUIBasedComponentHost host) {
+    public void registerComponents (@Nonnull IGUIBasedComponentHost host) {
         registerNewComponent(new ComponentButton(getID() + ".Buttons.Up", this, new Coordinate2D(0,0), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.UPARROW));
         registerNewComponent(new ComponentButton(getID() + ".Buttons.ScrollDrag", this, new Coordinate2D(0, 10), WIDTH, 10, true, Textures.Gui.Basic.Components.Button.SCROLLBAR));
         registerNewComponent(new ComponentButton(getID() + ".Buttons.Down", this, new Coordinate2D(0, height - 10), WIDTH, 10, false, Textures.Gui.Basic.Components.Button.DOWNARROW));
@@ -83,6 +83,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      * @return The gui that this component is part of.
      */
     @Override
+    @Nonnull
     public IGUIBasedComponentHost getRootGuiObject() {
         return parent.getRootGuiObject();
     }
@@ -93,6 +94,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      * @return The Manager that is at the root for the gui Tree.
      */
     @Override
+    @Nonnull
     public IGUIManager getRootManager () {
         return parent.getRootManager();
     }
@@ -109,7 +111,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     }
 
     @Nullable
-    public IGUIComponent getComponentByID(String uniqueUIID)
+    public IGUIComponent getComponentByID(@Nonnull String uniqueUIID)
     {
         if (getID().equals(uniqueUIID))
             return this;
@@ -137,6 +139,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
     }
 
     @Override
+    @Nonnull
     public IRenderManager getRenderManager() {
         return getComponentHost().getRenderManager();
     }
@@ -151,6 +154,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return The ID of this Component.
      */
+    @Nonnull
     @Override
     public String getID () {
         return uniqueID;
@@ -163,6 +167,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return This components state Object.
      */
+    @Nonnull
     @Override
     public IGUIComponentState getState () {
         return state;
@@ -173,6 +178,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return This components host.
      */
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost () {
         return parent;
@@ -194,6 +200,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      *
      * @return A Coordinate representing the Location of the most top left Pixel relative to its parent.
      */
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate () {
         return rootAnchorPixel;
@@ -359,6 +366,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      * @return Returns the current GUIManager.
      */
     @Override
+    @Nonnull
     public IGUIManager getManager () {
         return parent.getManager();
     }
@@ -369,7 +377,7 @@ public class ComponentScrollBar implements IGUIComponent, IGUIBasedComponentHost
      * @param newManager THe new IGUIManager.
      */
     @Override
-    public void setManager (IGUIManager newManager) {
+    public void setManager (@Nonnull IGUIManager newManager) {
         parent.setManager(newManager);
     }
 

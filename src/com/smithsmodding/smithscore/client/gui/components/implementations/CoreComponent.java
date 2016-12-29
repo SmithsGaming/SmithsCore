@@ -7,6 +7,7 @@ import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 import com.smithsmodding.smithscore.util.common.positioning.Plane;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +21,7 @@ public abstract class CoreComponent implements IGUIComponent {
     protected int width;
     protected int height;
 
-    public CoreComponent (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
+    public CoreComponent (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D rootAnchorPixel, @Nonnull int width, @Nonnull int height) {
         this.rootAnchorPixel = rootAnchorPixel;
         this.height = height;
         this.uniqueID = uniqueID;
@@ -31,16 +32,19 @@ public abstract class CoreComponent implements IGUIComponent {
         this.state.setComponent(this);
     }
 
+    @Nonnull
     @Override
     public String getID () {
         return uniqueID;
     }
 
+    @Nonnull
     @Override
     public IGUIComponentState getState () {
         return state;
     }
 
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost() {
         return parent;
@@ -52,6 +56,7 @@ public abstract class CoreComponent implements IGUIComponent {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate () {
         return rootAnchorPixel;
@@ -70,34 +75,39 @@ public abstract class CoreComponent implements IGUIComponent {
     }
 
     @Override
-    public abstract void update(int mouseX, int mouseY, float partialTickTime);
+    public abstract void update(@Nonnull int mouseX, @Nonnull int mouseY, @Nonnull float partialTickTime);
 
     @Override
-    public abstract void drawBackground(int mouseX, int mouseY);
+    public abstract void drawBackground(@Nonnull int mouseX, @Nonnull int mouseY);
 
     @Override
-    public abstract void drawForeground(int mouseX, int mouseY);
+    public abstract void drawForeground(@Nonnull int mouseX, @Nonnull int mouseY);
 
     @Override
-    public boolean handleMouseClickedInside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+    @Nonnull
+    public boolean handleMouseClickedInside (@Nonnull int relativeMouseX, @Nonnull int relativeMouseY, @Nonnull int mouseButton) {
         return false;
     }
 
     @Override
-    public boolean handleMouseClickedOutside (int relativeMouseX, int relativeMouseY, int mouseButton) {
+    @Nonnull
+    public boolean handleMouseClickedOutside (@Nonnull int relativeMouseX, @Nonnull int relativeMouseY, @Nonnull int mouseButton) {
         return false;
     }
 
     @Override
+    @Nonnull
     public boolean requiresForcedMouseInput () {
         return false;
     }
 
     @Override
-    public boolean handleKeyTyped(char key, int keyCode) {
+    @Nonnull
+    public boolean handleKeyTyped(@Nonnull char key, @Nonnull int keyCode) {
         return false;
     }
 
+    @Nullable
     @Override
     public ArrayList<String> getToolTipContent () {
         return new ArrayList<String>();

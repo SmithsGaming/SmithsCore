@@ -16,6 +16,7 @@ public interface IRenderManager
      *
      * @return The current active gui
      */
+    @Nonnull
     Gui getRootGuiObject();
 
     /**
@@ -23,6 +24,7 @@ public interface IRenderManager
      *
      * @return The GuiManager of the Root gui object.
      */
+    @Nonnull
     IGUIManager getRootGuiManager();
 
     /**
@@ -39,7 +41,7 @@ public interface IRenderManager
      * @param component The Component to render.
      * @param parentEnabled Indicates if the parent is enabled.
      */
-    void renderBackgroundComponent (IGUIComponent component, boolean parentEnabled);
+    void renderBackgroundComponent (@Nonnull IGUIComponent component, boolean parentEnabled);
 
     /**
      * Method to render the ForeGround of a Component
@@ -47,7 +49,7 @@ public interface IRenderManager
      * @param component The Component to render
      * @param parentEnabled Indicates if the parent is enabled.
      */
-    void renderForegroundComponent (IGUIComponent component, boolean parentEnabled);
+    void renderForegroundComponent (@Nonnull IGUIComponent component, boolean parentEnabled);
 
     /**
      * Method to render the ToolTip of the Component
@@ -56,5 +58,5 @@ public interface IRenderManager
      * @param mouseX The absolute X-Coordinate of the Mouse
      * @param mouseY The absolute Y-Coordinate of the Mouse
      */
-    void renderToolTipComponent (IGUIComponent component, int mouseX, int mouseY);
+    void renderToolTipComponent (@Nonnull IGUIComponent component, int mouseX, int mouseY);
 }

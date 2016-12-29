@@ -20,7 +20,7 @@ public class InformationLedger extends CoreLedger {
     @Nonnull
     ArrayList<String> translatedDisplayedStrings = new ArrayList<String>();
 
-    public InformationLedger (String uniqueID, IGUIBasedLedgerHost root, LedgerConnectionSide side, String translatedGuiOwner, MinecraftColor color, @Nonnull ArrayList<String> translatedDisplayedStrings) {
+    public InformationLedger (@Nonnull String uniqueID, @Nonnull IGUIBasedLedgerHost root, LedgerConnectionSide side, @Nonnull String translatedGuiOwner, @Nonnull MinecraftColor color, @Nonnull ArrayList<String> translatedDisplayedStrings) {
         super(uniqueID, new LedgerComponentState(), root, side, Textures.Gui.Basic.INFOICON, translatedGuiOwner, color);
 
         for (String line : translatedDisplayedStrings) {
@@ -58,7 +58,7 @@ public class InformationLedger extends CoreLedger {
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents (IGUIBasedComponentHost host) {
+    public void registerComponents (@Nonnull IGUIBasedComponentHost host) {
         super.registerComponents(host);
 
         registerNewComponent(new Contents(getID() + ".Contents", this, new CoreComponentState(), new Coordinate2D(8, closedLedgerHeight), closedLedgerWidth + Minecraft.getMinecraft().fontRendererObj.getStringWidth(this.translatedLedgerHeader) - 8, 87));
@@ -66,7 +66,7 @@ public class InformationLedger extends CoreLedger {
 
     public class Contents extends ComponentScrollableArea
     {
-        public Contents (String uniqueID, IGUIBasedComponentHost parent, IGUIComponentState state, Coordinate2D rootAnchorPixel, int width, int height) {
+        public Contents (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull IGUIComponentState state, @Nonnull Coordinate2D rootAnchorPixel, int width, int height) {
             super(uniqueID, parent, state, rootAnchorPixel, width, height);
         }
 

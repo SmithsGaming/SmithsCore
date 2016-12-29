@@ -17,7 +17,7 @@ public class ComponentImage extends CoreComponent {
 
     private CustomResource image;
 
-    public ComponentImage (String uniqueID, IGUIComponentState state, IGUIBasedComponentHost root, Coordinate2D rootAnchorPixel, @Nonnull CustomResource image) {
+    public ComponentImage (@Nonnull String uniqueID, @Nonnull IGUIComponentState state, @Nonnull IGUIBasedComponentHost root, @Nonnull Coordinate2D rootAnchorPixel, @Nonnull CustomResource image) {
         super(uniqueID, root, state, rootAnchorPixel, image.getWidth(), image.getHeight());
 
         this.image = image;

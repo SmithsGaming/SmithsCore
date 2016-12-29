@@ -30,6 +30,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
 
     @Nonnull
     IRenderManager renderer = new StandardRenderManager(this);
+    @Nonnull
     IGUIManager guiManager;
     @Nonnull
     IGUIComponentState state = new CoreComponentState(this);
@@ -70,32 +71,34 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
         Keyboard.enableRepeatEvents(false);
     }
 
+    @Nonnull
     public boolean isInitialized() {
         return isInitialized;
     }
 
-    private void setIsInitialized(boolean isInitialized) {
+    private void setIsInitialized(@Nonnull boolean isInitialized) {
         this.isInitialized = isInitialized;
     }
 
     @Override
-    public void drawBackground(int mouseX, int mouseY) {
+    public void drawBackground(@Nonnull int mouseX, @Nonnull int mouseY) {
         renderer.renderBackgroundComponent(this, false);
     }
 
     @Override
-    public void drawForeground(int mouseX, int mouseY) {
+    public void drawForeground(@Nonnull int mouseX, @Nonnull int mouseY) {
         renderer.renderForegroundComponent(this, false);
         renderer.renderToolTipComponent(this, mouseX - getLocalCoordinate().getXComponent(), mouseY - getLocalCoordinate().getYComponent());
     }
 
     @Override
+    @Nonnull
     public IGUIManager getManager() {
         return guiManager;
     }
 
     @Override
-    public void setManager(IGUIManager newManager) {
+    public void setManager(@Nonnull IGUIManager newManager) {
         this.guiManager = newManager;
     }
 
@@ -125,7 +128,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @param mouseButton The mouse button that was used to perform the click
      */
     @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    protected void mouseClicked(@Nonnull int mouseX, @Nonnull int mouseY,@Nonnull int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
         if (requiresForcedMouseInput())
@@ -142,7 +145,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @param keyCode   The corresponding keycode.
      */
     @Override
-    protected void keyTyped(char typedChar, int keyCode) throws IOException {
+    protected void keyTyped(@Nonnull char typedChar, @Nonnull int keyCode) throws IOException {
         if (this.handleKeyTyped(typedChar, keyCode))
             return;
 
@@ -162,7 +165,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @param key The key that was typed.
      */
     @Override
-    public boolean handleKeyTyped(char key, int keyCode) {
+    public boolean handleKeyTyped(@Nonnull char key, @Nonnull int keyCode) {
         for (IGUIComponent component : getAllComponents().values()) {
             if (component.handleKeyTyped(key, keyCode))
                 return true;
@@ -202,7 +205,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @return True when the click has been handled, false when it did not.
      */
     @Override
-    public boolean handleMouseClickedOutside(int relativeMouseX, int relativeMouseY, int mouseButton) {
+    public boolean handleMouseClickedOutside(@Nonnull int relativeMouseX, @Nonnull int relativeMouseY, @Nonnull int mouseButton) {
         for (IGUIComponent component : getAllComponents().values()) {
             if (component.requiresForcedMouseInput()) {
                 Coordinate2D location = component.getLocalCoordinate();
@@ -228,7 +231,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @return True when the click has been handled, false when it did not.
      */
     @Override
-    public boolean handleMouseClickedInside(int relativeMouseX, int relativeMouseY, int mouseButton) {
+    public boolean handleMouseClickedInside(@Nonnull int relativeMouseX, @Nonnull int relativeMouseY, @Nonnull int mouseButton) {
         for (IGUIComponent component : getAllComponents().values()) {
             Coordinate2D location = component.getLocalCoordinate();
             Plane localOccupiedArea = component.getSize().Move(location.getXComponent(), location.getYComponent());
@@ -244,6 +247,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
+    @Nonnull
     public Coordinate2D getLocalCoordinate() {
         if (contents == null)
             return new Coordinate2D(0, 0);
@@ -252,6 +256,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
+    @Nonnull
     public Plane getAreaOccupiedByComponent() {
         if (contents == null)
             return new Plane();
@@ -279,7 +284,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @param partialTickTime The partial tick time, used to calculate fluent animations.
      */
     @Override
-    public void update(int mouseX, int mouseY, float partialTickTime) {
+    public void update(@Nonnull int mouseX, @Nonnull int mouseY, @Nonnull float partialTickTime) {
         //NOOP
     }
 
@@ -290,7 +295,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Nullable
-    public IGUIComponent getComponentByID(String uniqueUIID) {
+    public IGUIComponent getComponentByID(@Nonnull String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
 
@@ -310,6 +315,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
+    @Nonnull
     public Coordinate2D getGlobalCoordinate() {
         return getLocalCoordinate();
     }
@@ -320,6 +326,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
+    @Nonnull
     public IGUIManager getRootManager() {
         return getManager();
     }
@@ -331,7 +338,10 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
-    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+    public void drawHoveringText(@Nullable List<String> textLines, @Nonnull int x, @Nonnull int y, @Nonnull FontRenderer font) {
+        if (textLines == null || textLines.size() == 0)
+            return;
+
         super.drawHoveringText(textLines, x, y, font);
     }
 
@@ -346,6 +356,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
     }
 
     @Override
+    @Nonnull
     public int getDefaultDisplayVerticalOffset() {
         return 0;
     }
@@ -356,7 +367,7 @@ public class GuiBookSmithsCore extends GuiScreen implements IGUIBasedComponentHo
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents(IGUIBasedComponentHost host) {
+    public void registerComponents(@Nonnull IGUIBasedComponentHost host) {
         for (IGUIComponent component : book.getOpenPage().getComponents().values())
             registerNewComponent(component);
     }

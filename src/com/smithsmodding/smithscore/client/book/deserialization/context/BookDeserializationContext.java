@@ -11,9 +11,11 @@ import java.util.HashMap;
  */
 public final class BookDeserializationContext {
 
+    @Nonnull
     private final HashMap<ResourceLocation, IBookPage> pages = new HashMap<>();
 
-    public IBookPage getPage(ResourceLocation location) {
+    @Nonnull
+    public IBookPage getPage(@Nonnull ResourceLocation location) {
         return pages.get(location);
     }
 

@@ -17,7 +17,7 @@ public class GuiInputEvent extends StandardNetworkableEvent {
     String componentID;
     String input;
 
-    public GuiInputEvent (InputTypes types, String componentID, String input) {
+    public GuiInputEvent (@Nonnull InputTypes types, @Nonnull String componentID, @Nonnull String input) {
         this.type = types;
         this.componentID = componentID;
         this.input = input;
@@ -26,14 +26,17 @@ public class GuiInputEvent extends StandardNetworkableEvent {
     public GuiInputEvent () {
     }
 
+    @Nonnull
     public InputTypes getTypes () {
         return type;
     }
 
+    @Nonnull
     public String getComponentID () {
         return componentID;
     }
 
+    @Nonnull
     public String getInput () {
         return input;
     }

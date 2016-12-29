@@ -20,6 +20,7 @@ public final class BookDeserializationUtil {
      * @param location The key to check for.
      * @return True when the key is contained in the JsobObject, false if not.
      */
+    @Nonnull
     public static final boolean hasLocation(@Nonnull JsonObject guiObject, @Nonnull ResourceLocation location) {
         return guiObject.has(location.toString());
     }
@@ -31,6 +32,7 @@ public final class BookDeserializationUtil {
      * @return The value of the key in the guiObject
      * @throws IllegalArgumentException is thrown when the guiObject does not have that key.
      */
+    @Nonnull
     public static final JsonElement getElement(@Nonnull JsonObject guiObject, @Nonnull ResourceLocation location) throws IllegalArgumentException {
         if (!hasLocation(guiObject, location))
             throw new IllegalArgumentException("The given guiObject does not have that location");
@@ -45,6 +47,7 @@ public final class BookDeserializationUtil {
      * @return The value of the key in the guiObject
      * @throws IllegalArgumentException is thrown when the guiObject does not have that key.
      */
+    @Nonnull
     public static final String getElementAsString(@Nonnull JsonObject guiObject, @Nonnull ResourceLocation location) throws IllegalArgumentException {
         return getElement(guiObject, location).getAsString();
     }
@@ -56,6 +59,7 @@ public final class BookDeserializationUtil {
      * @return The value of the key in the guiObject
      * @throws IllegalArgumentException is thrown when the guiObject does not have that key.
      */
+    @Nonnull
     public static final int getElementAsInt(@Nonnull JsonObject guiObject, @Nonnull ResourceLocation location) throws IllegalArgumentException {
         return getElement(guiObject, location).getAsInt();
     }

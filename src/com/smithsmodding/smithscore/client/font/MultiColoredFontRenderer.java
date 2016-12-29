@@ -34,6 +34,7 @@ public class MultiColoredFontRenderer extends FontRenderer {
         super(gameSettingsIn, location, textureManagerIn, true);
     }
 
+    @Nonnull
     public static String getCustomFormatFromString(@Nonnull String text) {
         String s = "";
         int i = 0;
@@ -67,12 +68,12 @@ public class MultiColoredFontRenderer extends FontRenderer {
 
     @Nonnull
     @Override
-    public List<String> listFormattedStringToWidth(@Nonnull String str, int wrapWidth) {
+    public List<String> listFormattedStringToWidth(@Nonnull String str, @Nonnull int wrapWidth) {
         return Arrays.asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
     }
 
     @Nonnull
-    protected String wrapFormattedStringToWidth(@Nonnull String str, int wrapWidth) {
+    protected String wrapFormattedStringToWidth(@Nonnull String str, @Nonnull int wrapWidth) {
         int i = this.sizeStringToWidth(str, wrapWidth);
 
         if (str.length() <= i) {
@@ -87,13 +88,15 @@ public class MultiColoredFontRenderer extends FontRenderer {
     }
 
     @Override
-    public int renderString(@Nonnull String text, float x, float y, int color, boolean dropShadow) {
+    @Nonnull
+    public int renderString(@Nonnull String text, @Nonnull float x, @Nonnull float y, @Nonnull int color, @Nonnull boolean dropShadow) {
         this.dropShadow = dropShadow;
         return super.renderString(text, x, y, color, dropShadow);
     }
 
     @Override
-    protected float renderUnicodeChar(char letter, boolean italic) {
+    @Nonnull
+    protected float renderUnicodeChar(@Nonnull char letter, @Nonnull boolean italic) {
         // special color settings through char code
         // we use \u2700 to \u27FF, where the lower byte represents the Hue of the color
         if ((int) letter >= MARKER && (int) letter <= MARKER + 0xFF) {
@@ -141,7 +144,7 @@ public class MultiColoredFontRenderer extends FontRenderer {
     }
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {
+    public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
         super.onResourceManagerReload(resourceManager);
         setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode() || Minecraft.getMinecraft().gameSettings.forceUnicodeFont);
         setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());

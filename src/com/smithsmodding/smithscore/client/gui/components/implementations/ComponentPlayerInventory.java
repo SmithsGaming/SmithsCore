@@ -47,7 +47,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
 
     private ComponentConnectionType connectionType;
 
-    public ComponentPlayerInventory (String uniqueID, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, MinecraftColor color, IInventory playerInventory, ComponentConnectionType connectionType) {
+    public ComponentPlayerInventory (@Nonnull String uniqueID, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, @Nonnull MinecraftColor color, @Nonnull IInventory playerInventory, ComponentConnectionType connectionType) {
         this.uniqueID = uniqueID;
         this.parent = parent;
         this.rootAnchorPixel = rootAnchorPixel;
@@ -133,7 +133,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public void registerNewComponent (IGUIComponent component) {
+    public void registerNewComponent (@Nonnull IGUIComponent component) {
         if (component instanceof IGUIBasedComponentHost)
             ( (IGUIBasedComponentHost) component ).registerNewComponent(component);
 
@@ -141,11 +141,13 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
+    @Nonnull
     public IGUIBasedComponentHost getRootGuiObject() {
         return parent.getRootGuiObject();
     }
 
     @Override
+    @Nonnull
     public IGUIManager getRootManager () {
         return parent.getManager();
     }
@@ -157,7 +159,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Nullable
-    public IGUIComponent getComponentByID (String uniqueUIID) {
+    public IGUIComponent getComponentByID (@Nonnull String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
 
@@ -177,11 +179,12 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
-    public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
+    public void drawHoveringText(@Nullable List<String> textLines, int x, int y, @Nonnull  FontRenderer font) {
         getComponentHost().drawHoveringText(textLines, x, y, font);
     }
 
     @Override
+    @Nonnull
     public IRenderManager getRenderManager() {
         return getComponentHost().getRenderManager();
     }
@@ -192,6 +195,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
 
+    @Nonnull
     @Override
     public String getID () {
         return uniqueID;
@@ -203,6 +207,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return state;
     }
 
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost() {
         return parent.getComponentHost();
@@ -214,6 +219,7 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate () {
         return rootAnchorPixel;
@@ -280,12 +286,13 @@ public class ComponentPlayerInventory implements IGUIBasedComponentHost {
     }
 
     @Override
+    @Nonnull
     public IGUIManager getManager () {
         return parent.getManager();
     }
 
     @Override
-    public void setManager (IGUIManager newManager) {
+    public void setManager (@Nonnull IGUIManager newManager) {
         parent.setManager(newManager);
     }
 }

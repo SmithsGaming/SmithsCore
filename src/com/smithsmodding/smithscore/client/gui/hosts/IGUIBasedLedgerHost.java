@@ -15,14 +15,14 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost {
      *
      * @param parent This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
-    void registerLedgers (IGUIBasedLedgerHost parent);
+    void registerLedgers (@Nonnull IGUIBasedLedgerHost parent);
 
     /**
      * Method used to register a new Component to this host.
      *
      * @param ledger The new component.
      */
-    void registerNewLedger (IGUILedger ledger);
+    void registerNewLedger (@Nonnull IGUILedger ledger);
 
     /**
      * Method to get the LedgerManager for this host.
@@ -45,6 +45,7 @@ public interface IGUIBasedLedgerHost extends IGUIBasedComponentHost {
      *
      * @return The Manager that is at the root for the gui Tree.
      */
+    @Nonnull
     IGUIManager getRootManager ();
 
     /**

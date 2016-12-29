@@ -45,7 +45,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     private StandardLedgerManager ledgers = new StandardLedgerManager(this);
     @Nonnull
     private CoreComponentState state = new CoreComponentState(this);
-
+    @Nonnull
     private String uniqueUIID;
 
     @Nonnull
@@ -113,16 +113,18 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
+    @Nonnull
     public IGUIManager getManager () {
         return ( (ContainerSmithsCore) inventorySlots ).getManager();
     }
 
     @Override
-    public void setManager (IGUIManager newManager) {
+    public void setManager (@Nonnull IGUIManager newManager) {
         ( (ContainerSmithsCore) inventorySlots ).setManager(newManager);
     }
 
     @Override
+    @Nonnull
     public String getID () {
         return uniqueUIID;
     }
@@ -172,7 +174,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
 
-    @Nonnull
+    @Nullable
     @Override
     public ArrayList<String> getToolTipContent () {
         return new ArrayList<String>();
@@ -363,7 +365,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Nullable
-    public IGUIComponent getComponentByID (String uniqueUIID) {
+    public IGUIComponent getComponentByID (@Nonnull String uniqueUIID) {
         if (getID().equals(uniqueUIID))
             return this;
 
@@ -415,7 +417,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
-    public void registerNewComponent (IGUIComponent component) {
+    public void registerNewComponent (@Nonnull IGUIComponent component) {
         //Thanks to the dummy tab this method should never be called.
         //If it ever is called i will redirect it to the active tab if it was set and print a warning.
 
@@ -426,6 +428,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
     }
 
     @Override
+    @Nonnull
     public IGUIManager getRootManager () {
         return ( (ContainerSmithsCore) inventorySlots ).getManager();
     }
@@ -518,7 +521,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * @param host The host for the tabs.
      */
     @Override
-    public void registerTabs (IGUIBasedTabHost host) {
+    public void registerTabs (@Nonnull IGUIBasedTabHost host) {
         registerNewTab(new DummyTab(getID() + ".Dummy", this, new CoreComponentState(), null, new MinecraftColor(Color.white), ""));
     }
 
@@ -529,7 +532,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * @param tab The new Tab to register.
      */
     @Override
-    public void registerNewTab (IGUITab tab) {
+    public void registerNewTab (@Nonnull IGUITab tab) {
         tabs.registerNewTab(tab);
     }
 
@@ -550,7 +553,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * @param newActiveTabID The ID of the new active tab.
      */
     @Override
-    public void onTabChanged (String newActiveTabID) {
+    public void onTabChanged (@Nonnull String newActiveTabID) {
         Plane areaWithComponents = getSize();
         this.xSize = areaWithComponents.getWidth();
         this.ySize = areaWithComponents.getHeigth();
@@ -564,7 +567,7 @@ public abstract class GuiContainerSmithsCore extends GuiContainer implements IGU
      * @param host This ComponentHosts host. For the Root GUIObject a reference to itself will be passed in..
      */
     @Override
-    public void registerComponents (IGUIBasedComponentHost host) {
+    public void registerComponents (@Nonnull IGUIBasedComponentHost host) {
         SmithsCore.getLogger().warn(CoreReferences.LogMarkers.RENDER, "Created a UI without components.");
     }
 

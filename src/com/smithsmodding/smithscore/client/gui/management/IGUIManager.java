@@ -4,6 +4,8 @@ import com.smithsmodding.smithscore.client.events.gui.GuiInputEvent;
 import com.smithsmodding.smithscore.client.gui.components.core.IGUIComponent;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -23,14 +25,14 @@ public interface IGUIManager
      *
      * @param playerId The unique ID of the player that opens the UI.
      */
-    void onGuiOpened(UUID playerId);
+    void onGuiOpened(@Nonnull UUID playerId);
 
     /**
      * Method called when a player closes the linked UI.
      *
      * @param playerID The unique ID of the player that closed the UI.
      */
-    void onGUIClosed(UUID playerID);
+    void onGUIClosed(@Nonnull UUID playerID);
 
     /**
      * Method used by components that support overriding tooltips to grab the new tooltip string.
@@ -39,7 +41,8 @@ public interface IGUIManager
      *
      * @return A string displayed as tooltip for the IGUIComponent during rendering.
      */
-    String getCustomToolTipDisplayString(IGUIComponent component);
+    @Nullable
+    String getCustomToolTipDisplayString(@Nonnull IGUIComponent component);
 
     /**
      * Method to get the value for a progressbar. RAnged between 0 and 1.
@@ -48,7 +51,7 @@ public interface IGUIManager
      *
      * @return A float between 0 and 1 with 0 meaning no progress on the specific bar and 1 meaning full.
      */
-    float getProgressBarValue (IGUIComponent component);
+    float getProgressBarValue (@Nonnull IGUIComponent component);
 
     /**
      * Method used by the rendering system to dynamically update a Label.
@@ -57,7 +60,8 @@ public interface IGUIManager
      *
      * @return THe string that should be displayed.
      */
-    String getLabelContents (IGUIComponent component);
+    @Nullable
+    String getLabelContents (@Nonnull IGUIComponent component);
 
     /**
      * Method used by components to get the Fluids to display
@@ -66,7 +70,8 @@ public interface IGUIManager
      *
      * @return The Fluids to display.
      */
-    ArrayList<FluidStack> getTankContents (IGUIComponent component);
+    @Nullable
+    ArrayList<FluidStack> getTankContents (@Nonnull IGUIComponent component);
 
     /**
      * Method used by components to get the total fluid amount they can display, used for scaling.
@@ -75,14 +80,14 @@ public interface IGUIManager
      *
      * @return Total fluid amount to display. Used for scaling.
      */
-    int getTotalTankContents (IGUIComponent component);
+    int getTotalTankContents (@Nonnull IGUIComponent component);
 
     /**
      * Method called by GUI's that are tab based when the active Tab changed.
      *
      * @param newActiveTabId The new active Tabs ID.
      */
-    void onTabChanged (String newActiveTabId);
+    void onTabChanged (@Nonnull String newActiveTabId);
 
-    void onInput(GuiInputEvent.InputTypes types, String componentId, String input);
+    void onInput(GuiInputEvent.InputTypes types, @Nonnull String componentId, @Nonnull String input);
 }

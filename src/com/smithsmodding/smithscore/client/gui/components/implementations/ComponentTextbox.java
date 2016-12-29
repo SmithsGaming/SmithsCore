@@ -29,7 +29,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
 
     protected CustomResource secondaryBackground;
 
-    public ComponentTextbox(String uniqueID, @Nonnull TextboxComponentState state, IGUIBasedComponentHost parent, Coordinate2D rootAnchorPixel, int width, int height) {
+    public ComponentTextbox(@Nonnull String uniqueID, @Nonnull TextboxComponentState state, @Nonnull IGUIBasedComponentHost parent, @Nonnull Coordinate2D rootAnchorPixel, int width, int height) {
         super(state.getId(), state.getFontRendererInstance(), 0, 0, width, height);
         this.uniqueID = uniqueID;
         this.state = state;
@@ -42,16 +42,19 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
         setText(state.getText());
     }
 
+    @Nonnull
     @Override
     public String getID() {
         return uniqueID;
     }
 
+    @Nonnull
     @Override
     public IGUIComponentState getState() {
         return state;
     }
 
+    @Nonnull
     @Override
     public IGUIBasedComponentHost getComponentHost() {
         return parent;
@@ -63,6 +66,7 @@ public class ComponentTextbox extends GuiTextField implements IGUIComponent {
         return parent.getGlobalCoordinate().getTranslatedCoordinate(getLocalCoordinate());
     }
 
+    @Nonnull
     @Override
     public Coordinate2D getLocalCoordinate() {
         return rootAnchorPixel;
