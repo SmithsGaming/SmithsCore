@@ -63,7 +63,7 @@ public class PathFinder {
         }
     }
 
-    private void reconstructPath (@Nonnull HashMap<IPathComponent, IPathComponent> pPreviousNodes, IPathComponent pStartNode, IPathComponent pEndNode) {
+    private void reconstructPath(@Nonnull HashMap<IPathComponent, IPathComponent> pPreviousNodes, @Nonnull IPathComponent pStartNode, @Nonnull IPathComponent pEndNode) {
         iResultedPath = new Path(pStartNode, pEndNode);
         IPathComponent tCurrent = pEndNode;
 
@@ -81,7 +81,7 @@ public class PathFinder {
         return iResultedPath != null;
     }
 
-    @Nullable
+    @Nonnull
     public Path getPath () {
         return iResultedPath;
     }
@@ -90,11 +90,11 @@ public class PathFinder {
 
         Map<IPathComponent, Float> base;
 
-        public ValueComparator (Map<IPathComponent, Float> base) {
+        public ValueComparator(@Nonnull Map<IPathComponent, Float> base) {
             this.base = base;
         }
 
-        public int compare (IPathComponent a, IPathComponent b) {
+        public int compare(@Nonnull IPathComponent a, @Nonnull IPathComponent b) {
             if (base.get(a) >= base.get(b)) {
                 return -1;
             } else {

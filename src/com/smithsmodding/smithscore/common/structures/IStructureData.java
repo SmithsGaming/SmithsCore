@@ -12,7 +12,7 @@ public interface IStructureData<S extends IStructure> {
     @Nonnull
     NBTTagCompound writeToNBT();
 
-    void readFromNBT(NBTTagCompound compound);
+    void readFromNBT(@Nonnull NBTTagCompound compound);
 
-    void onDataMergeInto(IStructureData<S> otherData);
+    void onDataMergeInto(@Nonnull IStructureData<S> otherData);
 }

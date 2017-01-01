@@ -64,7 +64,7 @@ public class CoreCommonProxy {
      * @see File
      * @see net.minecraftforge.fml.common.event.FMLPreInitializationEvent
      */
-    public void configInit(File pSuggestedConfigFile) {
+    public void configInit(@Nonnull File pSuggestedConfigFile) {
 
     }
 

@@ -1,7 +1,7 @@
 package com.smithsmodding.smithscore.common.tileentity.state;
 
-import com.smithsmodding.smithscore.common.tileentity.*;
-import net.minecraft.nbt.*;
+import com.smithsmodding.smithscore.common.tileentity.TileEntitySmithsCore;
+import net.minecraft.nbt.NBTBase;
 
 import javax.annotation.Nonnull;
 
@@ -15,7 +15,7 @@ public interface ITileEntityState {
      *
      * @param tileEntitySmithsCore The TE this state got attached to.
      */
-    void onStateCreated (TileEntitySmithsCore tileEntitySmithsCore);
+    void onStateCreated(@Nonnull TileEntitySmithsCore tileEntitySmithsCore);
 
     /**
      * Called to indicate this TE that some of its values may have been updated. Use it to perform additional
@@ -42,7 +42,7 @@ public interface ITileEntityState {
      *
      * @param stateData The stored data of this state.
      */
-    void readFromNBTTagCompound (NBTBase stateData);
+    void readFromNBTTagCompound(@Nonnull NBTBase stateData);
 
     /**
      * Method that allows this state to writes its data to Disk, when the attached TE writes its data to disk.
@@ -65,7 +65,7 @@ public interface ITileEntityState {
      *
      * @param stateData The stored data of this state.
      */
-    void readFromSynchronizationCompound (NBTBase stateData);
+    void readFromSynchronizationCompound(@Nonnull NBTBase stateData);
 
     /**
      * Method that allows this state to writes its data to the network, when the attached TE gets synchronized.

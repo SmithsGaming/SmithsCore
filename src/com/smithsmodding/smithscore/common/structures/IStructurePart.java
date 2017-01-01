@@ -17,7 +17,7 @@ public interface IStructurePart<S extends IStructure> extends IPathComponent {
     @Nonnull
     S getStructure();
 
-    void setStructure(S structure);
+    void setStructure(@Nonnull S structure);
 
     @Nonnull
     World getEnvironment();

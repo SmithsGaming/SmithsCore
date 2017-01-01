@@ -22,20 +22,23 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
     public StructureEvent() {
     }
 
-    public StructureEvent(IStructure structure, Integer dimension) {
+    public StructureEvent(@Nonnull IStructure structure, @Nonnull Integer dimension) {
         this.structure = structure;
         this.dimension = dimension;
     }
 
+    @Nonnull
     public IStructure getStructure() {
         return structure;
     }
 
+    @Nonnull
     public Integer getDimension() {
         return dimension;
     }
 
     @Override
+    @Nonnull
     protected NBTTagCompound getSyncCompound() {
         NBTTagCompound compound = new NBTTagCompound();
 
@@ -65,7 +68,7 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
             super();
         }
 
-        public Create(IStructure structure, Integer dimension) {
+        public Create(@Nonnull IStructure structure, @Nonnull Integer dimension) {
             super(structure, dimension);
         }
     }
@@ -75,7 +78,7 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
             super();
         }
 
-        public Destroyed(IStructure structure, Integer dimension) {
+        public Destroyed(@Nonnull IStructure structure, @Nonnull Integer dimension) {
             super(structure, dimension);
         }
     }
@@ -85,7 +88,7 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
             super();
         }
 
-        public Updated(IStructure structure, Integer dimension) {
+        public Updated(@Nonnull IStructure structure, @Nonnull Integer dimension) {
             super(structure, dimension);
         }
     }
@@ -97,16 +100,18 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
             super();
         }
 
-        public MasterBlockChanged(IStructure structure, Coordinate3D oldMaster, Integer dimension) {
+        public MasterBlockChanged(@Nonnull IStructure structure, @Nonnull Coordinate3D oldMaster, @Nonnull Integer dimension) {
             super(structure, dimension);
             this.oldMaster = oldMaster;
         }
 
+        @Nonnull
         public Coordinate3D getOldMaster() {
             return oldMaster;
         }
 
         @Override
+        @Nonnull
         protected NBTTagCompound getSyncCompound() {
             NBTTagCompound compound = super.getSyncCompound();
             compound.setTag(CoreReferences.NBT.StructureData.OLDMASTER, oldMaster.toCompound());

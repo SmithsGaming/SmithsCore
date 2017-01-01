@@ -16,18 +16,18 @@ public interface IStructure<D extends IStructureData, C extends IStructureContro
     @Nonnull
     D getData();
 
-    boolean canPartJoin(IStructurePart part);
+    boolean canPartJoin(@Nonnull IStructurePart part);
 
     @Nonnull
     LinkedHashSet<Coordinate3D> getPartLocations();
 
-    void registerPart(P part);
+    void registerPart(@Nonnull P part);
 
-    void removePart(P part);
+    void removePart(@Nonnull P part);
 
 
     @Nonnull
     Coordinate3D getMasterLocation();
 
-    void setMasterLocation(Coordinate3D masterLocation);
+    void setMasterLocation(@Nonnull Coordinate3D masterLocation);
 }

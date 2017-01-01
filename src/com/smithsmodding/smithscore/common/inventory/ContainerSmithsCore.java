@@ -35,7 +35,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     private IItemStorage containerInventory;
     private IInventory playerInventory;
 
-    public ContainerSmithsCore(String containerID, IContainerHost host, IItemStorage containerInventory, @Nonnull EntityPlayer playerMP) {
+    public ContainerSmithsCore(@Nonnull String containerID, @Nonnull IContainerHost host, @Nonnull IItemStorage containerInventory, @Nonnull EntityPlayer playerMP) {
         this.containerID = containerID;
         this.host = host;
         this.manager = new RelayBasedGUIManager(host, this);
@@ -56,7 +56,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
      * @param playerIn The player that closed the Container.
      */
     @Override
-    public void onContainerClosed(EntityPlayer playerIn) {
+    public void onContainerClosed(@Nonnull EntityPlayer playerIn) {
         super.onContainerClosed(playerIn);
 
         this.manager.onGUIClosed(playerIn.getUniqueID());
@@ -76,6 +76,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
      * @return The ID of this Container Instance.
      */
     @Override
+    @Nonnull
     public String getContainerID() {
         return containerID;
     }
@@ -91,6 +92,7 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
      * @return Returns the current GUIManager.
      */
     @Override
+    @Nonnull
     public IGUIManager getManager() {
         return manager;
     }
@@ -101,22 +103,24 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
      * @param newManager THe new IGUIManager.
      */
     @Override
-    public void setManager(IGUIManager newManager) {
+    public void setManager(@Nonnull IGUIManager newManager) {
         manager = newManager;
     }
 
+    @Nonnull
     public IItemStorage getContainerInventory() {
         return containerInventory;
     }
 
+    @Nonnull
     public IInventory getPlayerInventory() {
         return playerInventory;
     }
 
-    public void onTabChanged(String newActiveTabID) {
+    public void onTabChanged(@Nonnull String newActiveTabID) {
     }
 
-    public void onInput(GuiInputEvent.InputTypes types, String componentID, String input) {
+    public void onInput(GuiInputEvent.InputTypes types, @Nonnull String componentID, @Nonnull String input) {
         if (types == GuiInputEvent.InputTypes.TABCHANGED) {
             this.onTabChanged(input);
             return;
@@ -126,12 +130,12 @@ public abstract class ContainerSmithsCore extends Container implements IContaine
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
         return true;
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer entityPlayer, int slotIndex) {
+    public ItemStack transferStackInSlot(@Nonnull EntityPlayer entityPlayer, int slotIndex) {
         ItemStack newItemStack = ItemStack.EMPTY;
         Slot slot = inventorySlots.get(slotIndex);
         if (slot != null && slot.getHasStack()) {

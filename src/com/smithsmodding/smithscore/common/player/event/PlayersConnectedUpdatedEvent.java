@@ -32,6 +32,7 @@ public class PlayersConnectedUpdatedEvent extends StandardNetworkableEvent {
      *
      * @return The map that contais a UUID to Username mapping for all the player that ever connected to this server based on the world save.
      */
+    @Nonnull
     public HashMap<UUID, String> getCommonSidedJoinedMap() {
         return commonSidedJoinedMap;
     }

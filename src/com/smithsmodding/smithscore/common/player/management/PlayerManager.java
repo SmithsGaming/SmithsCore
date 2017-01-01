@@ -56,6 +56,7 @@ public class PlayerManager {
      *
      * @return The map that contais a UUID to Username mapping for all the player that ever connected to this server based on the world save.
      */
+    @Nonnull
     public HashMap<UUID, String> getCommonSidedJoinedMap() {
         return commonSidedJoinedMap;
     }
@@ -66,7 +67,7 @@ public class PlayerManager {
      *
      * @param commonSidedJoinedMap The map that contais a UUID to Username mapping for all the player that ever connected to this Server based on the world save.
      */
-    public void setCommonSidedJoinedMap(HashMap<UUID, String> commonSidedJoinedMap) {
+    public void setCommonSidedJoinedMap(@Nonnull HashMap<UUID, String> commonSidedJoinedMap) {
         this.commonSidedJoinedMap = commonSidedJoinedMap;
     }
 
@@ -75,6 +76,7 @@ public class PlayerManager {
      *
      * @return The list of online Players
      */
+    @Nonnull
     public List<UUID> getCommonSidedOnlineMap() {
         return commonSidedOnlineMap;
     }
@@ -84,7 +86,7 @@ public class PlayerManager {
      *
      * @param commonSidedOnlineMap The list of online Players
      */
-    public void setCommonSidedOnlineMap(List<UUID> commonSidedOnlineMap) {
+    public void setCommonSidedOnlineMap(@Nonnull List<UUID> commonSidedOnlineMap) {
         this.commonSidedOnlineMap = commonSidedOnlineMap;
     }
 
@@ -104,7 +106,7 @@ public class PlayerManager {
      *
      * @param event FMLServerStarting event.
      */
-    public void onServerStart(FMLServerStartingEvent event) {
+    public void onServerStart(@Nonnull FMLServerStartingEvent event) {
         refreshPlayerUUIDList();
 
         SmithsCore.getRegistry().getCommonBus().post(new PlayersConnectedUpdatedEvent(this));
@@ -157,7 +159,7 @@ public class PlayerManager {
      */
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onClientDisconnectServer(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+    public void onClientDisconnectServer(@Nonnull FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         SmithsCore.getLogger().info("Disconnect: Clearing cached connected player list.");
         commonSidedJoinedMap.clear();
         commonSidedOnlineMap.clear();

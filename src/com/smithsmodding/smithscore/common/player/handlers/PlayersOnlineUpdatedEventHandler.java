@@ -6,24 +6,13 @@
 
 package com.smithsmodding.smithscore.common.player.handlers;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.player.event.*;
-import com.smithsmodding.smithscore.common.player.management.*;
-import net.minecraftforge.fml.common.*;
-import net.minecraftforge.fml.common.eventhandler.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.common.player.event.PlayersOnlineUpdatedEvent;
+import com.smithsmodding.smithscore.common.player.management.PlayerManager;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 
 public class PlayersOnlineUpdatedEventHandler {
-
-    //Automatically Registers this to the NetworkEventBus when the system is running on the client Side
-    static {
-        if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-            SmithsCore.getRegistry().getNetworkBus().register(new PlayersOnlineUpdatedEventHandler());
-        }
-    }
-
     /**
      * Method for handling the network event when it arrives on the client side.
      *

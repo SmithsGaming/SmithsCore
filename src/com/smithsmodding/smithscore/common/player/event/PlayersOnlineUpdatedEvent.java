@@ -31,6 +31,7 @@ public class PlayersOnlineUpdatedEvent extends StandardNetworkableEvent {
      *
      * @return The list of online Players
      */
+    @Nonnull
     public List<UUID> getCommonSidedOnlineMap() {
         return commonSidedOnlineMap;
     }

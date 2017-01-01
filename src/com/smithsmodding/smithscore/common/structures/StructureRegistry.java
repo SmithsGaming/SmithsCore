@@ -59,7 +59,7 @@ public final class StructureRegistry {
         factories.put(factory.getStructureType(), factory);
     }
 
-    public IStructureFactory getFactory(Class<? extends IStructure> clazz) {
+    public IStructureFactory getFactory(@Nonnull Class<? extends IStructure> clazz) {
         return factories.get(clazz);
     }
 
@@ -67,7 +67,7 @@ public final class StructureRegistry {
         return getFactory(structure.getClass());
     }
 
-    public IStructure getStructure(Integer dimension, Coordinate3D masterLocation) {
+    public IStructure getStructure(@Nonnull Integer dimension, @Nonnull Coordinate3D masterLocation) {
         synchronized (structures) {
             if (!structures.containsKey(dimension))
                 return null;

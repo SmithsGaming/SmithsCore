@@ -6,11 +6,11 @@
 
 package com.smithsmodding.smithscore.common.events;
 
-import com.smithsmodding.smithscore.*;
-import net.minecraft.network.*;
-import net.minecraftforge.fml.common.eventhandler.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import net.minecraft.network.INetHandler;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
 
@@ -38,6 +38,7 @@ public class SmithsCoreEvent extends Event {
      * @param pContext The Context of the Message for which the handlers has to be retrieved.
      * @return The ClientNetHandler on the ClientSide and the ServerNetHandler on the server side.
      */
+    @Nonnull
     public INetHandler getSidedPlayerHandlerFromContext(@Nonnull MessageContext pContext) {
         if (pContext.side == Side.SERVER) {
             return pContext.getServerHandler();

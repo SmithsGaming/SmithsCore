@@ -28,15 +28,16 @@ public class TileEntityDataUpdatedEvent extends StandardNetworkableEvent {
     }
 
     @Override
-    public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
+    public void readFromMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         dataCompound = ByteBufUtils.readTag(pMessageBuffer);
     }
 
     @Override
-    public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
+    public void writeToMessageBuffer(@Nonnull ByteBuf pMessageBuffer) {
         ByteBufUtils.writeTag(pMessageBuffer, dataCompound);
     }
 
+    @Nonnull
     public NBTTagCompound getDataCompound() {
         return dataCompound;
     }

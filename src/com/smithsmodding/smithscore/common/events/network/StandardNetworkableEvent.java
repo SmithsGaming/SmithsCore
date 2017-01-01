@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Standard implementation of the Networkable events.
@@ -34,11 +33,12 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
     public StandardNetworkableEvent() {
     }
 
+    @Nonnull
     public EntityPlayer getPlayer () {
         return player;
     }
 
-    public void setPlayer (EntityPlayer player) {
+    public void setPlayer(@Nonnull EntityPlayer player) {
         this.player = player;
     }
 
@@ -48,7 +48,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      *
      * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
      */
-    public abstract void readFromMessageBuffer(ByteBuf pMessageBuffer);
+    public abstract void readFromMessageBuffer(@Nonnull ByteBuf pMessageBuffer);
 
     /**
      * Function used by the instance on the sending side to write its state top the Buffer before it is send to the
@@ -56,7 +56,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      *
      * @param pMessageBuffer The buffer from the IMessage
      */
-    public abstract void writeToMessageBuffer(ByteBuf pMessageBuffer);
+    public abstract void writeToMessageBuffer(@Nonnull ByteBuf pMessageBuffer);
 
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events.
@@ -69,7 +69,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      *
      * @return An Instance of an IMessage class that describes this events.
      */
-    @Nullable
+    @Nonnull
     @Override
     public IMessage getCommunicationMessage (Side side) {
         return new StandardNetworkableEventSyncMessage(this);
@@ -84,7 +84,7 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
      * @param pContext The messages Context
      */
     @Override
-    public void handleCommunicationMessage (IMessage pMessage, @Nonnull MessageContext pContext) {
+    public void handleCommunicationMessage(@Nonnull IMessage pMessage, @Nonnull MessageContext pContext) {
         setPlayer(SmithsCore.getProxy().getPlayerForSide(pContext));
 
         PostNetwork();

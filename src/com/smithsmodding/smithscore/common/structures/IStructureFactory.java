@@ -10,13 +10,13 @@ import javax.annotation.Nonnull;
 public interface IStructureFactory<S extends IStructure, P extends IStructurePart> {
 
     @Nonnull
-    S generateNewStructure(P initialPart);
+    S generateNewStructure(@Nonnull P initialPart);
 
     @Nonnull
-    S loadStructureFromNBT(NBTTagCompound compound);
+    S loadStructureFromNBT(@Nonnull NBTTagCompound compound);
 
     @Nonnull
-    NBTTagCompound generateNBTFromStructure(S structure);
+    NBTTagCompound generateNBTFromStructure(@Nonnull S structure);
 
     @Nonnull
     Class<S> getStructureType();

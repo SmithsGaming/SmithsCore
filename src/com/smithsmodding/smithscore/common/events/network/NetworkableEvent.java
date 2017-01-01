@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
  *
  * The implementing event gets catched by a events handler on the lowest priority.
  */
-public class NetworkableEvent extends SmithsCoreEvent {
+public abstract class NetworkableEvent extends SmithsCoreEvent {
 
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events.
@@ -38,10 +38,8 @@ public class NetworkableEvent extends SmithsCoreEvent {
      *
      * @return An Instance of an IMessage class that describes this events.
      */
-    @Nullable
-    public IMessage getCommunicationMessage (Side side) {
-        return null;
-    }
+    @Nonnull
+    public abstract IMessage getCommunicationMessage(Side side);
 
     /**
      * This function is called on the reinstated event on the receiving side.
@@ -51,7 +49,7 @@ public class NetworkableEvent extends SmithsCoreEvent {
      * @param pMessage The instance of IMessage received by the EventNetworkManager that describes this events.
      * @param pContext The messages context.
      */
-    public void handleCommunicationMessage (IMessage pMessage, MessageContext pContext) {
+    public void handleCommunicationMessage(@Nonnull IMessage pMessage, @Nonnull MessageContext pContext) {
     }
 
     /**
@@ -62,7 +60,7 @@ public class NetworkableEvent extends SmithsCoreEvent {
         EventNetworkManager.getInstance().sendToAll(this.getCommunicationMessage(Side.CLIENT));
     }
 
-    public void handleServerToClient(EntityPlayerMP playerMP) {
+    public void handleServerToClient(@Nonnull EntityPlayerMP playerMP) {
         EventNetworkManager.getInstance().sendTo(this.getCommunicationMessage(Side.CLIENT), playerMP);
     }
 

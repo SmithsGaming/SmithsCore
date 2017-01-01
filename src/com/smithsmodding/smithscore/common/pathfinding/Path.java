@@ -6,8 +6,9 @@
 
 package com.smithsmodding.smithscore.common.pathfinding;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
 
 public class Path {
 
@@ -17,11 +18,11 @@ public class Path {
     @Nullable
     IPathComponent iEndNode = null;
 
-    public Path (IPathComponent pStartNode, IPathComponent pEndNode) {
+    public Path(@Nonnull IPathComponent pStartNode, @Nonnull IPathComponent pEndNode) {
         this(pStartNode, pEndNode, new ArrayList<IPathComponent>());
     }
 
-    public Path (IPathComponent pStartNode, IPathComponent pEndNode, ArrayList<IPathComponent> pComponents) {
+    public Path(@Nonnull IPathComponent pStartNode, @Nonnull IPathComponent pEndNode, @Nonnull ArrayList<IPathComponent> pComponents) {
         iComponents = pComponents;
         iStartNode = pStartNode;
         iEndNode = pEndNode;
@@ -36,6 +37,7 @@ public class Path {
             iComponents.add(iStartNode);
     }
 
+    @Nonnull
     public ArrayList<IPathComponent> getComponents () {
         return iComponents;
     }

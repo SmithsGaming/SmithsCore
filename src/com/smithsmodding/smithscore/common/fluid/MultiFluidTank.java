@@ -35,7 +35,7 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
         this(capacity, Arrays.asList(fluidStacks));
     }
 
-    public MultiFluidTank(int capacity, List<FluidStack> fluidStacks) {
+    public MultiFluidTank(int capacity, @Nonnull List<FluidStack> fluidStacks) {
         this.fluidStacks = fluidStacks;
         this.capacity = capacity;
 
@@ -192,6 +192,7 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
         }
     }
 
+    @Nonnull
     public List<FluidStack> getFluidStacks() {
         return fluidStacks;
     }

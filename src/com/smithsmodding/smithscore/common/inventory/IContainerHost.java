@@ -3,6 +3,8 @@ package com.smithsmodding.smithscore.common.inventory;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManager;
 import com.smithsmodding.smithscore.client.gui.management.IGUIManagerProvider;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by Orion
  * Created on 01.12.2015
@@ -20,6 +22,7 @@ public interface IContainerHost<G extends IGUIManager> extends IGUIManagerProvid
      *
      * @return The ID of this Container Instance.
      */
+    @Nonnull
     String getContainerID();
 
     boolean isRemote ();

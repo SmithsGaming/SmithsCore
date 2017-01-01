@@ -33,7 +33,6 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends IGUIManager> extends TileEntity implements IContainerHost<G>, IWorldNameable {
 
@@ -57,7 +56,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     @Override
-    public boolean hasCapability (Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IItemStorage))
             return true;
 
@@ -65,7 +64,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     @Override
-    public <T> T getCapability (Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (this instanceof IItemStorage)) {
             if (invWrapper == null)
                 invWrapper = new ItemStorageItemHandler((IItemStorage) this);
@@ -77,7 +76,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     @Override
-    public void readFromNBT (NBTTagCompound compound) {
+    public void readFromNBT(@Nonnull NBTTagCompound compound) {
         loadingFromNBT = true;
         super.readFromNBT(compound);
 
@@ -108,7 +107,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
 
     @Nonnull
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound compound) {
         super.writeToNBT(compound);
 
         if (this instanceof IStructurePart) {
@@ -160,7 +159,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
+    public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
         readFromNBT(tag);
     }
 
@@ -178,12 +177,13 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     protected abstract G getInitialGuiManager();
 
     @Override
+    @Nonnull
     public G getManager() {
         return manager;
     }
 
     @Override
-    public void setManager(G newManager) {
+    public void setManager(@Nonnull G newManager) {
         this.manager = newManager;
     }
 
@@ -195,6 +195,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      *
      * @return The current ITileEntityState.
      */
+    @Nonnull
     public S getState() {
         return state;
     }
@@ -242,10 +243,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the Slots in this
      *                          inventory.
      */
-    protected void readInventoryFromCompound (@Nullable NBTBase inventoryCompound) {
-        if (inventoryCompound == null)
-            return;
-
+    protected void readInventoryFromCompound(@Nonnull NBTBase inventoryCompound) {
         if (!( inventoryCompound instanceof NBTTagList ))
             throw new IllegalArgumentException("The given store type is not compatible with this TE!");
 
@@ -312,7 +310,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
      * @param inventoryCompound A NBTBase instance in the form of a TagList containing all the Data of the fluids in
      *                          this tileentity.
      */
-    protected void readFluidsFromCompound (NBTBase inventoryCompound) {
+    protected void readFluidsFromCompound(@Nonnull NBTBase inventoryCompound) {
         if (!( inventoryCompound instanceof NBTTagList ))
             throw new IllegalArgumentException("The given store type is not compatible with this TE!");
 
@@ -370,14 +368,16 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
     }
 
     @Override
+    @Nonnull
     public ITextComponent getDisplayName() {
         return new TextComponentString(name);
     }
 
-    public void setDisplayName(String name) {
+    public void setDisplayName(@Nonnull String name) {
         this.name = name;
     }
 
+    @Nonnull
     public String getName() {
         return name;
     }

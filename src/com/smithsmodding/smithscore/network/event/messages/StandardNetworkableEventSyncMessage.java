@@ -6,14 +6,14 @@
 
 package com.smithsmodding.smithscore.network.event.messages;
 
-import com.smithsmodding.smithscore.*;
-import com.smithsmodding.smithscore.common.events.network.*;
-import io.netty.buffer.*;
-import net.minecraftforge.fml.common.network.*;
-import net.minecraftforge.fml.common.network.simpleimpl.*;
+import com.smithsmodding.smithscore.SmithsCore;
+import com.smithsmodding.smithscore.common.events.network.StandardNetworkableEvent;
+import io.netty.buffer.ByteBuf;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
 
 public class StandardNetworkableEventSyncMessage implements IMessage {
 
@@ -23,7 +23,7 @@ public class StandardNetworkableEventSyncMessage implements IMessage {
     public StandardNetworkableEventSyncMessage() {
     }
 
-    public StandardNetworkableEventSyncMessage(StandardNetworkableEvent pEvent) {
+    public StandardNetworkableEventSyncMessage(@Nonnull StandardNetworkableEvent pEvent) {
         EVENT = pEvent;
     }
 
