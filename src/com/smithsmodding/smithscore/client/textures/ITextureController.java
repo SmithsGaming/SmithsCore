@@ -19,7 +19,7 @@ public interface ITextureController {
      * @return A modified verion of the base texture.
      */
     @Nonnull
-    TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
+    TextureAtlasSprite getTexture(@Nonnull TextureAtlasSprite baseTexture, @Nonnull String location);
 
     /**
      * Indicates if the texture has been stitched or not. The Texture creator will stitch it if false is returned.

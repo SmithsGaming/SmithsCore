@@ -12,12 +12,13 @@ import javax.annotation.Nonnull;
 public enum SmithsCoreOBJProperty implements IUnlistedProperty<SmithsCoreOBJState> {
     INSTANCE;
 
+    @Nonnull
     public String getName() {
         return "OBJProperty";
     }
 
     @Override
-    public boolean isValid(SmithsCoreOBJState value) {
+    public boolean isValid(@Nonnull SmithsCoreOBJState value) {
         return value instanceof SmithsCoreOBJState;
     }
 

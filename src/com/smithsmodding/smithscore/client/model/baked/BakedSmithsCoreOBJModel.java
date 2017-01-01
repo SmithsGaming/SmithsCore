@@ -22,7 +22,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.pipeline.UnpackedBakedQuad;
-import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.Models;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -54,7 +53,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
     });
     private TextureAtlasSprite sprite = ModelLoader.White.INSTANCE;
 
-    public BakedSmithsCoreOBJModel(SmithsCoreOBJModel model, IModelState state, VertexFormat format, ImmutableMap<String, TextureAtlasSprite> textures) {
+    public BakedSmithsCoreOBJModel(@Nonnull SmithsCoreOBJModel model, @Nonnull IModelState state, @Nonnull VertexFormat format, @Nonnull ImmutableMap<String, TextureAtlasSprite> textures) {
         this.model = model;
         this.state = state;
         if (this.state instanceof SmithsCoreOBJState) this.updateStateVisibilityMap((SmithsCoreOBJState) this.state);
@@ -66,6 +65,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
     }
 
     @Override
+    @Nonnull
     public List<BakedQuad> getQuads(IBlockState blockState, @Nullable EnumFacing side, long rand) {
         if (side != null) return ImmutableList.of();
         if (quads == null) {
@@ -84,6 +84,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         return quads;
     }
 
+    @Nonnull
     private ImmutableList<BakedQuad> buildQuads(@Nonnull IModelState modelState) {
         List<BakedQuad> quads = Lists.newArrayList();
         Collections.synchronizedSet(new LinkedHashSet<BakedQuad>());
@@ -206,6 +207,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
     }
 
     @Override
+    @Nonnull
     public TextureAtlasSprite getParticleTexture() {
         return this.sprite;
     }
@@ -234,6 +236,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         }*/
 
     @Override
+    @Nonnull
     public ItemCameraTransforms getItemCameraTransforms() {
         return ItemCameraTransforms.DEFAULT;
     }
@@ -258,14 +261,17 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
         }
     }
 
+    @Nullable
     public BakedSmithsCoreOBJModel getCachedModel(@Nonnull IModelState state) {
         return cache.getUnchecked(state);
     }
 
+    @Nonnull
     public SmithsCoreOBJModel getModel() {
         return this.model;
     }
 
+    @Nonnull
     public IModelState getState() {
         return this.state;
     }
@@ -288,6 +294,7 @@ public class BakedSmithsCoreOBJModel implements IPerspectiveAwareModel {
     }
 
     @Override
+    @Nonnull
     public ItemOverrideList getOverrides() {
         return ItemOverrideList.NONE;
     }

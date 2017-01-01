@@ -40,7 +40,7 @@ public class MultiComponentModelDeserializer implements JsonDeserializer<Map<Str
 
     @Nonnull
     @Override
-    public Map<String, ResourceLocation> deserialize(@Nonnull JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Map<String, ResourceLocation> deserialize(@Nonnull JsonElement json, @Nonnull Type typeOfT, @Nonnull JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();
         JsonObject textureObject = jsonObject.get("components").getAsJsonObject();
 

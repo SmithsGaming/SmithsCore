@@ -25,10 +25,12 @@ public class MultiComponentModelDefinition {
             throw new IllegalArgumentException("Cannot create a MultiComponentModelDefinition without a 'default' component!");
     }
 
+    @Nonnull
     public ImmutableMap<String, ResourceLocation> getTextureLocations() {
         return ImmutableMap.copyOf(textureLocations);
     }
 
+    @Nonnull
     public ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransforms() {
         return transforms;
     }

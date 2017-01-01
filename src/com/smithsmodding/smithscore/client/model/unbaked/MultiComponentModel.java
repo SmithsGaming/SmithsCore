@@ -30,17 +30,19 @@ public class MultiComponentModel implements IModel {
     final ImmutableMap<String, IModel> components;
     final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
 
-    public MultiComponentModel(ImmutableMap<String, IModel> components, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+    public MultiComponentModel(@Nonnull ImmutableMap<String, IModel> components, @Nonnull ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
         this.components = components;
         this.transforms = transforms;
     }
 
     @Override
+    @Nonnull
     public Collection<ResourceLocation> getDependencies() {
         return Collections.EMPTY_LIST;
     }
 
     @Override
+    @Nonnull
     public Collection<ResourceLocation> getTextures() {
         ImmutableList.Builder<ResourceLocation> builder = new ImmutableList.Builder<ResourceLocation>();
         for (IModel component : components.values())
@@ -50,7 +52,8 @@ public class MultiComponentModel implements IModel {
     }
 
     @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    @Nonnull
+    public IBakedModel bake(@Nonnull IModelState state, @Nonnull VertexFormat format, @Nonnull Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         ImmutableList.Builder<PreBakedItemOverride> builder = new ImmutableList.Builder<>();
 
         for (Map.Entry<String, IModel> component : components.entrySet()) {

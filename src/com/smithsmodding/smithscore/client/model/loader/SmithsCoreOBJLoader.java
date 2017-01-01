@@ -34,7 +34,7 @@ public enum SmithsCoreOBJLoader implements ICustomModelLoader {
         SmithsCore.getLogger().log(Level.INFO, CoreReferences.LogMarkers.CLIENT, "Added: " + domain.toLowerCase() + " to the SmitshCore OBJ Loader.");
     }
 
-    public void onResourceManagerReload(IResourceManager resourceManager) {
+    public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
         this.manager = resourceManager;
         cache.clear();
         errors.clear();

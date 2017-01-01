@@ -44,7 +44,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      *
      * @param location The location of the Texture.
      */
-    public static void registerBaseTexture (ResourceLocation location) {
+    public static void registerBaseTexture(@Nonnull ResourceLocation location) {
         baseTextures.add(location);
     }
 
@@ -61,7 +61,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      * Method to register a new TextureController.
      * @param controller The new controller to register.
      */
-    public static void registerController(ITextureController controller) {
+    public static void registerController(@Nonnull ITextureController controller) {
         controllers.add(controller);
     }
 
@@ -70,7 +70,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      *
      * @param controller The controller to unregister.
      */
-    public static void unregisterController(ITextureController controller) {
+    public static void unregisterController(@Nonnull ITextureController controller) {
         controllers.remove(controller);
     }
 
@@ -129,7 +129,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
     }
 
     @Nullable
-    private TextureAtlasSprite createTexture(@Nonnull ITextureController controller, @Nonnull ResourceLocation baseTexture, TextureAtlasSprite base, @Nonnull TextureMap map) {
+    private TextureAtlasSprite createTexture(@Nonnull ITextureController controller, @Nonnull ResourceLocation baseTexture, @Nonnull TextureAtlasSprite base, @Nonnull TextureMap map) {
         String location = baseTexture.toString() + "_" + controller.getCreationIdentifier();
         TextureAtlasSprite sprite = null;
 
@@ -175,7 +175,7 @@ public class TextureCreator implements IResourceManagerReloadListener {
      * @param resourceManager The resource manager that reloaded.
      */
     @Override
-    public void onResourceManagerReload (IResourceManager resourceManager) {
+    public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
         baseTextures.clear();
         buildSprites.clear();
     }

@@ -28,15 +28,17 @@ public class SmithsCoreOBJState implements IModelState {
         this(visibleGroups, visibility, TRSRTransformation.identity());
     }
 
-    public SmithsCoreOBJState(@Nonnull List<String> visibleGroups, boolean visibility, IModelState parent) {
+    public SmithsCoreOBJState(@Nonnull List<String> visibleGroups, boolean visibility, @Nullable IModelState parent) {
         this.parent = parent;
         for (String s : visibleGroups) this.visibilityMap.put(s, visibility);
     }
 
+    @Nullable
     public IModelState getParent() {
         return parent;
     }
 
+    @Nonnull
     public Operation getOperation() {
         return operation;
     }
@@ -53,7 +55,8 @@ public class SmithsCoreOBJState implements IModelState {
         return parent;
     }
 
-    public Optional<TRSRTransformation> apply(Optional<? extends IModelPart> part) {
+    @Nonnull
+    public Optional<TRSRTransformation> apply(@Nonnull Optional<? extends IModelPart> part) {
         if (parent != null) return parent.apply(part);
         return Optional.absent();
     }
@@ -74,7 +77,7 @@ public class SmithsCoreOBJState implements IModelState {
         return Lists.newArrayList(this.visibilityMap.keySet());
     }
 
-    public void changeGroupVisibilities(@Nullable List<String> names, Operation operation) {
+    public void changeGroupVisibilities(@Nullable List<String> names, @Nonnull Operation operation) {
         if (names == null || names.isEmpty()) return;
         this.operation = operation;
         if (names.get(0).equals(SmithsCoreOBJGroup.ALL)) {

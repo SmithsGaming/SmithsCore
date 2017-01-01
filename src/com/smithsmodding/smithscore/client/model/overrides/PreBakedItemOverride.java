@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 
 /**
@@ -16,15 +18,16 @@ public abstract class PreBakedItemOverride extends ItemOverride {
 
     private final IBakedModel model;
 
-    public PreBakedItemOverride(IBakedModel model) {
+    public PreBakedItemOverride(@Nonnull IBakedModel model) {
         super(new ResourceLocation(""), new HashMap<>());
 
         this.model = model;
     }
 
+    @Nonnull
     public IBakedModel getModel() {
         return model;
     }
 
-    public abstract boolean matchedItemStack(ItemStack stack, World world, EntityLivingBase entity);
+    public abstract boolean matchedItemStack(@Nonnull ItemStack stack, @Nullable World world, @Nullable EntityLivingBase entity);
 }

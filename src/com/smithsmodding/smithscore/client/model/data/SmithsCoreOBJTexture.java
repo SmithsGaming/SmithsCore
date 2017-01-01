@@ -17,11 +17,11 @@ public class SmithsCoreOBJTexture {
     private Vector2f scale;
     private float rotation;
 
-    public SmithsCoreOBJTexture(String path) {
+    public SmithsCoreOBJTexture(@Nonnull String path) {
         this(path, new Vector2f(0, 0), new Vector2f(1, 1), 0);
     }
 
-    public SmithsCoreOBJTexture(String path, Vector2f position, Vector2f scale, float rotation) {
+    public SmithsCoreOBJTexture(@Nonnull String path, @Nonnull Vector2f position, @Nonnull Vector2f scale, float rotation) {
         this.path = path;
         this.position = position;
         this.scale = scale;
@@ -34,27 +34,30 @@ public class SmithsCoreOBJTexture {
         return loc;
     }
 
+    @Nonnull
     public String getPath() {
         return this.path;
     }
 
-    public void setPath(String path) {
+    public void setPath(@Nonnull String path) {
         this.path = path;
     }
 
+    @Nonnull
     public Vector2f getPosition() {
         return this.position;
     }
 
-    public void setPosition(Vector2f position) {
+    public void setPosition(@Nonnull Vector2f position) {
         this.position = position;
     }
 
+    @Nonnull
     public Vector2f getScale() {
         return this.scale;
     }
 
-    public void setScale(Vector2f scale) {
+    public void setScale(@Nonnull Vector2f scale) {
         this.scale = scale;
     }
 

@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.client.model.data;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
@@ -14,16 +15,17 @@ public class SmithsCoreOBJVertex {
     private SmithsCoreOBJTextureCoordinate texCoord;
     private SmithsCoreOBJMaterial material = new SmithsCoreOBJMaterial();
 
-    public SmithsCoreOBJVertex(Vector4f position, SmithsCoreOBJMaterial material) {
+    public SmithsCoreOBJVertex(@Nonnull Vector4f position, @Nonnull SmithsCoreOBJMaterial material) {
         this.position = position;
         this.material = material;
     }
 
+    @Nonnull
     public Vector4f getPos() {
         return this.position;
     }
 
-    public void setPos(Vector4f position) {
+    public void setPos(@Nonnull Vector4f position) {
         this.position = position;
     }
 
@@ -36,11 +38,12 @@ public class SmithsCoreOBJVertex {
         return this.normal != null;
     }
 
+    @Nullable
     public SmithsCoreOBJNormal getNormal() {
         return this.normal;
     }
 
-    public void setNormal(SmithsCoreOBJNormal normal) {
+    public void setNormal(@Nullable SmithsCoreOBJNormal normal) {
         this.normal = normal;
     }
 
@@ -48,11 +51,12 @@ public class SmithsCoreOBJVertex {
         return this.texCoord != null;
     }
 
+    @Nonnull
     public SmithsCoreOBJTextureCoordinate getTextureCoordinate() {
         return this.texCoord;
     }
 
-    public void setTextureCoordinate(SmithsCoreOBJTextureCoordinate texCoord) {
+    public void setTextureCoordinate(@Nonnull SmithsCoreOBJTextureCoordinate texCoord) {
         this.texCoord = texCoord;
     }
 
@@ -61,11 +65,12 @@ public class SmithsCoreOBJVertex {
 //            return this.texCoord.u >= 0.0f && this.texCoord.u <= 1.0f && this.texCoord.v >= 0.0f && this.texCoord.v <= 1.0f;
 //        }
 
+    @Nonnull
     public SmithsCoreOBJMaterial getMaterial() {
         return this.material;
     }
 
-    public void setMaterial(SmithsCoreOBJMaterial material) {
+    public void setMaterial(@Nonnull SmithsCoreOBJMaterial material) {
         this.material = material;
     }
 

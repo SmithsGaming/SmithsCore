@@ -30,7 +30,7 @@ public class HolographicTexture extends TextureAtlasSprite {
     private String backupTextureLocation;
     private String extra;
 
-    public HolographicTexture (String baseTextureLocation, @Nonnull String spriteName) {
+    public HolographicTexture(@Nonnull String baseTextureLocation, @Nonnull String spriteName) {
         super(spriteName);
 
         this.baseTexture = null;
@@ -137,12 +137,12 @@ public class HolographicTexture extends TextureAtlasSprite {
     }
 
     @Override
-    public boolean hasCustomLoader (IResourceManager manager, ResourceLocation location) {
+    public boolean hasCustomLoader(@Nullable IResourceManager manager, @Nullable ResourceLocation location) {
         return true;
     }
 
     @Override
-    public boolean load (@Nonnull IResourceManager manager, ResourceLocation location) {
+    public boolean load(@Nonnull IResourceManager manager, @Nonnull ResourceLocation location) {
         this.framesTextureData = Lists.newArrayList();
         this.frameCounter = 0;
         this.tickCounter = 0;

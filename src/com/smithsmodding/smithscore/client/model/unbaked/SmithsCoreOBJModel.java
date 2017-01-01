@@ -32,20 +32,22 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
     private SmithsCoreOBJMaterialLibrary matLib;
     private SmithsCoreOBJCustomData customData;
 
-    public SmithsCoreOBJModel(SmithsCoreOBJMaterialLibrary matLib, ResourceLocation modelLocation) {
+    public SmithsCoreOBJModel(@Nonnull SmithsCoreOBJMaterialLibrary matLib, @Nonnull ResourceLocation modelLocation) {
         this(matLib, modelLocation, new SmithsCoreOBJCustomData());
     }
 
-    public SmithsCoreOBJModel(SmithsCoreOBJMaterialLibrary matLib, ResourceLocation modelLocation, SmithsCoreOBJCustomData customData) {
+    public SmithsCoreOBJModel(@Nonnull SmithsCoreOBJMaterialLibrary matLib, @Nonnull ResourceLocation modelLocation, @Nonnull SmithsCoreOBJCustomData customData) {
         this.matLib = matLib;
         this.modelLocation = modelLocation;
         this.customData = customData;
     }
 
+    @Nonnull
     public ResourceLocation getModelLocation() {
         return modelLocation;
     }
 
+    @Nonnull
     public SmithsCoreOBJCustomData getCustomData() {
         return customData;
     }
@@ -72,7 +74,7 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
 
     @Nonnull
     @Override
-    public IBakedModel bake(IModelState state, VertexFormat format, @Nonnull Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    public IBakedModel bake(@Nonnull IModelState state, @Nonnull VertexFormat format, @Nonnull Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         ImmutableMap.Builder<String, TextureAtlasSprite> builder = ImmutableMap.builder();
         builder.put(ModelLoader.White.LOCATION.toString(), ModelLoader.White.INSTANCE);
         TextureAtlasSprite missing = bakedTextureGetter.apply(new ResourceLocation("missingno"));
@@ -107,6 +109,7 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
     }
 
     @Override
+    @Nonnull
     public IModelState getDefaultState() {
         return TRSRTransformation.identity();
     }
@@ -115,7 +118,7 @@ public class SmithsCoreOBJModel implements IRetexturableModel, IModelCustomData 
     public static class UVsOutOfBoundsException extends RuntimeException {
         public ResourceLocation modelLocation;
 
-        public UVsOutOfBoundsException(ResourceLocation modelLocation) {
+        public UVsOutOfBoundsException(@Nonnull ResourceLocation modelLocation) {
             super(String.format("Model '%s' has UVs ('vt') out of bounds 0-1! The missing model will be used instead. Support for UV processing will be added to the OBJ loader in the future.", modelLocation));
             this.modelLocation = modelLocation;
         }

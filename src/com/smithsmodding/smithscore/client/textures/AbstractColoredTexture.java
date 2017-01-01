@@ -45,7 +45,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
         this.backupTextureLocation = baseTexture.getIconName();
     }
 
-    protected AbstractColoredTexture(String baseTextureLocation, @Nonnull String spriteName) {
+    protected AbstractColoredTexture(@Nonnull String baseTextureLocation, @Nonnull String spriteName) {
         super(spriteName);
 
         this.baseTexture = null;
@@ -130,12 +130,12 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     }
 
     @Override
-    public boolean hasCustomLoader(IResourceManager manager, ResourceLocation location) {
+    public boolean hasCustomLoader(@Nullable IResourceManager manager, @Nullable ResourceLocation location) {
         return true;
     }
 
     @Override
-    public boolean load(@Nonnull IResourceManager manager, ResourceLocation location) {
+    public boolean load(@Nonnull IResourceManager manager, @Nonnull ResourceLocation location) {
         this.framesTextureData = Lists.newArrayList();
         this.frameCounter = 0;
         this.tickCounter = 0;

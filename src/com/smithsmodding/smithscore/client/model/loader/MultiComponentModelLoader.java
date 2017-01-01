@@ -49,7 +49,8 @@ public class MultiComponentModelLoader implements ICustomModelLoader {
     }
 
     @Override
-    public IModel loadModel(ResourceLocation modelLocation) throws Exception {
+    @Nonnull
+    public IModel loadModel(@Nonnull ResourceLocation modelLocation) throws Exception {
         if (!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
             return DummyModel.INSTANCE;
         }
@@ -67,7 +68,7 @@ public class MultiComponentModelLoader implements ICustomModelLoader {
     }
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {
+    public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
         ///NOOP
     }
 }

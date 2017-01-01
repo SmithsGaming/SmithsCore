@@ -26,7 +26,7 @@ public class ItemTransformVec3fDeserializer implements JsonDeserializer<ItemTran
 
     @Nonnull
     @Override
-    public ItemTransformVec3f deserialize(@Nonnull JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_)
+    public ItemTransformVec3f deserialize(@Nonnull JsonElement p_deserialize_1_, @Nonnull Type p_deserialize_2_, @Nonnull JsonDeserializationContext p_deserialize_3_)
             throws
             JsonParseException {
         JsonObject jsonobject = p_deserialize_1_.getAsJsonObject();

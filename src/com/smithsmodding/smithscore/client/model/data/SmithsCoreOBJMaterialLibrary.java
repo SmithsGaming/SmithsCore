@@ -93,10 +93,12 @@ public class SmithsCoreOBJMaterialLibrary {
 //            this.maxUVBounds[1] = maxV;
 //        }
 
+    @Nonnull
     public Map<String, SmithsCoreOBJGroup> getGroups() {
         return this.groups;
     }
 
+    @Nonnull
     public Set<String> getUnknownMaterialCommands() {
         return unknownMaterialCommands;
     }
@@ -106,16 +108,18 @@ public class SmithsCoreOBJMaterialLibrary {
         return materials;
     }
 
+    @Nonnull
     public InputStreamReader getMtlStream() {
         return mtlStream;
     }
 
+    @Nonnull
     public BufferedReader getMtlReader() {
         return mtlReader;
     }
 
     @Nonnull
-    public List<SmithsCoreOBJGroup> getGroupsContainingFace(SmithsCoreOBJFace f) {
+    public List<SmithsCoreOBJGroup> getGroupsContainingFace(@Nonnull SmithsCoreOBJFace f) {
         List<SmithsCoreOBJGroup> groupList = Lists.newArrayList();
         for (SmithsCoreOBJGroup g : this.groups.values()) {
             if (g.getFaces().contains(f)) groupList.add(g);
@@ -123,7 +127,7 @@ public class SmithsCoreOBJMaterialLibrary {
         return groupList;
     }
 
-    public void changeMaterialColor(String name, int color) {
+    public void changeMaterialColor(@Nonnull String name, int color) {
         Vector4f colorVec = new Vector4f();
         colorVec.w = (color >> 24 & 255) / 255;
         colorVec.x = (color >> 16 & 255) / 255;
@@ -132,10 +136,12 @@ public class SmithsCoreOBJMaterialLibrary {
         this.materials.get(name).setColor(colorVec);
     }
 
-    public SmithsCoreOBJMaterial getMaterial(String name) {
+    @Nonnull
+    public SmithsCoreOBJMaterial getMaterial(@Nonnull String name) {
         return this.materials.get(name);
     }
 
+    @Nonnull
     public ImmutableList<String> getMaterialNames() {
         return ImmutableList.copyOf(this.materials.keySet());
     }

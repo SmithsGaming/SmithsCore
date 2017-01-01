@@ -22,7 +22,7 @@ public class SmithsCoreOBJFace {
     private String materialName = SmithsCoreOBJMaterial.DEFAULT_NAME;
     private boolean isTri = false;
 
-    public SmithsCoreOBJFace(SmithsCoreOBJVertex[] verts) {
+    public SmithsCoreOBJFace(@Nullable SmithsCoreOBJVertex[] verts) {
         this(verts, SmithsCoreOBJMaterial.DEFAULT_NAME);
     }
 

@@ -44,7 +44,7 @@ public class SmithsCoreOBJParser {
     @Nonnull
     private List<SmithsCoreOBJTextureCoordinate> texCoords = Lists.newArrayList();
 
-    public SmithsCoreOBJParser(@Nonnull IResource from, IResourceManager manager) throws IOException {
+    public SmithsCoreOBJParser(@Nonnull IResource from, @Nonnull IResourceManager manager) throws IOException {
         this.manager = manager;
         this.objFrom = from.getResourceLocation();
         this.objStream = new InputStreamReader(from.getInputStream(), Charsets.UTF_8);

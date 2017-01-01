@@ -47,15 +47,16 @@ public class SmithsCoreOBJGroup implements IModelPart {
         return this.name;
     }
 
+    @Nonnull
     public LinkedHashSet<SmithsCoreOBJFace> getFaces() {
         return this.faces;
     }
 
-    public void setFaces(LinkedHashSet<SmithsCoreOBJFace> faces) {
+    public void setFaces(@Nonnull LinkedHashSet<SmithsCoreOBJFace> faces) {
         this.faces = faces;
     }
 
-    public void addFace(SmithsCoreOBJFace face) {
+    public void addFace(@Nonnull SmithsCoreOBJFace face) {
         this.faces.add(face);
     }
 

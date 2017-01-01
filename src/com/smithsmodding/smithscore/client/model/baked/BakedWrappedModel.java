@@ -22,7 +22,7 @@ import java.util.List;
 public class BakedWrappedModel implements IBakedModel {
     private final IBakedModel parentModel;
 
-    public BakedWrappedModel(IBakedModel parentModel) {
+    public BakedWrappedModel(@Nonnull IBakedModel parentModel) {
         this.parentModel = parentModel;
     }
 
@@ -65,6 +65,7 @@ public class BakedWrappedModel implements IBakedModel {
         return parentModel.getOverrides();
     }
 
+    @Nonnull
     public IBakedModel getParentModel() {
         return parentModel;
     }
@@ -73,14 +74,14 @@ public class BakedWrappedModel implements IBakedModel {
 
         private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformations;
 
-        public PerspectiveAware(IBakedModel parentModel, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformations) {
+        public PerspectiveAware(@Nonnull IBakedModel parentModel, @Nonnull ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformations) {
             super(parentModel);
             this.transformations = transformations;
         }
 
         @Nonnull
         @Override
-        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+        public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
             return IPerspectiveAwareModel.MapWrapper.handlePerspective(getParentModel(), transformations, cameraTransformType);
         }
     }

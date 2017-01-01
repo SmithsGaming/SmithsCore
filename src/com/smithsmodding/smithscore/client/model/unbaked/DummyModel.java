@@ -9,6 +9,7 @@ import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.IModelState;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -24,18 +25,21 @@ public class DummyModel implements IModel {
     public static IBakedModel BAKED_MODEL;
 
     @Override
+    @Nonnull
     public Collection<ResourceLocation> getDependencies() {
         return Collections.EMPTY_LIST;
     }
 
     @Override
+    @Nonnull
     public Collection<ResourceLocation> getTextures() {
         return Collections.EMPTY_LIST;
     }
 
     @Override
-    public IBakedModel bake(IModelState state, VertexFormat format,
-                            Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    @Nonnull
+    public IBakedModel bake(@Nonnull IModelState state, @Nonnull VertexFormat format,
+                            @Nonnull Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         if (BAKED_MODEL != null)
             return BAKED_MODEL;
 
@@ -45,6 +49,7 @@ public class DummyModel implements IModel {
     }
 
     @Override
+    @Nonnull
     public IModelState getDefaultState() {
         return ModelLoaderRegistry.getMissingModel().getDefaultState();
     }

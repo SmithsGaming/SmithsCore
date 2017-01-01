@@ -20,15 +20,15 @@ public class SmithsCoreOBJMaterial {
         this(new Vector4f(1f, 1f, 1f, 1f));
     }
 
-    public SmithsCoreOBJMaterial(Vector4f color) {
+    public SmithsCoreOBJMaterial(@Nonnull Vector4f color) {
         this(color, SmithsCoreOBJTexture.WHITE, WHITE_NAME);
     }
 
-    public SmithsCoreOBJMaterial(SmithsCoreOBJTexture texture) {
+    public SmithsCoreOBJMaterial(@Nonnull SmithsCoreOBJTexture texture) {
         this(new Vector4f(1f, 1f, 1f, 1f), texture, DEFAULT_NAME);
     }
 
-    public SmithsCoreOBJMaterial(Vector4f color, SmithsCoreOBJTexture texture, @Nullable String name) {
+    public SmithsCoreOBJMaterial(@Nonnull Vector4f color, @Nonnull SmithsCoreOBJTexture texture, @Nullable String name) {
         this.color = color;
         this.texture = texture;
         this.name = name != null ? name : DEFAULT_NAME;
@@ -43,19 +43,21 @@ public class SmithsCoreOBJMaterial {
         this.name = name != null ? name : DEFAULT_NAME;
     }
 
+    @Nonnull
     public Vector4f getColor() {
         return this.color;
     }
 
-    public void setColor(Vector4f color) {
+    public void setColor(@Nonnull Vector4f color) {
         this.color = color;
     }
 
+    @Nonnull
     public SmithsCoreOBJTexture getTexture() {
         return this.texture;
     }
 
-    public void setTexture(SmithsCoreOBJTexture texture) {
+    public void setTexture(@Nonnull SmithsCoreOBJTexture texture) {
         this.texture = texture;
     }
 

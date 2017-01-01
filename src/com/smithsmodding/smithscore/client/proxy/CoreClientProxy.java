@@ -50,6 +50,7 @@ import java.io.File;
  */
 public class CoreClientProxy extends CoreCommonProxy {
 
+    @Nonnull
     static MultiColoredFontRenderer multiColoredFontRenderer;
     @Nonnull
     MultiComponentModelLoader multiComponentModelLoader = MultiComponentModelLoader.instance;
@@ -87,7 +88,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
             @Nonnull
             @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
+            public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
                 return new ModelResourceLocation(location, "inventory");
             }
         });
@@ -100,6 +101,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         return location;
     }
 
+    @Nonnull
     public static MultiColoredFontRenderer getMultiColoredFontRenderer() {
         return multiColoredFontRenderer;
     }
@@ -151,7 +153,7 @@ public class CoreClientProxy extends CoreCommonProxy {
      * @see FMLPreInitializationEvent
      */
     @Override
-    public void configInit(File pSuggestedConfigFile) {
+    public void configInit(@Nonnull File pSuggestedConfigFile) {
         super.configInit(pSuggestedConfigFile);
     }
 
@@ -207,7 +209,8 @@ public class CoreClientProxy extends CoreCommonProxy {
     }
 
     @Override
-    public EntityPlayer getPlayerForSide(MessageContext context) {
+    @Nonnull
+    public EntityPlayer getPlayerForSide(@Nonnull MessageContext context) {
         return FMLClientHandler.instance().getClientPlayerEntity();
     }
 }
