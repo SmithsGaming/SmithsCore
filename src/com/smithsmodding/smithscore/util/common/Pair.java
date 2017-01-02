@@ -6,21 +6,23 @@
 
 package com.smithsmodding.smithscore.util.common;
 
-import java.util.*;
+import javax.annotation.Nullable;
 
 public class Pair<K, V> {
     K iObjectOne;
     V iObjectTwo;
 
-    public Pair(K pItemOne, V pItemTwo) {
+    public Pair(@Nullable K pItemOne, @Nullable V pItemTwo) {
         iObjectOne = pItemOne;
         iObjectTwo = pItemTwo;
     }
 
+    @Nullable
     public K getKey() {
         return iObjectOne;
     }
 
+    @Nullable
     public V getValue() {
         return iObjectTwo;
     }
@@ -31,7 +33,7 @@ public class Pair<K, V> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof Pair))
             return false;
 

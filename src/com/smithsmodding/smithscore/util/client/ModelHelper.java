@@ -75,7 +75,7 @@ public class ModelHelper {
                     .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
                     .create();
 
-    @Nullable
+    @Nonnull
     private static final TRSRTransformation flipX = new TRSRTransformation(null, null, new Vector3f(-1, 1, 1), null);
 
     static {
@@ -120,7 +120,7 @@ public class ModelHelper {
         }
     }
 
-
+    @Nonnull
     public static TRSRTransformation get(float tx, float ty, float tz, float ax, float ay, float az, float s) {
         return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
                 new Vector3f(tx / 16, ty / 16, tz / 16),
@@ -129,15 +129,18 @@ public class ModelHelper {
                 null));
     }
 
+    @Nonnull
     public static TRSRTransformation leftify(@Nonnull TRSRTransformation transform) {
         return TRSRTransformation.blockCenterToCorner(flipX.compose(TRSRTransformation.blockCornerToCenter(transform)).compose(flipX));
     }
 
+    @Nonnull
     public static TextureAtlasSprite getTextureFromBlock (@Nonnull Block block, int meta) {
         IBlockState state = block.getStateFromMeta(meta);
         return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
     }
 
+    @Nonnull
     public static TextureAtlasSprite getTextureFromBlockstate (@Nonnull IBlockState state) {
         return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
     }
@@ -175,6 +178,7 @@ public class ModelHelper {
         return new BakedQuad(data, quad.getTintIndex(), quad.getFace(), quad.getSprite(), quad.shouldApplyDiffuseLighting(), quad.getFormat());
     }
 
+    @Nonnull
     public static Map<String, String> loadTexturesFromJson (@Nonnull ResourceLocation location) throws IOException {
         // get the json
         IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json"));
@@ -183,12 +187,14 @@ public class ModelHelper {
         return GSON.fromJson(reader, maptype);
     }
 
+    @Nonnull
     public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(@Nonnull ResourceLocation location)
             throws IOException {
         return loadTransformFromJson(location, "display");
     }
 
-    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(@Nonnull ResourceLocation location, String tag)
+    @Nonnull
+    public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(@Nonnull ResourceLocation location, @Nonnull String tag)
             throws IOException {
         Reader reader = getReaderForResource(location);
         try {
@@ -209,7 +215,7 @@ public class ModelHelper {
         }
     }
 
-
+    @Nonnull
     public static ImmutableList<ResourceLocation> loadTextureListFromJson (@Nonnull ResourceLocation location) throws IOException {
         ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
         for (String s : loadTexturesFromJson(location).values()) {
@@ -246,7 +252,7 @@ public class ModelHelper {
     }
 
     @Nonnull
-    public static int[] getPackedQuadData (float[][][] unpackedData, @Nonnull VertexFormat format) {
+    public static int[] getPackedQuadData(@Nonnull float[][][] unpackedData, @Nonnull VertexFormat format) {
         int[] vertexData = new int[format.getNextOffset()];
 
         for (int vertexIndex = 0; vertexIndex < 4; vertexIndex++) {
@@ -258,7 +264,7 @@ public class ModelHelper {
         return vertexData;
     }
 
-    public static void setNormalsToIgnoreLightingOnItem(float[][][] unpackedData, @Nonnull VertexFormat format) {
+    public static void setNormalsToIgnoreLightingOnItem(@Nonnull float[][][] unpackedData, @Nonnull VertexFormat format) {
         int normalElementIndex = format.getElements().indexOf(DefaultVertexFormats.NORMAL_3B);
         if (normalElementIndex < 0)
             return;
@@ -295,6 +301,7 @@ public class ModelHelper {
      * @return an OBJModel from the given location.
      * @throws IOException IOException from the OBJLoader.
      */
+    @Nonnull
     public static IModel forceLoadOBJModel(@Nonnull ResourceLocation modelLocation) throws IOException {
         IModel model;
 
@@ -361,6 +368,7 @@ public class ModelHelper {
      * @param rand   The Random to merge the Quads with.
      * @return Merged ImmutableList of BakedQuads of the given Modules, BlockState, Side and Random.
      */
+    @Nonnull
     public static ImmutableList<BakedQuad> getQuadsForMergedModel(@Nonnull ImmutableList<IBakedModel> models, @Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         ImmutableList.Builder<BakedQuad> quadBuilder = new ImmutableList.Builder<>();
 
@@ -382,7 +390,8 @@ public class ModelHelper {
         private static final Gson GSON = new Gson();
 
         @Override
-        public Map<String, String> deserialize (@Nonnull JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        @Nonnull
+        public Map<String, String> deserialize(@Nonnull JsonElement json, @Nonnull Type typeOfT, @Nonnull JsonDeserializationContext context)
                 throws JsonParseException {
 
             JsonObject obj = json.getAsJsonObject();
@@ -409,7 +418,8 @@ public class ModelHelper {
                 .create();
 
         @Override
-        public ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> deserialize(@Nonnull JsonElement json, Type typeOfT, @Nonnull JsonDeserializationContext context)
+        @Nonnull
+        public ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> deserialize(@Nonnull JsonElement json, @Nonnull Type typeOfT, @Nonnull JsonDeserializationContext context)
                 throws JsonParseException {
             JsonObject obj = json.getAsJsonObject();
             JsonElement texElem = obj.get(tag);

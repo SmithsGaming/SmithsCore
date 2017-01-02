@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
  */
 public class WorldUtil {
 
+    @Nonnull
     public static IBlockState getBlockStateForSideAndFacing(@Nonnull World world, @Nonnull BlockPos blockPos, @Nonnull EnumFacing hitFacing, @Nonnull EnumFacing direction) {
         return world.getBlockState(getBlockPosForPerspective(blockPos, hitFacing, direction));
     }
@@ -32,6 +33,7 @@ public class WorldUtil {
         }
     }
 
+    @Nonnull
     private static BlockPos getBlockPosForNorthHit(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
         switch (direction) {
             case NORTH:
@@ -47,10 +49,12 @@ public class WorldUtil {
         }
     }
 
+    @Nonnull
     private static BlockPos getBlockPosForSouthHit(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
         return pos.offset(direction, 1);
     }
 
+    @Nonnull
     private static BlockPos getBlockPosForEastHit(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
         switch (direction) {
             case NORTH:
@@ -66,6 +70,7 @@ public class WorldUtil {
         }
     }
 
+    @Nonnull
     private static BlockPos getBlockPosForWestHit(@Nonnull BlockPos pos, @Nonnull EnumFacing direction) {
         switch (direction) {
             case NORTH:

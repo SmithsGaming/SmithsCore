@@ -6,8 +6,8 @@
 
 package com.smithsmodding.smithscore.util.client.gui;
 
-import com.smithsmodding.smithscore.util.client.*;
-import com.smithsmodding.smithscore.util.common.positioning.*;
+import com.smithsmodding.smithscore.util.client.CustomResource;
+import com.smithsmodding.smithscore.util.common.positioning.Coordinate2D;
 
 import javax.annotation.Nonnull;
 
@@ -27,7 +27,7 @@ public class MultiComponentTexture {
      * @param pCornerComponents An Array with the components for the Corners in this order: TopLeft, TopRight, BottomRight, BottomLeft.
      * @param pSideComponents   An Array with the components for the Sides in this order: Top, Right, Bottom, Left.
      */
-    public MultiComponentTexture(TextureComponent pCenterComponent, TextureComponent[] pCornerComponents, TextureComponent[] pSideComponents) {
+    public MultiComponentTexture(@Nonnull TextureComponent pCenterComponent, @Nonnull TextureComponent[] pCornerComponents, @Nonnull TextureComponent[] pSideComponents) {
         iCenterComponent = pCenterComponent;
         iCornerComponents = pCornerComponents;
         iSideComponents = pSideComponents;

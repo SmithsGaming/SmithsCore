@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.util.common;
 
-import java.util.*;
+import javax.annotation.Nonnull;
+import java.util.HashMap;
 
 /**
  * Created by marcf on 12/28/2015.
@@ -16,7 +17,7 @@ public class InstanceVariableManager
      * @param variableID The ID of the variable that should be set.
      * @param variableState The state that should be linked to the given ID.
      */
-    public static void setVariable(String variableID, Object variableState)
+    public static void setVariable(@Nonnull String variableID, @Nonnull Object variableState)
     {
         variables.put(variableID, variableState);
     }
@@ -28,7 +29,7 @@ public class InstanceVariableManager
      *
      * @return The state of the variable that should be retrieved, or null if not set.
      */
-    public static Object getVariable(String variableID)
+    public static Object getVariable(@Nonnull String variableID)
     {
         return variables.get(variableID);
     }

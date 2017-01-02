@@ -26,8 +26,8 @@ import java.util.UUID;
 public class ItemStackHelper {
     @Nullable
     public static Comparator<ItemStack> COMPARATOR = new Comparator<ItemStack>() {
-        public int compare(@Nullable ItemStack pItemStack1, @Nullable ItemStack pItemStack2) {
-            if (pItemStack1 != null && pItemStack2 != null) {
+        public int compare(@Nonnull ItemStack pItemStack1, @Nonnull ItemStack pItemStack2) {
+            if (!pItemStack1.isEmpty() && !pItemStack2.isEmpty()) {
                 // Sort on itemID
                 if (Item.getIdFromItem(pItemStack1.getItem()) - Item.getIdFromItem(pItemStack2.getItem()) == 0) {
                     // Sort on item
@@ -58,9 +58,9 @@ public class ItemStackHelper {
                 } else {
                     return Item.getIdFromItem(pItemStack1.getItem()) - Item.getIdFromItem(pItemStack2.getItem());
                 }
-            } else if (pItemStack1 != null) {
+            } else if (!pItemStack1.isEmpty()) {
                 return -1;
-            } else if (pItemStack2 != null) {
+            } else if (!pItemStack2.isEmpty()) {
                 return 1;
             } else {
                 return 0;
@@ -75,12 +75,12 @@ public class ItemStackHelper {
         return tClonedItemStack;
     }
 
-    public static boolean equals(ItemStack pItemStack1, ItemStack pItemStack2) {
+    public static boolean equals(@Nonnull ItemStack pItemStack1, @Nonnull ItemStack pItemStack2) {
         return (COMPARATOR.compare(pItemStack1, pItemStack2) == 0);
     }
 
-    public static boolean equalsIgnoreStackSize(@Nullable ItemStack itemStack1, @Nullable ItemStack itemStack2) {
-        if (itemStack1 != null && itemStack2 != null) {
+    public static boolean equalsIgnoreStackSize(@Nonnull ItemStack itemStack1, @Nonnull ItemStack itemStack2) {
+        if (!itemStack1.isEmpty() && !itemStack2.isEmpty()) {
             // Sort on itemID
             if (Item.getIdFromItem(itemStack1.getItem()) - Item.getIdFromItem(itemStack2.getItem()) == 0) {
                 // Sort on item
@@ -110,8 +110,8 @@ public class ItemStackHelper {
      * @param stack2 - The second stack
      * @return true if stacks can be merged, false otherwise
      */
-    public static boolean canStacksMerge(@Nullable ItemStack stack1, @Nullable ItemStack stack2) {
-        if (stack1 == null || stack2 == null) {
+    public static boolean canStacksMerge(@Nonnull ItemStack stack1, @Nonnull ItemStack stack2) {
+        if (stack1.isEmpty() || stack2.isEmpty()) {
             return false;
         }
         if (!stack1.isItemEqual(stack2)) {
@@ -187,7 +187,7 @@ public class ItemStackHelper {
      * @param comparison The stack to compare.
      * @return true if id, damage and NBT match.
      */
-    public static boolean isMatchingItem(ItemStack base, ItemStack comparison) {
+    public static boolean isMatchingItem(@Nonnull ItemStack base, @Nonnull ItemStack comparison) {
         return isMatchingItem(base, comparison, true, true);
     }
 
@@ -201,8 +201,8 @@ public class ItemStackHelper {
      * @param matchNBT    Whether to check the NBT tags on the items
      * @return Whether the items match
      */
-    public static boolean isMatchingItem(@Nullable final ItemStack a, @Nullable final ItemStack b, final boolean matchDamage, final boolean matchNBT) {
-        if (a == null || b == null) {
+    public static boolean isMatchingItem(@Nonnull final ItemStack a, @Nonnull final ItemStack b, final boolean matchDamage, final boolean matchNBT) {
+        if (a.isEmpty() || b.isEmpty()) {
             return false;
         }
         if (a.getItem() != b.getItem()) {
@@ -245,27 +245,27 @@ public class ItemStackHelper {
         return false;
     }
 
-    public static int compare(ItemStack pItemStack1, ItemStack pItemStack2) {
+    public static int compare(@Nonnull ItemStack pItemStack1, @Nonnull ItemStack pItemStack2) {
         return COMPARATOR.compare(pItemStack1, pItemStack2);
     }
 
-    public static String toString(@Nullable ItemStack pItemStack) {
-        if (pItemStack != null) {
+    public static String toString(@Nonnull ItemStack pItemStack) {
+        if (!pItemStack.isEmpty()) {
             return String.format("%sxitemStack[%s@%s]", pItemStack.getCount(), pItemStack.getUnlocalizedName(), pItemStack.getItemDamage());
         }
 
         return "null";
     }
 
-    public static boolean hasOwner(ItemStack itemStack) {
+    public static boolean hasOwner(@Nonnull ItemStack itemStack) {
         return (NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG) && NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG)) || NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER);
     }
 
-    public static boolean hasOwnerUUID(ItemStack itemStack) {
+    public static boolean hasOwnerUUID(@Nonnull ItemStack itemStack) {
         return NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_MOST_SIG) && NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER_UUID_LEAST_SIG);
     }
 
-    public static boolean hasOwnerName(ItemStack itemStack) {
+    public static boolean hasOwnerName(@Nonnull ItemStack itemStack) {
         return NBTHelper.hasTag(itemStack, CoreReferences.NBT.OWNER);
     }
 

@@ -96,7 +96,7 @@ public final class GuiHelper {
      * @param pHeight            The total Height
      * @param pElementCoordinate The Offset
      */
-    public static void drawRectangleStretched(@Nonnull TextureComponent pCenterComponent, TextureComponent[] pSideComponents, TextureComponent[] pCornerComponents, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
+    public static void drawRectangleStretched(@Nonnull TextureComponent pCenterComponent, @Nonnull TextureComponent[] pSideComponents, @Nonnull TextureComponent[] pCornerComponents, int pWidth, int pHeight, @Nonnull Coordinate2D pElementCoordinate) {
         renderCenter(pCenterComponent, pWidth - pCornerComponents[0].iWidth - pCornerComponents[1].iWidth, pHeight - pCornerComponents[0].iHeight - pCornerComponents[3].iHeight, new Coordinate2D(pElementCoordinate.getXComponent() + pCornerComponents[0].iWidth, pElementCoordinate.getYComponent() + pCornerComponents[0].iHeight));
 
         renderCorner(pCornerComponents[0], pElementCoordinate);
@@ -387,13 +387,13 @@ public final class GuiHelper {
      * @param x     The X Coordinate to render on
      * @param y     The Y Coordinate to render on
      */
-    public static void drawItemStack(@Nullable ItemStack stack, int x, int y) {
+    public static void drawItemStack(@Nonnull ItemStack stack, int x, int y) {
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
         RenderHelper.enableGUIStandardItemLighting();
 
         FontRenderer font = null;
-        if (stack != null) {
+        if (!stack.isEmpty()) {
             font = stack.getItem().getFontRenderer(stack);
         }
 
@@ -417,13 +417,13 @@ public final class GuiHelper {
      * @param y       The Y Coordinate to render on
      * @param altText The overlay text to render.
      */
-    private static void drawItemStack(@Nullable ItemStack stack, int x, int y, String altText) {
+    private static void drawItemStack(@Nonnull ItemStack stack, int x, int y, String altText) {
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
         RenderHelper.enableGUIStandardItemLighting();
 
         FontRenderer font = null;
-        if (stack != null) {
+        if (!stack.isEmpty()) {
             font = stack.getItem().getFontRenderer(stack);
         }
 

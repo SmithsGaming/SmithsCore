@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 
 /**
@@ -45,6 +46,7 @@ public class ResourceHelper {
      * @param item The item to convert.
      * @return The uniform ResourceLocation for the given Item.
      */
+    @Nullable
     public static ResourceLocation getItemLocation (@Nonnull Item item) {
         // get the registered name for the object
         ResourceLocation o = item.getRegistryName();

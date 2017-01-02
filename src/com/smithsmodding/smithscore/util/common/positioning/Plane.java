@@ -33,7 +33,7 @@ public class Plane {
         this.iHeigth = pHeigth;
     }
 
-    public Plane (Coordinate2D topLeft, Coordinate2D lowerRight)
+    public Plane(@Nonnull Coordinate2D topLeft, @Nonnull Coordinate2D lowerRight)
     {
         iTopLeftFrontCoord = topLeft;
         iLowerRightBackCoord = lowerRight;
@@ -49,10 +49,12 @@ public class Plane {
             this.iHeigth = iLowerRightBackCoord.getYComponent() - iTopLeftFrontCoord.getYComponent();
     }
 
+    @Nonnull
     public Coordinate2D TopLeftCoord () {
         return this.iTopLeftFrontCoord;
     }
 
+    @Nonnull
     public Coordinate2D LowerRightCoord () {
         return this.iLowerRightBackCoord;
     }

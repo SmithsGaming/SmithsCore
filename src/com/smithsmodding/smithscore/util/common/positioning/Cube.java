@@ -43,10 +43,12 @@ public class Cube {
         return depth;
     }
 
+    @Nonnull
     public Coordinate3D getTopLeftFrontCoord() {
         return this.tlfCoord;
     }
 
+    @Nonnull
     public Coordinate3D getLowerRightBackCoord() {
         return this.lrbCoord;
     }

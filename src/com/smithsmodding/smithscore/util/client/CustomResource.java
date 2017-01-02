@@ -11,11 +11,12 @@ package com.smithsmodding.smithscore.util.client;
 /  Created on : 15/06/2014
 */
 
-import com.smithsmodding.smithscore.util.client.color.*;
-import net.minecraft.client.renderer.texture.*;
+import com.smithsmodding.smithscore.util.client.color.Colors;
+import com.smithsmodding.smithscore.util.client.color.MinecraftColor;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Class used to manage resource combinations.
@@ -41,7 +42,7 @@ public class CustomResource {
      * @param pInternalName The ID used to identify this Resource
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon.
      */
-    public CustomResource(String pInternalName, String pIconLocation) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation) {
         this(pInternalName, pIconLocation, "");
     }
 
@@ -52,7 +53,7 @@ public class CustomResource {
      * @param pIconLocation  The Texturelocation for the first resource. Usually this is the location of the IIcon.
      * @param pModelLocation The Texturelocation for the second resource. Usually this is the location of the Modeltexture.
      */
-    public CustomResource(String pInternalName, String pIconLocation, String pModelLocation) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, @Nonnull String pModelLocation) {
         this(pInternalName, pIconLocation, pModelLocation, 255, 255, 255);
     }
 
@@ -66,7 +67,7 @@ public class CustomResource {
      * @param pGreen The Green Channel for the color (0-255)
      * @param pBlue The Blue Channel for the color (0-255)
      */
-    public CustomResource(String pInternalName, String pIconLocation, String pModelLocation, int pRed, int pGreen, int pBlue) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, @Nonnull String pModelLocation, int pRed, int pGreen, int pBlue) {
         this(pInternalName, pIconLocation, pModelLocation, new MinecraftColor(pRed, pGreen, pBlue));
     }
 
@@ -78,7 +79,7 @@ public class CustomResource {
      * @param pModelLocation The Texturelocation for the second resource. Usually this is the location of the Modeltexture.
      * @param pColor The MinecraftColor instance used as color.
      */
-    public CustomResource(String pInternalName, String pIconLocation, String pModelLocation, MinecraftColor pColor) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, @Nonnull String pModelLocation, @Nonnull MinecraftColor pColor) {
         iInternalName = pInternalName;
         iRescourceLocations.add(pIconLocation);
         iRescourceLocations.add(pModelLocation);
@@ -94,7 +95,7 @@ public class CustomResource {
      * @param pGreen The Green Channel for the color (0-255)
      * @param pBlue The Blue Channel for the color (0-255)
      */
-    public CustomResource(String pInternalName, String pIconLocation, int pRed, int pGreen, int pBlue) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, int pRed, int pGreen, int pBlue) {
         this(pInternalName, pIconLocation, new MinecraftColor(pRed, pGreen, pBlue));
     }
 
@@ -105,7 +106,7 @@ public class CustomResource {
      * @param pIconLocation The Texturelocation for the first resource. Usually this is the location of the IIcon.
      * @param pColor The MinecraftColor instance used as color.
      */
-    public CustomResource(String pInternalName, String pIconLocation, MinecraftColor pColor) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, MinecraftColor pColor) {
         this(pInternalName, pIconLocation, "", pColor);
     }
 
@@ -119,7 +120,7 @@ public class CustomResource {
      * @param pWidth The width of the Resource
      * @param pHeight The Height of the Resource
      */
-    public CustomResource(String pInternalName, String pIconLocation, int pLeft, int pTop, int pWidth, int pHeight) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, int pLeft, int pTop, int pWidth, int pHeight) {
         this(pInternalName, pIconLocation, Colors.DEFAULT, pLeft, pTop, pWidth, pHeight);
     }
 
@@ -135,7 +136,7 @@ public class CustomResource {
      * @param pWidth The width of the Resource
      * @param pHeight The Height of the Resource
      */
-    public CustomResource(String pInternalName, String pIconLocation, MinecraftColor pColor, int pLeft, int pTop, int pWidth, int pHeight) {
+    public CustomResource(@Nonnull String pInternalName, @Nonnull String pIconLocation, @Nonnull MinecraftColor pColor, int pLeft, int pTop, int pWidth, int pHeight) {
         iInternalName = pInternalName;
         iInternalName = pInternalName;
         iRescourceLocations.add(pIconLocation);
@@ -151,6 +152,7 @@ public class CustomResource {
      *
      * @return The ID of the resources
      */
+    @Nonnull
     public String getInternalName() {
         return this.iInternalName;
     }
@@ -160,6 +162,7 @@ public class CustomResource {
      *
      * @return The Texture address location in String
      */
+    @Nonnull
     public String getPrimaryLocation() {
         return iRescourceLocations.get(0);
     }
@@ -169,6 +172,7 @@ public class CustomResource {
      *
      * @param pIcon The IIcon to register.
      */
+    @Nonnull
     public void addIcon(TextureAtlasSprite pIcon) {
         iIcon = pIcon;
     }
@@ -178,6 +182,7 @@ public class CustomResource {
      *
      * @return The registered IIcon.
      */
+    @Nonnull
     public TextureAtlasSprite getIcon() {
         return iIcon;
     }
@@ -188,6 +193,7 @@ public class CustomResource {
      *
      * @return The secondary address location of the resource in String.
      */
+    @Nonnull
     public String getSecondaryLocation() {
         return iRescourceLocations.get(1);
     }
@@ -233,6 +239,7 @@ public class CustomResource {
      *
      * @return The color for rendering grayscaled textures.
      */
+    @Nonnull
     public MinecraftColor getColor() {
         return iColor;
     }

@@ -23,8 +23,8 @@ public class NBTHelper {
         }
     }
 
-    public static boolean hasTag(@Nullable ItemStack itemStack, @Nonnull String keyName) {
-        return itemStack != null && itemStack.getTagCompound() != null && itemStack.getTagCompound().hasKey(keyName);
+    public static boolean hasTag(@Nonnull ItemStack itemStack, @Nonnull String keyName) {
+        return !itemStack.isEmpty() && itemStack.getTagCompound() != null && itemStack.getTagCompound().hasKey(keyName);
     }
 
     @Nullable
@@ -204,7 +204,7 @@ public class NBTHelper {
         return itemStack.getTagCompound().getTagList(keyName, nbtBaseType);
     }
 
-    public static boolean hasUUID(ItemStack itemStack) {
+    public static boolean hasUUID(@Nonnull ItemStack itemStack) {
         return hasTag(itemStack, CoreReferences.NBT.UUID_MOST_SIG) && hasTag(itemStack, CoreReferences.NBT.UUID_LEAST_SIG);
     }
 }

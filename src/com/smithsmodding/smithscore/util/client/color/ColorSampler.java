@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.HashMap;
 
 /**
@@ -113,7 +112,7 @@ public class ColorSampler {
      * @param pSource The Source color for the Conversion
      * @return The Converted TextFormatting
      */
-    @Nullable
+    @Nonnull
     public static TextFormatting getChatMinecraftColorSample(@Nonnull MinecraftColor pSource) {
         if (iMappedColors == null)
             initializeEnumChatFromattingMinecraftColors();
