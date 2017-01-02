@@ -22,7 +22,7 @@ public class ItemStackListWrapper implements IItemStackStorageWrapper<ArrayList<
      *
      * @param index The index to get the Strack From.
      * @return The currently stored ItemStack on that Index. Or ItemStack.EMTPY if none is stored there.
-     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index < 0 or Index >= size.
+     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index smallter then 0 or Index bigger or equal size.
      */
     @Nonnull
     @Override
@@ -43,7 +43,7 @@ public class ItemStackListWrapper implements IItemStackStorageWrapper<ArrayList<
      *
      * @param index The index to store the stack on.
      * @param stack The Stack to store.
-     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index < 0 or Index >= size.
+     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index smallter then 0 or Index bigger or equal size.
      */
     @Override
     public void set(int index, @Nonnull ItemStack stack) throws IndexOutOfBoundsException {

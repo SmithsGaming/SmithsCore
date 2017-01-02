@@ -13,7 +13,7 @@ public interface IItemStackStorageWrapper<S> {
      *
      * @param index The index to get the Strack From.
      * @return The currently stored ItemStack on that Index. Or ItemStack.EMTPY if none is stored there.
-     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index < 0 or Index >= size.
+     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index smallter then 0 or Index bigger or equal size.
      */
     @Nonnull
     ItemStack get(int index) throws IndexOutOfBoundsException;
@@ -23,7 +23,7 @@ public interface IItemStackStorageWrapper<S> {
      *
      * @param index The index to store the stack on.
      * @param stack The Stack to store.
-     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index < 0 or Index >= size.
+     * @throws IndexOutOfBoundsException if index is not in the valid Range. Index smallter then 0 or Index bigger or equal size.
      */
     void set(int index, @Nonnull ItemStack stack) throws IndexOutOfBoundsException;
 
