@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore.common.events;
 
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Simple Interface declaring an Eventhandler for SC's and Forges event system.
@@ -9,5 +10,6 @@ import net.minecraftforge.fml.common.eventhandler.Event;
  */
 public interface IEventHandler<T extends Event> {
 
+    @SubscribeEvent
     void handle(T event);
 }
