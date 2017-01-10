@@ -8,6 +8,7 @@ import com.smithsmodding.smithscore.client.handlers.network.ClientNetworkableEve
 import com.smithsmodding.smithscore.client.model.loader.MultiComponentModelLoader;
 import com.smithsmodding.smithscore.client.model.loader.SmithsCoreOBJLoader;
 import com.smithsmodding.smithscore.client.registry.ClientRegistry;
+import com.smithsmodding.smithscore.common.capability.SmithsCoreCapabilityDispatcher;
 import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersConnectedUpdatedEventHandler;
 import com.smithsmodding.smithscore.common.player.handlers.PlayersOnlineUpdatedEventHandler;
@@ -179,6 +180,15 @@ public class CoreClientProxy extends CoreCommonProxy {
      */
     @Override
     protected void registerEventHandlers() {
+        MinecraftForge.EVENT_BUS.register(new Textures());
+        MinecraftForge.EVENT_BUS.register(((ClientRegistry) SmithsCore.getRegistry()).getTextureCreator());
+        MinecraftForge.EVENT_BUS.register(((ClientRegistry) SmithsCore.getRegistry()).getMouseManager());
+        MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
+        MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
+        MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
+
+        SmithsCoreCapabilityDispatcher.initialize();
+
         SmithsCore.getRegistry().getClientBus().register(new ClientNetworkableEventHandler());
         SmithsCore.getRegistry().getCommonBus().register(new ClientNetworkableEventHandler());
         SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
@@ -199,13 +209,6 @@ public class CoreClientProxy extends CoreCommonProxy {
         SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getServerInstance());
 
         SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
-
-        MinecraftForge.EVENT_BUS.register(new Textures());
-        MinecraftForge.EVENT_BUS.register(((ClientRegistry) SmithsCore.getRegistry()).getTextureCreator());
-        MinecraftForge.EVENT_BUS.register(( (ClientRegistry) SmithsCore.getRegistry() ).getMouseManager());
-        MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
-        MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
-        MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
     }
 
     @Override

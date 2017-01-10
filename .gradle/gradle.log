@@ -3,7 +3,7 @@ Cannot run the CurseUpload sequence. No API-Key was available.Cannot run the Cur
 The sync of the branches is not being executed, because we are not releasing a new version.The sync of the branches is not being executed, because we are not releasing a new version.
 
 #################################################
-         ForgeGradle 2.2-SNAPSHOT-c438b06        
+         ForgeGradle 2.2-SNAPSHOT-e77786c        
   https://github.com/MinecraftForge/ForgeGradle  
 #################################################
                Powered by MCP unknown               
@@ -11,6 +11,7 @@ The sync of the branches is not being executed, because we are not releasing a n
          by: Searge, ProfMobius, Fesh0r,         
          R4wk, ZeuX, IngisKahn, bspkrs           
 #################################################
+Found AccessTransformer: jei_at.cfg_jei_1.11-4.1.1.207_at.cfg
 Found AccessTransformer: SmithsCore_at.cfg
 :extractMcpMappings SKIPPED
 :deobfCompileDeobfDepTask0 SKIPPED
@@ -19,7 +20,7 @@ Found AccessTransformer: SmithsCore_at.cfg
 :deobfProvidedDummyTask
 :getVersionJson
 :extractUserdev UP-TO-DATE
-:extractDependencyATs
+:extractDependencyATs UP-TO-DATE
 :extractMcpData SKIPPED
 :genSrgs SKIPPED
 :downloadClient SKIPPED
@@ -29,15 +30,15 @@ Found AccessTransformer: SmithsCore_at.cfg
 :deobfMcSRG
 Applying SpecialSource...
 Applying Exceptor...
-:decompileMc
+:decompileMc SKIPPED
 :fixMcSources
-:applySourcePatches
-:remapMcSources
-:recompileMc
+:applySourcePatches SKIPPED
+:remapMcSources SKIPPED
+:recompileMc SKIPPED
 :extractNatives SKIPPED
 :getAssetIndex UP-TO-DATE
 :getAssets
-Current status: 1192/1196   99%
+Current status: 870/1196   72%
 :makeStart
 :setupDecompWorkspace
 :ideaModule
@@ -47,4 +48,4 @@ Current status: 1192/1196   99%
 
 BUILD SUCCESSFUL
 
-Total time: 2 mins 43.325 secs
+Total time: 1 mins 13.887 secs

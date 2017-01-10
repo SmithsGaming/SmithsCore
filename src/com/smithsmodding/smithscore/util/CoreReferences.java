@@ -88,6 +88,12 @@ public class CoreReferences {
         public static final class MultiFluidTank {
             public static final String CONTENTS = "SmitshCore.Fluid.MultiFluidTank.Contents";
         }
+
+
+    }
+
+    public static final class CapabilityManager {
+        public static final String DEFAULT = "SmithsCore.CapabilityManager.Default";
     }
 
     public static final class IItemProperties {

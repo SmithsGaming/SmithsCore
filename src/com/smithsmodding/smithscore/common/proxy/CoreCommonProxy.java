@@ -3,6 +3,7 @@ package com.smithsmodding.smithscore.common.proxy;
 
 import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.client.handlers.gui.GuiInputEventHandler;
+import com.smithsmodding.smithscore.common.capability.SmithsCoreCapabilityDispatcher;
 import com.smithsmodding.smithscore.common.handlers.network.CommonNetworkableEventHandler;
 import com.smithsmodding.smithscore.common.player.management.PlayerManager;
 import com.smithsmodding.smithscore.common.structures.StructureRegistry;
@@ -90,6 +91,9 @@ public class CoreCommonProxy {
     protected void registerEventHandlers() {
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
         MinecraftForge.EVENT_BUS.register(StructureRegistry.getInstance());
+
+        SmithsCoreCapabilityDispatcher.initialize();
+
         SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
         SmithsCore.getRegistry().getNetworkBus().register(new GuiInputEventHandler());
     }
