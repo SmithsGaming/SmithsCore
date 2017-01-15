@@ -29,13 +29,17 @@ public final class SmithsCoreCapabilityDispatcher implements ICapabilitySerializ
     public static Capability<IInstanceCap> INSTANCE_CAPABILITY;
     private HashMap<Capability<?>, Object> capInstanceMap = new HashMap<>();
 
-    private SmithsCoreCapabilityDispatcher() {
+    public SmithsCoreCapabilityDispatcher() {
         this.registerCapability(INSTANCE_CAPABILITY, new IInstanceCap.Impl(this));
     }
 
     public static void initialize() {
         MinecraftForge.EVENT_BUS.register(RegistrationController.getInstance());
         CapabilityManager.INSTANCE.register(IInstanceCap.class, new NullStorage<>(), new NullFactory<>());
+    }
+
+    public static void attach(AttachCapabilitiesEvent event) {
+        event.addCapability(new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), CoreReferences.CapabilityManager.DEFAULT), new SmithsCoreCapabilityDispatcher());
     }
 
     /**
@@ -164,7 +168,7 @@ public final class SmithsCoreCapabilityDispatcher implements ICapabilitySerializ
         @SubscribeEvent
         @Override
         public void handle(AttachCapabilitiesEvent.Item event) {
-            event.addCapability(new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), CoreReferences.CapabilityManager.DEFAULT), new SmithsCoreCapabilityDispatcher());
+            SmithsCoreCapabilityDispatcher.attach(event);
         }
     }
 
