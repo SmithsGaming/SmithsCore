@@ -1,6 +1,7 @@
 package com.smithsmodding.smithscore;
 
 import com.google.common.base.Stopwatch;
+import com.smithsmodding.smithscore.common.events.AutomaticEventBusSubcriptionInjector;
 import com.smithsmodding.smithscore.common.player.management.PlayerManager;
 import com.smithsmodding.smithscore.common.proxy.CoreCommonProxy;
 import com.smithsmodding.smithscore.common.registry.CommonRegistry;
@@ -78,6 +79,8 @@ public class SmithsCore {
         }
 
         proxy.preInit();
+
+        AutomaticEventBusSubcriptionInjector.inject(event.getModMetadata().parentMod, event.getAsmData());
 
         watch.stop();
 
