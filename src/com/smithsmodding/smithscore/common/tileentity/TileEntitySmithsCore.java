@@ -133,6 +133,7 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
         return compound;
     }
 
+
     /**
      * Method to indicate that this TE has changed its data.
      */

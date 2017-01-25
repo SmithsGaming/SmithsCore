@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * Copyrighted according to Project specific license
  */
 @Mod(modid = CoreReferences.General.MOD_ID, name = "smithscore", version = CoreReferences.General.VERSION,
-        dependencies = "required-after:Forge@[10.13,)")
+        dependencies = "required-after:forge@[13.19,)")
 public class SmithsCore {
 
     // Instance of this mod use for internal and Forge references
