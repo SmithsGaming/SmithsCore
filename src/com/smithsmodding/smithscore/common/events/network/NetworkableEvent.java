@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Classes extending this event will automatically get Synchronized over to the other side of the Game.
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
  *
  * The implementing event gets catched by a events handler on the lowest priority.
  */
-public abstract class NetworkableEvent extends SmithsCoreEvent {
+public class NetworkableEvent extends SmithsCoreEvent {
 
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events.
@@ -38,8 +39,10 @@ public abstract class NetworkableEvent extends SmithsCoreEvent {
      *
      * @return An Instance of an IMessage class that describes this events.
      */
-    @Nonnull
-    public abstract IMessage getCommunicationMessage(Side side);
+    @Nullable
+    public IMessage getCommunicationMessage(Side side) {
+        return null;
+    }
 
     /**
      * This function is called on the reinstated event on the receiving side.
@@ -57,10 +60,14 @@ public abstract class NetworkableEvent extends SmithsCoreEvent {
      * client side.
      */
     public void handleServerToClientSide () {
+        if (this.getCommunicationMessage(Side.CLIENT) == null)
+            return;
         EventNetworkManager.getInstance().sendToAll(this.getCommunicationMessage(Side.CLIENT));
     }
 
     public void handleServerToClient(@Nonnull EntityPlayerMP playerMP) {
+        if (this.getCommunicationMessage(Side.CLIENT) == null)
+            return;
         EventNetworkManager.getInstance().sendTo(this.getCommunicationMessage(Side.CLIENT), playerMP);
     }
 
@@ -69,6 +76,9 @@ public abstract class NetworkableEvent extends SmithsCoreEvent {
      * server side.
      */
     public void handleClientToServerSide () {
+        if (this.getCommunicationMessage(Side.SERVER) == null)
+            return;
+
         EventNetworkManager.getInstance().sendToServer(this.getCommunicationMessage(Side.SERVER));
     }
 

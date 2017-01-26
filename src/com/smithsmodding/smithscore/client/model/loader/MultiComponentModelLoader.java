@@ -25,7 +25,7 @@ import java.util.Map;
 public class MultiComponentModelLoader implements ICustomModelLoader {
 
     public static final MultiComponentModelLoader instance = new MultiComponentModelLoader();
-    public static final String EXTENSION = "MCM-smithscore";
+    public static final String EXTENSION = "mcm-smithscore";
 
     @Nonnull
     private ArrayList<String> acceptedDomains = new ArrayList<>();
