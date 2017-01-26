@@ -1,6 +1,5 @@
 package com.smithsmodding.smithscore.common.capability;
 
-import com.smithsmodding.smithscore.common.events.IEventHandler;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.capabilities.NullFactory;
 import com.smithsmodding.smithscore.util.common.capabilities.NullStorage;
@@ -154,7 +153,7 @@ public final class SmithsCoreCapabilityDispatcher implements ICapabilitySerializ
         }
     }
 
-    public static class RegistrationController implements IEventHandler<AttachCapabilitiesEvent.Item> {
+    public static class RegistrationController {
 
         private static final RegistrationController INSTANCE = new RegistrationController();
 
@@ -166,7 +165,6 @@ public final class SmithsCoreCapabilityDispatcher implements ICapabilitySerializ
         }
 
         @SubscribeEvent
-        @Override
         public void handle(AttachCapabilitiesEvent.Item event) {
             SmithsCoreCapabilityDispatcher.attach(event);
         }
