@@ -48,7 +48,7 @@ public class Textures {
 
         public static class Basic {
             @Nonnull
-            public static CustomResource INFOICON = new CustomResource("Gui.Basic.ledgers.InfoIon", "smithscore:gui/icons/16x Info icon", Colors.DEFAULT, 0, 0, 16, 16);
+            public static CustomResource INFOICON = new CustomResource("Gui.Basic.ledgers.InfoIon", "smithscore:gui/icons/16x info icon", Colors.DEFAULT, 0, 0, 16, 16);
             @Nonnull
             private static String BASICTEXTUREPATH = GUITEXTUREPATH + "basic/";
             @Nonnull
@@ -76,29 +76,29 @@ public class Textures {
                 @Nonnull
                 private static String BORDERTEXTUREPATH = BASICTEXTUREPATH + "border/";
                 @Nonnull
-                public static CustomResource OUTWARTSCORNERDARKDARK = new CustomResource("Gui.Basic.Border.Corner.Outwards.Dark", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 0, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERDARKDARK = new CustomResource("Gui.Basic.Border.Corner.Outwards.Dark", BORDERTEXTUREPATH + "outwartscornerbig.png", Colors.DEFAULT, 0, 0, 3, 3);
                 @Nonnull
-                public static CustomResource OUTWARTSCORNERDARKLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 3, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERDARKLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "outwartscornerbig.png", Colors.DEFAULT, 3, 0, 3, 3);
                 @Nonnull
-                public static CustomResource OUTWARTSCORNERLIGHTDARK = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 6, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERLIGHTDARK = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "outwartscornerbig.png", Colors.DEFAULT, 6, 0, 3, 3);
                 @Nonnull
-                public static CustomResource OUTWARTSCORNERLIGHTLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "OutwartsCornerBig.png", Colors.DEFAULT, 9, 0, 3, 3);
+                public static CustomResource OUTWARTSCORNERLIGHTLIGHT = new CustomResource("Gui.Basic.Border.Corner.Outwards.Light", BORDERTEXTUREPATH + "outwartscornerbig.png", Colors.DEFAULT, 9, 0, 3, 3);
             }
 
             public static class Components {
                 @Nonnull
-                public static CustomResource ARROWEMPTY = new CustomResource("Gui.Basic.components.Arrow.Empty", COMPONENTTEXTUREPATH + "ProgressBars.png", Colors.DEFAULT, 0, 0, 22, 16);
+                public static CustomResource ARROWEMPTY = new CustomResource("Gui.Basic.components.Arrow.Empty", COMPONENTTEXTUREPATH + "progressbars.png", Colors.DEFAULT, 0, 0, 22, 16);
                 @Nonnull
-                public static CustomResource ARROWFULL = new CustomResource("Gui.Basic.components.Arrow.Full", COMPONENTTEXTUREPATH + "ProgressBars.png", Colors.DEFAULT, 22, 0, 22, 16);
+                public static CustomResource ARROWFULL = new CustomResource("Gui.Basic.components.Arrow.Full", COMPONENTTEXTUREPATH + "progressbars.png", Colors.DEFAULT, 22, 0, 22, 16);
                 @Nonnull
-                public static CustomResource FLAMEEMPTY = new CustomResource("Gui.Basic.components.Flame.Empty", COMPONENTTEXTUREPATH + "ProgressBars.png", Colors.DEFAULT, 44, 0, 16, 16);
+                public static CustomResource FLAMEEMPTY = new CustomResource("Gui.Basic.components.Flame.Empty", COMPONENTTEXTUREPATH + "progressbars.png", Colors.DEFAULT, 44, 0, 16, 16);
                 @Nonnull
-                public static CustomResource FLAMEFULL = new CustomResource("Gui.Basic.components.Flame.Full", COMPONENTTEXTUREPATH + "ProgressBars.png", Colors.DEFAULT, 60, 0, 16, 16);
+                public static CustomResource FLAMEFULL = new CustomResource("Gui.Basic.components.Flame.Full", COMPONENTTEXTUREPATH + "progressbars.png", Colors.DEFAULT, 60, 0, 16, 16);
 
                 public static class Button {
-                    public static final CustomResource DOWNARROW = new CustomResource("Gui.Basic.components.Button.DownArrow", COMPONENTTEXTUREPATH + "Components.png", Colors.DEFAULT, 39, 0, 7, 10);
-                    public static final CustomResource UPARROW = new CustomResource("Gui.Basic.components.Button.UpArrow", COMPONENTTEXTUREPATH + "Components.png", Colors.DEFAULT, 46, 0, 7, 10);
-                    public static final CustomResource SCROLLBAR = new CustomResource("Gui.Basic.components.Button.ScrollButton", COMPONENTTEXTUREPATH + "Components.png", Colors.DEFAULT, 32, 0, 7, 10);
+                    public static final CustomResource DOWNARROW = new CustomResource("Gui.Basic.components.Button.DownArrow", COMPONENTTEXTUREPATH + "components.png", Colors.DEFAULT, 39, 0, 7, 10);
+                    public static final CustomResource UPARROW = new CustomResource("Gui.Basic.components.Button.UpArrow", COMPONENTTEXTUREPATH + "components.png", Colors.DEFAULT, 46, 0, 7, 10);
+                    public static final CustomResource SCROLLBAR = new CustomResource("Gui.Basic.components.Button.ScrollButton", COMPONENTTEXTUREPATH + "components.png", Colors.DEFAULT, 32, 0, 7, 10);
                     @Nonnull
                     protected static String WIDGETFILEPATH = BASICTEXTUREPATH + "buttons.png";
 

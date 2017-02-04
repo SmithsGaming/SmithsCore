@@ -38,7 +38,8 @@ public final class SmithsCoreCapabilityDispatcher implements ICapabilitySerializ
     }
 
     public static void attach(AttachCapabilitiesEvent event) {
-        event.addCapability(new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), CoreReferences.CapabilityManager.DEFAULT), new SmithsCoreCapabilityDispatcher());
+        if (!event.getCapabilities().containsKey(new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), CoreReferences.CapabilityManager.DEFAULT)))
+            event.addCapability(new ResourceLocation(CoreReferences.General.MOD_ID.toLowerCase(), CoreReferences.CapabilityManager.DEFAULT), new SmithsCoreCapabilityDispatcher());
     }
 
     /**
