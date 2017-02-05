@@ -53,7 +53,7 @@ GLGPL V3
  
 
 ## Last Build Status:
-  * Development (Minecraft 1.11):      [![Build Status](https://travis-ci.org/SmithsModding/SmithsCore.svg?branch=Development-1.11)](https://travis-ci.org/SmithsModding/SmithsCore)
+  * Development (Minecraft 1.11):      [![Build Status](https://travis-ci.org/SmithsGaming/SmithsCore.svg?branch=Development-1.11)](https://travis-ci.org/SmithsGaming/SmithsCore)
 
 ## Nightly Builds:
 http://mavenrepo.smithscore.orionminecraft.com/com/SmithsModding/SmithsCore/SmithsCore/
