@@ -95,6 +95,9 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
     public int fill(@Nonnull FluidStack resource, boolean doFill) {
         int usage = Math.min(getCapacity() - getFluidAmount(), resource.amount);
 
+        if (usage == 0)
+            return usage;
+
         if (!doFill)
             return usage;
 
