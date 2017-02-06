@@ -214,6 +214,10 @@ public class CoreClientProxy extends CoreCommonProxy {
     @Override
     @Nonnull
     public EntityPlayer getPlayerForSide(@Nonnull MessageContext context) {
-        return FMLClientHandler.instance().getClientPlayerEntity();
+        if (context.side == Side.SERVER) {
+            return context.getServerHandler().playerEntity;
+        } else {
+            return FMLClientHandler.instance().getClientPlayerEntity();
+        }
     }
 }
