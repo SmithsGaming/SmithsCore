@@ -175,9 +175,11 @@ public final class StructureRegistry {
 
     @SubscribeEvent
     public void onPlayerJoinServer(@Nonnull PlayerEvent.PlayerLoggedInEvent event) {
-        for (Map.Entry<Integer, LinkedHashMap<Coordinate3D, IStructure>> dimensionEntry : structures.entrySet()) {
-            for (IStructure structure : dimensionEntry.getValue().values()) {
-                new StructureEvent.Create(structure, dimensionEntry.getKey()).handleServerToClient((EntityPlayerMP) event.player);
+        synchronized (structures) {
+            for (Map.Entry<Integer, LinkedHashMap<Coordinate3D, IStructure>> dimensionEntry : structures.entrySet()) {
+                for (IStructure structure : dimensionEntry.getValue().values()) {
+                    new StructureEvent.Create(structure, dimensionEntry.getKey()).handleServerToClient((EntityPlayerMP) event.player);
+                }
             }
         }
     }
