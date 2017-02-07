@@ -130,7 +130,10 @@ public final class StructureRegistry {
 
     @SubscribeEvent
     public void onWorldSave(@Nonnull WorldEvent.Save event) {
-        int dimensionId = event.getWorld().provider.getDimension();
+        saveStructureDataForWorld(event.getWorld().provider.getDimension());
+    }
+
+    private void saveStructureDataForWorld(int dimensionId) {
         File dimensionFile = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "armory/structures/dim_" + dimensionId + ".dat");
 
         try {
@@ -170,6 +173,19 @@ public final class StructureRegistry {
         }
     }
 
+    private void deleteStructureDataOnDisk(int dimensionId) {
+        File dimensionFile = new File(FMLCommonHandler.instance().getMinecraftServerInstance().getEntityWorld().getSaveHandler().getWorldDirectory(), "armory/structures/dim_" + dimensionId + ".dat");
+
+        try {
+            if (!dimensionFile.exists())
+                return;
+
+            dimensionFile.delete();
+        } catch (Exception ex) {
+            SmithsCore.getLogger().error(CoreReferences.LogMarkers.STRUCTURE, (Object) new Exception("Failed to delete the structure data to Disk! It will still persist!", ex));
+        }
+    }
+
     @SubscribeEvent
     public void onPlayerJoinServer(@Nonnull PlayerEvent.PlayerLoggedInEvent event) {
         for (Map.Entry<Integer, LinkedHashMap<Coordinate3D, IStructure>> dimensionEntry : structures.entrySet()) {
@@ -186,6 +202,8 @@ public final class StructureRegistry {
                 structures.put(event.getDimension(), new LinkedHashMap<>());
 
             structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
+
+            saveStructureDataForWorld(event.getDimension());
         }
     }
 
@@ -200,8 +218,13 @@ public final class StructureRegistry {
 
             structures.get(event.getDimension()).remove(event.getStructure().getMasterLocation());
 
-            if (structures.get(event.getDimension()).size() == 0)
+            if (structures.get(event.getDimension()).size() == 0) {
                 structures.remove(event.getDimension());
+                deleteStructureDataOnDisk(event.getDimension());
+                return;
+            }
+
+            saveStructureDataForWorld(event.getDimension());
         }
     }
 
@@ -216,6 +239,8 @@ public final class StructureRegistry {
 
             structures.get(event.getDimension()).remove(event.getOldMaster());
             structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
+
+            saveStructureDataForWorld(event.getDimension());
         }
     }
 
@@ -231,6 +256,8 @@ public final class StructureRegistry {
 
             structures.get(event.getDimension()).remove(event.getStructure().getMasterLocation());
             structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
+
+            saveStructureDataForWorld(event.getDimension());
         }
     }
 
