@@ -186,6 +186,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
+        MinecraftForge.EVENT_BUS.register(StructureRegistry.getInstance());
 
         SmithsCoreCapabilityDispatcher.initialize();
 
