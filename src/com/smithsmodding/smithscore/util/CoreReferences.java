@@ -86,7 +86,8 @@ public class CoreReferences {
         }
 
         public static final class MultiFluidTank {
-            public static final String CONTENTS = "SmitshCore.Fluid.MultiFluidTank.Contents";
+            public static final String CONTENTS = "SmithsCore.Fluid.MultiFluidTank.Contents";
+            public static final String CAPACITY = "SmithsCore.Fluid.MultiFluidTank.Capacity";
         }
 
 

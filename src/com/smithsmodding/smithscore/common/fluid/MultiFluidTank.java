@@ -167,12 +167,15 @@ public class MultiFluidTank implements IFluidTank, net.minecraftforge.fluids.cap
         }
 
         compound.setTag(CoreReferences.NBT.MultiFluidTank.CONTENTS, contents);
+        compound.setInteger(CoreReferences.NBT.MultiFluidTank.CAPACITY, capacity);
         return compound;
     }
 
     @Override
     public void deserializeNBT(@Nonnull NBTTagCompound nbt) {
         fluidStacks = new ArrayList<>();
+
+        capacity = nbt.getInteger(CoreReferences.NBT.MultiFluidTank.CAPACITY);
 
         NBTTagList contents = nbt.getTagList(CoreReferences.NBT.MultiFluidTank.CONTENTS, Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < contents.tagCount(); i++) {
