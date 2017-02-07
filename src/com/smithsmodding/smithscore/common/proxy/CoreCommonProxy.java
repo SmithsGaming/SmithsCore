@@ -90,7 +90,7 @@ public class CoreCommonProxy {
      */
     protected void registerEventHandlers() {
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
-        MinecraftForge.EVENT_BUS.register(StructureRegistry.getInstance());
+        MinecraftForge.EVENT_BUS.register(StructureRegistry.getServerInstance());
 
         SmithsCoreCapabilityDispatcher.initialize();
 
