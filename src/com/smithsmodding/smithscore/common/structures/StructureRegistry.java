@@ -67,12 +67,20 @@ public final class StructureRegistry {
         return getFactory(structure.getClass());
     }
 
-    public IStructure getStructure(@Nonnull Integer dimension, @Nonnull Coordinate3D masterLocation) {
+    public IStructure getStructure(@Nonnull Integer dimension, @Nonnull Coordinate3D location) {
         synchronized (structures) {
             if (!structures.containsKey(dimension))
                 return null;
 
-            return structures.get(dimension).get(masterLocation);
+            if (structures.get(dimension).containsKey(location))
+                return structures.get(dimension).get(location);
+
+            for (IStructure structure : structures.get(dimension).values()) {
+                if (structure.getPartLocations().contains(location))
+                    return structure;
+            }
+
+            return null;
         }
     }
 
