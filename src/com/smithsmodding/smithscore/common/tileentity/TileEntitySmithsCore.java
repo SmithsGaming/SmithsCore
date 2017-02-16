@@ -322,6 +322,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
             NBTTagCompound tankCompound = inventoryList.getCompoundTagAt(i);
 
             if (tankCompound.getInteger(CoreReferences.NBT.SIDE) == -1) {
+                if (!fluidContainingEntity.requiresNBTStorage(null))
+                    continue;
+
                 IFluidTank tank = fluidContainingEntity.getTankForSide(null);
                 if (!(tank instanceof INBTSerializable))
                     continue;
@@ -329,6 +332,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
                 ((INBTSerializable) tank).deserializeNBT(tankCompound.getTag(CoreReferences.NBT.TANKCONTENTS));
             } else {
                 EnumFacing side = EnumFacing.values()[tankCompound.getInteger(CoreReferences.NBT.SIDE)];
+                if (!fluidContainingEntity.requiresNBTStorage(side))
+                    continue;
+
                 IFluidTank tank = fluidContainingEntity.getTankForSide(side);
                 if (!(tank instanceof INBTSerializable))
                     continue;
