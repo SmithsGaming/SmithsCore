@@ -3,7 +3,6 @@ package com.smithsmodding.smithscore.common.fluid;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.fluids.IFluidTank;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -15,7 +14,6 @@ public interface IFluidContainingEntity {
         return true;
     }
 
-    @Nonnull
     IFluidTank getTankForSide(@Nullable EnumFacing side);
 
     int getTotalTankSizeOnSide(@Nullable EnumFacing side);

@@ -326,6 +326,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
                     continue;
 
                 IFluidTank tank = fluidContainingEntity.getTankForSide(null);
+                if (tank == null)
+                    continue;
+
                 if (!(tank instanceof INBTSerializable))
                     continue;
 
@@ -336,6 +339,9 @@ public abstract class TileEntitySmithsCore<S extends ITileEntityState, G extends
                     continue;
 
                 IFluidTank tank = fluidContainingEntity.getTankForSide(side);
+                if (tank == null)
+                    continue;
+
                 if (!(tank instanceof INBTSerializable))
                     continue;
 
