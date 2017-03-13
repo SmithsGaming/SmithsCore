@@ -173,8 +173,6 @@ public class PlayerManager {
             for (File search : file.listFiles()) {
                 if (search.getName().contains(".dat")) {
                     try {
-                        SmithsCore.getLogger().info("Adding player UUID to list");
-
                         UUID id = UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""));
 
                         commonSidedJoinedMap.put(id, UsernameCache.getLastKnownUsername(UUID.fromString(search.getName().replaceFirst("[.][^.]+$", ""))));

@@ -31,3 +31,4 @@ run
 *.iws
 *.iml
 *.db
+.idea
