@@ -90,6 +90,7 @@ public class CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(StructureRegistry.getInstance());
         SmithsCore.getRegistry().getCommonBus().register(new CommonNetworkableEventHandler());
         SmithsCore.getRegistry().getNetworkBus().register(new GuiInputEventHandler());
+        SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getInstance());
     }
 
     /**
