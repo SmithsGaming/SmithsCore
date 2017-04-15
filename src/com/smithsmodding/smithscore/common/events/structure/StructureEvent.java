@@ -3,7 +3,6 @@ package com.smithsmodding.smithscore.common.events.structure;
 import com.smithsmodding.smithscore.SmithsCore;
 import com.smithsmodding.smithscore.common.events.network.NBTNetworkableEvent;
 import com.smithsmodding.smithscore.common.structures.IStructure;
-import com.smithsmodding.smithscore.common.structures.IStructureFactory;
 import com.smithsmodding.smithscore.common.structures.StructureRegistry;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
@@ -50,8 +49,7 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
         dimension = compound.getInteger(CoreReferences.NBT.StructureData.DIMENSION);
 
         try {
-            IStructureFactory factory = StructureRegistry.getInstance().getFactory((Class<? extends IStructure>) Class.forName(compound.getString(CoreReferences.NBT.StructureData.TYPE)));
-            structure = factory.loadStructureFromNBT(compound.getCompoundTag(CoreReferences.NBT.StructureData.STRUCTURE));
+            structure = StructureRegistry.getInstance().constructStructure(compound);
             structure.setMasterLocation(Coordinate3D.fromNBT(compound.getCompoundTag(CoreReferences.NBT.StructureData.MASTERLOCATION)));
         } catch (ClassNotFoundException e) {
             SmithsCore.getLogger().error(CoreReferences.LogMarkers.STRUCTURE, (Object) new Exception("Cannot retrieve Factory for synced Structure, this is supposed to be impossible!", e));

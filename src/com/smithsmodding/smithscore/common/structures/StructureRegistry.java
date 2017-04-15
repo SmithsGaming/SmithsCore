@@ -72,6 +72,11 @@ public final class StructureRegistry {
         }
     }
 
+    public IStructure constructStructure(NBTTagCompound compound) throws ClassNotFoundException {
+        IStructureFactory factory = StructureRegistry.getInstance().getFactory((Class<? extends IStructure>) Class.forName(compound.getString(CoreReferences.NBT.StructureData.TYPE)));
+        return factory.loadStructureFromNBT(compound.getCompoundTag(CoreReferences.NBT.StructureData.STRUCTURE));
+    }
+
     public void onStructurePartPlaced(IStructurePart part) {
         IStructureFactory factory = getFactory(part.getStructureType());
         IStructure newInitialStructure = factory.generateNewStructure(part);
