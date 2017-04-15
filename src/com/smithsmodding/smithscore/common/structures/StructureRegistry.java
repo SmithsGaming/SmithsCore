@@ -1,7 +1,7 @@
 package com.smithsmodding.smithscore.common.structures;
 
 import com.smithsmodding.smithscore.SmithsCore;
-import com.smithsmodding.smithscore.common.events.structure.StructureEvent;
+import com.smithsmodding.smithscore.common.events.structure.*;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -76,7 +76,7 @@ public final class StructureRegistry {
         IStructureFactory factory = getFactory(part.getStructureType());
         IStructure newInitialStructure = factory.generateNewStructure(part);
 
-        new StructureEvent.Create(newInitialStructure, part.getEnvironment().provider.getDimension()).PostCommon();
+        new StructureCreateEvent(newInitialStructure, part.getEnvironment().provider.getDimension()).PostCommon();
 
         part.setStructure(newInitialStructure);
         part.getStructure().getController().onPartPlaced(part);
@@ -170,13 +170,13 @@ public final class StructureRegistry {
     public void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
         for (Map.Entry<Integer, LinkedHashMap<Coordinate3D, IStructure>> dimensionEntry : structures.entrySet()) {
             for (IStructure structure : dimensionEntry.getValue().values()) {
-                new StructureEvent.Create(structure, dimensionEntry.getKey()).handleServerToClient((EntityPlayerMP) event.player);
+                new StructureCreateEvent(structure, dimensionEntry.getKey()).handleServerToClient((EntityPlayerMP) event.player);
             }
         }
     }
 
     @SubscribeEvent
-    public void onStructureCreation(StructureEvent.Create event) {
+    public void onStructureCreation(StructureCreateEvent event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 structures.put(event.getDimension(), new LinkedHashMap<>());
@@ -186,7 +186,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onStructureDestruction(StructureEvent.Destroyed event) {
+    public void onStructureDestruction(StructureDestroyedEvent event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 return;
@@ -202,7 +202,7 @@ public final class StructureRegistry {
     }
 
     @SubscribeEvent
-    public void onStructureMasterUpdated(StructureEvent.MasterBlockChanged event) {
+    public void onStructureMasterUpdated(StructureMasterBlockChangedEvent event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 return;
@@ -217,7 +217,7 @@ public final class StructureRegistry {
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void onStructureUpdated(StructureEvent.Updated event) {
+    public void onStructureUpdated(StructureUpdatedEvent event) {
         synchronized (structures) {
             if (!structures.containsKey(event.getDimension()))
                 return;
@@ -229,6 +229,5 @@ public final class StructureRegistry {
             structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
         }
     }
-
 
 }

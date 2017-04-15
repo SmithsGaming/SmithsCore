@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
  * An implementing event has to have an Empty constructor as the IMessage Implementation uses Reflection to create a
  * new Instance of the implementing event and fires it on the NetworkRelayBus.
  */
-public abstract class StandardNetworkableEvent extends NetworkableEvent {
+public class StandardNetworkableEvent extends NetworkableEvent {
 
     EntityPlayer player;
 
@@ -40,20 +40,26 @@ public abstract class StandardNetworkableEvent extends NetworkableEvent {
     }
 
     /**
-     * Function used by the instance created on the receiving side to reset its state from the sending side stored
-     * by it in the Buffer before it is being fired on the NetworkRelayBus.
+     * Function used by the instance created on the receiving side to reset its
+     * state from the sending side stored by it in the Buffer before it is being
+     * fired on the NetworkRelayBus.
      *
-     * @param pMessageBuffer The ByteBuffer from the IMessage used to Synchronize the implementing events.
+     * @param pMessageBuffer The ByteBuffer from the IMessage used to
+     *                       Synchronize the implementing events.
      */
-    public abstract void readFromMessageBuffer(ByteBuf pMessageBuffer);
+    public void readFromMessageBuffer(ByteBuf pMessageBuffer) {
+        return;
+    }
 
     /**
-     * Function used by the instance on the sending side to write its state top the Buffer before it is send to the
-     * retrieving side.
+     * Function used by the instance on the sending side to write its state top
+     * the Buffer before it is send to the retrieving side.
      *
      * @param pMessageBuffer The buffer from the IMessage
      */
-    public abstract void writeToMessageBuffer(ByteBuf pMessageBuffer);
+    public void writeToMessageBuffer(ByteBuf pMessageBuffer) {
+        return;
+    }
 
     /**
      * Function used by the EventHandler to retrieve an IMessage that describes this events.

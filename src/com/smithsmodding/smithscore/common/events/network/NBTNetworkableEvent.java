@@ -7,11 +7,15 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 /**
  * Author Orion (Created on: 25.06.2016)
  */
-public abstract class NBTNetworkableEvent extends StandardNetworkableEvent {
+public class NBTNetworkableEvent extends StandardNetworkableEvent {
 
-    protected abstract NBTTagCompound getSyncCompound();
+    protected NBTTagCompound getSyncCompound() {
+        return new NBTTagCompound();
+    }
 
-    protected abstract void readSyncCompound(NBTTagCompound compound);
+    protected void readSyncCompound(NBTTagCompound compound) {
+        return;
+    }
 
     @Override
     public void readFromMessageBuffer(ByteBuf pMessageBuffer) {

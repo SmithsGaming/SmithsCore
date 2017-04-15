@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 /**
  * Author Orion (Created on: 25.06.2016)
  */
-public abstract class StructureEvent extends NBTNetworkableEvent {
+public class StructureEvent extends NBTNetworkableEvent {
 
     private IStructure structure;
     private Integer dimension;
@@ -58,65 +58,4 @@ public abstract class StructureEvent extends NBTNetworkableEvent {
         }
     }
 
-    public static class Create extends StructureEvent {
-        public Create() {
-            super();
-        }
-
-        public Create(IStructure structure, Integer dimension) {
-            super(structure, dimension);
-        }
-    }
-
-    public static class Destroyed extends StructureEvent {
-        public Destroyed() {
-            super();
-        }
-
-        public Destroyed(IStructure structure, Integer dimension) {
-            super(structure, dimension);
-        }
-    }
-
-    public static class Updated extends StructureEvent {
-        public Updated() {
-            super();
-        }
-
-        public Updated(IStructure structure, Integer dimension) {
-            super(structure, dimension);
-        }
-    }
-
-    public static class MasterBlockChanged extends StructureEvent {
-        private Coordinate3D oldMaster;
-
-        public MasterBlockChanged() {
-            super();
-        }
-
-        public MasterBlockChanged(IStructure structure, Coordinate3D oldMaster, Integer dimension) {
-            super(structure, dimension);
-            this.oldMaster = oldMaster;
-        }
-
-        public Coordinate3D getOldMaster() {
-            return oldMaster;
-        }
-
-        @Override
-        protected NBTTagCompound getSyncCompound() {
-            NBTTagCompound compound = super.getSyncCompound();
-            compound.setTag(CoreReferences.NBT.StructureData.OLDMASTER, oldMaster.toCompound());
-
-            return compound;
-        }
-
-        @Override
-        protected void readSyncCompound(NBTTagCompound compound) {
-            super.readSyncCompound(compound);
-
-            oldMaster = Coordinate3D.fromNBT(compound.getCompoundTag(CoreReferences.NBT.StructureData.OLDMASTER));
-        }
-    }
 }
