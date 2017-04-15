@@ -1,7 +1,7 @@
 package com.smithsmodding.smithscore.common.structures;
 
 import com.smithsmodding.smithscore.SmithsCore;
-import com.smithsmodding.smithscore.common.events.structure.*;
+import com.smithsmodding.smithscore.common.events.structure.StructureCreateEvent;
 import com.smithsmodding.smithscore.util.CoreReferences;
 import com.smithsmodding.smithscore.util.common.positioning.Coordinate3D;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,7 +30,7 @@ public final class StructureRegistry {
     private static final StructureRegistry serverInstance = new StructureRegistry();
 
     private final LinkedHashMap<Class<? extends IStructure>, IStructureFactory> factories = new LinkedHashMap<>();
-    private final LinkedHashMap<Integer, LinkedHashMap<Coordinate3D, IStructure>> structures = new LinkedHashMap<>();
+    final LinkedHashMap<Integer, LinkedHashMap<Coordinate3D, IStructure>> structures = new LinkedHashMap<>();
 
     private StructureRegistry() {
     }
@@ -70,6 +69,11 @@ public final class StructureRegistry {
 
             return structures.get(dimension).get(masterLocation);
         }
+    }
+
+    public IStructure constructStructure(String className, NBTTagCompound structureData) throws ClassNotFoundException {
+        IStructureFactory factory = StructureRegistry.getInstance().getFactory((Class<? extends IStructure>) Class.forName(className));
+        return factory.loadStructureFromNBT(structureData);
     }
 
     public void onStructurePartPlaced(IStructurePart part) {
@@ -175,59 +179,8 @@ public final class StructureRegistry {
         }
     }
 
-    @SubscribeEvent
-    public void onStructureCreation(StructureCreateEvent event) {
-        synchronized (structures) {
-            if (!structures.containsKey(event.getDimension()))
-                structures.put(event.getDimension(), new LinkedHashMap<>());
-
-            structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
-        }
-    }
-
-    @SubscribeEvent
-    public void onStructureDestruction(StructureDestroyedEvent event) {
-        synchronized (structures) {
-            if (!structures.containsKey(event.getDimension()))
-                return;
-
-            if (!structures.get(event.getDimension()).containsKey(event.getStructure().getMasterLocation()))
-                return;
-
-            structures.get(event.getDimension()).remove(event.getStructure().getMasterLocation());
-
-            if (structures.get(event.getDimension()).size() == 0)
-                structures.remove(event.getDimension());
-        }
-    }
-
-    @SubscribeEvent
-    public void onStructureMasterUpdated(StructureMasterBlockChangedEvent event) {
-        synchronized (structures) {
-            if (!structures.containsKey(event.getDimension()))
-                return;
-
-            if (!structures.get(event.getDimension()).containsKey(event.getOldMaster()))
-                return;
-
-            structures.get(event.getDimension()).remove(event.getOldMaster());
-            structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
-        }
-    }
-
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void onStructureUpdated(StructureUpdatedEvent event) {
-        synchronized (structures) {
-            if (!structures.containsKey(event.getDimension()))
-                return;
-
-            if (!structures.get(event.getDimension()).containsKey(event.getStructure().getMasterLocation()))
-                return;
-
-            structures.get(event.getDimension()).remove(event.getStructure().getMasterLocation());
-            structures.get(event.getDimension()).put(event.getStructure().getMasterLocation(), event.getStructure());
-        }
+    public StructureInternalEventHandler getInternalEventHandler() {
+        return new StructureInternalEventHandler(this);
     }
 
 }

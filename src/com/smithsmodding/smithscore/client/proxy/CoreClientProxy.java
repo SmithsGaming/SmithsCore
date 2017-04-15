@@ -187,8 +187,8 @@ public class CoreClientProxy extends CoreCommonProxy {
 
         SmithsCore.getRegistry().getNetworkBus().register(new TileEntityDataUpdatedEventHandler());
 
-        SmithsCore.getRegistry().getNetworkBus().register(StructureRegistry.getInstance());
-        SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getServerInstance());
+        SmithsCore.getRegistry().getNetworkBus().register(StructureRegistry.getInstance().getInternalEventHandler());
+        SmithsCore.getRegistry().getCommonBus().register(StructureRegistry.getServerInstance().getInternalEventHandler());
 
         SmithsCore.getRegistry().getClientBus().register(new ButtonInputEventHandler());
 
@@ -198,6 +198,7 @@ public class CoreClientProxy extends CoreCommonProxy {
         MinecraftForge.EVENT_BUS.register(new ClientTickEventHandler());
         MinecraftForge.EVENT_BUS.register(new RenderGameOverlayEventHandler());
         MinecraftForge.EVENT_BUS.register(PlayerManager.getInstance());
+        MinecraftForge.EVENT_BUS.register(StructureRegistry.getServerInstance());
     }
 
     @Override
