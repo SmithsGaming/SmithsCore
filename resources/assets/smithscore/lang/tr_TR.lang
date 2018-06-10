@@ -1,0 +1,5 @@
+#
+#GUI-Components
+SmithsCore.GUI.Components.ProgressBar.ToolTip=Ä°lerleme
+SmithsCore.GUI.Components.FluidTank.ToolTip.Amount=Adet:
+SmithsCore.GUI.Components.FluidTank.ToolTip.Contents=Ä°Ã§erik:
